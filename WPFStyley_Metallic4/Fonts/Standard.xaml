@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+                    xmlns:media="http://schemas.microsoft.com/netfx/2007/xaml/presentation, System.Windows.Media"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2006" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    mc:Ignorable="d">
+
+
+    <!--Fonts-->
+    <FontFamily x:Key="ButtonFont">Verdana</FontFamily>
+    <FontFamily x:Key="CheckBoxFont">Verdana</FontFamily>
+    <FontFamily x:Key="ComboBoxFont">Verdana</FontFamily>
+    <FontFamily x:Key="ContentHeaderFont">MS Gothic</FontFamily>
+    <FontFamily x:Key="ExpanderFont">Tahoma</FontFamily>
+    <FontFamily x:Key="WPFStyley_MetallicBorderFont">Verdana</FontFamily>
+    <FontFamily x:Key="GroupBoxFont">Tahoma</FontFamily>
+    <FontFamily x:Key="LabelSideFont">Verdana</FontFamily>
+    <FontFamily x:Key="LabelTopFont">Verdana</FontFamily>
+    <FontFamily x:Key="LinkFont">Verdana</FontFamily>
+    <FontFamily x:Key="ListBoxItemFont">Verdana</FontFamily>
+    <FontFamily x:Key="ListViewItemFont">Verdana</FontFamily>
+    <FontFamily x:Key="MenuFont">Verdana</FontFamily>
+    <FontFamily x:Key="StandardFont">Verdana</FontFamily>
+    <FontFamily x:Key="TabItemFont">Tahoma</FontFamily>
+    <FontFamily x:Key="TextBlockFont">Verdana</FontFamily>
+    <FontFamily x:Key="TextBoxFont">Verdana</FontFamily>
+    <FontFamily x:Key="ToolTipFont">Verdana</FontFamily>
+    <FontFamily x:Key="TreeViewItemFont">Verdana</FontFamily>
+    <FontFamily x:Key="WindowTitleFont">Segoe UI</FontFamily>
+    <FontFamily x:Key="DataGridItemFont">Verdana</FontFamily>
+    <FontFamily x:Key="DataGridHeaderFont">Verdana</FontFamily>
+
+</ResourceDictionary>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://chat.rfq.ws.leon.com/" name="ChatMediator" targetNamespace="http://chat.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.chat" elementFormDefault="unqualified" targetNamespace="http://chat.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="com.leon.ws.rfq.chat" />
+      <xs:element name="ChatMessageImpl" type="tns:chatMessageImpl" />
+      <xs:element name="getChatMessages" type="tns:getChatMessages" />
+      <xs:element name="getChatMessagesResponse" type="tns:getChatMessagesResponse" />
+      <xs:element name="isParticipantRegistered" type="tns:isParticipantRegistered" />
+      <xs:element name="isParticipantRegisteredResponse" type="tns:isParticipantRegisteredResponse" />
+      <xs:element name="registerParticipant" type="tns:registerParticipant" />
+      <xs:element name="registerParticipantResponse" type="tns:registerParticipantResponse" />
+      <xs:element name="sendMessage" type="tns:sendMessage" />
+      <xs:element name="sendMessageResponse" type="tns:sendMessageResponse" />
+      <xs:element name="unregisterParticipant" type="tns:unregisterParticipant" />
+      <xs:element name="unregisterParticipantResponse" type="tns:unregisterParticipantResponse" />
+      <xs:complexType name="sendMessage">
+        <xs:sequence>
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element minOccurs="0" name="sender" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendMessageResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="registerParticipant">
+        <xs:sequence>
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element minOccurs="0" name="newParticipantName" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registerParticipantResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:chatMessageListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="chatMessageListImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ChatMessageListImpl">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:ChatMessageImpl" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="chatMessageList" nillable="true" type="tns:chatMessageImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="chatMessageImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="content" type="xs:string" />
+          <xs:element minOccurs="0" name="owner" type="xs:string" />
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element name="sequenceId" type="xs:int" />
+          <xs:element minOccurs="0" name="timeStamp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="arrayList">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractList">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractList" abstract="true">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractCollection">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractCollection" abstract="true">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="unregisterParticipant">
+        <xs:sequence>
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element minOccurs="0" name="existingParticipantName" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="unregisterParticipantResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="getChatMessages">
+        <xs:sequence>
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element name="fromThisSequenceId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChatMessagesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:chatMessageListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="isParticipantRegistered">
+        <xs:sequence>
+          <xs:element name="requestForQuoteId" type="xs:int" />
+          <xs:element minOccurs="0" name="participantName" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="isParticipantRegisteredResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:ns1="http://chat.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.chat" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://chat.rfq.ws.leon.com/" />
+      <xs:element name="chatMessageListImpl" type="ns1:chatMessageListImpl" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="isParticipantRegistered">
+    <wsdl:part name="parameters" element="tns:isParticipantRegistered" />
+  </wsdl:message>
+  <wsdl:message name="getChatMessages">
+    <wsdl:part name="parameters" element="tns:getChatMessages" />
+  </wsdl:message>
+  <wsdl:message name="registerParticipantResponse">
+    <wsdl:part name="parameters" element="tns:registerParticipantResponse" />
+  </wsdl:message>
+  <wsdl:message name="getChatMessagesResponse">
+    <wsdl:part name="parameters" element="tns:getChatMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="unregisterParticipantResponse">
+    <wsdl:part name="parameters" element="tns:unregisterParticipantResponse" />
+  </wsdl:message>
+  <wsdl:message name="isParticipantRegisteredResponse">
+    <wsdl:part name="parameters" element="tns:isParticipantRegisteredResponse" />
+  </wsdl:message>
+  <wsdl:message name="unregisterParticipant">
+    <wsdl:part name="parameters" element="tns:unregisterParticipant" />
+  </wsdl:message>
+  <wsdl:message name="registerParticipant">
+    <wsdl:part name="parameters" element="tns:registerParticipant" />
+  </wsdl:message>
+  <wsdl:message name="sendMessage">
+    <wsdl:part name="parameters" element="tns:sendMessage" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageResponse">
+    <wsdl:part name="parameters" element="tns:sendMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ChatMediator">
+    <wsdl:operation name="sendMessage">
+      <wsdl:input name="sendMessage" message="tns:sendMessage" />
+      <wsdl:output name="sendMessageResponse" message="tns:sendMessageResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="registerParticipant">
+      <wsdl:input name="registerParticipant" message="tns:registerParticipant" />
+      <wsdl:output name="registerParticipantResponse" message="tns:registerParticipantResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="unregisterParticipant">
+      <wsdl:input name="unregisterParticipant" message="tns:unregisterParticipant" />
+      <wsdl:output name="unregisterParticipantResponse" message="tns:unregisterParticipantResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getChatMessages">
+      <wsdl:input name="getChatMessages" message="tns:getChatMessages" />
+      <wsdl:output name="getChatMessagesResponse" message="tns:getChatMessagesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="isParticipantRegistered">
+      <wsdl:input name="isParticipantRegistered" message="tns:isParticipantRegistered" />
+      <wsdl:output name="isParticipantRegisteredResponse" message="tns:isParticipantRegisteredResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ChatMediatorSoapBinding" type="tns:ChatMediator">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sendMessage">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="sendMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sendMessageResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerParticipant">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="registerParticipant">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="registerParticipantResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterParticipant">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="unregisterParticipant">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="unregisterParticipantResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getChatMessages">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getChatMessages">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getChatMessagesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isParticipantRegistered">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="isParticipantRegistered">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="isParticipantRegisteredResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ChatMediator">
+    <wsdl:port name="ChatMediatorImplPort" binding="tns:ChatMediatorSoapBinding">
+      <soap:address location="http://localhost:8080/rfq/services/Chat" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

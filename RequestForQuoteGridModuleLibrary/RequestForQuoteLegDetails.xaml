@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="RequestForQuoteGridModuleLibrary.RequestForQuoteLegDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Background="Transparent">
+
+    <UserControl.Resources>
+        <Style x:Key="LegLabel" BasedOn="{StaticResource ParentLabelStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding LegId}" Value="1">
+                    <Setter Property="Label.Visibility" Value="Visible"/>    
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="Label.Visibility" Value="Collapsed"/>
+        </Style>    
+    </UserControl.Resources>
+    
+    <StackPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding LegId}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Leg</Label>
+        </DockPanel>        
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=RIC}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">RIC</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text=""/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Type</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text=""/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Weight</Label>
+        </DockPanel>
+        <DockPanel>
+            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Start</Label>
+        </DockPanel>
+        <DockPanel>
+            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=MaturityDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry</Label>
+        </DockPanel>
+        <DockPanel>
+            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=MaturityDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Final payment</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Price, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Price</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Delta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Delta</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Gamma, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Gamma</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Vega, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Vega</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Theta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Theta</Label>
+        </DockPanel>        
+    </StackPanel>
+</UserControl>

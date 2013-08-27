@@ -1,0 +1,25 @@
+﻿<Window x:Class="RFQ.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+        xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
+        Title="RequestForQuote"
+        Loaded="Shell_OnLoaded"
+        Closing="Shell_OnClosing"
+        Background="DimGray"
+        Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen">    
+        <DockPanel>
+            <DockPanel.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Book Maintenance" Command="{Binding BookMaintenanceCommand}"/>
+                    <MenuItem Header="Client Maintenance" Command="{Binding ClientMaintenanceCommand}"/>
+                    <MenuItem Header="Bank Holiday Maintenance" Command="{Binding BankHolidayMaintenanceCommand}"/>
+                    <MenuItem Header="Underlyier Maintenance"/>                    
+            </ContextMenu>
+            </DockPanel.ContextMenu>
+        <ContentControl DockPanel.Dock="Top" regions:RegionManager.RegionName ="{x:Static constants:RegionNames.TOOLBAR_USER_CONTROL_REGION}"/>
+        <ContentControl DockPanel.Dock="Left" regions:RegionManager.RegionName="{x:Static constants:RegionNames.FUNCTIONS_USER_CONTROL_REGION}"/>
+        <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.REQUESTS_GRID_USER_CONTROL_REGION}"/>
+        </DockPanel>
+</Window>

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:System="clr-namespace:System;assembly=mscorlib"
+					xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+					xmlns:media="http://schemas.microsoft.com/netfx/2007/xaml/presentation, System.Windows.Media"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2006" 
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					mc:Ignorable="d">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Themes\Colors.xaml"/>
+        <ResourceDictionary Source="..\Themes\Fonts.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+
+    <Style x:Key="WpfsToolBarButtonBaseStyle" TargetType="{x:Type ButtonBase}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="Border"  
+                            BorderThickness="1"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                        <ContentPresenter Margin="2,0,2,0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"
+                                          x:Name="Content">
+                        </ContentPresenter>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ToolBarSolidBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ToolBarSolidBorderBrush}" />
+                            <Setter TargetName="Content" Property="ContentPresenter.RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="0.95" ScaleY="0.95"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Content" Property="ContentPresenter.RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="0.9" ScaleY="0.9"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="CheckBox.IsChecked" Value="True">
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ToolBarDisabledBackgroundBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ToolBarDisabledBorderBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource ToolBarDisabledForegroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" BasedOn="{StaticResource WpfsToolBarButtonBaseStyle}" TargetType="{x:Type Button}"/>
+    <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" BasedOn="{StaticResource WpfsToolBarButtonBaseStyle}" TargetType="{x:Type ToggleButton}"/>
+    <Style x:Key="{x:Static ToolBar.CheckBoxStyleKey}" BasedOn="{StaticResource WpfsToolBarButtonBaseStyle}" TargetType="{x:Type CheckBox}"/>
+    <Style x:Key="{x:Static ToolBar.RadioButtonStyleKey}" BasedOn="{StaticResource WpfsToolBarButtonBaseStyle}" TargetType="{x:Type RadioButton}"/>
+
+    <Style x:Key="{x:Static ToolBar.TextBoxStyleKey}" TargetType="{x:Type TextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Name="Border"
+                            Padding="2"
+                            Background="{StaticResource WindowBackgroundBrush}"
+                            BorderBrush="{StaticResource SolidBorderBrush}"
+                            BorderThickness="1" >
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ToolBarDisabledBackgroundBrush}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ToolBarDisabledBackgroundBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource ToolBarDisabledForegroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToolBarThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Cursor" Value="SizeAll"/>
+        <Setter Property="Margin" Value="2,0,2,2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Background="Transparent" SnapsToDevicePixels="True">
+                        <Rectangle Margin="0,2">
+                            <Rectangle.Fill>
+                                <DrawingBrush Viewport="0,0,4,4" 
+                                              ViewportUnits="Absolute"
+                                              Viewbox="0,0,8,8"
+                                              ViewboxUnits="Absolute"
+                                              TileMode="Tile">
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#AAA" Geometry="M 4 4 L 4 8 L 8 8 L 8 4 z"/>
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToolBarOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Name="Bd"
+                            CornerRadius="0,6,6,0"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <Path Name="Arrow"
+                                  Fill="Black"
+                                  VerticalAlignment="Bottom"
+                                  Margin="2,3"
+                                  Data="M -0.5 3 L 5.5 3 L 2.5 6 Z"/>
+                            <ContentPresenter/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource ToolBarDarkBackgroundBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource ToolBarDarkBackgroundBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource ToolBarDarkBackgroundBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Arrow" Property="Fill" Value="#AAA"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToolBar}">
+        <Setter Property="Margin" Value="1"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToolBar}">
+                    <Border x:Name="Border"  
+                            CornerRadius="6" 
+                            BorderThickness="1"
+                            Background="Transparent"
+                            Padding="0,0,0,1"
+                            BorderBrush="{StaticResource SuperLightEdgeBrush}">
+                        <DockPanel >
+                            <ToggleButton DockPanel.Dock="Right"
+                                          IsEnabled="{TemplateBinding HasOverflowItems}"
+                                          Style="{StaticResource ToolBarOverflowButtonStyle}"
+                                          IsChecked="{Binding Path=IsOverflowOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <Popup x:Name="OverflowPopup"
+                                       AllowsTransparency="True"
+                                       Placement="Bottom"
+                                       IsOpen="{Binding Path=IsOverflowOpen,RelativeSource={RelativeSource TemplatedParent}}"
+                                       StaysOpen="false"
+                                       Focusable="false"
+                                       PopupAnimation="Slide">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="{StaticResource WindowBackgroundBrush}"
+                                            BorderThickness="1"
+                                            BorderBrush="{StaticResource ToolBarSolidBorderBrush}">
+                                        <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel"
+                                                              Margin="2"
+                                                              WrapWidth="200"
+                                                              Focusable="True" 
+                                                              FocusVisualStyle="{x:Null}"
+                                                              KeyboardNavigation.TabNavigation="Cycle"
+                                                              KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                    </Border>
+                                </Popup>
+                            </ToggleButton>
+
+                            <Thumb x:Name="ToolBarThumb"
+                                   Style="{StaticResource ToolBarThumbStyle}"
+                                   Width="10"/>
+                            <ToolBarPanel x:Name="PART_ToolBarPanel"
+                                          IsItemsHost="True"
+                                          Margin="0,1,2,2"/>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOverflowOpen" Value="True">
+                            <Setter TargetName="ToolBarThumb" Property="IsEnabled" Value="false"/>
+                        </Trigger>
+                        <Trigger Property="ToolBarTray.IsLocked" Value="True">
+                            <Setter TargetName="ToolBarThumb" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToolBarTray}" >
+        <Setter Property="Background" Value="{StaticResource ToolBarTrayBorderBackgroundBrush}"/>
+        <Setter Property="Height" Value="33"/>
+    </Style>
+
+</ResourceDictionary>

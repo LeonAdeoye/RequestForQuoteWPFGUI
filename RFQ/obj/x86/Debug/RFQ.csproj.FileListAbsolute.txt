@@ -1,0 +1,84 @@
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RFQ.exe.config
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RFQ.exe
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RFQ.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\log4net.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RequestForQuoteInterfacesLibrary.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RequestForQuoteServicesModuleLibrary.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RequestForQuoteInterfacesLibrary.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\RequestForQuoteServicesModuleLibrary.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.xml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.xml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\BookMaintenanceWindow.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RequestForQuoteDetailsWindow.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\Shell.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\App.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\BookMaintenanceWindow.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RequestForQuoteDetailsWindow.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\Shell.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\App.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RFQ_MarkupCompile.cache
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RFQ.g.resources
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RFQ.Properties.Resources.resources
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RFQ.exe
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\RFQ.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\ClientMaintenanceWindow.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\ClientMaintenanceWindow.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\WPFStyley_Metallic4.dll
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\bin\Debug\WPFStyley_Metallic4.pdb
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\SaveSearchWindow.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\SaveSearchWindow.g.cs
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\BankHolidayMaintenanceWindow.baml
+C:\Users\Leon\Documents\Visual Studio 2010\Projects\RFQ\RFQ\obj\x86\Debug\BankHolidayMaintenanceWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RFQ.exe.config
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RFQ.exe
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RFQ.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RFQ.exe
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RFQ.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\log4net.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Unity.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RequestForQuoteInterfacesLibrary.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RequestForQuoteServicesModuleLibrary.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\WPFStyley_Metallic4.dll
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RequestForQuoteInterfacesLibrary.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\RequestForQuoteServicesModuleLibrary.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\WPFStyley_Metallic4.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.xml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.pdb
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Prism.UnityExtensions.xml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\bin\Debug\Microsoft.Practices.Unity.xml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\BankHolidayMaintenanceWindow.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\BookMaintenanceWindow.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\ClientMaintenanceWindow.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RequestForQuoteDetailsWindow.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\SaveSearchWindow.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\Shell.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\App.baml
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\BankHolidayMaintenanceWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\BookMaintenanceWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\ClientMaintenanceWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RequestForQuoteDetailsWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\SaveSearchWindow.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\Shell.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\App.g.cs
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RFQ_MarkupCompile.cache
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RFQ.g.resources
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\RFQ.Properties.Resources.resources
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\development\git\RequestForQuoteWPFGUI\RFQ\obj\x86\Debug\GenerateResource.write.1.tlog
