@@ -1,8 +1,0 @@
-﻿<Window x:Class="RFQ.ClientMaintenanceWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-        xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
-        Title="Client Maintenance" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
-    <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.CLIENT_MAINTENANCE_USER_CONTROL_REGION}"/>
-</Window>

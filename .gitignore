@@ -10,6 +10,9 @@ RequestForQuoteToolBarModuleLibrary/obj/
 RequestForQuoteFunctionsModuleLibrary/bin/
 RequestForQuoteFunctionsModuleLibrary/obj/
 
+RequestForQuoteFunctionsModuleLibrary.Test/bin/
+RequestForQuoteFunctionsModuleLibrary.Test/obj/
+
 RequestForQuoteMaintenanceModuleLibrary/bin/
 RequestForQuoteMaintenanceModuleLibrary/obj/
 

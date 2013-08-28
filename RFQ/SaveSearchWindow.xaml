@@ -1,8 +1,0 @@
-﻿<Window x:Class="RFQ.SaveSearchWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-        xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
-        Title="Save Search" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
-    <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.SAVE_SEARCH_USER_CONTROL_REGION}"/>
-</Window>
