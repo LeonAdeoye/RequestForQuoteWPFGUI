@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="RequestForQuoteFunctionsModuleLibrary.SaveSearchUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
+             xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
+             mc:Ignorable="d">
+    <Grid>
+        <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
+        <StackPanel HorizontalAlignment="Left">
+            <TextBlock Margin="10,10,10,5" Text="{x:Static constants:RequestForQuoteConstants.SAVE_SEARCH_DESCRIPTION_PROMPT}"/>
+            <TextBox Margin="10,0,10,0" Width="200" Text="{Binding CriteriaDescriptionKey, UpdateSourceTrigger=PropertyChanged}"/>
+            <GroupBox Header="Privacy" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Margin="10" Content="Private" IsChecked="{Binding Path=PrivacyOfCriteria, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:PrivacyEnum.PRIVATE}}" />
+
+                    <RadioButton Margin="10" Content="Public"  IsChecked="{Binding Path=PrivacyOfCriteria, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:PrivacyEnum.PUBLIC}}"  />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Type" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Margin="10" Content="Search" IsChecked="{Binding Path=TypeOfCriteria, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:CriteriaTypeEnum.SEARCH}}"  />
+                    <RadioButton Margin="10" Content="Filter" IsChecked="{Binding Path=TypeOfCriteria, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:CriteriaTypeEnum.FILTER}}"  />
+                </StackPanel>
+            </GroupBox>            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <!--IsCancel attribute used on Save button as a HACK to close the window-->
+                <Button Margin="10" Width="70" IsCancel="True" Click="SaveButtonClick" >Save</Button>
+            </StackPanel>
+        </StackPanel>        
+    </Grid>
+</UserControl>

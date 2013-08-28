@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="RequestForQuoteToolBarModuleLibrary.RequestForQuoteToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Background="Gray">
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <TextBox Text="{Binding Path=NewRequest, UpdateSourceTrigger=PropertyChanged}" Margin="1,1,0,1" Width="230"></TextBox>
+                <Button  Margin="1">...</Button>
+
+                <ComboBox IsEditable="true" IsReadOnly="false" Text="Select Client..." 
+                      DisplayMemberPath="Name" 
+                      ItemsSource="{Binding Clients}" 
+                      SelectedItem="{Binding NewRequestClient}"  
+                      Margin="1" Width="150"/>
+
+                <Button Command="{Binding AddNewRequestCommand}" Margin="1">Add</Button>
+                <Button Command="{Binding ClearNewRequestCommand}" Margin="1">Clear</Button>
+
+                <ComboBox IsEditable="true" IsReadOnly="false" Text="Select Book..." 
+                      DisplayMemberPath="BookCode" 
+                      ItemsSource="{Binding Books}" 
+                      SelectedItem="{Binding NewRequestBook}"  
+                      Margin="1" Width="130"/>
+            </StackPanel>
+            <Button DockPanel.Dock="Right" Command="{Binding GetTodaysRequestsCommand}" Width="120" Margin="1">Today's Requests</Button>
+        </DockPanel>
+</UserControl>
