@@ -20,7 +20,7 @@ RequestForQuoteInterfacesLibrary/bin/
 RequestForQuoteInterfacesLibrary/obj/
 
 RFQ/bin/
-RFQ/log/
+RFQ/logs/
 RFQ/obj/
 
 RFQ.suo
