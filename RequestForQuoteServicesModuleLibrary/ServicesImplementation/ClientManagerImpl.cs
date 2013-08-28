@@ -16,7 +16,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private readonly ClientControllerClient clientControllerProxy = new ClientControllerClient();
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         //TODO - calculate identifier
-        private int identifier = 20;
+        private int startingIdentifier = 20;
 
         public ClientManagerImpl()
         {
@@ -34,7 +34,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void AddClient(string name, int tier, bool isValid, bool canSaveToDatabase)
         {
-            var newClient = new ClientImpl() {Identifier = ++identifier, Name = name, IsValid = isValid, Tier = tier};
+            var newClient = new ClientImpl() {Identifier = ++startingIdentifier, Name = name, IsValid = isValid, Tier = tier};
             
             // Add to collection
             Clients.Add(newClient);

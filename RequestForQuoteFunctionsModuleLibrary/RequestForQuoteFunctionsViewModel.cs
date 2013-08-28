@@ -23,8 +23,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
     public class RequestForQuoteFunctionsViewModel : DependencyObject, INotifyPropertyChanged
     {     
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-        private static readonly Dictionary<string, string> criteria = new Dictionary<string, string>();
+        private readonly IEventAggregator eventAggregator;
+        private static Dictionary<string, string> criteria = new Dictionary<string, string>();
         private readonly IClientManager clientManager;
         private readonly IUnderlyingManager underlyingManager;
         private readonly IBookManager bookManager;
@@ -33,7 +33,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IUnderlyier> Underlyiers { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
-        public ObservableCollection<ISearch> Searches { get; set; }
+        public ObservableCollection<ISearch> Searches { get; set; }        
 
         public CollectionViewSource MySavedItems { get; set; }
         public CollectionViewSource PublicSearches { get; set; }
@@ -41,23 +41,13 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public CollectionViewSource PublicFilters { get; set; }
         public CollectionViewSource PrivateFilters { get; set; }
 
-        //private static void PropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        //{
-        //    Debug.WriteLine(dependencyPropertyChangedEventArgs.NewValue);
-        //}
-
-        //public TreeViewItem SelectedTreeViewItem
-        //{
-        //    get { return (TreeViewItem)GetValue(SelectedTreeViewItemProperty); }
-        //    set { SetValue(SelectedTreeViewItemProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for SelectedTreeViewItem.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty SelectedTreeViewItemProperty =
-        //    DependencyProperty.Register("SelectedTreeViewItem", typeof(TreeViewItem), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, PropertyChangedCallback));
-
-
         public List<string> Status { get; set; }
+        
+        internal Dictionary<string, string> Criteria
+        {
+            get { return criteria;  }
+            set { criteria = value; }
+        }
 
         public ICommand SearchRequestsCommand { get; set; }
         public ICommand FilterRequestsCommand { get; set; }
@@ -66,7 +56,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public ICommand DeleteSearchCommand { get; set; }
         public ICommand UpdatePrivacyCommand { get; set; }
 
-        public RequestForQuoteFunctionsViewModel(IClientManager clientManager, IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager)
+        public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager, IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager)
         {
             SearchRequestsCommand = new SearchRequestsCommand(this);
             FilterRequestsCommand = new FilterRequestsCommand(this);
@@ -79,6 +69,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             this.underlyingManager = underlyingManager;
             this.bookManager = bookManager;
             this.searchManager = searchManager;
+            this.eventAggregator = eventAggregator;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -86,6 +77,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private void InitializeCollections()
         {
+            Criteria = new Dictionary<string, string>();
+
             Status = new List<string>();
             foreach (var status in Enum.GetNames(typeof(StatusEnum)))
                 Status.Add(status);
@@ -452,7 +445,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 isFilter = SelectedSearch.IsFilter;
             }
 
-            if (criteria.Count > 0)
+            if (Criteria.Count > 0)
                 eventAggregator.GetEvent<SearchRequestForQuoteEvent>().Publish(new CriteriaUsageEventPayload()
                     {
                         Criteria = criteria,
@@ -470,6 +463,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             StartTradeDate = null;
             SelectedBook = null;
             EndTradeDate = null;
+            CriteriaDescriptionKey = "";
 
             eventAggregator.GetEvent<SearchRequestForQuoteEvent>().Publish(new CriteriaUsageEventPayload()
             {
