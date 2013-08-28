@@ -4,40 +4,23 @@ RequestForQuoteServicesModuleLibrary/obj/
 WPFStyley_Metallic4/bin/
 WPFStyley_Metallic4/obj/
 
-RequestForQuoteToolBarModuleLibrary/bin/Release/
-RequestForQuoteToolBarModuleLibrary/bin/Debug/
+RequestForQuoteToolBarModuleLibrary/bin/
+RequestForQuoteToolBarModuleLibrary/obj/
 
-RequestForQuoteToolBarModuleLibrary/obj/Release/
-RequestForQuoteToolBarModuleLibrary/obj/Debug/
+RequestForQuoteFunctionsModuleLibrary/bin/
+RequestForQuoteFunctionsModuleLibrary/obj/
 
-RequestForQuoteFunctionsModuleLibrary/bin/Release/
-RequestForQuoteFunctionsModuleLibrary/bin/Debug/
+RequestForQuoteMaintenanceModuleLibrary/bin/
+RequestForQuoteMaintenanceModuleLibrary/obj/
 
-RequestForQuoteFunctionsModuleLibrary/obj/Release/
-RequestForQuoteFunctionsModuleLibrary/obj/Debug/
+RequestForQuoteGridModuleLibrary/bin/
+RequestForQuoteGridModuleLibrary/obj/
 
-RequestForQuoteMaintenanceModuleLibrary/bin/Release/
-RequestForQuoteMaintenanceModuleLibrary/bin/Debug/
+RequestForQuoteInterfacesLibrary/bin/
+RequestForQuoteInterfacesLibrary/obj/
 
-RequestForQuoteMaintenanceModuleLibrary/obj/Release/
-RequestForQuoteMaintenanceModuleLibrary/obj/Debug/
-
-RequestForQuoteGridModuleLibrary/bin/Release/
-RequestForQuoteGridModuleLibrary/bin/Debug/
-
-RequestForQuoteGridModuleLibrary/obj/Release/
-RequestForQuoteGridModuleLibrary/obj/Debug/
-
-RequestForQuoteInterfacesLibrary/bin/Release/
-RequestForQuoteInterfacesLibrary/bin/Debug/
-
-RequestForQuoteInterfacesLibrary/obj/Release/
-RequestForQuoteInterfacesLibrary/obj/Debug/
-
-RFQ/bin/Release
-RFQ/bin/Debug
-
-RFQ/obj/Release
-RFQ/obj/Debug
+RFQ/bin/
+RFQ/log/
+RFQ/obj/
 
 RFQ.suo
