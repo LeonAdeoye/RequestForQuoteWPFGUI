@@ -26,6 +26,11 @@ RFQ/bin/
 RFQ/logs/
 RFQ/obj/
 
+*.pdb
+RequestForQuote*.dll
+WPFStyley*.dll
+dlls/RFQ.*
+
 RFQ.suo
 
 _ReSharper.RFQ/
