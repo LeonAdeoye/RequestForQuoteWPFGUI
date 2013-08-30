@@ -31,7 +31,7 @@
                             <ToolTip>Enter your chat message...</ToolTip>
                         </TextBox.ToolTip>
                     </TextBox>
-                    <ScrollViewer>                       
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">                       
                         <ListBox Width="200" Height="500" Margin="5,4,5,0" ItemsSource="{Binding ChatMessages}" attached:ListBoxAttachedProperties.AutoScrollToEnd="True">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">

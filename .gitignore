@@ -23,7 +23,7 @@ RequestForQuoteInterfacesLibrary/bin/
 RequestForQuoteInterfacesLibrary/obj/
 
 RFQ/bin/
-RFQ/logs/
+logs/
 RFQ/obj/
 
 *.pdb
