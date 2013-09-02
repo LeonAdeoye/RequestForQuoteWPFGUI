@@ -3,6 +3,6 @@
   <TargetExecutable>C:\Users\Leon\Downloads\NUnit-2.6.2\NUnit-2.6.2\bin\nunit-console.exe</TargetExecutable>
   <Arguments>RequestForQuoteFunctionsModuleLibrary.Test.dll</Arguments>
   <TargetWorkingDir>c:\development\git\RequestForQuoteWPFGUI\dlls</TargetWorkingDir>
-  <Output>RequestForQuoteFunctionsCodeCoverageOutput.xml</Output>
-  <ReportType>XML</ReportType>
+  <Output>RequestForQuoteFunctionsCodeCoverageOutput.html</Output>
+  <ReportType>html</ReportType>
 </AnalyseParams>
