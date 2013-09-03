@@ -220,7 +220,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void UnderlyierPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            IUnderlyier underlyier = dependencyPropertyChangedEventArgs.NewValue as IUnderlyier;
+            var underlyier = dependencyPropertyChangedEventArgs.NewValue as IUnderlyier;
             if (underlyier != null)
                 criteria[RequestForQuoteConstants.UNDERLYIER_CRITERION] = underlyier.RIC; 
         }
@@ -237,7 +237,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void ClientPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            IClient client = dependencyPropertyChangedEventArgs.NewValue as IClient;
+            var client = dependencyPropertyChangedEventArgs.NewValue as IClient;
             if(client != null)
                 criteria[RequestForQuoteConstants.CLIENT_CRITERION] = client.Name;        
         }
@@ -272,7 +272,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void StatusPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            string status = dependencyPropertyChangedEventArgs.NewValue as string;
+            var status = dependencyPropertyChangedEventArgs.NewValue as string;
 
             if (status != null)
                 criteria[RequestForQuoteConstants.STATUS_CRITERION] = status; 
@@ -280,20 +280,26 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void AddFirstDateToCriteria(string criteriaKey, string firstDate)
         {
+            // if the first date does not exist or the first date exists and has a hyphen suffix as the last char then write.
             if (!criteria.ContainsKey(criteriaKey) || (criteria[criteriaKey].IndexOf('-') == criteria[criteriaKey].Length - 1))
                 criteria[criteriaKey] = firstDate + "-";
+            // else if the first date does not exist and the first char is a hyphen then add the first date as a prefix to what already exists.
             else if (criteria[criteriaKey].IndexOf('-') == 0)
                 criteria[criteriaKey] = firstDate + criteria[criteriaKey];
+            // else the first date exists so replace it.
             else
                 criteria[criteriaKey] = firstDate + criteria[criteriaKey].Substring(criteria[criteriaKey].IndexOf('-'));
         }
 
         private static void AddSecondDateToCriteria(string criteriaKey, string secondDate)
         {
+            // if the second date does not exist or the second date exists and a hyphen prefix then write
             if (!criteria.ContainsKey(criteriaKey) || (criteria[criteriaKey].IndexOf('-') == 0))
                 criteria[criteriaKey] = "-" + secondDate;
+            // else if first date exists and second date does not then append the second date
             else if (criteria[criteriaKey].IndexOf('-') == criteria[criteriaKey].Length - 1)
                 criteria[criteriaKey] += secondDate;
+            // else the first overwrite the second date
             else
                 criteria[criteriaKey] = criteria[criteriaKey].Substring(0, criteria[criteriaKey].IndexOf('-') + 1) + secondDate;
         }
@@ -347,7 +353,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public bool CanDeleteSearch()
         {
-            return SelectedSearch != null;
+            return (SelectedSearch != null && !string.IsNullOrEmpty(SelectedSearch.Owner) &&
+                    !string.IsNullOrEmpty(SelectedSearch.DescriptionKey));
         }
 
         public bool CanClearCriteria()
@@ -359,6 +366,10 @@ namespace RequestForQuoteFunctionsModuleLibrary
         {
             if (SelectedSearch == null)
                 return false;
+
+            if (string.IsNullOrEmpty(SelectedSearch.Owner) || string.IsNullOrEmpty(SelectedSearch.DescriptionKey))
+                return false;
+
             return (SelectedSearch.IsPrivate != isRequestToMakePrivate);
         }
 
@@ -390,6 +401,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 PrivacyOfCriteria = PrivacyEnum.PRIVATE;
                 TypeOfCriteria = CriteriaTypeEnum.FILTER;
 
+                // Cannot use constructor injection because ISaveSearchPopupWindow is not registered within the unity container the constructor is called.
                 ISaveSearchPopupWindow searchPopupWindow = ServiceLocator.Current.GetInstance<ISaveSearchPopupWindow>();
                 searchPopupWindow.ShowModalWindow(this);
                 // TODO verify search owner+key does not alreday exist in universe.
