@@ -569,12 +569,13 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             // Arrange
             const bool isExistingSearch = true;
+            viewModel.SelectedSearch = null;
             // Act
 
             // Assert
             viewModel.CanSearchRequests(isExistingSearch)
                      .Should()
-                     .BeFalse("because there are no criteria and selected search property is not set");
+                     .BeFalse("because there are no criteria and selected search property is not set");            
         }
 
         [Test]
