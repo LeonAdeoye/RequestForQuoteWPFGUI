@@ -110,7 +110,7 @@
                                             SelectedValue="{Binding ClonedRequest.Status}"/>
                                 <Label DockPanel.Dock="Right">Status</Label>
                             </DockPanel>
-                            <DockPanel >
+                            <!--<DockPanel >
                                 <ComboBox   DockPanel.Dock="Right" Width="250"
                                             ItemsSource="{Binding Path=DataContext.Underlyiers,
                                             RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
@@ -123,14 +123,14 @@
                                             RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
                                             SelectedValue="{Binding ClonedRequest.BBG}" SelectedValuePath="BBG" DisplayMemberPath="BBG"/>
                                 <Label DockPanel.Dock="Right">BBG</Label>
-                            </DockPanel>
+                            </DockPanel>-->
                             <DockPanel >
                                 <ComboBox   DockPanel.Dock="Right" Width="250"
                                             ItemsSource="{Binding Path=DataContext.Books,
                                             RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
                                             SelectedValue="{Binding ClonedRequest.BookCode}" SelectedValuePath="BookCode" DisplayMemberPath="BookCode"/>
                                 <Label DockPanel.Dock="Right">BookCode</Label>
-                            </DockPanel>                    
+                            </DockPanel>                          
                             <DockPanel >
                                 <ComboBox DockPanel.Dock="Right" Width="250" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
                                             SelectedItem="{Binding Path=ClonedRequest.Currency, Mode=TwoWay}"
@@ -152,16 +152,30 @@
                                 <Label DockPanel.Dock="Right" Width="70">FXRate</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.Notional, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Notional</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">SalesCredit</Label>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.Quantity, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">Quantity</Label>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.LotSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">Lot Size</Label>
                             </DockPanel>
+                            <DockPanel>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">SC %</Label>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">SC</Label>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">SC FX</Label>
+                                <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
+                                            SelectedItem="{Binding Path=ClonedRequest.SalesCreditCurrency, Mode=TwoWay}"
+                                            SelectedValue="{Binding ClonedRequest.SalesCreditCurrency}"/>
+                                <Label DockPanel.Dock="Right" Width="75">SC Curr</Label>
+                            </DockPanel>                            
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
                                             SelectedItem="{Binding Path=ClonedRequest.SettlementCurrency, Mode=TwoWay}"
                                             SelectedValue="{Binding ClonedRequest.SettlementCurrency}"/>                        
-                                <Label DockPanel.Dock="Right" Width="70">Stt Currency</Label>
+                                <Label DockPanel.Dock="Right" Width="73">Stt Curr</Label>
                                 <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=ClonedRequest.SettlementDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Stt Date</Label>
                             </DockPanel>                    

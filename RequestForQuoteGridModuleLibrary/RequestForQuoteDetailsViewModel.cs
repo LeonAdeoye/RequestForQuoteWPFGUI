@@ -16,7 +16,7 @@ using log4net;
 
 namespace RequestForQuoteGridModuleLibrary
 {
-    class SequenceIdComparer : IComparer
+    internal class SequenceIdComparer : IComparer
     {
         // Faster sort than using ICollectionView.SortDescriptions - sort first by sequnece id and then by time (as a precaution).
         public int Compare(object firstParam, object secondParam)
