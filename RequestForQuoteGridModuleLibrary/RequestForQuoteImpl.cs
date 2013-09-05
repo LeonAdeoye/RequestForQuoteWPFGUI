@@ -22,6 +22,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         private decimal notionalMillions;        
         private CurrencyEnum notionalCurrency;
+        // TODO need an FX manager - which mocks FX rates using random numbers.
         private decimal notionalFXRate;
 
         private CurrencyEnum premiumSettlementCurrency; 
@@ -29,10 +30,10 @@ namespace RequestForQuoteGridModuleLibrary
         private DateTime premiumSettlementDate; 
         private decimal premiumSettlementFXRate;
         
-
         private decimal salesCreditAmount;
         private decimal salesCreditPercentage;
         private CurrencyEnum salesCreditCurrency;
+        private decimal salesCreditFXRate;
 
         private decimal impliedVol;
         private decimal premiumAbsolute;
@@ -98,7 +99,8 @@ namespace RequestForQuoteGridModuleLibrary
 
             clone.Identifier = nextIdentifier;
             clone.PickedUpBy = pickedUpBy;
-            clone.BookCode = bookCode;                       
+            clone.BookCode = bookCode;
+                       
             clone.PremiumSettlementCurrency = premiumSettlementCurrency;
             clone.PremiumSettlementDate = premiumSettlementDate;
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
@@ -107,6 +109,7 @@ namespace RequestForQuoteGridModuleLibrary
             clone.SalesCreditAmount = salesCreditAmount;
             clone.SalesCreditPercentage = salesCreditPercentage;
             clone.SalesCreditCurrency = salesCreditCurrency;
+            clone.SalesCreditFXRate = salesCreditFXRate;
             
             clone.Multiplier = multiplier;
             clone.Contracts = contracts;
@@ -156,6 +159,7 @@ namespace RequestForQuoteGridModuleLibrary
             Theta = 0;
             Rho = 0;
             PremiumAbsolute = 0;
+            premiumPercentage = 0;
         }
 
         public bool CalculatePricing(IOptionRequestPricer optionPricer)
@@ -172,6 +176,15 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(request);
             builder.Append(", is OTC: ");
             builder.Append(isOTC);
+
+            builder.Append(", contracts: ");
+            builder.Append(contracts);
+            builder.Append(", multiplier: ");
+            builder.Append(multiplier);
+            builder.Append(", lot size: ");
+            builder.Append(lotSize);
+            builder.Append(", quantity: ");
+            builder.Append(Quantity);
 
             builder.Append(", implied vol: ");
             builder.Append(impliedVol);
@@ -212,6 +225,8 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(tradeDate);
             builder.Append(", theta: ");
             builder.Append(theta);
+            builder.Append(", rho: ");
+            builder.Append(rho);
 
             builder.Append(", client: ");
             builder.Append(client);
@@ -245,6 +260,8 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(salesCreditPercentage);
             builder.Append(", sales credit currency: ");
             builder.Append(salesCreditCurrency);
+            builder.Append(", sales credit FX rate: ");
+            builder.Append(salesCreditFXRate);
 
             builder.Append(", notional millions: ");
             builder.Append(notionalMillions);
@@ -252,6 +269,28 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(notionalCurrency);
             builder.Append(", notional FX rate: ");
             builder.Append(notionalFXRate);
+
+            builder.Append(", delta notional: ");
+            builder.Append(DeltaNotional);
+            builder.Append(", gamma notional: ");
+            builder.Append(GammaNotional);
+            builder.Append(", vega notional: ");
+            builder.Append(VegaNotional);
+            builder.Append(", theta notional: ");
+            builder.Append(ThetaNotional);
+            builder.Append(", rho notional: ");
+            builder.Append(RhoNotional);
+
+            builder.Append(", delta shares: ");
+            builder.Append(DeltaShares);
+            builder.Append(", gamma shares: ");
+            builder.Append(GammaShares);
+            builder.Append(", vega shares: ");
+            builder.Append(VegaShares);
+            builder.Append(", theta shares: ");
+            builder.Append(ThetaShares);
+            builder.Append(", rho shares: ");
+            builder.Append(RhoShares);
 
             builder.Append(", hedge price: ");
             builder.Append(hedgePrice);
@@ -485,6 +524,22 @@ namespace RequestForQuoteGridModuleLibrary
                 {
                     salesCreditCurrency = value; 
                     NotifyPropertyChanged("SalesCreditCurrency");                    
+                }
+            }
+        }
+
+        public decimal SalesCreditFXRate
+        {
+            get
+            {
+                return salesCreditFXRate;
+            }
+            set
+            {
+                if (salesCreditFXRate != value)
+                {
+                    salesCreditFXRate = value;
+                    NotifyPropertyChanged("SalesCreditFXRate");
                 }
             }
         }

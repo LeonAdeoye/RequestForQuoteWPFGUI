@@ -44,7 +44,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         
         decimal SalesCreditAmount { get; set; }
         decimal SalesCreditPercentage { get; set; }
+        decimal SalesCreditFXRate { get; set; }
         CurrencyEnum SalesCreditCurrency { get; set; }
+        
         
         int Multiplier { get; set; }
         int LotSize { get; set; }

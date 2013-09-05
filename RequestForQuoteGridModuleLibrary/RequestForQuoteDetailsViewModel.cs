@@ -6,7 +6,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
@@ -190,21 +189,57 @@ namespace RequestForQuoteGridModuleLibrary
                 originalRequestForQuote.Request = ClonedRequest.Request;
                 originalRequestForQuote.Client = ClonedRequest.Client;
                 originalRequestForQuote.Status = ClonedRequest.Status;
+                originalRequestForQuote.BookCode = ClonedRequest.BookCode;
+                originalRequestForQuote.TradeDate = ClonedRequest.TradeDate;
+
+                originalRequestForQuote.LotSize = ClonedRequest.LotSize;
+                originalRequestForQuote.IsOTC = ClonedRequest.IsOTC;
+                originalRequestForQuote.Multiplier = ClonedRequest.Multiplier;
+                originalRequestForQuote.Contracts = ClonedRequest.Contracts;
+                
                 originalRequestForQuote.PremiumAbsolute = ClonedRequest.PremiumAbsolute;
                 originalRequestForQuote.PremiumPercentage = ClonedRequest.PremiumPercentage;
+                originalRequestForQuote.ImpliedVol = ClonedRequest.ImpliedVol;
+                
                 originalRequestForQuote.Delta = ClonedRequest.Delta;
                 originalRequestForQuote.Gamma = ClonedRequest.Gamma;
                 originalRequestForQuote.Theta = ClonedRequest.Theta;
                 originalRequestForQuote.Rho = ClonedRequest.Rho;
                 originalRequestForQuote.Vega = ClonedRequest.Vega;
-                originalRequestForQuote.BookCode = ClonedRequest.BookCode;
+                                               
                 originalRequestForQuote.PremiumSettlementCurrency = ClonedRequest.PremiumSettlementCurrency;
                 originalRequestForQuote.PremiumSettlementDate = ClonedRequest.PremiumSettlementDate;
                 originalRequestForQuote.PremiumSettlementDaysOverride = ClonedRequest.PremiumSettlementDaysOverride;
                 originalRequestForQuote.PremiumSettlementFXRate = ClonedRequest.PremiumSettlementFXRate;
-                originalRequestForQuote.TradeDate = ClonedRequest.TradeDate;
+                
                 originalRequestForQuote.NotionalCurrency = ClonedRequest.NotionalCurrency;
                 originalRequestForQuote.NotionalMillions = ClonedRequest.NotionalMillions;
+                originalRequestForQuote.NotionalFXRate = ClonedRequest.NotionalFXRate;               
+
+                originalRequestForQuote.SalesCreditAmount = ClonedRequest.SalesCreditAmount;
+                originalRequestForQuote.SalesCreditPercentage = ClonedRequest.SalesCreditPercentage;
+                originalRequestForQuote.SalesCreditFXRate = ClonedRequest.SalesCreditFXRate;
+                originalRequestForQuote.SalesCreditCurrency = ClonedRequest.SalesCreditCurrency;
+
+                originalRequestForQuote.HedgePrice = ClonedRequest.HedgePrice;
+                originalRequestForQuote.HedgeType = ClonedRequest.HedgeType;
+
+                originalRequestForQuote.SalesComment = ClonedRequest.SalesComment;
+                originalRequestForQuote.TraderComment = ClonedRequest.TraderComment;
+                originalRequestForQuote.ClientComment = ClonedRequest.ClientComment;
+                originalRequestForQuote.PickedUpBy = ClonedRequest.PickedUpBy;
+
+                originalRequestForQuote.AskImpliedVol = ClonedRequest.AskImpliedVol;
+                originalRequestForQuote.AskPremiumPercentage = ClonedRequest.AskPremiumPercentage;
+                originalRequestForQuote.AskPremiumAbsolute = ClonedRequest.AskPremiumAbsolute;
+                originalRequestForQuote.AskFinalAbsolute = ClonedRequest.AskFinalAbsolute;
+                originalRequestForQuote.AskFinalPercentage = ClonedRequest.AskFinalPercentage;
+
+                originalRequestForQuote.BidImpliedVol = ClonedRequest.BidImpliedVol;
+                originalRequestForQuote.BidPremiumPercentage = ClonedRequest.BidPremiumPercentage;
+                originalRequestForQuote.BidPremiumAbsolute = ClonedRequest.BidPremiumAbsolute;
+                originalRequestForQuote.BidFinalAbsolute = ClonedRequest.BidFinalAbsolute;
+                originalRequestForQuote.BidFinalPercentage = ClonedRequest.BidFinalPercentage;
                 // TODO chat mesages?
             }
             originalRequestForQuote.Popup.CloseWindow();
