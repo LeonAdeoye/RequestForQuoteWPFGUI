@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 
@@ -15,7 +16,7 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly RequestForQuoteGridViewModel viewModel;
         private bool isManualEditCommit;
 
-        public RequestForQuoteGrid(IUnityContainer container)
+        public RequestForQuoteGrid(IUnityContainer container, IEventAggregator eventAggregator)
         {
             this.Resources = Application.LoadComponent(
             new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
@@ -23,7 +24,8 @@ namespace RequestForQuoteGridModuleLibrary
             InitializeComponent();
 
             viewModel = new RequestForQuoteGridViewModel(container.Resolve<IBookManager>(), container.Resolve<IClientManager>(),
-                container.Resolve<IOptionRequestParser>(), container.Resolve<IOptionRequestPricer>(), container.Resolve<IChatServiceManager>());
+                container.Resolve<IOptionRequestParser>(), container.Resolve<IOptionRequestPricer>(), 
+                container.Resolve<IChatServiceManager>(), container.Resolve<IUnderlyingManager>(), eventAggregator);
             
             this.DataContext = viewModel;
         }

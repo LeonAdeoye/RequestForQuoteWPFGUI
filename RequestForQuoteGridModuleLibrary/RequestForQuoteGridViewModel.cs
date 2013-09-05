@@ -30,7 +30,8 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
         private readonly IChatServiceManager chatServiceManager;
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IUnderlyingManager underlyingManager;
+        private readonly IEventAggregator eventAggregator;
   
         public ObservableCollection<IRequestForQuote> Requests { get; set; }
         public ObservableCollection<IRequestForQuote> SearchedRequests { get; set; }
@@ -54,8 +55,8 @@ namespace RequestForQuoteGridModuleLibrary
 
         private int identifier = 9;
 
-        public RequestForQuoteGridViewModel(IBookManager bookManager, IClientManager clientManager, IOptionRequestParser optionRequestParser, 
-            IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager)
+        public RequestForQuoteGridViewModel(IBookManager bookManager, IClientManager clientManager, IOptionRequestParser optionRequestParser,
+            IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager, IUnderlyingManager underlyingManager, IEventAggregator eventAggregator)
         {
             Requests = new ObservableCollection<IRequestForQuote>();
             SearchedRequests = new ObservableCollection<IRequestForQuote>();
@@ -75,6 +76,8 @@ namespace RequestForQuoteGridModuleLibrary
             this.clientManager = clientManager;
             this.bookManager = bookManager;
             this.chatServiceManager = chatServiceManager;
+            this.underlyingManager = underlyingManager;
+            this.eventAggregator = eventAggregator;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -137,7 +140,6 @@ namespace RequestForQuoteGridModuleLibrary
             {
                 IRequestForQuoteDetailsPopupWindow requestForQuotePopup = ServiceLocator.Current.GetInstance<IRequestForQuoteDetailsPopupWindow>();
                 //TODO make this a ctor param:
-                IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
 
                 SelectedRequest.Popup = requestForQuotePopup;
                 requestForQuotePopup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
