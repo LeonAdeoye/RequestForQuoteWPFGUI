@@ -143,7 +143,7 @@ namespace RequestForQuoteGridModuleLibrary
 
                 SelectedRequest.Popup = requestForQuotePopup;
                 requestForQuotePopup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
-                    bookManager, underlyingManager, chatServiceManager));
+                    bookManager, eventAggregator, underlyingManager, chatServiceManager));
             }
             else
                 SelectedRequest.Popup.ActivateWindow();

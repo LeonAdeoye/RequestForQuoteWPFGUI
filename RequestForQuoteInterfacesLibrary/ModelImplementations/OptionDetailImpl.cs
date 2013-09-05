@@ -51,9 +51,12 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public DateTime AskVolatilityUpdated { get; set; }
         public DateTime BidVolatilityUpdated { get; set; }
         public IRequestForQuote ParentRequest { get; set; }
+        public decimal ForwardPrice { get; set; }
+        public decimal DividendPercentageOfSpot { get; set; }
         
         public override string ToString()
         {
+            // TODO add the others
             StringBuilder builder = new StringBuilder("Strike: ");
             builder.Append(this.Strike);
             builder.Append(", Quantity: ");
@@ -61,31 +64,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             builder.Append(", Side: ");
             builder.Append(this.Side);
             return builder.ToString();
-        }
-
-
-        public decimal ForwardPrice
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public decimal DividendPercentageOfSpot
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

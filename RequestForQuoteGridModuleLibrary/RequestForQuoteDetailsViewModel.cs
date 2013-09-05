@@ -38,7 +38,7 @@ namespace RequestForQuoteGridModuleLibrary
     public class RequestForQuoteDetailsViewModel : DependencyObject 
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IEventAggregator eventAggregator;
         
         private readonly IRequestForQuote originalRequestForQuote;
         private readonly IOptionRequestPricer optionRequestPricer;
@@ -70,7 +70,7 @@ namespace RequestForQuoteGridModuleLibrary
             DependencyProperty.Register("MessageToBeSent", typeof(string), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(""));
 
         public RequestForQuoteDetailsViewModel(IOptionRequestPricer optionRequestPricer, IRequestForQuote requestForQuote,
-                                                IClientManager clientManager, IBookManager bookManager, 
+                                                IClientManager clientManager, IBookManager bookManager, IEventAggregator eventAggregator,
                                                 IUnderlyingManager underlyingManager, IChatServiceManager chatServiceManager)
         {
             this.optionRequestPricer = optionRequestPricer;
@@ -78,6 +78,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.bookManager = bookManager;
             this.underlyingManager = underlyingManager;
             this.chatServiceManager = chatServiceManager;
+            this.eventAggregator = eventAggregator;
 
             originalRequestForQuote = requestForQuote;
             ClonedRequest = requestForQuote.Clone(requestForQuote.Identifier);

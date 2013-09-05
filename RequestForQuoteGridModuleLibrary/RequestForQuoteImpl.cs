@@ -98,7 +98,8 @@ namespace RequestForQuoteGridModuleLibrary
 
             clone.Identifier = nextIdentifier;
             clone.PickedUpBy = pickedUpBy;
-            clone.BookCode = bookCode;                       clone.PremiumSettlementCurrency = premiumSettlementCurrency;
+            clone.BookCode = bookCode;                       
+            clone.PremiumSettlementCurrency = premiumSettlementCurrency;
             clone.PremiumSettlementDate = premiumSettlementDate;
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
             clone.PremiumSettlementFXRate = premiumSettlementFXRate;
@@ -530,10 +531,13 @@ namespace RequestForQuoteGridModuleLibrary
             }
             set
             {
-                contracts = value; 
-                NotifyPropertyChanged("Contracts");
-                NotifyPropertyChanged("Quantity");
-                NotifyPropertyChanged("TotalPremium");
+                if (contracts != value)
+                {
+                    contracts = value; 
+                    NotifyPropertyChanged("Contracts");
+                    NotifyPropertyChanged("Quantity");
+                    NotifyPropertyChanged("TotalPremium");                    
+                }
             }
         }
 
