@@ -197,7 +197,7 @@ namespace RequestForQuoteGridModuleLibrary
                 originalRequestForQuote.Multiplier = ClonedRequest.Multiplier;
                 originalRequestForQuote.Contracts = ClonedRequest.Contracts;
                 
-                originalRequestForQuote.PremiumAbsolute = ClonedRequest.PremiumAbsolute;
+                originalRequestForQuote.PremiumAmount = ClonedRequest.PremiumAmount;
                 originalRequestForQuote.PremiumPercentage = ClonedRequest.PremiumPercentage;
                 originalRequestForQuote.ImpliedVol = ClonedRequest.ImpliedVol;
                 
@@ -231,14 +231,14 @@ namespace RequestForQuoteGridModuleLibrary
 
                 originalRequestForQuote.AskImpliedVol = ClonedRequest.AskImpliedVol;
                 originalRequestForQuote.AskPremiumPercentage = ClonedRequest.AskPremiumPercentage;
-                originalRequestForQuote.AskPremiumAbsolute = ClonedRequest.AskPremiumAbsolute;
-                originalRequestForQuote.AskFinalAbsolute = ClonedRequest.AskFinalAbsolute;
+                originalRequestForQuote.AskPremiumAmount = ClonedRequest.AskPremiumAmount;
+                originalRequestForQuote.AskFinalAmount = ClonedRequest.AskFinalAmount;
                 originalRequestForQuote.AskFinalPercentage = ClonedRequest.AskFinalPercentage;
 
                 originalRequestForQuote.BidImpliedVol = ClonedRequest.BidImpliedVol;
                 originalRequestForQuote.BidPremiumPercentage = ClonedRequest.BidPremiumPercentage;
-                originalRequestForQuote.BidPremiumAbsolute = ClonedRequest.BidPremiumAbsolute;
-                originalRequestForQuote.BidFinalAbsolute = ClonedRequest.BidFinalAbsolute;
+                originalRequestForQuote.BidPremiumAmount = ClonedRequest.BidPremiumAmount;
+                originalRequestForQuote.BidFinalAmount = ClonedRequest.BidFinalAmount;
                 originalRequestForQuote.BidFinalPercentage = ClonedRequest.BidFinalPercentage;
                 // TODO chat mesages?
             }

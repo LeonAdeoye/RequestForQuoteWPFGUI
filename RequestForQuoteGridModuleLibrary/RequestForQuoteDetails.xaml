@@ -72,8 +72,8 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
 
@@ -184,15 +184,15 @@
                                 <Label Width="70" DockPanel.Dock="Right">Impl Vol%</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.AskPriceAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.PriceAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.BidPriceAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.AskPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.PremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.BidPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Premium$</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.AskPricePercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.PricePercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.BidPricePercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.AskPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.PremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.BidPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Premium%</Label>
                             </DockPanel>
                             <CustomCntls:HorizontalRule Margin="-3,0,-3,0"/>
@@ -203,7 +203,7 @@
                                 <Label Width="70" HorizontalContentAlignment="Center" DockPanel.Dock="Right"></Label>
                             </DockPanel>                            
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.Deltashares, UpdateSourceTrigger=PropertyChanged, Mode=Oneway}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.DeltaShares, UpdateSourceTrigger=PropertyChanged, Mode=Oneway}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.DeltaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" Text="{Binding Path=ClonedRequest.Delta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Delta</Label>
@@ -254,7 +254,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SalesCommentary"  Grid.Column="0"  GotFocus="SalesCommentary_OnGotFocus" LostFocus="SalesCommentary_OnLostFocus" >Sales' comment...</TextBox>
+                    <TextBox x:Name="SalesCommentary" Height="60" Grid.Column="0"  GotFocus="SalesCommentary_OnGotFocus" LostFocus="SalesCommentary_OnLostFocus" >Sales' comment...</TextBox>
                     <TextBox x:Name="TradersCommentary" Grid.Column="1" GotFocus="TradersCommentary_OnGotFocus" LostFocus="TradersCommentary_OnLostFocus">Trader's comment...</TextBox>
                     <TextBox x:Name="ClientCommentary"  Grid.Column="2" GotFocus="ClientCommentary_OnGotFocus" LostFocus="ClientCommentary_OnLostFocus">Client's feedback...</TextBox>                
                 </Grid>

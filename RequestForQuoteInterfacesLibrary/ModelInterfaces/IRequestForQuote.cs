@@ -59,18 +59,18 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
 
         decimal BidImpliedVol { get; set; }
         decimal BidPremiumPercentage { get; set; }
-        decimal BidPremiumAbsolute { get; set; }
-        decimal BidFinalAbsolute { get; set; }
+        decimal BidPremiumAmount { get; set; }
+        decimal BidFinalAmount { get; set; }
         decimal BidFinalPercentage { get; set; }
 
         decimal ImpliedVol { get; set; }
-        decimal PremiumAbsolute { get; set; }
+        decimal PremiumAmount { get; set; }
         decimal PremiumPercentage { get; set; }
 
         decimal AskImpliedVol { get; set; }
         decimal AskPremiumPercentage { get; set; }
-        decimal AskPremiumAbsolute { get; set; }
-        decimal AskFinalAbsolute { get; set; }
+        decimal AskPremiumAmount { get; set; }
+        decimal AskFinalAmount { get; set; }
         decimal AskFinalPercentage { get; set; }
 
         string SalesComment { get; set; }

@@ -74,7 +74,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                         optionToPrice.ParentRequest.Vega += optionToPrice.Vega;
                         optionToPrice.ParentRequest.Theta += optionToPrice.Theta;
                         optionToPrice.ParentRequest.Rho += optionToPrice.Rho;
-                        optionToPrice.ParentRequest.PremiumAbsolute += optionToPrice.Price;
+                        optionToPrice.ParentRequest.PremiumAmount += optionToPrice.Price;
                     }
                 }
             }

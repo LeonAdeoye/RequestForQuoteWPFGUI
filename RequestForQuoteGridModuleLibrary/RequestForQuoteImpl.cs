@@ -36,7 +36,7 @@ namespace RequestForQuoteGridModuleLibrary
         private decimal salesCreditFXRate;
 
         private decimal impliedVol;
-        private decimal premiumAbsolute;
+        private decimal premiumAmount;
         private decimal premiumPercentage;
 
         private string request;
@@ -51,9 +51,9 @@ namespace RequestForQuoteGridModuleLibrary
         private decimal hedgePrice;
         private HedgeTypeEnum hedgeType;
         
-        private decimal bidFinalAbsolute;
+        private decimal bidFinalAmount;
         private decimal bidFinalPercentage;
-        private decimal askFinalAbsolute;
+        private decimal askFinalAmount;
         private decimal askFinalPercentage;
 
         private DateTime tradeDate;
@@ -63,11 +63,11 @@ namespace RequestForQuoteGridModuleLibrary
 
         private decimal bidImpliedVol;
         private decimal bidPremiumPercentage;
-        private decimal bidPremiumAbsolute;
+        private decimal bidPremiumAmount;
         
         private decimal askImpliedVol;
         private decimal askPremiumPercentage;
-        private decimal askPremiumAbsolute;
+        private decimal askPremiumAmount;
 
         private string salesComment;
         private string traderComment;
@@ -94,7 +94,7 @@ namespace RequestForQuoteGridModuleLibrary
             clone.Rho = rho;
 
             clone.ImpliedVol = impliedVol;
-            clone.PremiumAbsolute = premiumAbsolute;
+            clone.PremiumAmount = premiumAmount;
             clone.PremiumPercentage = PremiumPercentage;
 
             clone.Identifier = nextIdentifier;
@@ -121,15 +121,15 @@ namespace RequestForQuoteGridModuleLibrary
             
             clone.BidImpliedVol = bidImpliedVol;
             clone.BidPremiumPercentage = bidPremiumPercentage;
-            clone.BidPremiumAbsolute = bidPremiumAbsolute;
+            clone.BidPremiumAmount = bidPremiumAmount;
             clone.BidFinalPercentage = bidFinalPercentage;
-            clone.BidFinalAbsolute = bidFinalAbsolute;
+            clone.BidFinalAmount = bidFinalAmount;
 
             clone.AskImpliedVol = askImpliedVol;
             clone.AskPremiumPercentage = askPremiumPercentage;
-            clone.AskPremiumAbsolute = askPremiumAbsolute;
+            clone.AskPremiumAmount = askPremiumAmount;
             clone.AskFinalPercentage = askFinalPercentage;
-            clone.AskFinalAbsolute = askFinalAbsolute;
+            clone.AskFinalAmount = askFinalAmount;
 
             clone.SalesComment = salesComment;
             clone.TraderComment = traderComment;
@@ -158,7 +158,7 @@ namespace RequestForQuoteGridModuleLibrary
             Vega = 0;
             Theta = 0;
             Rho = 0;
-            PremiumAbsolute = 0;
+            PremiumAmount = 0;
             premiumPercentage = 0;
         }
 
@@ -189,29 +189,29 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(", implied vol: ");
             builder.Append(impliedVol);
             builder.Append(", premium absolute: ");
-            builder.Append(premiumAbsolute);
+            builder.Append(premiumAmount);
             builder.Append(", premium percentage: ");
             builder.Append(premiumPercentage);
 
             builder.Append(", ask premium absolute: ");
-            builder.Append(askPremiumAbsolute);
+            builder.Append(askPremiumAmount);
             builder.Append(", ask premium percentage: ");
             builder.Append(askPremiumPercentage);
             builder.Append(", ask implied Vol: ");
             builder.Append(askImpliedVol);
             builder.Append(", ask final absolute: ");
-            builder.Append(askFinalAbsolute);
+            builder.Append(askFinalAmount);
             builder.Append(", ask final percentage: ");
             builder.Append(askFinalPercentage);
 
             builder.Append(", bid premium absolute: ");
-            builder.Append(bidPremiumAbsolute);
+            builder.Append(bidPremiumAmount);
             builder.Append(", bid premium percentage: ");
             builder.Append(bidPremiumPercentage);
             builder.Append(", bid implied Vol: ");
             builder.Append(bidImpliedVol);
             builder.Append(", bid final absolute: ");
-            builder.Append(bidFinalAbsolute);
+            builder.Append(bidFinalAmount);
             builder.Append(", bid final percentage: ");
             builder.Append(bidFinalPercentage);
 
@@ -668,17 +668,17 @@ namespace RequestForQuoteGridModuleLibrary
             }
         }
 
-        public decimal BidPremiumAbsolute
+        public decimal BidPremiumAmount
         {
             get
             {
-                return bidPremiumAbsolute;
+                return bidPremiumAmount;
             }
             set
             {
-                if (bidPremiumAbsolute != value)
+                if (bidPremiumAmount != value)
                 {
-                    bidPremiumAbsolute = value; 
+                    bidPremiumAmount = value; 
                     NotifyPropertyChanged("BidPremiumAbsolute");    
                 }                
             }
@@ -716,17 +716,17 @@ namespace RequestForQuoteGridModuleLibrary
             }
         }
 
-        public decimal BidFinalAbsolute
+        public decimal BidFinalAmount
         {
             get
             {
-                return bidFinalAbsolute;
+                return bidFinalAmount;
             }
             set
             {
-                if (bidFinalAbsolute != value)
+                if (bidFinalAmount != value)
                 {
-                    bidFinalAbsolute = value;
+                    bidFinalAmount = value;
                     NotifyPropertyChanged("BidFinalAbsolute");
                 }
             }
@@ -748,17 +748,17 @@ namespace RequestForQuoteGridModuleLibrary
             }
         }
 
-        public decimal AskPremiumAbsolute
+        public decimal AskPremiumAmount
         {
             get
             {
-                return askPremiumAbsolute;
+                return askPremiumAmount;
             }
             set
             {
-                if (askPremiumAbsolute != value)
+                if (askPremiumAmount != value)
                 {
-                    askPremiumAbsolute = value; 
+                    askPremiumAmount = value; 
                     NotifyPropertyChanged("AskPremiumAbsolute");    
                 }                
             }
@@ -797,17 +797,17 @@ namespace RequestForQuoteGridModuleLibrary
             }
         }
 
-        public decimal AskFinalAbsolute
+        public decimal AskFinalAmount
         {
             get
             {
-                return askFinalAbsolute;
+                return askFinalAmount;
             }
             set
             {
-                if (askFinalAbsolute != value)
+                if (askFinalAmount != value)
                 {
-                    askFinalAbsolute = value;
+                    askFinalAmount = value;
                     NotifyPropertyChanged("AskFinalAbsolute");
                 }
             }
@@ -861,17 +861,17 @@ namespace RequestForQuoteGridModuleLibrary
             }
         }
 
-        public decimal PremiumAbsolute
+        public decimal PremiumAmount
         {
             get
             {
-                return premiumAbsolute;
+                return premiumAmount;
             }
             set
             {
-                if (premiumAbsolute != value)
+                if (premiumAmount != value)
                 {
-                    premiumAbsolute = value;
+                    premiumAmount = value;
                     NotifyPropertyChanged("PremiumAbsolute");
                     NotifyPropertyChanged("TotalPremium");
                 }
@@ -1135,7 +1135,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             get
             {
-                return PremiumAbsolute * Quantity;
+                return PremiumAmount * Quantity;
             }
         }
 
