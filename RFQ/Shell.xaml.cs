@@ -44,15 +44,22 @@ namespace RFQ
 
         private void Shell_OnClosing(object sender, CancelEventArgs e)
         {
-            if (
-                MessageBox.Show("Are you sure you want to close RequestForQuote?", "Closing down...",
-                                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            if (!Application.Current.Properties.Contains("SeriousErrorStateExists") &&  
+                    MessageBox.Show("Are you sure you want to close RequestForQuote?", "Closing down...",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 e.Cancel = true;
 
-            foreach (var window in Application.Current.Windows.OfType<IWindowPopup>())
-                window.CloseWindow();
+            try
+            {
+                foreach (var window in Application.Current.Windows.OfType<IWindowPopup>())
+                    window.CloseWindow();
 
-            shellViewModel.ShutdownServerCommunication();
+                shellViewModel.ShutdownServerCommunication();
+            }
+            catch (Exception)
+            {                
+                log.Error("Failed to close down properly. Exiting anayway.");
+            }
         }
 
         private readonly IModuleManager moduleManager;

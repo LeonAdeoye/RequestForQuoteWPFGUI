@@ -47,7 +47,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ChatMessageImpl));
+                var serializer = new DataContractJsonSerializer(typeof(ChatMessageImpl));
                 eventAggregator.GetEvent<NewChatMessageEvent>().Publish(new NewChatMessageEventPayload()
                 {
                     NewChatMessage = (ChatMessageImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)))
@@ -63,7 +63,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(BookImpl));
+                var serializer = new DataContractJsonSerializer(typeof(BookImpl));
                 IBook newBook = (BookImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
                 bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid, false);
             }
@@ -77,7 +77,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ClientImpl));
+                var serializer = new DataContractJsonSerializer(typeof(ClientImpl));
                 IClient newClient = (ClientImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
                 clientManager.AddClient(newClient.Name, newClient.Tier, newClient.IsValid, false);
             }
@@ -91,7 +91,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
+                var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
                 IUnderlyier newUnderlyier = (UnderlyierImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
                 underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, false);
             }

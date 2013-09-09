@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;

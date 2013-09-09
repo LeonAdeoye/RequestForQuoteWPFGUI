@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
@@ -8,14 +10,16 @@ using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.BookMaintenanceService;
+using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
     class BookManagerImpl : IBookManager
     {
-        public List<IBook> Books { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly BookControllerClient bookControllerProxy = new BookControllerClient();
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        public List<IBook> Books { get; set; }
 
         public BookManagerImpl()
         {
@@ -24,11 +28,19 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         
         public void Initialize()
         {
-            // No need to add to GUI thread
-            foreach (bookDetail book in bookControllerProxy.getAll())
+            try
             {
-                Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
-            } 
+                // No need to add to GUI thread
+                foreach (bookDetail book in bookControllerProxy.getAll())
+                {
+                    Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
+                }
+            }
+            catch (EndpointNotFoundException exception)
+            {
+                log.Error(String.Format("Failed to connect to proxy for remote book controller webservice. Exception thrown {0}", exception));
+                throw;
+            }
         }
 
         public void AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase)

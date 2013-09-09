@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.ServiceModel;
+using System.Threading;
 using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -24,12 +26,12 @@ namespace RequestForQuoteServicesModuleLibrary
         {
             var underlyingManager = new UnderlyingManagerImpl();
             underlyingManager.Initialize();
-            container.RegisterInstance<IUnderlyingManager>(underlyingManager);            
+            container.RegisterInstance<IUnderlyingManager>(underlyingManager);
 
             var clientManager = new ClientManagerImpl();
             clientManager.Initialize();
             container.RegisterInstance<IClientManager>(clientManager);
-            
+
             var bookManager = new BookManagerImpl();
             bookManager.Initialize();
             container.RegisterInstance<IBookManager>(bookManager);

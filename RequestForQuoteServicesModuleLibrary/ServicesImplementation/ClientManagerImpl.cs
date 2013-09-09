@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
+using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
@@ -7,14 +10,17 @@ using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.ClientMaintenanceService;
+using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
     public class ClientManagerImpl : IClientManager
     {
-        public List<IClient> Clients { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly ClientControllerClient clientControllerProxy = new ClientControllerClient();
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        public List<IClient> Clients { get; set; }
+
         //TODO - calculate identifier
         private int startingIdentifier = 20;
 
@@ -25,10 +31,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void Initialize()
         {
-            // TO-DO: Do we need to add to GUI thread
-            foreach (clientDetail client in clientControllerProxy.getAll())
+            try
             {
-                Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
+                foreach (clientDetail client in clientControllerProxy.getAll())
+                {
+                    Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
+                }
+            }
+            catch (EndpointNotFoundException exception)
+            {
+                log.Error(String.Format("Failed to connect to proxy for remote client controller webservice. Exception thrown {0}", exception));
+                throw;
             }
         }
 

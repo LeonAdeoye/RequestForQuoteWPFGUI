@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ServiceModel;
+using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Modularity;
@@ -8,7 +10,7 @@ using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 namespace RFQ
 {
     class RequestForQuoteBootstrapper : UnityBootstrapper
-    {
+    {        
         protected override DependencyObject CreateShell()
         {            
             Shell shell = ServiceLocator.Current.GetInstance<Shell>();
@@ -23,8 +25,17 @@ namespace RFQ
 
         protected override void InitializeModules()
         {
-            base.InitializeModules();
-            RegisterAllPopups();
+            try
+            {
+                base.InitializeModules();
+                RegisterAllPopups();
+            }
+            catch (ModuleInitializeException exception)
+            {
+                MessageBox.Show("Failed to initialize modules. Catastrophic failiure. Shutting down now!");
+                Application.Current.Properties.Add("SeriousErrorStateExists", true);
+                Application.Current.Shutdown();
+            }
         }
 
         private void RegisterAllPopups()
