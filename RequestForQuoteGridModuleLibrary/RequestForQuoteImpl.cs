@@ -940,7 +940,9 @@ namespace RequestForQuoteGridModuleLibrary
         {
             get
             {
-                // TODO verify
+                if (lotSize == 0)
+                    return 0;
+
                 return (Math.Floor(delta * Quantity) / lotSize) * lotSize;
             }
         }
@@ -976,6 +978,9 @@ namespace RequestForQuoteGridModuleLibrary
             get
             {
                 // TODO verify
+                if (lotSize == 0)
+                    return 0;
+                   
                 return (Math.Floor(gamma * Quantity) / lotSize) * lotSize;
             }
         }
@@ -1011,6 +1016,9 @@ namespace RequestForQuoteGridModuleLibrary
             get
             {
                 // TODO verify
+                if (lotSize == 0)
+                    return 0;
+
                 return (Math.Floor(theta * Quantity) / lotSize) * lotSize;
             }
         }
@@ -1046,6 +1054,9 @@ namespace RequestForQuoteGridModuleLibrary
             get
             {
                 // TODO verify
+                if (lotSize == 0)
+                    return 0;
+
                 return (Math.Floor(vega * Quantity) / lotSize) * lotSize;
             }
         }
@@ -1081,6 +1092,9 @@ namespace RequestForQuoteGridModuleLibrary
             get
             {
                 // TODO verify
+                if (lotSize == 0)
+                    return 0;
+
                 return (Math.Floor(rho * Quantity) / lotSize) * lotSize;
             }
         }
