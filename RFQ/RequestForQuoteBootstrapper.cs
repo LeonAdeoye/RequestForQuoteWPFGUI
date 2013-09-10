@@ -32,9 +32,8 @@ namespace RFQ
             }
             catch (ModuleInitializeException exception)
             {
-                MessageBox.Show("Failed to initialize modules. Catastrophic failiure. Shutting down now!");
-                Application.Current.Properties.Add("SeriousErrorStateExists", true);
-                Application.Current.Shutdown();
+                MessageBox.Show("Failed to initialize modules needed by RequestForQuote application. Catastrophic failure. Shutting down now!");
+                Environment.Exit(0);
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
