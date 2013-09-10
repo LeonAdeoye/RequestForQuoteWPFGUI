@@ -18,19 +18,43 @@
     
     <StackPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding LegId}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding LegId}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Leg</Label>
         </DockPanel>        
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=RIC}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=RIC}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">RIC</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text=""/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Type</Label>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=BBG}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">BBG</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text=""/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=Description}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Desc.</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Spot}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Spot</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Strike}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Strike</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=StrikePercentage}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Strike %</Label>
+        </DockPanel>        
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Forward}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Forward</Label>
+        </DockPanel>        
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=ProductType}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Prod.Type</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Weight}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Weight</Label>
         </DockPanel>
         <DockPanel>
@@ -42,28 +66,48 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry</Label>
         </DockPanel>
         <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding MaturityYears, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Years</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding MaturityDays, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Days</Label>
+        </DockPanel>        
+        <DockPanel>
             <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=MaturityDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Final payment</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Price, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Price</Label>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding PremiumAmount, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Premium Amt</Label>
+        </DockPanel>        
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding PremiumPercentage, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Premium %</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Delta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding ImpliedVol, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Implied Vol</Label>
+        </DockPanel>        
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Delta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Delta</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Gamma, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Gamma, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Gamma</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Vega, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Vega, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Vega</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Theta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Theta, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Theta</Label>
-        </DockPanel>        
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Rho, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Rho</Label>
+        </DockPanel>
     </StackPanel>
 </UserControl>
