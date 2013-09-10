@@ -576,6 +576,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                     NotifyPropertyChanged("Multiplier");
                     NotifyPropertyChanged("Quantity");
                     NotifyPropertyChanged("TotalPremium");
+                    NotifyPropertyChanged("DeltaShares");
+                    NotifyPropertyChanged("GammaShares");
+                    NotifyPropertyChanged("VegaShares");
+                    NotifyPropertyChanged("ThetaShares");
+                    NotifyPropertyChanged("RhoShares");
                 }
             }
         }
@@ -592,6 +597,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 {
                     lotSize = value;
                     NotifyPropertyChanged("LotSize");
+                    NotifyPropertyChanged("DeltaShares");
+                    NotifyPropertyChanged("GammaShares");
+                    NotifyPropertyChanged("VegaShares");
+                    NotifyPropertyChanged("ThetaShares");
+                    NotifyPropertyChanged("RhoShares");
                 }
             }
         }
@@ -609,7 +619,12 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                     contracts = value; 
                     NotifyPropertyChanged("Contracts");
                     NotifyPropertyChanged("Quantity");
-                    NotifyPropertyChanged("TotalPremium");                    
+                    NotifyPropertyChanged("TotalPremium");
+                    NotifyPropertyChanged("DeltaShares");
+                    NotifyPropertyChanged("GammaShares");
+                    NotifyPropertyChanged("VegaShares");
+                    NotifyPropertyChanged("ThetaShares");
+                    NotifyPropertyChanged("RhoShares");                    
                 }
             }
         }
@@ -633,7 +648,19 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 if (notionalMillions != value)
                 {
                     notionalMillions = value;
-                    NotifyPropertyChanged("NotionalMillions");                    
+                    NotifyPropertyChanged("NotionalMillions");
+                    
+                    NotifyPropertyChanged("DeltaNotional");
+                    NotifyPropertyChanged("GammaNotional");
+                    NotifyPropertyChanged("ThetaNotional");
+                    NotifyPropertyChanged("VegaNotional");
+                    NotifyPropertyChanged("RhoNotional");
+
+                    NotifyPropertyChanged("DeltaShares");
+                    NotifyPropertyChanged("GammaShares");
+                    NotifyPropertyChanged("VegaShares");
+                    NotifyPropertyChanged("ThetaShares");
+                    NotifyPropertyChanged("RhoShares");
                 }
             }
         }
