@@ -10,10 +10,12 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteGridModuleLibrary.Commands;
+using RequestForQuoteInterfacesLibrary;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
+using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
@@ -93,15 +95,15 @@ namespace RequestForQuoteGridModuleLibrary
             foreach (var status in Enum.GetNames(typeof(StatusEnum)))
                 Status.Add(status);
 
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = "Nomura Securities", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "P 110 23Dec2013 0002.HK", Status = StatusEnum.FILLED, Identifier = 2, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB02" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C+P 90 23Dec2013 0003.HK", Status = StatusEnum.PICKEDUP, Identifier = 3, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.HKD, BookCode = "AB01" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C-P 100 23Dec2013 0004.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 4, Client = "JP Morgan", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB02" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = "Nomura Securities", TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = "Goldman Sachs", TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C+P 100 23Dec2013 0007.HK", Status = StatusEnum.PENDING, Identifier = 7, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB01" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P 100 23Dec2013 0008.HK", Status = StatusEnum.FILLED, Identifier = 8, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.JPY, BookCode = "AB02" });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P-C 110 23Dec2013 0009.HK", Status = StatusEnum.PENDING, Identifier = 9, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB03" });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = "Nomura Securities", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" , HedgeType = HedgeTypeEnum.SHARES});
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "P 110 23Dec2013 0002.HK", Status = StatusEnum.FILLED, Identifier = 2, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C+P 90 23Dec2013 0003.HK", Status = StatusEnum.PICKEDUP, Identifier = 3, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.HKD, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C-P 100 23Dec2013 0004.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 4, Client = "JP Morgan", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = "Nomura Securities", TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = "Goldman Sachs", TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C+P 100 23Dec2013 0007.HK", Status = StatusEnum.PENDING, Identifier = 7, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P 100 23Dec2013 0008.HK", Status = StatusEnum.FILLED, Identifier = 8, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.JPY, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P-C 110 23Dec2013 0009.HK", Status = StatusEnum.PENDING, Identifier = 9, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
             
             Requests = TodaysRequests;
             NotifyPropertyChanged("Requests");
@@ -139,7 +141,7 @@ namespace RequestForQuoteGridModuleLibrary
             if (SelectedRequest.Popup == null)
             {
                 IRequestForQuoteDetailsPopupWindow requestForQuotePopup = ServiceLocator.Current.GetInstance<IRequestForQuoteDetailsPopupWindow>();
-                //TODO make this a ctor param:
+                // TODO make this a ctor param:
 
                 SelectedRequest.Popup = requestForQuotePopup;
                 requestForQuotePopup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
@@ -186,7 +188,7 @@ namespace RequestForQuoteGridModuleLibrary
             return (SelectedRequest == null);
         }
 
-        public void HandleNewClientEvent(NewClientEventPayload eventPayLoad )
+        public void HandleNewClientEvent(NewClientEventPayload eventPayLoad)
         {
             if (log.IsDebugEnabled)
                 log.Debug("Received new client: " + eventPayLoad);
@@ -215,7 +217,7 @@ namespace RequestForQuoteGridModuleLibrary
             Requests.Add(request);
             // TODO
 
-            if(log.IsDebugEnabled)
+            if (log.IsDebugEnabled)
                 log.Debug("Received published new request for quote => " + request);
         }
 
@@ -281,12 +283,12 @@ namespace RequestForQuoteGridModuleLibrary
                                 return false;
                             break;
                         // TODO
-                        //case RequestForQuoteConstants.UNDERLYIER_CRITERION:
+                        // case RequestForQuoteConstants.UNDERLYIER_CRITERION:
                         //    if (request.RIC != criterion.Value)
                         //        return false;
                         //    break;
                         case RequestForQuoteConstants.STATUS_CRITERION:
-                            if (request.Status != (StatusEnum) Enum.Parse(typeof(StatusEnum), criterion.Value))
+                            if (request.Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
                                 return false;
                             break;
                         case RequestForQuoteConstants.TRADE_DATE_CRITERION:
@@ -316,15 +318,15 @@ namespace RequestForQuoteGridModuleLibrary
                 if (dates.Count() == 2)
                 {
                     startDate = Convert.ToDateTime(dates[0]);
-                     endDate =  Convert.ToDateTime(dates[1]);
+                    endDate = Convert.ToDateTime(dates[1]);
                     return dateToCheck >= startDate && dateToCheck <= endDate;
                 }
-                if(dates.Count() == 1 && criterionValue[0] != '-')
+                if (dates.Count() == 1 && criterionValue[0] != '-')
                 {
                     startDate = Convert.ToDateTime(dates[0]);
                     return dateToCheck >= startDate;
                 }
-                if(dates.Count() == 1 && criterionValue[0] == '-')
+                if (dates.Count() == 1 && criterionValue[0] == '-')
                 {
                     endDate = Convert.ToDateTime(dates[0]);
                     return dateToCheck <= endDate;                    
@@ -359,13 +361,13 @@ namespace RequestForQuoteGridModuleLibrary
         }
 
         public static readonly DependencyProperty NewRequestProperty =
-            DependencyProperty.Register("NewRequest", typeof(string), typeof(RequestForQuoteGridViewModel), new UIPropertyMetadata(""));
+            DependencyProperty.Register("NewRequest", typeof(string), typeof(RequestForQuoteGridViewModel), new UIPropertyMetadata(String.Empty));
 
         public void GroupRequests(string groupBy)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(Requests);
             view.GroupDescriptions.Clear();
-            if(groupBy != "Undo Grouping")
+            if (groupBy != "Undo Grouping")
                 view.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));
         }
 
@@ -407,12 +409,12 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void ClearNewRequest()
         {
-            NewRequest = "";
+            NewRequest = String.Empty;
         }
 
         public void ChangeStatusOfRequest(StatusEnum status)
         {
-            if(!IsSelectRequestNull())
+            if (!IsSelectRequestNull())
                 SelectedRequest.Status = status;
         }
 
@@ -423,7 +425,7 @@ namespace RequestForQuoteGridModuleLibrary
                 SelectedRequest.PickedUpBy = RequestForQuoteConstants.MY_USER_NAME;
                 SelectedRequest.Status = StatusEnum.PICKEDUP;
 
-                if(log.IsDebugEnabled)
+                if (log.IsDebugEnabled)
                     log.Debug("Request => " + SelectedRequest.Request + " picked up by => " + SelectedRequest.PickedUpBy);
             }
         }
@@ -432,7 +434,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }

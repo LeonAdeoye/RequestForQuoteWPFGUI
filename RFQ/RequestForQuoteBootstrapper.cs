@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
 using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;

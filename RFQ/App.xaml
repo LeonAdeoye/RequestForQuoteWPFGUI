@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
-             xmlns:converters="clr-namespace:RequestForQuoteInterfacesLibrary.Converters;assembly=RequestForQuoteInterfacesLibrary">
+             xmlns:converters="clr-namespace:RequestForQuoteInterfacesLibrary.Converters;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:requestForQuoteInterfacesLibrary="clr-namespace:RequestForQuoteInterfacesLibrary;assembly=RequestForQuoteInterfacesLibrary">
     <Application.Resources>
         
         <ResourceDictionary>
@@ -23,6 +24,11 @@
                     <x:Type TypeName="Enums:PrivacyEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
+            <ObjectDataProvider x:Key="HedgeTypeEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum }">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Enums:HedgeTypeEnum"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>            
             <ObjectDataProvider x:Key="CriteriaTypeEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum }">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="Enums:CriteriaTypeEnum"/>

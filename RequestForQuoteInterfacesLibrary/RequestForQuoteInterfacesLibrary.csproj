@@ -90,7 +90,7 @@
     <Compile Include="Events\NewClientEvent.cs" />
     <Compile Include="Events\NewBookEvent.cs" />
     <Compile Include="Events\GetTodaysRequestsEvent.cs" />
-    <Compile Include="HedgeTypeEnum.cs" />
+    <Compile Include="Enums\HedgeTypeEnum.cs" />
     <Compile Include="ModelImplementations\BankHolidayImpl.cs" />
     <Compile Include="ModelImplementations\BookImpl.cs" />
     <Compile Include="ModelImplementations\ClientImpl.cs" />
@@ -101,6 +101,7 @@
     <Compile Include="ModelImplementations\ChatMessageImpl.cs" />
     <Compile Include="ModelImplementations\OptionDetailImpl.cs" />
     <Compile Include="ModelImplementations\ProductImpl.cs" />
+    <Compile Include="ModelImplementations\RequestForQuoteImpl.cs" />
     <Compile Include="ModelImplementations\SearchImpl.cs" />
     <Compile Include="ModelInterfaces\IBankHoliday.cs" />
     <Compile Include="ServiceInterfaces\IBankHolidayManager.cs" />

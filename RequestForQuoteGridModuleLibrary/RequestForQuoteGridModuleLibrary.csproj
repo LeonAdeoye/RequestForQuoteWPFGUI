@@ -79,7 +79,6 @@
       <DependentUpon>RequestForQuoteGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="RequestForQuoteGridModule.cs" />
-    <Compile Include="RequestForQuoteImpl.cs" />
     <Compile Include="RequestForQuoteGridViewModel.cs" />
     <Compile Include="RequestForQuoteLegDetails.xaml.cs">
       <DependentUpon>RequestForQuoteLegDetails.xaml</DependentUpon>

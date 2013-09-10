@@ -17,7 +17,6 @@ namespace RequestForQuoteGridModuleLibrary
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteGridModule constructed successfully.");
-
         }
 
         public void Initialize()

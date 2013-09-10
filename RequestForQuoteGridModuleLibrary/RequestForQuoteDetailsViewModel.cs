@@ -27,7 +27,7 @@ namespace RequestForQuoteGridModuleLibrary
             if (firstMessage != null && secondMessage != null)
             {
                 result = firstMessage.SequenceId.CompareTo(secondMessage.SequenceId);
-                if(result == 0)
+                if (result == 0)
                     return firstMessage.TimeStamp.CompareTo(secondMessage.TimeStamp);
             }
             return result;
@@ -66,7 +66,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         // Using a DependencyProperty as the backing store for MessageToBeSent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MessageToBeSentProperty =
-            DependencyProperty.Register("MessageToBeSent", typeof(string), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(""));
+            DependencyProperty.Register("MessageToBeSent", typeof(string), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(String.Empty));
 
         public RequestForQuoteDetailsViewModel(IOptionRequestPricer optionRequestPricer, IRequestForQuote requestForQuote,
                                                 IClientManager clientManager, IBookManager bookManager, IEventAggregator eventAggregator,
@@ -91,7 +91,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             SaveRequestCommand = new DelegateCommand<string>(Save, CanSave);
             ClosePopupCommand = new DelegateCommand<string>(Save, CanSave);
-            SendChatMessageCommand = new DelegateCommand(SendChatMessage, (() => true));            
+            SendChatMessageCommand = new DelegateCommand(SendChatMessage, () => true);            
         }
 
         private void InitializeCollections()
@@ -191,6 +191,7 @@ namespace RequestForQuoteGridModuleLibrary
                 originalRequestForQuote.Status = ClonedRequest.Status;
                 originalRequestForQuote.BookCode = ClonedRequest.BookCode;
                 originalRequestForQuote.TradeDate = ClonedRequest.TradeDate;
+                originalRequestForQuote.ExpiryDate = ClonedRequest.ExpiryDate;
 
                 originalRequestForQuote.LotSize = ClonedRequest.LotSize;
                 originalRequestForQuote.IsOTC = ClonedRequest.IsOTC;

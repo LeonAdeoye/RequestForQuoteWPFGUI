@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using RequestForQuoteInterfacesLibrary.Enums;
-using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
-using RequestForQuoteInterfacesLibrary;
 
-namespace RequestForQuoteGridModuleLibrary
+namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     public class RequestForQuoteImpl : IRequestForQuote, INotifyPropertyChanged
     {
@@ -57,6 +55,7 @@ namespace RequestForQuoteGridModuleLibrary
         private decimal askFinalPercentage;
 
         private DateTime tradeDate;
+        private DateTime expiryDate;
         private string client;
         private StatusEnum status;
         private string bookCode;
@@ -84,6 +83,7 @@ namespace RequestForQuoteGridModuleLibrary
             clone.Status = status;
             clone.Client = client;
             clone.TradeDate = tradeDate;
+            clone.ExpiryDate = expiryDate;
             clone.Request = request;
             clone.IsOTC = isOTC;
 
@@ -223,6 +223,8 @@ namespace RequestForQuoteGridModuleLibrary
             builder.Append(vega);
             builder.Append(", trade date: ");
             builder.Append(tradeDate);
+            builder.Append(", expiry date: ");
+            builder.Append(expiryDate);
             builder.Append(", theta: ");
             builder.Append(theta);
             builder.Append(", rho: ");
@@ -396,6 +398,22 @@ namespace RequestForQuoteGridModuleLibrary
                 {
                     tradeDate = value;
                     NotifyPropertyChanged("TradeDate");
+                }
+            }
+        }
+
+        public DateTime ExpiryDate
+        {
+            get
+            {
+                return expiryDate;
+            }
+            set
+            {
+                if (expiryDate != value)
+                {
+                    expiryDate = value;
+                    NotifyPropertyChanged("ExpiryDate");
                 }
             }
         }
@@ -1055,7 +1073,9 @@ namespace RequestForQuoteGridModuleLibrary
             {
                 // TODO verify
                 if (lotSize == 0)
+                {
                     return 0;
+                }
 
                 return (Math.Floor(vega * Quantity) / lotSize) * lotSize;
             }
