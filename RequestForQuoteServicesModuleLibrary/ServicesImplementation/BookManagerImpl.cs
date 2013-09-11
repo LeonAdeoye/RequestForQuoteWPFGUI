@@ -62,9 +62,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             });
         }
 
-        public void UpdateValidity(string bookCode, bool isValid)
+        public bool UpdateValidity(string bookCode, bool isValid)
         {
-            bookControllerProxy.updateValidity(bookCode, isValid);
+            return bookControllerProxy.updateValidity(bookCode, isValid);
+        }
+
+        bool IBookManager.RemoveBook(string bookCode)
+        {
+            return bookControllerProxy.delete(bookCode);
         }
     }
 }

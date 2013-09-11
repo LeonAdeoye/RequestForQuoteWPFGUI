@@ -8,7 +8,7 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
     {
         List<IBook> Books { get; set; }
         void AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase);
-        // TODO void RemoveBook(string bookCode);
-        void UpdateValidity(string bookCode, bool isValid);
+        bool RemoveBook(string bookCode);
+        bool UpdateValidity(string bookCode, bool isValid);
     }
 }

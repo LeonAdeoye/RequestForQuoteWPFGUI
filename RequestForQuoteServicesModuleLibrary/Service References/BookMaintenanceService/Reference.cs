@@ -26,9 +26,10 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAllResponse EndgetAll(System.IAsyncResult result);
         
-        // CODEGEN: Parameter 'bookCode' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.saveResponse save(RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -36,9 +37,10 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.saveResponse Endsave(System.IAsyncResult result);
         
-        // CODEGEN: Parameter 'bookCode' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidityResponse updateValidity(RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidity request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -46,9 +48,10 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidityResponse EndupdateValidity(System.IAsyncResult result);
         
-        // CODEGEN: Parameter 'bookCode' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.deleteResponse delete(RequestForQuoteServicesModuleLibrary.BookMaintenanceService.delete request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -179,7 +182,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="saveResponse", WrapperNamespace="http://book.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class saveResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://book.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public saveResponse() {
+        }
+        
+        public saveResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -212,7 +223,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="updateValidityResponse", WrapperNamespace="http://book.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class updateValidityResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://book.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public updateValidityResponse() {
+        }
+        
+        public updateValidityResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -240,7 +259,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="deleteResponse", WrapperNamespace="http://book.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class deleteResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://book.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public deleteResponse() {
+        }
+        
+        public deleteResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -263,6 +290,63 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((bookDetail[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class saveCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public saveCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class updateValidityCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public updateValidityCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class deleteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public deleteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
             }
         }
     }
@@ -316,11 +400,11 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         public event System.EventHandler<getAllCompletedEventArgs> getAllCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> saveCompleted;
+        public event System.EventHandler<saveCompletedEventArgs> saveCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> updateValidityCompleted;
+        public event System.EventHandler<updateValidityCompletedEventArgs> updateValidityCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> deleteCompleted;
+        public event System.EventHandler<deleteCompletedEventArgs> deleteCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAllResponse RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController.getAll(RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAll request) {
@@ -394,12 +478,13 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public void save(string bookCode, string entity, string updatedByUser) {
+        public bool save(string bookCode, string entity, string updatedByUser) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save();
             inValue.bookCode = bookCode;
             inValue.entity = entity;
             inValue.updatedByUser = updatedByUser;
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).save(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -422,8 +507,9 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void Endsave(System.IAsyncResult result) {
+        public bool Endsave(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).Endsave(result);
+            return retVal.@return;
         }
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -434,14 +520,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
-            this.Endsave(result);
-            return null;
+            bool retVal = this.Endsave(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnsaveCompleted(object state) {
             if ((this.saveCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.saveCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.saveCompleted(this, new saveCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -470,11 +557,12 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             return base.Channel.updateValidity(request);
         }
         
-        public void updateValidity(string bookCode, bool isValid) {
+        public bool updateValidity(string bookCode, bool isValid) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidity inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidity();
             inValue.bookCode = bookCode;
             inValue.isValid = isValid;
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidityResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).updateValidity(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -496,8 +584,9 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void EndupdateValidity(System.IAsyncResult result) {
+        public bool EndupdateValidity(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.updateValidityResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).EndupdateValidity(result);
+            return retVal.@return;
         }
         
         private System.IAsyncResult OnBeginupdateValidity(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -507,14 +596,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         private object[] OnEndupdateValidity(System.IAsyncResult result) {
-            this.EndupdateValidity(result);
-            return null;
+            bool retVal = this.EndupdateValidity(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnupdateValidityCompleted(object state) {
             if ((this.updateValidityCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.updateValidityCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.updateValidityCompleted(this, new updateValidityCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -542,10 +632,11 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             return base.Channel.delete(request);
         }
         
-        public void delete(string bookCode) {
+        public bool delete(string bookCode) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.delete();
             inValue.bookCode = bookCode;
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).delete(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -566,8 +657,9 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void Enddelete(System.IAsyncResult result) {
+        public bool Enddelete(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).Enddelete(result);
+            return retVal.@return;
         }
         
         private System.IAsyncResult OnBegindelete(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -576,14 +668,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         private object[] OnEnddelete(System.IAsyncResult result) {
-            this.Enddelete(result);
-            return null;
+            bool retVal = this.Enddelete(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OndeleteCompleted(object state) {
             if ((this.deleteCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.deleteCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.deleteCompleted(this, new deleteCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         

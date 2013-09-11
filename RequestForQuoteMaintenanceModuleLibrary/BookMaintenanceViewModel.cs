@@ -110,8 +110,10 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public void UpdateValidity()
         {
-            SelectedBook.IsValid = !SelectedBook.IsValid;
-            bookManager.UpdateValidity(SelectedBook.BookCode, SelectedBook.IsValid);  
+            if (!bookManager.UpdateValidity(SelectedBook.BookCode, !SelectedBook.IsValid))
+                MessageBox.Show("Failed to update validity of the book with the book code " + SelectedBook.BookCode, "Book Management Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+                SelectedBook.IsValid = !SelectedBook.IsValid;
         }
 
         public IBook SelectedBook
