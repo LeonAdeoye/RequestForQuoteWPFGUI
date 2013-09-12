@@ -40,15 +40,16 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }            
         }
 
-        public void AddUnderlyier(string RIC, string BBG, string description, bool isValid, bool saveToDatabase)
+        public bool AddUnderlyier(string RIC, string BBG, string description, bool isValid, bool saveToDatabase)
         {
+            //var wasSavedToDatabse = false;
             var newUnderlyier = new UnderlyierImpl() {BBG = "JP 5678", Description = "Nomura Securities", RIC = "5678.T"};
 
             // Add to collection
             Underlyiers.Add(newUnderlyier);
 
-            
-            //if (saveToDatabase)
+            // TODO
+            // if (saveToDatabase)
                 // Save to database
 
             // Publish event for other observer view models
@@ -56,11 +57,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 NewUnderlyier = newUnderlyier
             });
+
+            // TODO return !saveToDatabase || wasSavedToDatabase
+            return true;
         }
 
-        public void RemoveUnderlyier()
+        public bool RemoveUnderlyier()
         {
-
+            return true;
         }
     }
 }

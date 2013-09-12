@@ -375,22 +375,31 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void UpdatePrivacy()
         {
-            SelectedSearch.IsPrivate = !SelectedSearch.IsPrivate;
-            searchManager.UpdatePrivacy(SelectedSearch.Owner, SelectedSearch.DescriptionKey, SelectedSearch.IsPrivate);            
+            if (searchManager.UpdatePrivacy(SelectedSearch.Owner, SelectedSearch.DescriptionKey, !SelectedSearch.IsPrivate))
+                SelectedSearch.IsPrivate = !SelectedSearch.IsPrivate;
+            else
+                MessageBox.Show("Failed to update privacy of search " + SelectedSearch.DescriptionKey,
+                                "Search Management Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
 
         public void DeleteSearch()
         {
-            searchManager.DeleteSearch(SelectedSearch.Owner, SelectedSearch.DescriptionKey);
-            for (int index = 0; index < Searches.Count; index++)
+            if (searchManager.DeleteSearch(SelectedSearch.Owner, SelectedSearch.DescriptionKey))
             {
-                var search = Searches[index];
-                if (search.Owner == SelectedSearch.Owner && search.DescriptionKey == SelectedSearch.DescriptionKey)
+                for (int index = 0; index < Searches.Count; index++)
                 {
-                    Searches.RemoveAt(index);
-                    break;
-                }                    
+                    var search = Searches[index];
+                    if (search.Owner == SelectedSearch.Owner && search.DescriptionKey == SelectedSearch.DescriptionKey)
+                    {
+                        Searches.RemoveAt(index);
+                        break;
+                    }
+                }
             }
+            else
+                MessageBox.Show("Failed to delete search " + SelectedSearch.DescriptionKey, 
+                                "Search Management Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public void LaunchSaveSearchWindow()
@@ -487,8 +496,14 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public void SaveSearch()
         {
             if (criteria.Count > 0 && !string.IsNullOrEmpty(CriteriaDescriptionKey))
-                searchManager.SaveSearch(RequestForQuoteConstants.MY_USER_NAME, CriteriaDescriptionKey, 
-                    PrivacyOfCriteria == PrivacyEnum.PRIVATE, TypeOfCriteria == CriteriaTypeEnum.FILTER, criteria);
+            {
+                if (!searchManager.SaveSearch(RequestForQuoteConstants.MY_USER_NAME, CriteriaDescriptionKey,
+                                              PrivacyOfCriteria == PrivacyEnum.PRIVATE, TypeOfCriteria == CriteriaTypeEnum.FILTER, criteria))
+                {
+                    MessageBox.Show("Failed to save search " + CriteriaDescriptionKey, "Search Management Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);                    
+                }
+            }                
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

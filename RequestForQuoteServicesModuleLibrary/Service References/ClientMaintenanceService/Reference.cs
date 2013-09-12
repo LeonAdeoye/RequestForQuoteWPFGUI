@@ -15,14 +15,16 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://client.rfq.ws.leon.com/", ConfigurationName="ClientMaintenanceService.ClientController")]
     public interface ClientController {
         
-        // CODEGEN: Parameter 'name' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.saveResponse save(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save request);
         
-        // CODEGEN: Parameter 'identifier' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidityResponse updateValidity(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidity request);
         
         // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
@@ -31,14 +33,16 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.getAllResponse getAll(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.getAll request);
         
-        // CODEGEN: Parameter 'identifier' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.deleteResponse delete(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete request);
         
-        // CODEGEN: Parameter 'identifier' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTierResponse updateTier(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier request);
     }
     
@@ -71,7 +75,15 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="saveResponse", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class saveResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public saveResponse() {
+        }
+        
+        public saveResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -104,12 +116,20 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="updateValidityResponse", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class updateValidityResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public updateValidityResponse() {
+        }
+        
+        public updateValidityResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1009")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -234,7 +254,15 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="deleteResponse", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class deleteResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public deleteResponse() {
+        }
+        
+        public deleteResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -267,7 +295,15 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="updateTierResponse", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class updateTierResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public updateTierResponse() {
+        }
+        
+        public updateTierResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -303,11 +339,12 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public void save(string name, int tier) {
+        public bool save(string name, int tier) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save();
             inValue.name = name;
             inValue.tier = tier;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).save(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -315,11 +352,12 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.updateValidity(request);
         }
         
-        public void updateValidity(int identifier, bool isValid) {
+        public bool updateValidity(int identifier, bool isValid) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidity inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidity();
             inValue.identifier = identifier;
             inValue.isValid = isValid;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidityResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).updateValidity(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -338,10 +376,11 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.delete(request);
         }
         
-        public void delete(int identifier) {
+        public bool delete(int identifier) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete();
             inValue.identifier = identifier;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).delete(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -349,11 +388,12 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.updateTier(request);
         }
         
-        public void updateTier(int identifier, int tier) {
+        public bool updateTier(int identifier, int tier) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier();
             inValue.identifier = identifier;
             inValue.tier = tier;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTierResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).updateTier(inValue);
+            return retVal.@return;
         }
     }
 }

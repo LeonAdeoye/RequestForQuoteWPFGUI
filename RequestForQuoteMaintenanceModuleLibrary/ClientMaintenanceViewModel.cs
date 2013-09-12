@@ -107,8 +107,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             {
                 if (NewClientTier.HasValue)
                 {
-                    clientManager.AddClient(NewClientName, NewClientTier.Value, RequestForQuoteConstants.VALID, RequestForQuoteConstants.SAVE_TO_DATABASE);
-                    ClearInput();                    
+                    if (clientManager.AddClient(NewClientName, NewClientTier.Value, RequestForQuoteConstants.VALID, RequestForQuoteConstants.SAVE_TO_DATABASE))
+                        ClearInput();
+                    else
+                        MessageBox.Show("Failed to add new client " + NewClientName +
+                                        "perhaps due to a web service error! Pls consult log files.");
                 }
                 else
                     MessageBox.Show("Cannot add the client: " + NewClientName + " because client tier is invalid!",
@@ -121,7 +124,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public bool CanAddNewItem()
         {
-            //TODO
+            // TODO the NewClientTier.HasValue part does not work when you select from the tier combobox.
             return !string.IsNullOrEmpty(NewClientName) && NewClientTier.HasValue;    
         }
 
@@ -134,8 +137,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public void UpdateValidity()
         {
-            SelectedClient.IsValid = !SelectedClient.IsValid;
-            clientManager.UpdateValidity(SelectedClient.Identifier, SelectedClient.IsValid);
+            if (clientManager.UpdateValidity(SelectedClient.Identifier, !SelectedClient.IsValid))
+                SelectedClient.IsValid = !SelectedClient.IsValid;
+            else
+                MessageBox.Show("Failed to update validity of client " + SelectedClient.Name, "Client Maintenance Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

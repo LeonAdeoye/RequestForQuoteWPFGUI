@@ -15,14 +15,10 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://search.rfq.ws.leon.com/", ConfigurationName="SearchCriteriaService.SearchController")]
     public interface SearchController {
         
-        // CODEGEN: Parameter 'owner' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse save(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save request);
-        
-        // CODEGEN: Parameter 'owner' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacyResponse updatePrivacy(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacy request);
         
         // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
@@ -31,63 +27,23 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getAllResponse getAll(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getAll request);
         
-        // CODEGEN: Parameter 'owner' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse save(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save request);
+        
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.SearchCriteriaService.deleteResponse delete(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.delete request);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="save", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class save {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string owner;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string key;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=2)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string controlName;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=3)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string controlValue;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=4)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool isPrivate;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=5)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool isFilter;
-        
-        public save() {
-        }
-        
-        public save(string owner, string key, string controlName, string controlValue, bool isPrivate, bool isFilter) {
-            this.owner = owner;
-            this.key = key;
-            this.controlName = controlName;
-            this.controlValue = controlValue;
-            this.isPrivate = isPrivate;
-            this.isFilter = isFilter;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="saveResponse", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class saveResponse {
-        
-        public saveResponse() {
-        }
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getResponse get(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -124,12 +80,20 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="updatePrivacyResponse", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class updatePrivacyResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public updatePrivacyResponse() {
+        }
+        
+        public updatePrivacyResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1009")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -289,6 +253,67 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="save", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class save {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string owner;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string key;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string controlName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string controlValue;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool isPrivate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool isFilter;
+        
+        public save() {
+        }
+        
+        public save(string owner, string key, string controlName, string controlValue, bool isPrivate, bool isFilter) {
+            this.owner = owner;
+            this.key = key;
+            this.controlName = controlName;
+            this.controlValue = controlValue;
+            this.isPrivate = isPrivate;
+            this.isFilter = isFilter;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="saveResponse", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class saveResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
+        public saveResponse() {
+        }
+        
+        public saveResponse(bool @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="delete", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class delete {
         
@@ -315,7 +340,56 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="deleteResponse", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class deleteResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public deleteResponse() {
+        }
+        
+        public deleteResponse(bool @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="get", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class get {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string owner;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string key;
+        
+        public get() {
+        }
+        
+        public get(string owner, string key) {
+            this.owner = owner;
+            this.key = key;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getResponse", WrapperNamespace="http://search.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class getResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public searchCriterion[] @return;
+        
+        public getResponse() {
+        }
+        
+        public getResponse(searchCriterion[] @return) {
+            this.@return = @return;
         }
     }
     
@@ -347,32 +421,17 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController.save(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save request) {
-            return base.Channel.save(request);
-        }
-        
-        public void save(string owner, string key, string controlName, string controlValue, bool isPrivate, bool isFilter) {
-            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save();
-            inValue.owner = owner;
-            inValue.key = key;
-            inValue.controlName = controlName;
-            inValue.controlValue = controlValue;
-            inValue.isPrivate = isPrivate;
-            inValue.isFilter = isFilter;
-            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).save(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacyResponse RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController.updatePrivacy(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacy request) {
             return base.Channel.updatePrivacy(request);
         }
         
-        public void updatePrivacy(string owner, string key, bool isPrivate) {
+        public bool updatePrivacy(string owner, string key, bool isPrivate) {
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacy inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacy();
             inValue.owner = owner;
             inValue.key = key;
             inValue.isPrivate = isPrivate;
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.updatePrivacyResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).updatePrivacy(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -387,15 +446,46 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController.save(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save request) {
+            return base.Channel.save(request);
+        }
+        
+        public bool save(string owner, string key, string controlName, string controlValue, bool isPrivate, bool isFilter) {
+            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.save();
+            inValue.owner = owner;
+            inValue.key = key;
+            inValue.controlName = controlName;
+            inValue.controlValue = controlValue;
+            inValue.isPrivate = isPrivate;
+            inValue.isFilter = isFilter;
+            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).save(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         RequestForQuoteServicesModuleLibrary.SearchCriteriaService.deleteResponse RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController.delete(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.delete request) {
             return base.Channel.delete(request);
         }
         
-        public void delete(string owner, string key) {
+        public bool delete(string owner, string key) {
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.delete inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.delete();
             inValue.owner = owner;
             inValue.key = key;
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).delete(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getResponse RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController.get(RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get request) {
+            return base.Channel.get(request);
+        }
+        
+        public searchCriterion[] get(string owner, string key) {
+            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get();
+            inValue.owner = owner;
+            inValue.key = key;
+            RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).get(inValue);
+            return retVal.@return;
         }
     }
 }

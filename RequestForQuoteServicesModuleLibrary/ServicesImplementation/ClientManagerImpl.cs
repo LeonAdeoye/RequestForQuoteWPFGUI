@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
@@ -44,8 +45,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public void AddClient(string name, int tier, bool isValid, bool canSaveToDatabase)
+        public bool AddClient(string name, int tier, bool isValid, bool canSaveToDatabase)
         {
+            var wasSavedToDatabase = false;
             var newClient = new ClientImpl() {Identifier = ++startingIdentifier, Name = name, IsValid = isValid, Tier = tier};
             
             // Add to collection
@@ -53,28 +55,33 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             // Save to database
             if (canSaveToDatabase)
-                clientControllerProxy.save(name, tier);
-    
+                wasSavedToDatabase = clientControllerProxy.save(name, tier);
+
+            // TODO verify that this needs to be called even if canSaveToDatabase = false;
             // Publish event for other observer view models
             eventAggregator.GetEvent<NewClientEvent>().Publish(new NewClientEventPayload()
             {
                 NewClient = newClient
             });
+
+            // if no save is required then this should return true
+            // otherwise if saved required the save through web service proxy must succeed.
+            return !canSaveToDatabase || wasSavedToDatabase;
         }
 
-        public void RemoveClient(int identifier)
+        public bool RemoveClient(int identifier)
         {
-            clientControllerProxy.delete(identifier);    
+            return clientControllerProxy.delete(identifier);
         }
 
-        public void UpdateTier(int identifier, int tier)
+        public bool UpdateTier(int identifier, int tier)
         {
-            clientControllerProxy.updateTier(identifier, tier);
+            return clientControllerProxy.updateTier(identifier, tier);
         }
 
-        public void UpdateValidity(int identifier, bool isValid)
+        public bool UpdateValidity(int identifier, bool isValid)
         {
-            clientControllerProxy.updateValidity(identifier, isValid);
+            return clientControllerProxy.updateValidity(identifier, isValid);
         }
     }
 }

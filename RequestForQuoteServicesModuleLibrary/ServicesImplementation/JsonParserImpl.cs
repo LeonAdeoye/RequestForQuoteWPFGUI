@@ -93,7 +93,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
                 IUnderlyier newUnderlyier = (UnderlyierImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, false);
+                if(!underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, false))
+                    log.Error("Failed to add undelyier with RIC " + newUnderlyier.RIC + " from properly deserialized json.");
             }
             catch (Exception exc)
             {

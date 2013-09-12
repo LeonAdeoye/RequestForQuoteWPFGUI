@@ -43,8 +43,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public void AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase)
+        public bool AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase)
         {
+            var wasSavedToDatabase = false;
             var newBook = new BookImpl() { BookCode = bookCode, Entity = entity, IsValid = isValid };
             
             // Add to collection...
@@ -52,14 +53,18 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             // Add to database...
             if (canSaveToDatabase)
-                bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
+                wasSavedToDatabase = bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
 
             // Publish event for other observer view models
-            // TODO - does this not need to be inside the above if statement?
+            // TODO - does this not need to be inside the above if statement? Verify
             eventAggregator.GetEvent<NewBookEvent>().Publish(new NewBookEventPayload()
             {
                 NewBook = newBook
             });
+
+            // if no save is required then this should return true
+            // otherwise if saved required the save through web service proxy must succeed.
+            return !canSaveToDatabase || wasSavedToDatabase;
         }
 
         public bool UpdateValidity(string bookCode, bool isValid)

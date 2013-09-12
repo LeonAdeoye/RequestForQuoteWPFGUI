@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -24,21 +25,23 @@ namespace RequestForQuoteServicesModuleLibrary
 
         public void Initialize()
         {
+            Task[] tasks = new Task[4];
+
             var underlyingManager = new UnderlyingManagerImpl();
-            underlyingManager.Initialize();
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
+            tasks[0] = Task.Factory.StartNew(underlyingManager.Initialize);
 
             var clientManager = new ClientManagerImpl();
-            clientManager.Initialize();
             container.RegisterInstance<IClientManager>(clientManager);
+            tasks[1] = Task.Factory.StartNew(clientManager.Initialize);
 
             var bookManager = new BookManagerImpl();
-            bookManager.Initialize();
             container.RegisterInstance<IBookManager>(bookManager);
+            tasks[2] = Task.Factory.StartNew(bookManager.Initialize);
 
             var bankHolidayManager = new BankHolidayManagerImpl();
-            bankHolidayManager.Initialize();
             container.RegisterInstance<IBankHolidayManager>(bankHolidayManager);
+            tasks[3] = Task.Factory.StartNew(bankHolidayManager.Initialize);
 
             container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager());
@@ -48,8 +51,24 @@ namespace RequestForQuoteServicesModuleLibrary
 
             InitializeServerCommunicator();
 
-            if (log.IsDebugEnabled)
-                log.Debug("RequestForQuoteServicesModule initialized successfully.");
+            // Exceptions thrown by tasks will be propagated to the main thread 
+            // while it waits for the tasks. The actual exceptions will be wrapped in AggregateException. 
+            try
+            {
+                // Wait for all the tasks to finish.
+                Task.WaitAll(tasks);
+                
+                if(log.IsDebugEnabled)
+                    log.Debug("Successfully completed initialization of all service implementations");
+            }
+            catch (AggregateException e)
+            {
+                foreach (Exception exception in e.InnerExceptions)
+                {
+                    log.Error("Catastrophic failure! Exception thrown: " + exception);
+                    throw new ModuleInitializeException();
+                }
+            }
         }
 
         private void InitializeServerCommunicator()

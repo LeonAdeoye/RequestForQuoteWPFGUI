@@ -60,8 +60,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
         
-        public void SaveSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, IDictionary<string, string> criteria)
+        public bool SaveSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, IDictionary<string, string> criteria)
         {
+            var wasSavedToDatabase = false;
             var newCriteria = new Dictionary<string, string>(criteria);
             var newSearch = new SearchImpl
                 {
@@ -75,24 +76,36 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             Searches.Add(newSearch);
 
             foreach (var criterion in criteria)
-                searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, criterion.Key, criterion.Value, isPrivate, isFilter);
+            {
+                wasSavedToDatabase = searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, criterion.Key, criterion.Value, isPrivate, isFilter);
+                if (!wasSavedToDatabase)
+                    break;
+            }
                                     
             eventAggregator.GetEvent<NewSearchEvent>().Publish(new NewSearchEventPayload()
             {
                 NewSearch = newSearch,
             });
+
+            // if no save is required then this should return true
+            // otherwise if saved required the save through web service proxy must succeed.
+            return wasSavedToDatabase;
         }
 
-        public void DeleteSearch(string owner, string descriptionKey)
+        public bool DeleteSearch(string owner, string descriptionKey)
         {
             // Remove from Searches and delete from database.
-            searchContollerProxy.delete(owner, descriptionKey);
-            Searches.RemoveAll((existingSearch) => existingSearch.Owner == owner && existingSearch.DescriptionKey == descriptionKey);
+            if (searchContollerProxy.delete(owner, descriptionKey))
+            {
+                Searches.RemoveAll((existingSearch) => existingSearch.Owner == owner && existingSearch.DescriptionKey == descriptionKey);
+                return true;
+            }
+            return false;
         }
 
-        public void UpdatePrivacy(string owner, string descriptionKey, bool isPrivate)
+        public bool UpdatePrivacy(string owner, string descriptionKey, bool isPrivate)
         {
-            searchContollerProxy.updatePrivacy(owner, descriptionKey, isPrivate);   
+            return searchContollerProxy.updatePrivacy(owner, descriptionKey, isPrivate);   
         }
     }
 }

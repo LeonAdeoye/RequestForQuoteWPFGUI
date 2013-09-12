@@ -70,8 +70,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return !IsHoliday(dateToValidate, location) && dateToValidate.DayOfWeek != DayOfWeek.Saturday && dateToValidate.DayOfWeek != DayOfWeek.Sunday;
         }
 
-        public void AddHoliday(DateTime holidayDate, LocationEnum location, bool canSaveToDatabase)
+        public bool AddHoliday(DateTime holidayDate, LocationEnum location, bool canSaveToDatabase)
         {
+            var wasSavedInDatabase = false;
+
             SortedDictionary<DateTime, DateTime> holidaysInLocation;
             if (BankHolidays.TryGetValue(location, out holidaysInLocation))
             {
@@ -83,17 +85,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             
             // TODO - probably makes more sense to move below into two separate methods
             if (canSaveToDatabase)
-            {
-                // Save to the database...
-                holidayControllerProxy.save(location.ToString(), holidayDate, RequestForQuoteConstants.MY_USER_NAME);
+                wasSavedInDatabase = holidayControllerProxy.save(location.ToString(), holidayDate, RequestForQuoteConstants.MY_USER_NAME);
 
-                // Publish event for other observer view models...
-                eventAggregator.GetEvent<NewBankHolidayEvent>().Publish(new NewBankHolidayEventPayload()
-                {
-                    NewBankHolidayDate = holidayDate,
-                    Location = location
-                });                
-            }
+            // TODO verify that this needs to be called even if canSaveToDatabase == false
+            // Publish event for other observer view models...
+            eventAggregator.GetEvent<NewBankHolidayEvent>().Publish(new NewBankHolidayEventPayload()
+            {
+                NewBankHolidayDate = holidayDate,
+                Location = location
+            });                
+
+            return !canSaveToDatabase || wasSavedInDatabase;
         }
 
         public List<IBankHoliday> GetHolidaysInLocation(LocationEnum location)
@@ -112,13 +114,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             try
             {
                 var allHolidays = holidayControllerProxy.getAll();
-
                 foreach (var bankHoliday in holidayControllerProxy.getAll())
                 {
                     LocationEnum locationEnumValue;
-                    if (!string.IsNullOrEmpty(bankHoliday.location) && Enum.TryParse(bankHoliday.location, true, out locationEnumValue))
-                        AddHoliday(bankHoliday.holidayDate, locationEnumValue, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE);
-                    else
+                    if (!string.IsNullOrEmpty(bankHoliday.location) && Enum.TryParse(bankHoliday.location, true, out locationEnumValue)
+                            && AddHoliday(bankHoliday.holidayDate, locationEnumValue, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
                         log.Error(string.Format("Failed to add bank holiday with location: {0} and holidayDate: {1}.", bankHoliday.location, bankHoliday.holidayDate));
                 }
 

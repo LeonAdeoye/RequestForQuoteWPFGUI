@@ -20,7 +20,9 @@
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="saveResponse">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateValidity">
         <xs:sequence>
@@ -29,7 +31,9 @@
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateValidityResponse">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
       </xs:complexType>
       <xs:complexType name="getAll">
         <xs:sequence />
@@ -53,7 +57,9 @@
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="deleteResponse">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateTier">
         <xs:sequence>
@@ -62,7 +68,9 @@
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateTierResponse">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
       </xs:complexType>
     </xs:schema>
   </wsdl:types>

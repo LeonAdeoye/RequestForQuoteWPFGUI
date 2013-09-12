@@ -15,9 +15,10 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://holiday.rfq.ws.leon.com/", ConfigurationName="HolidayMaintenanceService.HolidayController")]
     public interface HolidayController {
         
-        // CODEGEN: Parameter 'location' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.saveResponse save(RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -36,9 +37,10 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getAllResponse EndgetAll(System.IAsyncResult result);
         
-        // CODEGEN: Parameter 'location' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.deleteResponse delete(RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -92,7 +94,15 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="saveResponse", WrapperNamespace="http://holiday.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class saveResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public saveResponse() {
+        }
+        
+        public saveResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -213,7 +223,15 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="deleteResponse", WrapperNamespace="http://holiday.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class deleteResponse {
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool @return;
+        
         public deleteResponse() {
+        }
+        
+        public deleteResponse(bool @return) {
+            this.@return = @return;
         }
     }
     
@@ -259,6 +277,25 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class saveCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public saveCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class getAllCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -272,6 +309,25 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((holiday[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class deleteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public deleteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
             }
         }
     }
@@ -342,11 +398,11 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> saveCompleted;
+        public event System.EventHandler<saveCompletedEventArgs> saveCompleted;
         
         public event System.EventHandler<getAllCompletedEventArgs> getAllCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> deleteCompleted;
+        public event System.EventHandler<deleteCompletedEventArgs> deleteCompleted;
         
         public event System.EventHandler<getCompletedEventArgs> getCompleted;
         
@@ -355,12 +411,13 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public void save(string location, System.DateTime holidayDate, string addedByUser) {
+        public bool save(string location, System.DateTime holidayDate, string addedByUser) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
             inValue.addedByUser = addedByUser;
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).save(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -383,8 +440,9 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void Endsave(System.IAsyncResult result) {
+        public bool Endsave(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).Endsave(result);
+            return retVal.@return;
         }
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -395,14 +453,15 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
-            this.Endsave(result);
-            return null;
+            bool retVal = this.Endsave(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnsaveCompleted(object state) {
             if ((this.saveCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.saveCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.saveCompleted(this, new saveCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -498,11 +557,12 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.delete(request);
         }
         
-        public void delete(string location, System.DateTime holidayDate) {
+        public bool delete(string location, System.DateTime holidayDate) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).delete(inValue);
+            return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -524,8 +584,9 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void Enddelete(System.IAsyncResult result) {
+        public bool Enddelete(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).Enddelete(result);
+            return retVal.@return;
         }
         
         private System.IAsyncResult OnBegindelete(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -535,14 +596,15 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         private object[] OnEnddelete(System.IAsyncResult result) {
-            this.Enddelete(result);
-            return null;
+            bool retVal = this.Enddelete(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OndeleteCompleted(object state) {
             if ((this.deleteCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.deleteCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.deleteCompleted(this, new deleteCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         

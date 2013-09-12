@@ -29,7 +29,7 @@ namespace RFQ
                 base.InitializeModules();
                 RegisterAllPopups();
             }
-            catch (ModuleInitializeException exception)
+            catch (ModuleInitializeException)
             {
                 MessageBox.Show("Failed to initialize modules needed by RequestForQuote application. Catastrophic failure. Shutting down now!");
                 Environment.Exit(0);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -13,8 +12,6 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-
-
     public class ServerCommunicatorImpl : IServerCommunicator
     {
         // State object for receiving data from remote device.
@@ -48,20 +45,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ConnectToServer()
         {
-            for (int i = 1; i <= 3 && !socketConnection.Connected; i++)
+            if(!socketConnection.Connected)
             {
                 try
                 {
                     var ipAddress = IPAddress.Parse(remoteAddress);
-                    IPEndPoint endPoint = new IPEndPoint(ipAddress, remotePort);
+                    var endPoint = new IPEndPoint(ipAddress, remotePort);
                     socketConnection.Connect(endPoint);
                     socketConnection.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+
                     if(log.IsDebugEnabled)
-                        log.Debug(String.Format("Connected socket to server with hostname: {0} and port number: {1} after attempting {2} time(s).", remoteAddress, remotePort, i));
+                        log.Debug(String.Format("Connected socket to server with hostname: {0} and port number: {1}.", remoteAddress, remotePort));
                 }
                 catch (Exception e)
                 {
-                    log.Error(String.Format("Failed to connect socket to server with hostname: {0} and port number: {1} after attempting {2} time(s). Exception raised: {3}", remoteAddress, remotePort, i, e.Message));
+                    log.Error(String.Format("Failed to connect socket to server with hostname: {0} and port number: {1}. Exception raised: {2}", remoteAddress, remotePort, e.Message));
                 }
             }
         }
@@ -117,7 +115,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             try
             {
                 // Create the state object.
-                StateObject state = new StateObject {workSocket = socketConnection};
+                var state = new StateObject {workSocket = socketConnection};
                 // Begin receiving the data from the remote device.
                 socketConnection.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
             }
@@ -129,8 +127,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private  void ReceiveCallback(IAsyncResult ar)
         {
-            StateObject state = (StateObject)ar.AsyncState;
-            Socket clientSocket = state.workSocket;
+            var state = (StateObject)ar.AsyncState;
+            var clientSocket = state.workSocket;
             try
             {
                 if (!clientSocket.Connected)
