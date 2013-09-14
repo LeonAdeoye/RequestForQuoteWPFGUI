@@ -54,6 +54,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     log.Error(String.Format("Failed to connect to proxy for remote client controller webservice. Exception thrown {0}", exception));
                     throw;
+                }
+                catch (TimeoutException timeoutException)
+                {
+                    log.Error(String.Format("Timeout: failed to connect to proxy for remote client controller webservice. Exception thrown {0}", timeoutException));
+                    throw;
                 }                
             }
         }

@@ -60,6 +60,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 log.Error(String.Format("Failed to connect to proxy for remote search controller webservice. Exception thrown {0}", exception));
                 throw;
             }
+            catch (TimeoutException timeoutException)
+            {
+                log.Error(String.Format("Timeout: failed to connect to proxy for remote search controller webservice. Exception thrown {0}", timeoutException));
+                throw;
+            }
         }
         
         public bool SaveSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, IDictionary<string, string> criteria)
