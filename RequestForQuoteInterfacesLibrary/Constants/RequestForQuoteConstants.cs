@@ -37,5 +37,7 @@
         public const bool VALID = true;
         public const bool MAINTAIN_STRONG_REFERENCE = true;
 
+        public const string STANDALONE_MODE_WITHOUT_WEB_SERVICE = "StandAlone";
+
     }
 }

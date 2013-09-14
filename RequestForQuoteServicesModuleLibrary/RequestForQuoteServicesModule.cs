@@ -24,10 +24,11 @@ namespace RequestForQuoteServicesModuleLibrary
         }
 
         public void Initialize()
-        {
-            Task[] tasks = new Task[5];
-
-            var isStandAlone = (Environment.GetCommandLineArgs().Length > 1 && Environment.GetCommandLineArgs()[1] == "StandAlone");
+        {            
+            var isStandAlone = (Environment.GetCommandLineArgs().Length > 1
+                && Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE);
+            
+            var tasks = new Task[5];
 
             var underlyingManager = new UnderlyingManagerImpl();
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
