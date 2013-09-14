@@ -23,20 +23,26 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         public UnderlyingManagerImpl()
         {
             Underlyiers = new List<IUnderlyier>();
-        }        
+        }
 
-        public void Initialize()
+        public void Initialize(bool isStandAlone)
         {
-            try
+            if (isStandAlone)
             {
                 Underlyiers.Add(new UnderlyierImpl() { BBG = "HK0005", Description = "HSBC Ltd", RIC = "0005.HK" });
                 Underlyiers.Add(new UnderlyierImpl() { BBG = "HK0001", Description = "Bank Of China", RIC = "0001.HK" });
-                Underlyiers.Add(new UnderlyierImpl() { BBG = "JP 1577", Description = "Nomura High Yield ETF", RIC = "1577.OS" });
+                Underlyiers.Add(new UnderlyierImpl() { BBG = "JP 1577", Description = "Nomura High Yield ETF", RIC = "1577.OS" });                
             }
-            catch (EndpointNotFoundException exception)
+            else
             {
-                log.Error(String.Format("Failed to connect to proxy for remote search controller webservice. Exception thrown {0}", exception));
-                throw;
+                try
+                {
+                }
+                catch (EndpointNotFoundException exception)
+                {
+                    log.Error(String.Format("Failed to connect to proxy for remote search controller webservice. Exception thrown {0}", exception));
+                    throw;
+                }                
             }            
         }
 

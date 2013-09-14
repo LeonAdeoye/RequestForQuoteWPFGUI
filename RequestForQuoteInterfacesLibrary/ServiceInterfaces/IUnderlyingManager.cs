@@ -9,5 +9,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         List<IUnderlyier> Underlyiers { get; set; }
         bool AddUnderlyier(string RIC, string BBG, string description, bool isValid, bool saveToDatabase);
         bool RemoveUnderlyier();
+        void Initialize(bool isStandAlone);
     }
 }

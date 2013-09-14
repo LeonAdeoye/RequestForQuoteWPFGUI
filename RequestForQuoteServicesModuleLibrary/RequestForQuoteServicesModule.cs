@@ -25,31 +25,36 @@ namespace RequestForQuoteServicesModuleLibrary
 
         public void Initialize()
         {
-            Task[] tasks = new Task[4];
+            Task[] tasks = new Task[5];
+
+            var isStandAlone = (Environment.GetCommandLineArgs().Length > 1 && Environment.GetCommandLineArgs()[1] == "StandAlone");
 
             var underlyingManager = new UnderlyingManagerImpl();
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
-            tasks[0] = Task.Factory.StartNew(underlyingManager.Initialize);
+            tasks[0] = Task.Factory.StartNew(()=>underlyingManager.Initialize(true));
 
             var clientManager = new ClientManagerImpl();
             container.RegisterInstance<IClientManager>(clientManager);
-            tasks[1] = Task.Factory.StartNew(clientManager.Initialize);
+            tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize(isStandAlone));
 
             var bookManager = new BookManagerImpl();
             container.RegisterInstance<IBookManager>(bookManager);
-            tasks[2] = Task.Factory.StartNew(bookManager.Initialize);
+            tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize(isStandAlone));
 
             var bankHolidayManager = new BankHolidayManagerImpl();
             container.RegisterInstance<IBankHolidayManager>(bankHolidayManager);
-            tasks[3] = Task.Factory.StartNew(bankHolidayManager.Initialize);
+            tasks[3] = Task.Factory.StartNew(() => bankHolidayManager.Initialize(isStandAlone));
+
+            var searchManager = new SearchManagerImpl();
+            container.RegisterInstance<ISearchManager>(searchManager);
+            tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize(isStandAlone));
 
             container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ISearchManager, SearchManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChatServiceManager, ChatServiceManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterInstance(new JsonParserImpl());
 
-            InitializeServerCommunicator();
+            InitializeServerCommunicator(isStandAlone);
 
             // Exceptions thrown by tasks will be propagated to the main thread 
             // while it waits for the tasks. The actual exceptions will be wrapped in AggregateException. 
@@ -71,13 +76,16 @@ namespace RequestForQuoteServicesModuleLibrary
             }
         }
 
-        private void InitializeServerCommunicator()
+        private void InitializeServerCommunicator(bool isStandAlone)
         {
             var serverCommunicator = new ServerCommunicatorImpl(RequestForQuoteConstants.SERVER_IP_ADDRESS, 
                 RequestForQuoteConstants.SERVER_PORT_NUMBER, RequestForQuoteConstants.SERVER_SLEEP_INTERVAL);
 
             container.RegisterInstance<IServerCommunicator>(serverCommunicator);
 
+            if (isStandAlone)
+                return;
+                
             serverCommunicator.ConnectToServer();
 
             if (serverCommunicator.IsConnected())

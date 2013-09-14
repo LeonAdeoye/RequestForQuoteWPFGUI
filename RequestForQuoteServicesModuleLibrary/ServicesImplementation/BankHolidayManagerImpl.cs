@@ -109,28 +109,36 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return holidaysInLocation;
         }
 
-        public void Initialize()
+        public void Initialize(bool isStandAlone)
         {
+            if (isStandAlone)
+                return;
+
             try
             {
-                var allHolidays = holidayControllerProxy.getAll();
-                foreach (var bankHoliday in holidayControllerProxy.getAll())
+                if (holidayControllerProxy != null && holidayControllerProxy.State == CommunicationState.Opened)
                 {
-                    LocationEnum locationEnumValue;
-                    if (!string.IsNullOrEmpty(bankHoliday.location) && Enum.TryParse(bankHoliday.location, true, out locationEnumValue)
-                            && AddHoliday(bankHoliday.holidayDate, locationEnumValue, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
-                        log.Error(string.Format("Failed to add bank holiday with location: {0} and holidayDate: {1}.", bankHoliday.location, bankHoliday.holidayDate));
-                }
+                    var allHolidays = holidayControllerProxy.getAll();
+                    foreach (var bankHoliday in allHolidays)
+                    {
+                        LocationEnum locationEnumValue;
 
-                if (log.IsDebugEnabled)
-                    log.Debug(string.Format("Loaded {0} holidays from the database.", allHolidays.Length));
+                        if (!string.IsNullOrEmpty(bankHoliday.location) &&
+                            Enum.TryParse(bankHoliday.location, true, out locationEnumValue) && 
+                            AddHoliday(bankHoliday.holidayDate, locationEnumValue,RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
+
+                            log.Error(string.Format("Failed to add bank holiday with location: {0} and holidayDate: {1}.", bankHoliday.location, bankHoliday.holidayDate));
+                    }
+
+                    if (log.IsDebugEnabled)
+                        log.Debug(string.Format("Loaded {0} holidays from the database.", allHolidays.Length));                        
+                }
             }
             catch (EndpointNotFoundException exception)
             {
                 log.Error(String.Format("Failed to connect to proxy for remote holiday controller webservice. Exception thrown {0}", exception));
                 throw;
             }
-
         }
     }
 }

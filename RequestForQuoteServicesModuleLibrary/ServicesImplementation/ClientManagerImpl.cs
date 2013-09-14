@@ -29,19 +29,32 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             Clients = new List<IClient>();
         }
 
-        public void Initialize()
+        public void Initialize(bool isStandAlone)
         {
-            try
+            if (isStandAlone)
             {
-                foreach (clientDetail client in clientControllerProxy.getAll())
-                {
-                    Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
-                }
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Nomura Securities", Tier = 1, IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Goldman Sachs", Tier = 1, IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "JP Morgan", Tier = 1, IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Morgan Stanley", Tier = 1, IsValid = true });
             }
-            catch (EndpointNotFoundException exception)
+            else
             {
-                log.Error(String.Format("Failed to connect to proxy for remote client controller webservice. Exception thrown {0}", exception));
-                throw;
+                try
+                {
+                    if (clientControllerProxy != null)
+                    {
+                        foreach (clientDetail client in clientControllerProxy.getAll())
+                        {
+                            Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
+                        }                        
+                    }
+                }
+                catch (EndpointNotFoundException exception)
+                {
+                    log.Error(String.Format("Failed to connect to proxy for remote client controller webservice. Exception thrown {0}", exception));
+                    throw;
+                }                
             }
         }
 

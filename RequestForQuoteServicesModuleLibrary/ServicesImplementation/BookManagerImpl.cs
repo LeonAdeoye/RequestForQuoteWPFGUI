@@ -26,14 +26,25 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             Books = new List<IBook>();
         }
         
-        public void Initialize()
+        public void Initialize(bool isStandAlone)
         {
             try
             {
-                // No need to add to GUI thread
-                foreach (bookDetail book in bookControllerProxy.getAll())
+                if (isStandAlone)
                 {
-                    Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
+                    Books.Add(new BookImpl() { BookCode = "AB01", Entity = "AB01", IsValid = true });
+                    Books.Add(new BookImpl() { BookCode = "AB02", Entity = "AB02", IsValid = true });
+                    Books.Add(new BookImpl() { BookCode = "AB03", Entity = "AB02", IsValid = true });
+                }
+                else
+                {
+                    if (bookControllerProxy != null)
+                    {
+                        foreach (bookDetail book in bookControllerProxy.getAll())
+                        {
+                            Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
+                        }                        
+                    }                    
                 }
             }
             catch (EndpointNotFoundException exception)

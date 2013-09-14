@@ -24,11 +24,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         public SearchManagerImpl()
         {
             Searches = new List<ISearch>();
-            Initialize();
         }
        
-        private void Initialize()
+        public void Initialize(bool isStandAlone)
         {
+            if (isStandAlone)
+                return;
+
             try
             {
                 var searches = searchContollerProxy.getAll();
