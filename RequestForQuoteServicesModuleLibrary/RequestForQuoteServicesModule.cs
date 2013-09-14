@@ -73,16 +73,16 @@ namespace RequestForQuoteServicesModuleLibrary
 
         private void InitializeServerCommunicator()
         {
-            ServerCommunicatorImpl serverCommunicator = new ServerCommunicatorImpl(RequestForQuoteConstants.SERVER_IP_ADDRESS, 
+            var serverCommunicator = new ServerCommunicatorImpl(RequestForQuoteConstants.SERVER_IP_ADDRESS, 
                 RequestForQuoteConstants.SERVER_PORT_NUMBER, RequestForQuoteConstants.SERVER_SLEEP_INTERVAL);
+
+            container.RegisterInstance<IServerCommunicator>(serverCommunicator);
 
             serverCommunicator.ConnectToServer();
 
             if (serverCommunicator.IsConnected())
-            {
-                container.RegisterInstance<IServerCommunicator>(serverCommunicator);
-
-                Thread thread = new Thread(serverCommunicator.ListenForUpdatesContinuously);
+            {                
+                var thread = new Thread(serverCommunicator.ListenForUpdatesContinuously);
                 thread.Start();
 
                 if (log.IsDebugEnabled)

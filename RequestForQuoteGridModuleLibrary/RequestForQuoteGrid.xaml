@@ -105,7 +105,7 @@
 
 
                 <DataGridTextColumn Binding="{Binding Path=TradeDate, Converter={StaticResource DateFormatter}, ConverterParameter='dd MMM yyyy'}" Header="Trade Date"/>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding StringFormat={}{0:F4}, Path=Price}" Header="Price"/>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding StringFormat={}{0:F4}, Path=PremiumAmount}" Header="Price"/>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding StringFormat={}{0:F4}, Path=Delta}" Header="Delta"/>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding StringFormat={}{0:F4}, Path=Gamma}" Header="Gamma"/>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding StringFormat={}{0:F4}, Path=Theta}" Header="Theta"/>
