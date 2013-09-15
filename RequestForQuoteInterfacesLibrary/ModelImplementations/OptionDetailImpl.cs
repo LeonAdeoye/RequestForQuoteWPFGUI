@@ -74,7 +74,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             builder.Append(this.Side);
             builder.Append(", Premium Amount: ");
             builder.Append(this.PremiumAmount);
-            builder.Append(", Premium Percentage: ");
+            builder.Append(", Premium %: ");
             builder.Append(this.PremiumPercentage);
             builder.Append(", Delta: ");
             builder.Append(this.Delta);

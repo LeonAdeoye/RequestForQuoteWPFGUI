@@ -50,7 +50,9 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Forward</Label>
         </DockPanel>        
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=ProductType}"/>
+            <ComboBox DockPanel.Dock="Right" Width="100" ItemsSource="{Binding Source={StaticResource ProductTypeEnum}}"
+                                            SelectedItem="{Binding Path=ProductType, Mode=TwoWay}"
+                                            SelectedValue="{Binding ProductType}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Prod.Type</Label>
         </DockPanel>
         <DockPanel>
