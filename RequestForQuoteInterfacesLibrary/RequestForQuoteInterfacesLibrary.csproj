@@ -66,6 +66,7 @@
     <Compile Include="Converters\ChatMsgBkgdColourConverter.cs" />
     <Compile Include="Converters\RadioButtonConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
+    <Compile Include="Enums\ProductTypeEnum.cs" />
     <Compile Include="Enums\CriteriaTypeEnum.cs" />
     <Compile Include="Enums\PrivacyEnum.cs" />
     <Compile Include="Enums\TierEnum.cs" />

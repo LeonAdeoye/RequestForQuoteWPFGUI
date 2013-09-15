@@ -62,7 +62,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                                 + ", vega: " + pricings.vega + ", price: " + pricings.price + ", Quantity: " + optionToPrice.Quantity
                                 + ", Type: " + (optionToPrice.IsCall ? "Call" : "Put"));
                         }
-                        optionToPrice.Price = pricings.price * optionToPrice.Quantity * (optionToPrice.Side == SideEnum.BUY ? -1 : 1);
+                        optionToPrice.PremiumAmount = pricings.price * optionToPrice.Quantity * (optionToPrice.Side == SideEnum.BUY ? -1 : 1);
                         optionToPrice.Delta = pricings.delta * optionToPrice.Quantity * (optionToPrice.Side == SideEnum.BUY ? 1 : -1);
                         optionToPrice.Gamma = optionToPrice.Quantity * pricings.gamma * (optionToPrice.Side == SideEnum.BUY ? 1 : -1); // long options => long gamma
                         optionToPrice.Theta = optionToPrice.Quantity * pricings.theta * (optionToPrice.Side == SideEnum.BUY ? 1 : -1); // long options => short theta
@@ -74,7 +74,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                         optionToPrice.ParentRequest.Vega += optionToPrice.Vega;
                         optionToPrice.ParentRequest.Theta += optionToPrice.Theta;
                         optionToPrice.ParentRequest.Rho += optionToPrice.Rho;
-                        optionToPrice.ParentRequest.PremiumAmount += optionToPrice.Price;
+                        optionToPrice.ParentRequest.PremiumAmount += optionToPrice.PremiumAmount;
                     }
                 }
             }

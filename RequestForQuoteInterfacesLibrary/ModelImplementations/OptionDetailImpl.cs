@@ -13,7 +13,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public int LegId { get; set; }
         public decimal Strike { get; set; }
-        public decimal StrikePercentage { get; set; }
+        public decimal StrikePercentage 
+        {
+            get { return Strike/UnderlyingPrice; }
+        }
         public int Quantity { get; set; }
         public string RIC { get; set; }
         public string BBG { get; set; }
@@ -29,40 +32,86 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public decimal Rho { get; set; }
         public decimal InterestRate { get; set; }
         public decimal DaysToExpiry { get; set; }
-        public decimal MonthsToExpiry { get; set; }
         public decimal YearsToExpiry { get; set; }
         public decimal DayCountConvention { get; set; }
         public DateTime MaturityDate { get; set; }
         public DateTime TradeDate { get; set; }
-        public decimal Bid { get; set; }
-        public decimal Ask { get; set; }
-        public decimal BidPercentage { get; set; }
-        public decimal AskPercentage { get; set; }
-        public decimal Price { get; set; }
-        public decimal AskVolatility { get; set; }
-        public decimal BidVolatility { get; set; }
+        public DateTime FinalPaymentDate { get; set; }
+        public String Description { get; set; }
+        public ProductTypeEnum ProductType { get;set; }
+
+        public decimal PremiumAmount { get; set; }
+        public decimal PremiumPercentage
+        {
+            get { return PremiumAmount/UnderlyingPrice; }
+        }
+        public decimal Weight { get; set; }
         public decimal Volatility { get; set; }
-        public decimal AskImpliedVol { get; set; }
-        public decimal BidImpliedVol { get; set; }
-        public decimal AskRepoBump { get; set; }
-        public decimal BidRepoBump { get; set; }
-        public decimal AskDividendBump { get; set; }
-        public decimal BidDividendBump { get; set; }
-        public DateTime AskVolatilityUpdated { get; set; }
-        public DateTime BidVolatilityUpdated { get; set; }
+        public decimal ImpliedVol { get; set; }
+
         public IRequestForQuote ParentRequest { get; set; }
         public decimal ForwardPrice { get; set; }
-        public decimal DividendPercentageOfSpot { get; set; }
         
         public override string ToString()
         {
-            // TODO add the others
-            StringBuilder builder = new StringBuilder("Strike: ");
+            StringBuilder builder = new StringBuilder("RIC: ");
+            builder.Append(this.RIC);
+            builder.Append(", BBG");
+            builder.Append(this.BBG);
+            builder.Append(", Description");
+            builder.Append(this.Description);
+            builder.Append(", Leg");
+            builder.Append(this.LegId);
+            builder.Append(", Strike: ");
             builder.Append(this.Strike);
+            builder.Append(", Strike %: ");
+            builder.Append(this.StrikePercentage);
             builder.Append(", Quantity: ");
             builder.Append(this.Quantity);
+            builder.Append(", Underlying price: ");
+            builder.Append(this.UnderlyingPrice);
             builder.Append(", Side: ");
             builder.Append(this.Side);
+            builder.Append(", Premium Amount: ");
+            builder.Append(this.PremiumAmount);
+            builder.Append(", Premium Percentage: ");
+            builder.Append(this.PremiumPercentage);
+            builder.Append(", Delta: ");
+            builder.Append(this.Delta);
+            builder.Append(", Gamma: ");
+            builder.Append(this.Gamma);
+            builder.Append(", Theta: ");
+            builder.Append(this.Theta);
+            builder.Append(", Vega: ");
+            builder.Append(this.Vega);
+            builder.Append(", Rho: ");
+            builder.Append(this.Rho);
+            builder.Append(", Trade Date: ");
+            builder.Append(this.TradeDate);
+            builder.Append(", Maturity Date: ");
+            builder.Append(this.MaturityDate);
+            builder.Append(", Final Payment Date: ");
+            builder.Append(this.FinalPaymentDate);
+            builder.Append(", Years To Expiry: ");
+            builder.Append(this.YearsToExpiry);
+            builder.Append(", Days To Expiry: ");
+            builder.Append(this.DaysToExpiry);
+            builder.Append(", Final Payment Date: ");
+            builder.Append(this.FinalPaymentDate);
+            builder.Append(", Implied Vol: ");
+            builder.Append(this.ImpliedVol);
+            builder.Append(", Interest Rate: ");
+            builder.Append(this.InterestRate);
+            builder.Append(", Volatility: ");
+            builder.Append(this.Volatility);
+            builder.Append(", Weight: ");
+            builder.Append(this.Weight);
+            builder.Append(", Day Count Convention: ");
+            builder.Append(this.DayCountConvention);
+            builder.Append(", Is Call: ");
+            builder.Append(this.IsCall);
+            builder.Append(", Is European: ");
+            builder.Append(this.IsEuropean);
             return builder.ToString();
         }
     }

@@ -34,7 +34,7 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Desc.</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Spot}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=UnderlyingPrice}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Spot</Label>
         </DockPanel>
         <DockPanel>
@@ -42,11 +42,11 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Strike</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=StrikePercentage}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=StrikePercentage, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Strike %</Label>
         </DockPanel>        
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Forward}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=ForwardPrice}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Forward</Label>
         </DockPanel>        
         <DockPanel>
@@ -66,15 +66,15 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding MaturityYears, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding YearsToExpiry, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Years</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding MaturityDays, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding DaysToExpiry, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Days</Label>
         </DockPanel>        
         <DockPanel>
-            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=MaturityDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=FinalPaymentDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Final payment</Label>
         </DockPanel>
         <DockPanel>
@@ -82,7 +82,7 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Premium Amt</Label>
         </DockPanel>        
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding PremiumPercentage, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding PremiumPercentage, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4, Mode=OneWay}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Premium %</Label>
         </DockPanel>
         <DockPanel>
