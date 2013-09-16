@@ -10,14 +10,19 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public static decimal DAY_COUNT_CONVENTION_255 = 255;
         public static decimal DAY_COUNT_CONVENTION_250 = 250;
         public static decimal DAY_COUNT_CONVENTION_265 = 265;
+        private int quantity;
 
         public int LegId { get; set; }
         public decimal Strike { get; set; }
         public decimal StrikePercentage 
         {
-            get { return Strike/UnderlyingPrice; }
+            get { return 100*Strike/UnderlyingPrice; }
         }
-        public int Quantity { get; set; }
+        public int Quantity
+        {
+            get { return (Side == SideEnum.SELL && quantity > 0) ? -1 * quantity : quantity; }
+            set { quantity = value; }
+        }
         public string RIC { get; set; }
         public string BBG { get; set; }
         public string Underlying { get; set; }
@@ -43,9 +48,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public decimal PremiumAmount { get; set; }
         public decimal PremiumPercentage
         {
-            get { return PremiumAmount/UnderlyingPrice; }
+            get { return 100*PremiumAmount/UnderlyingPrice; }
         }
-        public decimal Weight { get; set; }
         public decimal Volatility { get; set; }
         public decimal ImpliedVol { get; set; }
 
@@ -104,8 +108,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             builder.Append(this.InterestRate);
             builder.Append(", Volatility: ");
             builder.Append(this.Volatility);
-            builder.Append(", Weight: ");
-            builder.Append(this.Weight);
             builder.Append(", Day Count Convention: ");
             builder.Append(this.DayCountConvention);
             builder.Append(", Is Call: ");

@@ -15,7 +15,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         decimal StrikePercentage { get; }
         decimal ForwardPrice { get; set; }
         ProductTypeEnum ProductType { get; set; }
-        decimal Weight { get; set; }
         DateTime MaturityDate { get; set; }
         DateTime TradeDate { get; set; }
         decimal DaysToExpiry { get; set; }

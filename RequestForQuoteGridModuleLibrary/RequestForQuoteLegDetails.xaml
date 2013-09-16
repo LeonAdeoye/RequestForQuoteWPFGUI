@@ -20,6 +20,10 @@
         <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding LegId}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Leg</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Quantity}"/>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Quantity</Label>
         </DockPanel>        
         <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=RIC}"/>
@@ -54,10 +58,6 @@
                                             SelectedItem="{Binding Path=ProductType, Mode=TwoWay}"
                                             SelectedValue="{Binding ProductType}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Prod.Type</Label>
-        </DockPanel>
-        <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=Weight}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Weight</Label>
         </DockPanel>
         <DockPanel>
             <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
