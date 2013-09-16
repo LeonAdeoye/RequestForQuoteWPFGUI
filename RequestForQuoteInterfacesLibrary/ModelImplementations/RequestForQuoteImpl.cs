@@ -138,13 +138,14 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.HedgePrice = hedgePrice;
             clone.HedgeType = hedgeType;
 
-            if (Legs != null)
+            if (this.Legs != null)
             {
-                clone.Legs = new List<IOptionDetail>(Legs);
-                foreach (var leg in clone.Legs)
-                    leg.ParentRequest = clone;
+                clone.Legs = new List<IOptionDetail>();
+                foreach (var leg in this.Legs)
+                    clone.Legs.Add(leg.CloneOptionDetails());
             }
 
+            // TODO clone
             if (Messages != null)
                 clone.Messages = new List<ChatMessageImpl>(Messages);
                             

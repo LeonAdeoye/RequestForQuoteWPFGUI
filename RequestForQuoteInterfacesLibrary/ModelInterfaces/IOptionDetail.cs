@@ -37,5 +37,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         decimal Volatility { get; set; }
 
         IRequestForQuote ParentRequest { get; set; }
+        IOptionDetail CloneOptionDetails();
     }
 }

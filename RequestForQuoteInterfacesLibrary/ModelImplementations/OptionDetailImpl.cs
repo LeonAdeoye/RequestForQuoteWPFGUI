@@ -25,7 +25,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         }
         public string RIC { get; set; }
         public string BBG { get; set; }
-        public string Underlying { get; set; }
+        //public string Underlying { get; set; }
         public decimal UnderlyingPrice { get; set; }
         public SideEnum Side { get; set; }
         public bool IsCall { get; set; }
@@ -55,6 +55,43 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public IRequestForQuote ParentRequest { get; set; }
         public decimal ForwardPrice { get; set; }
+
+        public IOptionDetail CloneOptionDetails()
+        {
+            var clone = new OptionDetailImpl
+                {
+                    LegId = this.LegId,
+                    Quantity = this.Quantity,
+                    Strike = this.Strike,
+                    RIC = this.RIC,
+                    BBG = this.BBG,
+                    UnderlyingPrice = this.UnderlyingPrice,
+                    Side = this.Side,
+                    IsCall = this.IsCall,
+                    IsEuropean = this.IsEuropean,
+                    Delta = this.Delta,
+                    Gamma = this.Gamma,
+                    Theta = this.Theta,
+                    Rho = this.Rho,
+                    Vega = this.Vega,
+                    DaysToExpiry = this.DaysToExpiry,
+                    YearsToExpiry = this.YearsToExpiry,
+                    InterestRate = this.InterestRate,
+                    DayCountConvention = this.DayCountConvention,
+                    MaturityDate = this.MaturityDate,
+                    TradeDate = this.TradeDate,
+                    FinalPaymentDate = this.FinalPaymentDate,
+                    Description = this.Description,
+                    ProductType = this.ProductType,
+                    PremiumAmount = this.PremiumAmount,
+                    Volatility = this.Volatility,
+                    ImpliedVol = this.ImpliedVol,
+                    ForwardPrice = this.ForwardPrice,
+                    ParentRequest = this.ParentRequest                    
+                };
+
+            return clone;
+        }
         
         public override string ToString()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Data;
@@ -241,7 +242,13 @@ namespace RequestForQuoteGridModuleLibrary
                 originalRequestForQuote.BidPremiumAmount = ClonedRequest.BidPremiumAmount;
                 originalRequestForQuote.BidFinalAmount = ClonedRequest.BidFinalAmount;
                 originalRequestForQuote.BidFinalPercentage = ClonedRequest.BidFinalPercentage;
+
+                if (ClonedRequest.Legs != null)
+                    originalRequestForQuote.Legs = ClonedRequest.Legs;
+
                 // TODO chat mesages?
+                if (ClonedRequest.Messages != null)                
+                    originalRequestForQuote.Messages = ClonedRequest.Messages;
             }
             originalRequestForQuote.Popup.CloseWindow();
             originalRequestForQuote.Popup = null;
