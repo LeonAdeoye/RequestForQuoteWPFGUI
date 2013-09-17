@@ -22,7 +22,7 @@ namespace RequestForQuoteGridModuleLibrary
         // Faster sort than using ICollectionView.SortDescriptions - sort first by sequnece id and then by time (as a precaution).
         public int Compare(object firstParam, object secondParam)
         {
-            int result = 0;
+            var result = 0;
             ChatMessageImpl firstMessage = firstParam as ChatMessageImpl;
             ChatMessageImpl secondMessage = secondParam as ChatMessageImpl;
             if (firstMessage != null && secondMessage != null)

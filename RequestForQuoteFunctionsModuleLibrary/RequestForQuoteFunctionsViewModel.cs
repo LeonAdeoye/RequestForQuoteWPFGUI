@@ -387,7 +387,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         {
             if (searchManager.DeleteSearch(SelectedSearch.Owner, SelectedSearch.DescriptionKey))
             {
-                for (int index = 0; index < Searches.Count; index++)
+                for (var index = 0; index < Searches.Count; index++)
                 {
                     var search = Searches[index];
                     if (search.Owner == SelectedSearch.Owner && search.DescriptionKey == SelectedSearch.DescriptionKey)

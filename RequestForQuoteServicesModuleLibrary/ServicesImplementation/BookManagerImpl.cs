@@ -40,7 +40,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     if (bookControllerProxy != null)
                     {
-                        foreach (bookDetail book in bookControllerProxy.getAll())
+                        foreach (var book in bookControllerProxy.getAll())
                         {
                             Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
                         }                        

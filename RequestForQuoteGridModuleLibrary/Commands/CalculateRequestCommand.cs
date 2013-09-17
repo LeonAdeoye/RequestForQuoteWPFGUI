@@ -17,7 +17,7 @@ namespace RequestForQuoteGridModuleLibrary.Commands
 
         public override void Execute(object parameter)
         {
-            bool isFromContextMenu = parameter != null && parameter.ToString() == RequestForQuoteConstants.CALCULATE_REQUEST;
+            var isFromContextMenu = parameter != null && parameter.ToString() == RequestForQuoteConstants.CALCULATE_REQUEST;
             viewModel.CalculateRequest(isFromContextMenu);
         }
 

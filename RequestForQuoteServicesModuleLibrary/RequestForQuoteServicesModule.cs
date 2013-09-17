@@ -68,7 +68,7 @@ namespace RequestForQuoteServicesModuleLibrary
             }
             catch (AggregateException e)
             {
-                foreach (Exception exception in e.InnerExceptions)
+                foreach (var exception in e.InnerExceptions)
                 {
                     log.Error("Catastrophic failure! Exception thrown: " + exception);
                     throw new ModuleInitializeException();

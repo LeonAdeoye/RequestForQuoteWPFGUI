@@ -137,7 +137,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     return;
                 }
 
-                int bytesRead = clientSocket.EndReceive(ar);
+                var bytesRead = clientSocket.EndReceive(ar);
 
                 if (bytesRead > 0)
                 {                    

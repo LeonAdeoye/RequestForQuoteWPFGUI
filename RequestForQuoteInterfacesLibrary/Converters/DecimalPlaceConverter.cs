@@ -15,7 +15,7 @@ namespace RequestForQuoteInterfacesLibrary.Converters
             {
                 try
                 {
-                    int places = System.Convert.ToInt32(parameter);
+                    var places = System.Convert.ToInt32(parameter);
                     return Math.Round(((decimal) value), places).ToString(culture);
                 }
                 catch (FormatException fe)

@@ -52,7 +52,7 @@ namespace RequestForQuoteInterfacesLibrary.AttachedProps
                         {
                             if (listBox.Items.Count > 0)
                             {
-                                object lastItem = listBox.Items[listBox.Items.Count - 1];
+                                var lastItem = listBox.Items[listBox.Items.Count - 1];
                                 listBox.ScrollIntoView(lastItem);
                             }
                         });

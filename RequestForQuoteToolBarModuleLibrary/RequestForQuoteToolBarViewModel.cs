@@ -81,7 +81,7 @@ namespace RequestForQuoteToolBarModuleLibrary
         public bool CanAddNewRequest()
         {
             //TODO
-            bool canDo = false;
+            var canDo = false;
             if (!string.IsNullOrEmpty(NewRequest) && optionRequestParser.IsValidOptionRequest(NewRequest))
             {
                 IClient newRequestClient = this.NewRequestClient as IClient;
@@ -103,10 +103,10 @@ namespace RequestForQuoteToolBarModuleLibrary
 
         public bool CanClearNewRequest()
         {
-            bool canClear = false;
+            var canClear = false;
             if (string.IsNullOrEmpty(this.NewRequest))
             {
-                IClient newRequestClient = this.NewRequestClient;
+                var newRequestClient = this.NewRequestClient;
                 if (newRequestClient != null)
                     canClear = !string.IsNullOrEmpty(newRequestClient.Name);
             }

@@ -152,7 +152,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public bool CanAddNewRequest()
         {
-            bool canDo = false;
+            var canDo = false;
             if (!string.IsNullOrEmpty(NewRequest) && optionRequestParser.IsValidOptionRequest(NewRequest))
             {
                 IClient newRequestClient = NewRequestClient as IClient;
@@ -164,10 +164,10 @@ namespace RequestForQuoteGridModuleLibrary
 
         public bool CanClearNewRequest()
         {
-            bool canClear = false;
+            var canClear = false;
             if (string.IsNullOrEmpty(this.NewRequest))
             {
-                IClient newRequestClient = this.NewRequestClient;
+                var newRequestClient = this.NewRequestClient;
                 if (newRequestClient != null)
                     canClear = !string.IsNullOrEmpty(newRequestClient.Name);
             }
@@ -225,7 +225,7 @@ namespace RequestForQuoteGridModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received request to reset grid to today's requests.");
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(Requests);
+            var view = CollectionViewSource.GetDefaultView(Requests);
             view.Filter = null;
 
             Requests = TodaysRequests;
@@ -253,14 +253,14 @@ namespace RequestForQuoteGridModuleLibrary
 
             if (usageEventPayload.Criteria != null && usageEventPayload.Criteria.Count > 0)
             {
-                ICollectionView view = CollectionViewSource.GetDefaultView(Requests);
+                var view = CollectionViewSource.GetDefaultView(Requests);
                 view.Filter = (request) => DoesRequestMatchFilter(request as IRequestForQuote, usageEventPayload.Criteria);
             }
             else
             {
                 Requests = TodaysRequests;
                 NotifyPropertyChanged("Requests");
-                ICollectionView view = CollectionViewSource.GetDefaultView(Requests);
+                var view = CollectionViewSource.GetDefaultView(Requests);
                 view.Filter = null;    
             }                
         }
@@ -364,7 +364,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void GroupRequests(string groupBy)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(Requests);
+            var view = CollectionViewSource.GetDefaultView(Requests);
             view.GroupDescriptions.Clear();
             if (groupBy != "Undo Grouping")
                 view.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));

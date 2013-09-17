@@ -23,27 +23,27 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ParseOptionStrikes(string delimitedStrikes, List<IOptionDetail> optionLegs)
         {
-            string[] strikes = delimitedStrikes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);            
+            var strikes = delimitedStrikes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);            
             if (strikes.Length == 1)
             {
-                foreach (IOptionDetail optionLeg in optionLegs)                
+                foreach (var optionLeg in optionLegs)                
                     optionLeg.Strike = Convert.ToDecimal(strikes[0]);
             }
             else
             {
-                int count = strikes.Length - 1;
-                foreach (IOptionDetail optionLeg in optionLegs)
+                var count = strikes.Length - 1;
+                foreach (var optionLeg in optionLegs)
                     optionLeg.Strike = Convert.ToDecimal(strikes[count--]);
             }
         }
 
         public void ParseOptionMaturityDates(string delimitedDates, List<IOptionDetail> optionLegs)
         {
-            int count = 0;
-            string[] dates = delimitedDates.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var count = 0;
+            var dates = delimitedDates.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (dates.Length == 1)
             {
-                foreach (IOptionDetail optionLeg in optionLegs)
+                foreach (var optionLeg in optionLegs)
                 {
                     optionLeg.MaturityDate = Convert.ToDateTime(dates[0]);
                     optionLeg.TradeDate = DateTime.Today;
@@ -53,7 +53,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             else
             {
                 count = 0;
-                foreach (IOptionDetail optionLeg in optionLegs)
+                foreach (var optionLeg in optionLegs)
                 {
                     optionLeg.MaturityDate = Convert.ToDateTime(dates[count++]);
                     optionLeg.TradeDate = DateTime.Today;
@@ -64,11 +64,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ParseOptionUnderlyings(string delimitedUnderlyings, List<IOptionDetail> optionLegs)
         {
-            int count = 0;
-            string[] underlyings = delimitedUnderlyings.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var count = 0;
+            var underlyings = delimitedUnderlyings.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (underlyings.Length == 1)
             {
-                foreach (IOptionDetail optionLeg in optionLegs)
+                foreach (var optionLeg in optionLegs)
                 {
                     optionLeg.RIC = underlyings[0];
                     // TO-DO Add underlying manager
@@ -82,7 +82,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             else
             {
                 count = 0;
-                foreach (IOptionDetail optionLeg in optionLegs)
+                foreach (var optionLeg in optionLegs)
                 {
                     optionLeg.RIC = underlyings[count++];
                     // TO-DO Add underlying manager
@@ -97,7 +97,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public List<IOptionDetail> ParseRequest(string request, IRequestForQuote parent)
         {
-            string[] partsOfTheRequest  = request.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            var partsOfTheRequest  = request.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             var optionLegs = ParseOptionTypes(partsOfTheRequest[0], parent);
             ParseOptionStrikes(partsOfTheRequest[1], optionLegs);
             ParseOptionMaturityDates(partsOfTheRequest[2], optionLegs);
@@ -108,19 +108,19 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         public List<IOptionDetail> ParseOptionTypes(string request, IRequestForQuote parent)
         {
             var optionTypes = new List<IOptionDetail>();
-            Regex optionDetailReg = new Regex(@"^(?<side>[+-])?(?<quantity>[1-9])?(?<type>[CP]{1})+");
-            Regex optionLegReg = new Regex(@"^(?<leg>[+-]?[1-9]?[CP]{1})+");
-            Match matchedLegs = optionLegReg.Match(request);
-            int legCount = 0;
+            var optionDetailReg = new Regex(@"^(?<side>[+-])?(?<quantity>[1-9])?(?<type>[CP]{1})+");
+            var optionLegReg = new Regex(@"^(?<leg>[+-]?[1-9]?[CP]{1})+");
+            var matchedLegs = optionLegReg.Match(request);
+            var legCount = 0;
 
             while (matchedLegs.Success)
             {
-                string leg = matchedLegs.Groups["leg"].ToString();
-                Match matchedDetails = optionDetailReg.Match(leg);
+                var leg = matchedLegs.Groups["leg"].ToString();
+                var matchedDetails = optionDetailReg.Match(leg);
 
-                SideEnum side = matchedDetails.Groups["side"].Value == "-" ? SideEnum.SELL : SideEnum.BUY;
-                int quantity = matchedDetails.Groups["quantity"].Value == "" ? 1 : Convert.ToInt32(matchedDetails.Groups["quantity"].Value);
-                bool isCall = matchedDetails.Groups["type"].Value == "C";
+                var side = matchedDetails.Groups["side"].Value == "-" ? SideEnum.SELL : SideEnum.BUY;
+                var quantity = matchedDetails.Groups["quantity"].Value == "" ? 1 : Convert.ToInt32(matchedDetails.Groups["quantity"].Value);
+                var isCall = matchedDetails.Groups["type"].Value == "C";
 
                 optionTypes.Add(new OptionDetailImpl()
                 {

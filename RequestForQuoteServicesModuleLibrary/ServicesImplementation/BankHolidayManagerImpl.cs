@@ -29,8 +29,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public int CalculateBusinessDaysToExpiry(DateTime startDate, DateTime endDate, LocationEnum location)
         {
-            DateTime currentDate = startDate;
-            int count = 0;
+            var currentDate = startDate;
+            var count = 0;
             do
             {
                 currentDate = currentDate.AddDays(1);
@@ -43,7 +43,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public int CalculateAllDaysToExpiry(DateTime startDate, DateTime endDate)
         {
-            TimeSpan difference = endDate - startDate;
+            var difference = endDate - startDate;
             return difference.Days;
         }
 
