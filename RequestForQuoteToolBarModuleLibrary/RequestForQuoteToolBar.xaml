@@ -20,8 +20,6 @@
                 <Button Command="{Binding AddNewRequestCommand}" Margin="1">Add</Button>
                 <Button Command="{Binding ClearNewRequestCommand}" Margin="1">Clear</Button>
 
-            <ComboBox Width="120" ItemsSource="{Binding Source={Enums:EnumList {x:Type Enums:StatusEnum}, ShowDisplayString=true}}" />
-
                 <ComboBox IsEditable="true" IsReadOnly="false" Text="Select Book..." 
                       DisplayMemberPath="BookCode" 
                       ItemsSource="{Binding Books}" 

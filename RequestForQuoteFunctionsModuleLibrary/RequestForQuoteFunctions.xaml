@@ -6,6 +6,7 @@
              xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+             xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
              mc:Ignorable="d" Background="Gray">
     <UserControl.Resources>
         <Style TargetType="Expander">
@@ -67,7 +68,7 @@
                                     <ComboBox Margin="2" IsEditable="true" 
                                               IsReadOnly="true" Text="select status..."
                                               SelectedItem="{Binding SelectedStatus}"
-                                              ItemsSource="{Binding Status}">
+                                              ItemsSource="{Binding Source={Enums:EnumList {x:Type Enums:StatusEnum}, ShowDisplayString=true}}">
                                         <ComboBox.ToolTip>
                                             <ToolTip Content="Select status...">
                                             </ToolTip>

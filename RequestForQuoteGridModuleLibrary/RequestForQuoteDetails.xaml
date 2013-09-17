@@ -7,6 +7,7 @@
              xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary" 
              xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedProps;assembly=RequestForQuoteInterfacesLibrary"             
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
+             xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
              mc:Ignorable="d" Background="Gray">
     <UserControl.Resources>
         <Style TargetType="Expander">
@@ -105,7 +106,7 @@
                                 <Label DockPanel.Dock="Right">Client</Label>
                             </DockPanel>
                             <DockPanel >
-                                <ComboBox DockPanel.Dock="Right" Width="250" ItemsSource="{Binding Source={StaticResource StatusEnum}}"
+                                <ComboBox DockPanel.Dock="Right" Width="250" ItemsSource="{Binding Source={Enums:EnumList {x:Type Enums:StatusEnum}, ShowDisplayString=true}}"
                                             SelectedItem="{Binding Path=ClonedRequest.Status, Mode=TwoWay}"
                                             SelectedValue="{Binding ClonedRequest.Status}"/>
                                 <Label DockPanel.Dock="Right">Status</Label>
