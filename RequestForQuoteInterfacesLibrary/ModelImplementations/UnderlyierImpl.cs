@@ -2,7 +2,7 @@
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class UnderlyierImpl : IUnderlyier
+    public sealed class UnderlyierImpl : IUnderlyier
     {
         public string RIC { get; set; }
         public string BBG { get; set; }

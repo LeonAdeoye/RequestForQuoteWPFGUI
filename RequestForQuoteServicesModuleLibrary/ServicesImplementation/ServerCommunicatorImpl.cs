@@ -12,7 +12,7 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    public class ServerCommunicatorImpl : IServerCommunicator
+    public sealed class ServerCommunicatorImpl : IServerCommunicator
     {
         // State object for receiving data from remote device.
         private class StateObject

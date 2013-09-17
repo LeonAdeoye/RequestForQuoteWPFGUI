@@ -5,7 +5,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class ClientImpl : IClient, INotifyPropertyChanged
+    public sealed class ClientImpl : IClient, INotifyPropertyChanged
     {
         private bool isValid;
         public int Identifier { get; set; }

@@ -8,7 +8,7 @@ using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RFQ
 {
-    class RequestForQuoteBootstrapper : UnityBootstrapper
+    sealed class RequestForQuoteBootstrapper : UnityBootstrapper
     {        
         protected override DependencyObject CreateShell()
         {            

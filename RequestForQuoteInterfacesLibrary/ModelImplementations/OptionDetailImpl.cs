@@ -5,7 +5,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class OptionDetailImpl : IOptionDetail
+    public sealed class OptionDetailImpl : IOptionDetail
     {
         public static decimal DAY_COUNT_CONVENTION_255 = 255;
         public static decimal DAY_COUNT_CONVENTION_250 = 250;

@@ -14,7 +14,7 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    public class ClientManagerImpl : IClientManager
+    public sealed class ClientManagerImpl : IClientManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly ClientControllerClient clientControllerProxy = new ClientControllerClient();

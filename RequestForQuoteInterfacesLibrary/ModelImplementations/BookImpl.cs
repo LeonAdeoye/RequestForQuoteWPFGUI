@@ -4,7 +4,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class BookImpl : IBook, INotifyPropertyChanged
+    public sealed class BookImpl : IBook, INotifyPropertyChanged
     {
         private bool isValid;
         public string BookCode { get; set; }

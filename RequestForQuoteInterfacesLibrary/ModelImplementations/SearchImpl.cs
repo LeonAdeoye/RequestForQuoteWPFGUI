@@ -4,7 +4,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class SearchImpl : ISearch, INotifyPropertyChanged
+    public sealed class SearchImpl : ISearch, INotifyPropertyChanged
     {
         private bool isPrivate;
         public string DescriptionKey { get; set; }

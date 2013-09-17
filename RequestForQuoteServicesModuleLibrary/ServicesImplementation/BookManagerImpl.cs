@@ -14,7 +14,7 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    class BookManagerImpl : IBookManager
+    sealed class BookManagerImpl : IBookManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly BookControllerClient bookControllerProxy = new BookControllerClient();

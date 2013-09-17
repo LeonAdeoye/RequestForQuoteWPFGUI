@@ -7,7 +7,7 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    class OptionRequestPricerImpl : IOptionRequestPricer
+    sealed class OptionRequestPricerImpl : IOptionRequestPricer
     {
         private readonly OptionPricingControllerClient pricerProxy;
         private static readonly ILog log = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

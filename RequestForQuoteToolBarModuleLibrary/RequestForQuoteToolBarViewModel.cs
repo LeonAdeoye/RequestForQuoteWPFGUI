@@ -13,7 +13,7 @@ using log4net;
 
 namespace RequestForQuoteToolBarModuleLibrary
 {
-    public class RequestForQuoteToolBarViewModel : DependencyObject 
+    public sealed class RequestForQuoteToolBarViewModel : DependencyObject 
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();

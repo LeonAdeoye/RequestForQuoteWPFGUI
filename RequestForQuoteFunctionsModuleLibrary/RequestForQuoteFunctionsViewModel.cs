@@ -20,7 +20,7 @@ using log4net;
 
 namespace RequestForQuoteFunctionsModuleLibrary
 {
-    public class RequestForQuoteFunctionsViewModel : DependencyObject, INotifyPropertyChanged
+    public sealed class RequestForQuoteFunctionsViewModel : DependencyObject, INotifyPropertyChanged
     {     
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;

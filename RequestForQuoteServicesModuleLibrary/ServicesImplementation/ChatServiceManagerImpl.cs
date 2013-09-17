@@ -8,7 +8,7 @@ using RequestForQuoteServicesModuleLibrary.ChatService;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    public class ChatServiceManagerImpl : IChatServiceManager
+    public sealed class ChatServiceManagerImpl : IChatServiceManager
     {
         private readonly ChatMediatorClient chatMediatorProxy = new ChatMediatorClient();
 

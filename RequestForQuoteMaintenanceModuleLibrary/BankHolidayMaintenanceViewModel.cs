@@ -19,7 +19,7 @@ using log4net;
 
 namespace RequestForQuoteMaintenanceModuleLibrary
 {
-    public class BankHolidayMaintenanceViewModel : DependencyObject, IClearInputViewModel, IAddNewItemViewModel
+    public sealed class BankHolidayMaintenanceViewModel : DependencyObject, IClearInputViewModel, IAddNewItemViewModel
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();

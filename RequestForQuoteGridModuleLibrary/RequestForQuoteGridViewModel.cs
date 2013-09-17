@@ -22,7 +22,7 @@ using log4net;
 
 namespace RequestForQuoteGridModuleLibrary
 {
-    public class RequestForQuoteGridViewModel : DependencyObject, INotifyPropertyChanged
+    public sealed class RequestForQuoteGridViewModel : DependencyObject, INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

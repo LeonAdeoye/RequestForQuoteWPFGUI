@@ -15,7 +15,7 @@ using RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    public class BankHolidayManagerImpl : IBankHolidayManager
+    public sealed class BankHolidayManagerImpl : IBankHolidayManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();

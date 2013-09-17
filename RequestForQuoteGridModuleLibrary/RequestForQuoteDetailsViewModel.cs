@@ -17,7 +17,7 @@ using log4net;
 
 namespace RequestForQuoteGridModuleLibrary
 {
-    internal class SequenceIdComparer : IComparer
+    internal sealed class SequenceIdComparer : IComparer
     {
         // Faster sort than using ICollectionView.SortDescriptions - sort first by sequnece id and then by time (as a precaution).
         public int Compare(object firstParam, object secondParam)
@@ -35,7 +35,7 @@ namespace RequestForQuoteGridModuleLibrary
         }
     }
 
-    public class RequestForQuoteDetailsViewModel : DependencyObject 
+    public sealed class RequestForQuoteDetailsViewModel : DependencyObject 
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;

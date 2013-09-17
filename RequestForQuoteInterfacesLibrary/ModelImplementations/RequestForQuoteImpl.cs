@@ -10,7 +10,7 @@ using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class RequestForQuoteImpl : IRequestForQuote, INotifyPropertyChanged
+    public sealed class RequestForQuoteImpl : IRequestForQuote, INotifyPropertyChanged
     {
         private bool isOTC;
         

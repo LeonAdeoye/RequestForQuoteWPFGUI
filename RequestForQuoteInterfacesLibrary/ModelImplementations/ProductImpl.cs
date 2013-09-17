@@ -2,7 +2,7 @@
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public class ProductImpl : IProduct
+    public sealed class ProductImpl : IProduct
     {
         public int Identifier { get; set; }
         public string Name { get; set; }
