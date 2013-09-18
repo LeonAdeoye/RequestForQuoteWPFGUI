@@ -66,9 +66,11 @@
                                     </ComboBox>
 
                                     <ComboBox Margin="2" IsEditable="true" 
-                                              IsReadOnly="true" Text="select status..."
-                                              SelectedItem="{Binding SelectedStatus}"
-                                              ItemsSource="{Binding Source={Enums:EnumList {x:Type Enums:StatusEnum}, ShowDisplayString=true}}">
+                                        IsReadOnly="true" Text="select status..."
+                                        SelectedValue="{Binding SelectedStatus}"
+                                        DisplayMemberPath="Description"
+                                        SelectedValuePath="Value"                                              
+                                        ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}">
                                         <ComboBox.ToolTip>
                                             <ToolTip Content="Select status...">
                                             </ToolTip>

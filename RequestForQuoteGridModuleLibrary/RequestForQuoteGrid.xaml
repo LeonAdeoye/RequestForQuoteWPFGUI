@@ -27,14 +27,15 @@
                 <DataGridTemplateColumn Header="Status">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=Status}"/>
+                            <TextBlock Text="{Binding Path=Status, Converter={StaticResource EnumDescriptionConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Path=DataContext.Status,
-                                      RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Mode=OneWay}"
-                                      SelectedValue="{Binding Status}"/>
+                            <ComboBox  SelectedValue="{Binding Status}"
+                                DisplayMemberPath="Description"
+                                SelectedValuePath="Value"                                              
+                                ItemsSource="{Binding Source={enums:Enumeration {x:Type enums:StatusEnum}}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

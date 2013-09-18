@@ -106,10 +106,12 @@
                                 <Label DockPanel.Dock="Right">Client</Label>
                             </DockPanel>
                             <DockPanel >
-                                <ComboBox DockPanel.Dock="Right" Width="250" ItemsSource="{Binding Source={Enums:EnumList {x:Type Enums:StatusEnum}, ShowDisplayString=true}}"
-                                            SelectedItem="{Binding Path=ClonedRequest.Status, Mode=TwoWay}"
-                                            SelectedValue="{Binding ClonedRequest.Status}"/>
-                                <Label DockPanel.Dock="Right">Status</Label>
+                                <ComboBox DockPanel.Dock="Right" Width="250"
+                                    ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}" 
+                                    DisplayMemberPath="Description" 
+                                    SelectedValue="{Binding ClonedRequest.Status}"  
+                                    SelectedValuePath="Value"  />                                
+                                <Label DockPanel.Dock="Right">Status</Label>                                
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Row="1">

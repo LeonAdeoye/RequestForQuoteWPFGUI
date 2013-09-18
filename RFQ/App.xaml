@@ -45,6 +45,7 @@
             <converters:DebugConverter x:Key="DebugConverter" />
             <converters:RadioButtonConverter  x:Key="RadioButtonConverter" />
             <converters:ChatMsgBkgdColourConverter  x:Key="ChatMsgBkgdColourConverter" />
+            <converters:EnumDescriptionConverter  x:Key="EnumDescriptionConverter" />
         </ResourceDictionary>               
       
     </Application.Resources>

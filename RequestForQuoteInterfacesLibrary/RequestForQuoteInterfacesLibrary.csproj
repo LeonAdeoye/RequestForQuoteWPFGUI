@@ -64,9 +64,10 @@
     <Compile Include="Commands\AbstractRequestForQuoteCommand.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Converters\ChatMsgBkgdColourConverter.cs" />
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\RadioButtonConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
-    <Compile Include="Enums\EnumListExtension.cs" />
+    <Compile Include="Enums\EnumerationExtension.cs" />
     <Compile Include="Enums\ProductTypeEnum.cs" />
     <Compile Include="Enums\CriteriaTypeEnum.cs" />
     <Compile Include="Enums\PrivacyEnum.cs" />
