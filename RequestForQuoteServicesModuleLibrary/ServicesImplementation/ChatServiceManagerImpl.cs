@@ -1,30 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.ChatService;
+using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
     public sealed class ChatServiceManagerImpl : IChatServiceManager
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly ChatMediatorClient chatMediatorProxy = new ChatMediatorClient();
+
+        private static readonly bool isStandAlone = Environment.GetCommandLineArgs().Length > 1 &&
+                                                    Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE;
 
         public void SendChatMessage(int requestForQuoteId, string sender, string message)
         {
-            chatMediatorProxy.sendMessage(requestForQuoteId, sender, message);
+            try
+            {
+                chatMediatorProxy.sendMessage(requestForQuoteId, sender, message);
+            }
+            catch (EndpointNotFoundException exception)
+            {
+                if (isStandAlone)
+                    log.Error("Failed to send chat message via web service. Exception thrown: ", exception);
+                else
+                    throw;
+            }            
         }
 
         public List<ChatMessageImpl> GetChatMessages(int requestForQuoteId, int fromThisSequenceId)
         {
             var listOfMessages = new List<ChatMessageImpl>();
-            var messages = chatMediatorProxy.getChatMessages(requestForQuoteId, fromThisSequenceId);
-            foreach (var message in messages.ChatMessageListImpl)
+            try
             {
-                listOfMessages.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId, message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+                var messages = chatMediatorProxy.getChatMessages(requestForQuoteId, fromThisSequenceId);
+                foreach (var message in messages.ChatMessageListImpl)
+                {
+                    listOfMessages.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId, message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+                }
             }
+            catch (EndpointNotFoundException exception)
+            {
+                if (isStandAlone)
+                    log.Error("Failed to get chat messages via web service. Exception thrown: ", exception);
+                else
+                    throw;
+            }
+            
+
             return listOfMessages;
         }
 
@@ -36,17 +63,38 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public List<ChatMessageImpl> RegisterParticipant(int requestForQuoteId)
         {
-            var messages = chatMediatorProxy.registerParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
             var result = new List<ChatMessageImpl>();
-            if (messages.chatMessageList != null)
-                foreach (var message in messages.chatMessageList)
-                    result.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId, message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+            try
+            {
+                var messages = chatMediatorProxy.registerParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
+
+                if (messages.chatMessageList != null)
+                    foreach (var message in messages.chatMessageList)
+                        result.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId, message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+            }
+            catch (EndpointNotFoundException exception)
+            {
+                if (isStandAlone)
+                    log.Error("Failed to register participant via web service. Exception thrown: ", exception);
+                else
+                    throw;
+            }
             return result;
         }
 
         public void UnregisterParticpant(int requestForQuoteId)
         {
-            chatMediatorProxy.unregisterParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
+            try
+            {
+                chatMediatorProxy.unregisterParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
+            }
+            catch (EndpointNotFoundException exception)
+            {
+                if (isStandAlone)
+                    log.Error("Failed to unregister participant via web service. Exception thrown: ", exception);
+                else
+                    throw;
+            }
         }
     }
 }
