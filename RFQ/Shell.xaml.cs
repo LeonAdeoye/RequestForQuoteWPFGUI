@@ -50,8 +50,11 @@ namespace RFQ
                 try
                 {
                     foreach (var window in Application.Current.Windows.OfType<IWindowPopup>())
+                    {
+                        window.IsApplicationRemainingOpen = false;
                         window.CloseWindow();
-
+                    }
+                        
                     shellViewModel.ShutdownServerCommunication();
                 }
                 catch (Exception)

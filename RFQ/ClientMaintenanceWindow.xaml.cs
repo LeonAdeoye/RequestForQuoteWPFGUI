@@ -44,5 +44,12 @@ namespace RFQ
         {
             Activate();
         }
+
+        public void HideWindow()
+        {
+            Hide();
+        }
+
+        public bool IsApplicationRemainingOpen { get; set; }
     }
 }

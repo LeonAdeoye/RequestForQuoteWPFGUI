@@ -250,8 +250,7 @@ namespace RequestForQuoteGridModuleLibrary
                 if (ClonedRequest.Messages != null)                
                     originalRequestForQuote.Messages = ClonedRequest.Messages;
             }
-            originalRequestForQuote.Popup.CloseWindow();
-            originalRequestForQuote.Popup = null;
+            originalRequestForQuote.Popup.HideWindow();
         }
 
         public bool CanSave(string saveChanges)

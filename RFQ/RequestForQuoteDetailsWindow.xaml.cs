@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RFQ
@@ -11,6 +13,14 @@ namespace RFQ
         public RequestForQuoteDetailsWindow()
         {
             InitializeComponent();
+            IsApplicationRemainingOpen = true;
+            Closing += OnClosing;
+        }
+
+        private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        {
+            cancelEventArgs.Cancel = IsApplicationRemainingOpen;
+            Hide();
         }
 
         public void ShowWindow(object viewModelArg)
@@ -22,6 +32,7 @@ namespace RFQ
         public void ShowWindow()
         {
             Show();
+            Activate();
         }
 
         public bool? ShowModalWindow()
@@ -44,5 +55,12 @@ namespace RFQ
         {
             Activate();            
         }
+
+        public void HideWindow()
+        {
+            Hide();
+        }
+
+        public bool IsApplicationRemainingOpen { get; set; }
     }
 }

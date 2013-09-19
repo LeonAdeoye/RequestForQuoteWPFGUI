@@ -139,15 +139,14 @@ namespace RequestForQuoteGridModuleLibrary
         {
             if (SelectedRequest.Popup == null)
             {
-                IRequestForQuoteDetailsPopupWindow requestForQuotePopup = ServiceLocator.Current.GetInstance<IRequestForQuoteDetailsPopupWindow>();
-                // TODO make this a ctor param:
+                // Need to use service locator because of dependency module initialization issues.
+                SelectedRequest.Popup = ServiceLocator.Current.GetInstance<IRequestForQuoteDetailsPopupWindow>();
 
-                SelectedRequest.Popup = requestForQuotePopup;
-                requestForQuotePopup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
+                SelectedRequest.Popup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
                     bookManager, eventAggregator, underlyingManager, chatServiceManager));
             }
             else
-                SelectedRequest.Popup.ActivateWindow();
+                SelectedRequest.Popup.ShowWindow();
         }
 
         public bool CanAddNewRequest()

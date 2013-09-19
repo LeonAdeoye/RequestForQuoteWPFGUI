@@ -78,7 +78,7 @@
                                     </ComboBox>
                                     
                                     <ComboBox Name="SearchInitiatorComboBox" IsEditable="true" 
-                                              IsReadOnly="true" Text="select inititator..." Margin="2,2,2,0"/>
+                                              IsReadOnly="true" Text="select initiator..." Margin="2,2,2,0"/>
                                     
                                     <Label>From Trade Date:</Label>
                                     <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding StartTradeDate}" 

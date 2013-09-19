@@ -56,5 +56,12 @@ namespace RFQ
             DataContext = viewModelArg;
             return ShowDialog();
         }
+
+        public void HideWindow()
+        {
+            Hide();
+        }
+
+        public bool IsApplicationRemainingOpen { get; set; }
     }
 }

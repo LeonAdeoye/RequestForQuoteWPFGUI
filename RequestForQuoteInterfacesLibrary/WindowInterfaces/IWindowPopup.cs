@@ -8,5 +8,7 @@
         bool? ShowModalWindow(object viewModelArg);
         void CloseWindow();
         void ActivateWindow();
+        void HideWindow();
+        bool IsApplicationRemainingOpen { get; set; }
     }
 }
