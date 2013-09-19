@@ -153,11 +153,11 @@
                     <MenuItem Header="Delete Request" Command="{Binding DeleteRequestCommand}"></MenuItem>
                 
                     <MenuItem Header="Change Status Of Request">
-                        <MenuItem Header="PENDING" Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="PICKEDUP"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="FILLED"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="TRADEDAWAY"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="INVALID"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
+                        <MenuItem Header="Pending pick up" Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="PENDING"></MenuItem>                        
+                        <MenuItem Header="Picked up"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="PICKEDUP"></MenuItem>
+                        <MenuItem Header="Filled"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="FILLED"></MenuItem>
+                        <MenuItem Header="Traded away"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="TRADEDAWAY"></MenuItem>
+                        <MenuItem Header="Invalid"  Command="{Binding ChangeStatusOfRequestCommand}" CommandParameter="INVALID"></MenuItem>
                     </MenuItem>
                 
                     <MenuItem Header="Group By">
