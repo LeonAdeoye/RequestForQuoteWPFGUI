@@ -2,6 +2,7 @@
 {
     public static class RegionNames
     {
+        public static string UNDERLYING_MAINTENANCE_USER_CONTROL_REGION = "UnderlyingMaintenanceUserControl";
         public const string TREE_BROWSER_USER_CONTROL_REGION = "TreeBrowserUserControl";
         public const string BOOK_MAINTENANCE_USER_CONTROL_REGION = "BookMaintenanceUserControl";
         public const string SAVE_SEARCH_USER_CONTROL_REGION = "SaveSearchUserControl";

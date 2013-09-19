@@ -113,6 +113,7 @@
     <Compile Include="ViewModelInterfaces\IClearInputViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IAddNewItemViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IUpdateValidityViewModel.cs" />
+    <Compile Include="WindowInterfaces\IUnderlyingMaintenancePopupWindow.cs" />
     <Compile Include="WindowInterfaces\IBankHolidayMaintenancePopupWindow.cs" />
     <Compile Include="WindowInterfaces\ISaveSearchPopupWindow.cs" />
     <Compile Include="WindowInterfaces\IClientMaintenancePopupWindow.cs" />

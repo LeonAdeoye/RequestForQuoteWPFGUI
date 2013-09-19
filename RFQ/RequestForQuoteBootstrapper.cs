@@ -4,6 +4,7 @@ using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
+using RFQ.Popups;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RFQ
@@ -42,6 +43,7 @@ namespace RFQ
             Container.RegisterType<IBookMaintenancePopupWindow, BookMaintenanceWindow>();
             Container.RegisterType<IClientMaintenancePopupWindow, ClientMaintenanceWindow>();
             Container.RegisterType<IBankHolidayMaintenancePopupWindow, BankHolidayMaintenanceWindow>();
+            Container.RegisterType<IUnderlyingMaintenancePopupWindow, UnderlyingMaintenanceWindow>();
             Container.RegisterType<ISaveSearchPopupWindow, SaveSearchWindow>(); 
         }
     }

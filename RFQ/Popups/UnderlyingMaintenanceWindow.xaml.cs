@@ -1,37 +1,25 @@
 ﻿using System.Windows;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
-namespace RFQ
+namespace RFQ.Popups
 {
     /// <summary>
-    /// Interaction logic for SaveSearchWindow.xaml
+    /// Interaction logic for UnderlyingMaintenanceWindow.xaml
     /// </summary>
-    public partial class SaveSearchWindow : Window, ISaveSearchPopupWindow
+    public partial class UnderlyingMaintenanceWindow : Window, IUnderlyingMaintenancePopupWindow
     {
-        public SaveSearchWindow()
+        public UnderlyingMaintenanceWindow()
         {
             InitializeComponent();
         }
-
         public void ShowWindow(object viewModelArg)
         {
             DataContext = viewModelArg;
             Show();
         }
 
-        public void ShowWindow()
-        {
-            Show();
-        }
-
         public bool? ShowModalWindow()
         {
-            return ShowDialog();
-        }
-
-        public bool? ShowModalWindow(object viewModelArg)
-        {
-            DataContext = viewModelArg;
             return ShowDialog();
         }
 
@@ -45,11 +33,24 @@ namespace RFQ
             Activate();
         }
 
+
+        public void ShowWindow()
+        {
+            Show();
+        }
+
+        public bool? ShowModalWindow(object viewModelArg)
+        {
+            DataContext = viewModelArg;
+            return ShowDialog();
+        }
+
         public void HideWindow()
         {
             Hide();
         }
 
         public bool IsApplicationRemainingOpen { get; set; }
+
     }
 }

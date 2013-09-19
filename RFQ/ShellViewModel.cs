@@ -41,7 +41,8 @@ namespace RFQ
 
         private void LaunchUnderlyierMaintenancePopupWindow()
         {
-            // TODO
+            IUnderlyingMaintenancePopupWindow underlyingMaintenanceWindow = ServiceLocator.Current.GetInstance<IUnderlyingMaintenancePopupWindow>();
+            underlyingMaintenanceWindow.ShowModalWindow();
         }
 
         public void ShutdownServerCommunication()

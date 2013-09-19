@@ -79,20 +79,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BankHolidayMaintenanceWindow.xaml.cs">
+    <Compile Include="Popups\BankHolidayMaintenanceWindow.xaml.cs">
       <DependentUpon>BankHolidayMaintenanceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BookMaintenanceWindow.xaml.cs">
+    <Compile Include="Popups\BookMaintenanceWindow.xaml.cs">
       <DependentUpon>BookMaintenanceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClientMaintenanceWindow.xaml.cs">
+    <Compile Include="Popups\ClientMaintenanceWindow.xaml.cs">
       <DependentUpon>ClientMaintenanceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RequestForQuoteBootstrapper.cs" />
-    <Compile Include="RequestForQuoteDetailsWindow.xaml.cs">
+    <Compile Include="Popups\RequestForQuoteDetailsWindow.xaml.cs">
       <DependentUpon>RequestForQuoteDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SaveSearchWindow.xaml.cs">
+    <Compile Include="Popups\SaveSearchWindow.xaml.cs">
       <DependentUpon>SaveSearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell.xaml.cs">
@@ -103,27 +103,34 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ShellViewModel.cs" />
-    <Page Include="BankHolidayMaintenanceWindow.xaml">
+    <Compile Include="Popups\UnderlyingMaintenanceWindow.xaml.cs">
+      <DependentUpon>UnderlyingMaintenanceWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Popups\BankHolidayMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BookMaintenanceWindow.xaml">
+    <Page Include="Popups\BookMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientMaintenanceWindow.xaml">
+    <Page Include="Popups\ClientMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RequestForQuoteDetailsWindow.xaml">
+    <Page Include="Popups\RequestForQuoteDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SaveSearchWindow.xaml">
+    <Page Include="Popups\SaveSearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\UnderlyingMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

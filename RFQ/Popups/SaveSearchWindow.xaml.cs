@@ -1,26 +1,16 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
-namespace RFQ
+namespace RFQ.Popups
 {
     /// <summary>
-    /// Interaction logic for RequestForQuoteDetailsWindow.xaml
+    /// Interaction logic for SaveSearchWindow.xaml
     /// </summary>
-    public partial class RequestForQuoteDetailsWindow : Window, IRequestForQuoteDetailsPopupWindow
+    public partial class SaveSearchWindow : Window, ISaveSearchPopupWindow
     {
-        public RequestForQuoteDetailsWindow()
+        public SaveSearchWindow()
         {
             InitializeComponent();
-            IsApplicationRemainingOpen = true;
-            Closing += OnClosing;
-        }
-
-        private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
-        {
-            cancelEventArgs.Cancel = IsApplicationRemainingOpen;
-            Hide();
         }
 
         public void ShowWindow(object viewModelArg)
@@ -32,7 +22,6 @@ namespace RFQ
         public void ShowWindow()
         {
             Show();
-            Activate();
         }
 
         public bool? ShowModalWindow()
@@ -53,7 +42,7 @@ namespace RFQ
 
         public void ActivateWindow()
         {
-            Activate();            
+            Activate();
         }
 
         public void HideWindow()

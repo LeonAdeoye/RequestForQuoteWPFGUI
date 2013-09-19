@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
-namespace RFQ
+namespace RFQ.Popups
 {
     /// <summary>
-    /// Interaction logic for BookMaintenanceWindow.xaml
+    /// Interaction logic for ClientMaintenanceWindow.xaml
     /// </summary>
-    public partial class BookMaintenanceWindow : Window, IBookMaintenancePopupWindow
+    public partial class ClientMaintenanceWindow : Window, IClientMaintenancePopupWindow
     {
-        public BookMaintenanceWindow()
+        public ClientMaintenanceWindow()
         {
             InitializeComponent();
         }
@@ -19,8 +19,19 @@ namespace RFQ
             Show();
         }
 
+        public void ShowWindow()
+        {
+            Show();
+        }
+
         public bool? ShowModalWindow()
         {
+            return ShowDialog();
+        }
+
+        public bool? ShowModalWindow(object viewModelArg)
+        {
+            DataContext = viewModelArg;
             return ShowDialog();
         }
 
@@ -32,18 +43,6 @@ namespace RFQ
         public void ActivateWindow()
         {
             Activate();
-        }
-
-
-        public void ShowWindow()
-        {
-            Show();
-        }
-
-        public bool? ShowModalWindow(object viewModelArg)
-        {
-            DataContext = viewModelArg;
-            return ShowDialog();
         }
 
         public void HideWindow()

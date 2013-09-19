@@ -74,9 +74,13 @@
     <Compile Include="Commands\ClearInputCommand.cs" />
     <Compile Include="ClientMaintenanceViewModel.cs" />
     <Compile Include="Commands\UpdateValidityCommand.cs" />
+    <Compile Include="UnderlyingMaintenanceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestForQuoteMaintenanceModule.cs" />
     <Compile Include="BookMaintenanceViewModel.cs" />
+    <Compile Include="UnderlyingMaintenanceUserControl.xaml.cs">
+      <DependentUpon>UnderlyingMaintenanceUserControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="BankHolidayMaintenanceUserControl.xaml">
@@ -88,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientMaintenanceUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UnderlyingMaintenanceUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
-namespace RFQ
+namespace RFQ.Popups
 {
     /// <summary>
-    /// Interaction logic for BankHolidayMaintenanceWindow.xaml
+    /// Interaction logic for BookMaintenanceWindow.xaml
     /// </summary>
-    public partial class BankHolidayMaintenanceWindow : Window, IBankHolidayMaintenancePopupWindow
+    public partial class BookMaintenanceWindow : Window, IBookMaintenancePopupWindow
     {
-        public BankHolidayMaintenanceWindow()
+        public BookMaintenanceWindow()
         {
             InitializeComponent();
         }
