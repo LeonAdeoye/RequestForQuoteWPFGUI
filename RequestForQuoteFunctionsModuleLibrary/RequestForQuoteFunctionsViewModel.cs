@@ -239,7 +239,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         {
             var client = dependencyPropertyChangedEventArgs.NewValue as IClient;
             if(client != null)
-                criteria[RequestForQuoteConstants.CLIENT_CRITERION] = client.Name;        
+                criteria[RequestForQuoteConstants.CLIENT_CRITERION] = client.Identifier.ToString();        
         }
 
         public IBook SelectedBook
@@ -436,7 +436,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
                     switch (controlCriterion.Key)
                     {
                         case RequestForQuoteConstants.CLIENT_CRITERION:
-                            SelectedClient = Clients.First((client) => client.Name == controlCriterion.Value);
+                            int clientIdentifier;
+                            if(int.TryParse(controlCriterion.Value, out clientIdentifier))
+                                SelectedClient = Clients.First((client) => client.Identifier == clientIdentifier);
                             break;
                         case RequestForQuoteConstants.TRADE_DATE_CRITERION:
                             var dates = controlCriterion.Value.Split('-').ToArray();

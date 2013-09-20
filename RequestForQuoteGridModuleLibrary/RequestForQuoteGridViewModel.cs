@@ -273,8 +273,8 @@ namespace RequestForQuoteGridModuleLibrary
                     switch (criterion.Key)
                     {
                         case RequestForQuoteConstants.CLIENT_CRITERION:
-                            // TODO
-                            //if (request.Client != criterion.Value)
+                            int clientIdentifier;
+                            if (!int.TryParse(criterion.Value, out clientIdentifier) || request.Client.Identifier != clientIdentifier)
                                 return false;
                             break;
                         case RequestForQuoteConstants.BOOK_CRITERION:
