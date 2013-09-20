@@ -77,14 +77,14 @@
                 <DataGridTemplateColumn Header="Client">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=Client}"/>
+                            <TextBlock Text="{Binding Path=Client.Name}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate> 
                             <ComboBox ItemsSource="{Binding Path=DataContext.Clients,
                                       RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Mode=TwoWay}"
-                                      SelectedValue="{Binding Client}" SelectedValuePath="Name" DisplayMemberPath="Name"/>
+                                      SelectedItem="{Binding Client}" DisplayMemberPath="Name"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

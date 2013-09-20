@@ -128,7 +128,7 @@ namespace RequestForQuoteToolBarModuleLibrary
                 eventAggregator.GetEvent<NewRequestForQuoteEvent>().Publish(new NewRequestForQuoteEventPayload()
                     {
                         NewRequestText = this.NewRequest,
-                        NewRequestClient = this.NewRequestClient.Name
+                        NewRequestClient = this.NewRequestClient
                     });
     
                 if(log.IsDebugEnabled)

@@ -23,8 +23,8 @@ namespace RequestForQuoteGridModuleLibrary
         public int Compare(object firstParam, object secondParam)
         {
             var result = 0;
-            ChatMessageImpl firstMessage = firstParam as ChatMessageImpl;
-            ChatMessageImpl secondMessage = secondParam as ChatMessageImpl;
+            var firstMessage = firstParam as ChatMessageImpl;
+            var secondMessage = secondParam as ChatMessageImpl;
             if (firstMessage != null && secondMessage != null)
             {
                 result = firstMessage.SequenceId.CompareTo(secondMessage.SequenceId);
@@ -102,7 +102,7 @@ namespace RequestForQuoteGridModuleLibrary
             Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
             ChatMessages = new ObservableCollection<ChatMessageImpl>(chatServiceManager.RegisterParticipant(originalRequestForQuote.Identifier));
 
-            ListCollectionView messagesCollectionView = CollectionViewSource.GetDefaultView(ChatMessages) as ListCollectionView;
+            var messagesCollectionView = CollectionViewSource.GetDefaultView(ChatMessages) as ListCollectionView;
             if (messagesCollectionView != null)
                 messagesCollectionView.CustomSort = new SequenceIdComparer(); 
         }

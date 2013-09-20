@@ -94,15 +94,15 @@ namespace RequestForQuoteGridModuleLibrary
             foreach (var status in Enum.GetNames(typeof(StatusEnum)))
                 Status.Add(status);
 
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = "Nomura Securities", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" , HedgeType = HedgeTypeEnum.SHARES});
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "P 110 23Dec2013 0002.HK", Status = StatusEnum.FILLED, Identifier = 2, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C+P 90 23Dec2013 0003.HK", Status = StatusEnum.PICKEDUP, Identifier = 3, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.HKD, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C-P 100 23Dec2013 0004.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 4, Client = "JP Morgan", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = "Nomura Securities", TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = "Goldman Sachs", TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C+P 100 23Dec2013 0007.HK", Status = StatusEnum.PENDING, Identifier = 7, Client = "Morgan Stanley", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P 100 23Dec2013 0008.HK", Status = StatusEnum.FILLED, Identifier = 8, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.JPY, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
-            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P-C 110 23Dec2013 0009.HK", Status = StatusEnum.PENDING, Identifier = 9, Client = "Goldman Sachs", TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" , HedgeType = HedgeTypeEnum.SHARES});
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "P 110 23Dec2013 0002.HK", Status = StatusEnum.FILLED, Identifier = 2, Client = Clients[1], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C+P 90 23Dec2013 0003.HK", Status = StatusEnum.PICKEDUP, Identifier = 3, Client = Clients[2], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.HKD, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C-P 100 23Dec2013 0004.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 4, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = Clients[1], TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = Clients[2], TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C+P 100 23Dec2013 0007.HK", Status = StatusEnum.PENDING, Identifier = 7, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P 100 23Dec2013 0008.HK", Status = StatusEnum.FILLED, Identifier = 8, Client = Clients[1], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.JPY, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
+            TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2P-C 110 23Dec2013 0009.HK", Status = StatusEnum.PENDING, Identifier = 9, Client = Clients[2], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
             
             Requests = TodaysRequests;
             NotifyPropertyChanged("Requests");
@@ -154,7 +154,7 @@ namespace RequestForQuoteGridModuleLibrary
             var canDo = false;
             if (!string.IsNullOrEmpty(NewRequest) && optionRequestParser.IsValidOptionRequest(NewRequest))
             {
-                IClient newRequestClient = NewRequestClient as IClient;
+                var newRequestClient = NewRequestClient as IClient;
                 if (newRequestClient != null)
                     canDo = !string.IsNullOrEmpty(newRequestClient.Name);
             }
@@ -273,7 +273,8 @@ namespace RequestForQuoteGridModuleLibrary
                     switch (criterion.Key)
                     {
                         case RequestForQuoteConstants.CLIENT_CRITERION:
-                            if (request.Client != criterion.Value)
+                            // TODO
+                            //if (request.Client != criterion.Value)
                                 return false;
                             break;
                         case RequestForQuoteConstants.BOOK_CRITERION:
@@ -346,7 +347,7 @@ namespace RequestForQuoteGridModuleLibrary
 
             // TODO
             // Load from the database...
-            SearchedRequests.Add(new RequestForQuoteImpl() { Request = "C+3P 100 23Dec2013 1001.T", Status = StatusEnum.PENDING, Identifier = 1, Client = "Nomura Securities", TradeDate = Convert.ToDateTime("1 Jan 2013"), NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" });
+            SearchedRequests.Add(new RequestForQuoteImpl() { Request = "C+3P 100 23Dec2013 1001.T", Status = StatusEnum.PENDING, Identifier = 1, Client = Clients[0], TradeDate = Convert.ToDateTime("1 Jan 2013"), NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" });
 
             Requests = SearchedRequests;
             NotifyPropertyChanged("Requests");

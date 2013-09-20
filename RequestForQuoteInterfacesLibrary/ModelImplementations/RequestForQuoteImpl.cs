@@ -56,7 +56,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         private DateTime tradeDate;
         private DateTime expiryDate;
-        private string client;
+        private IClient client;
         private StatusEnum status;
         private string bookCode;
 
@@ -371,7 +371,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         }
 
         // TODO convert to integer
-        public string Client
+        public IClient Client
         {
             get
             {

@@ -13,7 +13,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         bool IsOTC { get; set; }
         int Identifier { get; set; }
         StatusEnum Status { get; set; }
-        string Client { get; set; }       
+        IClient Client { get; set; }       
         
         decimal Delta { get; set; }
         decimal Gamma { get; set; }

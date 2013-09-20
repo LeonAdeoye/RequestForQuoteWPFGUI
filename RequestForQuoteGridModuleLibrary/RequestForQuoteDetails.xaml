@@ -33,7 +33,7 @@
                         </TextBox.ToolTip>
                     </TextBox>
                     <ScrollViewer VerticalScrollBarVisibility="Hidden">                       
-                        <ListBox Width="200" Height="500" Margin="5,4,5,0" ItemsSource="{Binding ChatMessages}" attached:ListBoxAttachedProperties.AutoScrollToEnd="True">
+                        <ListBox Width="200" Height="550" Margin="5,4,5,0" ItemsSource="{Binding ChatMessages}" attached:ListBoxAttachedProperties.AutoScrollToEnd="True">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="Focusable" Value="False"/>
@@ -102,7 +102,7 @@
                                 <ComboBox   DockPanel.Dock="Right" Width="250"
                                             ItemsSource="{Binding Path=DataContext.Clients,
                                             RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
-                                            SelectedValue="{Binding ClonedRequest.Client}" SelectedValuePath="Name" DisplayMemberPath="Name"/>
+                                            SelectedItem="{Binding ClonedRequest.Client}" DisplayMemberPath="Name"/>
                                 <Label DockPanel.Dock="Right">Client</Label>
                             </DockPanel>
                             <DockPanel >

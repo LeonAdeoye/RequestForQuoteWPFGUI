@@ -13,6 +13,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private int requestForQuoteId;
         [DataMember] private int sequenceId;
 
+        public ChatMessageImpl()
+        {
+        }
+
         public ChatMessageImpl(string owner, string content, int requestForQuoteId, int sequenceId, DateTime timeStamp)
         {
             this.content = content;
