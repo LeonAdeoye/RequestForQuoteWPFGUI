@@ -13,7 +13,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder("[ Owner = ");
+            var builder = new StringBuilder("[ Owner = ");
             builder.Append(Owner);
             builder.Append(", Description Key = ");
             builder.Append(DescriptionKey);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -84,10 +85,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
 
         List<IOptionDetail> Legs { get; set; }
         List<ChatMessageImpl> Messages { get; set; }
-        
+        IEditableObject EditableViewModel { get; set; }
+
         IRequestForQuote Clone(int nextIdentifier);
         bool CalculatePricing(IOptionRequestPricer optionPricer);
         void ClearChatMessages();
         void AddChatMessage(ChatMessageImpl message);
+
+        void CopyMembers(IRequestForQuote fromSourceRequest);
     }
 }

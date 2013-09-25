@@ -76,6 +76,79 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public List<IOptionDetail> Legs { get; set; }
         public List<ChatMessageImpl> Messages { get; set; }
+        public IEditableObject EditableViewModel { get; set; }
+
+        public void CopyMembers(IRequestForQuote fromSourceRequest)
+        {
+            Status = fromSourceRequest.Status;
+            Client = fromSourceRequest.Client;
+            TradeDate = fromSourceRequest.TradeDate;
+            ExpiryDate = fromSourceRequest.ExpiryDate;
+            Request = fromSourceRequest.Request;
+            IsOTC = fromSourceRequest.IsOTC;
+
+            Delta = fromSourceRequest.Delta;
+            Gamma = fromSourceRequest.Gamma;
+            Vega = fromSourceRequest.Vega;
+            Theta = fromSourceRequest.Theta;
+            Rho = fromSourceRequest.Rho;
+
+            ImpliedVol = fromSourceRequest.ImpliedVol;
+            PremiumAmount = fromSourceRequest.PremiumAmount;
+            PremiumPercentage = fromSourceRequest.PremiumPercentage;
+
+            Identifier = fromSourceRequest.Identifier;
+            PickedUpBy = fromSourceRequest.PickedUpBy;
+            BookCode = fromSourceRequest.BookCode;
+
+            PremiumSettlementCurrency = fromSourceRequest.PremiumSettlementCurrency;
+            PremiumSettlementDate = fromSourceRequest.PremiumSettlementDate;
+            PremiumSettlementDaysOverride = fromSourceRequest.PremiumSettlementDaysOverride;
+            PremiumSettlementFXRate = fromSourceRequest.PremiumSettlementFXRate;
+
+            SalesCreditAmount = fromSourceRequest.SalesCreditAmount;
+            SalesCreditPercentage = fromSourceRequest.SalesCreditPercentage;
+            SalesCreditCurrency = fromSourceRequest.SalesCreditCurrency;
+            SalesCreditFXRate = fromSourceRequest.SalesCreditFXRate;
+
+            Multiplier = fromSourceRequest.Multiplier;
+            Contracts = fromSourceRequest.Contracts;
+            LotSize = fromSourceRequest.LotSize;
+
+            NotionalMillions = fromSourceRequest.NotionalMillions;
+            NotionalCurrency = fromSourceRequest.NotionalCurrency;
+            NotionalFXRate = fromSourceRequest.NotionalFXRate;
+
+            BidImpliedVol = fromSourceRequest.BidImpliedVol;
+            BidPremiumPercentage = fromSourceRequest.BidPremiumPercentage;
+            BidPremiumAmount = fromSourceRequest.BidPremiumAmount;
+            BidFinalPercentage = fromSourceRequest.BidFinalPercentage;
+            BidFinalAmount = fromSourceRequest.BidFinalAmount;
+
+            AskImpliedVol = fromSourceRequest.AskImpliedVol;
+            AskPremiumPercentage = fromSourceRequest.AskPremiumPercentage;
+            AskPremiumAmount = fromSourceRequest.AskPremiumAmount;
+            AskFinalPercentage = fromSourceRequest.AskFinalPercentage;
+            AskFinalAmount = fromSourceRequest.AskFinalAmount;
+
+            SalesComment = fromSourceRequest.SalesComment;
+            TraderComment = fromSourceRequest.TraderComment;
+            ClientComment = fromSourceRequest.ClientComment;
+
+            HedgePrice = fromSourceRequest.HedgePrice;
+            HedgeType = fromSourceRequest.HedgeType;
+
+            if (fromSourceRequest.Legs != null)
+            {
+                Legs = new List<IOptionDetail>();
+                foreach (var leg in fromSourceRequest.Legs)
+                    Legs.Add(leg.CloneOptionDetails());
+            }
+
+            // TODO verify
+            if (Messages != null)
+                Messages = new List<ChatMessageImpl>(fromSourceRequest.Messages);
+        }
 
         public IRequestForQuote Clone(int nextIdentifier)
         {
@@ -138,10 +211,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.HedgePrice = hedgePrice;
             clone.HedgeType = hedgeType;
 
-            if (this.Legs != null)
+            if (Legs != null)
             {
                 clone.Legs = new List<IOptionDetail>();
-                foreach (var leg in this.Legs)
+                foreach (var leg in Legs)
                     clone.Legs.Add(leg.CloneOptionDetails());
             }
 
@@ -171,7 +244,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder("identifier: ");
+            var builder = new StringBuilder("identifier: ");
             builder.Append(identifier);
             builder.Append(", request: ");
             builder.Append(request);
@@ -303,6 +376,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             // TODO ToString() for MessageImpl then add this
             return builder.ToString();
         }
+
+        #region ALL_PROPERTIES
 
         public IWindowPopup Popup { get; set; }
 
@@ -1202,6 +1277,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 }
             }
         }
+
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 

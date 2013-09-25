@@ -107,7 +107,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.SaveRequestCommand.Should().NotBeNull("because it was instantiated by the constructor");
             viewModel.SendChatMessageCommand.Should().NotBeNull("because it was instantiated by the constructor");
-            viewModel.ClosePopupCommand.Should().NotBeNull("because it was instantiated by the constructor");
         }
     }
 }

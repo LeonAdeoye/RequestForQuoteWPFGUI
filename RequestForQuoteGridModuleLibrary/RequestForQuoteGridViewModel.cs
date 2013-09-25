@@ -142,11 +142,19 @@ namespace RequestForQuoteGridModuleLibrary
                 // Need to use service locator because of dependency module initialization issues.
                 SelectedRequest.Popup = ServiceLocator.Current.GetInstance<IRequestForQuoteDetailsPopupWindow>();
 
-                SelectedRequest.Popup.ShowWindow(new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest, clientManager, 
-                    bookManager, eventAggregator, underlyingManager, chatServiceManager));
+                var viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest,
+                                                                    clientManager, bookManager, eventAggregator,
+                                                                    underlyingManager, chatServiceManager);
+
+                SelectedRequest.EditableViewModel = viewModel;
+                SelectedRequest.EditableViewModel.BeginEdit();
+                SelectedRequest.Popup.ShowWindow(viewModel);
             }
             else
-                SelectedRequest.Popup.ShowWindow();
+            {
+                SelectedRequest.EditableViewModel.BeginEdit();
+                SelectedRequest.Popup.ShowWindow();    
+            }                        
         }
 
         public bool CanAddNewRequest()
@@ -154,7 +162,7 @@ namespace RequestForQuoteGridModuleLibrary
             var canDo = false;
             if (!string.IsNullOrEmpty(NewRequest) && optionRequestParser.IsValidOptionRequest(NewRequest))
             {
-                var newRequestClient = NewRequestClient as IClient;
+                var newRequestClient = NewRequestClient;
                 if (newRequestClient != null)
                     canDo = !string.IsNullOrEmpty(newRequestClient.Name);
             }
@@ -164,9 +172,9 @@ namespace RequestForQuoteGridModuleLibrary
         public bool CanClearNewRequest()
         {
             var canClear = false;
-            if (string.IsNullOrEmpty(this.NewRequest))
+            if (string.IsNullOrEmpty(NewRequest))
             {
-                var newRequestClient = this.NewRequestClient;
+                var newRequestClient = NewRequestClient;
                 if (newRequestClient != null)
                     canClear = !string.IsNullOrEmpty(newRequestClient.Name);
             }
@@ -212,6 +220,12 @@ namespace RequestForQuoteGridModuleLibrary
             request.Client = eventPayload.NewRequestClient;
             request.TradeDate = DateTime.Today;
             request.CalculatePricing(optionRequestPricer);
+            request.LotSize = 100;
+            request.Multiplier = 10;
+            request.Contracts = 100;
+            request.NotionalFXRate = 1;
+            request.NotionalMillions = 1;
+
             Requests.Add(request);
             // TODO
 

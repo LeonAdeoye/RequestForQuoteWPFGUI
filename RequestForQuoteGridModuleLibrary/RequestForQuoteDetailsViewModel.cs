@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -35,13 +36,14 @@ namespace RequestForQuoteGridModuleLibrary
         }
     }
 
-    public sealed class RequestForQuoteDetailsViewModel : DependencyObject 
+    public sealed class RequestForQuoteDetailsViewModel : DependencyObject, IEditableObject
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         
-        private readonly IRequestForQuote originalRequestForQuote;
         private readonly IOptionRequestPricer optionRequestPricer;
+        public IRequestForQuote SelectedRequestForQuote { get; set; }
+        private IRequestForQuote backupOfRequestForQuote;
         
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
@@ -49,9 +51,7 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IChatServiceManager chatServiceManager;
 
         public IClient SelectedSearchClient { get; set; }
-        public IRequestForQuote ClonedRequest { get; set; }
         public ICommand SaveRequestCommand { get; private set; }
-        public ICommand ClosePopupCommand { get; private set; }
         public ICommand SendChatMessageCommand { get; private set; }
 
         public ObservableCollection<IClient> Clients { get; set; }
@@ -80,8 +80,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.chatServiceManager = chatServiceManager;
             this.eventAggregator = eventAggregator;
 
-            originalRequestForQuote = requestForQuote;
-            ClonedRequest = requestForQuote.Clone(requestForQuote.Identifier);
+            SelectedRequestForQuote = requestForQuote;
 
             InitializeCommands();
             InitializeCollections();
@@ -91,7 +90,6 @@ namespace RequestForQuoteGridModuleLibrary
         private void InitializeCommands()
         {
             SaveRequestCommand = new DelegateCommand<string>(Save, CanSave);
-            ClosePopupCommand = new DelegateCommand<string>(Save, CanSave);
             SendChatMessageCommand = new DelegateCommand(SendChatMessage, () => true);            
         }
 
@@ -100,7 +98,7 @@ namespace RequestForQuoteGridModuleLibrary
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
-            ChatMessages = new ObservableCollection<ChatMessageImpl>(chatServiceManager.RegisterParticipant(originalRequestForQuote.Identifier));
+            ChatMessages = new ObservableCollection<ChatMessageImpl>(chatServiceManager.RegisterParticipant(SelectedRequestForQuote.Identifier));
 
             var messagesCollectionView = CollectionViewSource.GetDefaultView(ChatMessages) as ListCollectionView;
             if (messagesCollectionView != null)
@@ -148,7 +146,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void HandleNewChatMessageEvent(NewChatMessageEventPayload eventPayLoad)
         {
-            if (eventPayLoad.NewChatMessage.RequestForQuoteId == originalRequestForQuote.Identifier)
+            if (eventPayLoad.NewChatMessage.RequestForQuoteId == SelectedRequestForQuote.Identifier)
             {
                 if (log.IsDebugEnabled)
                     log.Debug("Received new chat message: " + eventPayLoad);
@@ -164,98 +162,62 @@ namespace RequestForQuoteGridModuleLibrary
                 if (log.IsDebugEnabled)
                     log.Debug(String.Format("Sending chat message to server for storage [{0}]", MessageToBeSent));
 
-                chatServiceManager.SendChatMessage(originalRequestForQuote.Identifier, RequestForQuoteConstants.MY_USER_NAME, MessageToBeSent);
+                chatServiceManager.SendChatMessage(SelectedRequestForQuote.Identifier, RequestForQuoteConstants.MY_USER_NAME, MessageToBeSent);
                 MessageToBeSent = String.Empty;
             }
         }
 
         public void CalculateRequest()
         {
-            if (!ClonedRequest.CalculatePricing(optionRequestPricer))
+            if (!SelectedRequestForQuote.CalculatePricing(optionRequestPricer))
             {
                 MessageBox.Show("Failed to calculate pricing", "Calculation Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                log.Error("Failed to calculate pricing for request: " + ClonedRequest.Request);
+                log.Error("Failed to calculate pricing for request: " + SelectedRequestForQuote.Request);
             }
         }
 
         public bool CanCalculateRequest()
         {
-            return ClonedRequest != null;
+            return SelectedRequestForQuote != null;
         }
 
         public void Save(string saveChanges)
         {
             if (saveChanges == "true")
-            {
-                originalRequestForQuote.Request = ClonedRequest.Request;
-                originalRequestForQuote.Client = ClonedRequest.Client;
-                originalRequestForQuote.Status = ClonedRequest.Status;
-                originalRequestForQuote.BookCode = ClonedRequest.BookCode;
-                originalRequestForQuote.TradeDate = ClonedRequest.TradeDate;
-                originalRequestForQuote.ExpiryDate = ClonedRequest.ExpiryDate;
+                EndEdit();
+            else
+                CancelEdit();
 
-                originalRequestForQuote.LotSize = ClonedRequest.LotSize;
-                originalRequestForQuote.IsOTC = ClonedRequest.IsOTC;
-                originalRequestForQuote.Multiplier = ClonedRequest.Multiplier;
-                originalRequestForQuote.Contracts = ClonedRequest.Contracts;
-                
-                originalRequestForQuote.PremiumAmount = ClonedRequest.PremiumAmount;
-                originalRequestForQuote.PremiumPercentage = ClonedRequest.PremiumPercentage;
-                originalRequestForQuote.ImpliedVol = ClonedRequest.ImpliedVol;
-                
-                originalRequestForQuote.Delta = ClonedRequest.Delta;
-                originalRequestForQuote.Gamma = ClonedRequest.Gamma;
-                originalRequestForQuote.Theta = ClonedRequest.Theta;
-                originalRequestForQuote.Rho = ClonedRequest.Rho;
-                originalRequestForQuote.Vega = ClonedRequest.Vega;
-                                               
-                originalRequestForQuote.PremiumSettlementCurrency = ClonedRequest.PremiumSettlementCurrency;
-                originalRequestForQuote.PremiumSettlementDate = ClonedRequest.PremiumSettlementDate;
-                originalRequestForQuote.PremiumSettlementDaysOverride = ClonedRequest.PremiumSettlementDaysOverride;
-                originalRequestForQuote.PremiumSettlementFXRate = ClonedRequest.PremiumSettlementFXRate;
-                
-                originalRequestForQuote.NotionalCurrency = ClonedRequest.NotionalCurrency;
-                originalRequestForQuote.NotionalMillions = ClonedRequest.NotionalMillions;
-                originalRequestForQuote.NotionalFXRate = ClonedRequest.NotionalFXRate;               
-
-                originalRequestForQuote.SalesCreditAmount = ClonedRequest.SalesCreditAmount;
-                originalRequestForQuote.SalesCreditPercentage = ClonedRequest.SalesCreditPercentage;
-                originalRequestForQuote.SalesCreditFXRate = ClonedRequest.SalesCreditFXRate;
-                originalRequestForQuote.SalesCreditCurrency = ClonedRequest.SalesCreditCurrency;
-
-                originalRequestForQuote.HedgePrice = ClonedRequest.HedgePrice;
-                originalRequestForQuote.HedgeType = ClonedRequest.HedgeType;
-
-                originalRequestForQuote.SalesComment = ClonedRequest.SalesComment;
-                originalRequestForQuote.TraderComment = ClonedRequest.TraderComment;
-                originalRequestForQuote.ClientComment = ClonedRequest.ClientComment;
-                originalRequestForQuote.PickedUpBy = ClonedRequest.PickedUpBy;
-
-                originalRequestForQuote.AskImpliedVol = ClonedRequest.AskImpliedVol;
-                originalRequestForQuote.AskPremiumPercentage = ClonedRequest.AskPremiumPercentage;
-                originalRequestForQuote.AskPremiumAmount = ClonedRequest.AskPremiumAmount;
-                originalRequestForQuote.AskFinalAmount = ClonedRequest.AskFinalAmount;
-                originalRequestForQuote.AskFinalPercentage = ClonedRequest.AskFinalPercentage;
-
-                originalRequestForQuote.BidImpliedVol = ClonedRequest.BidImpliedVol;
-                originalRequestForQuote.BidPremiumPercentage = ClonedRequest.BidPremiumPercentage;
-                originalRequestForQuote.BidPremiumAmount = ClonedRequest.BidPremiumAmount;
-                originalRequestForQuote.BidFinalAmount = ClonedRequest.BidFinalAmount;
-                originalRequestForQuote.BidFinalPercentage = ClonedRequest.BidFinalPercentage;
-
-                if (ClonedRequest.Legs != null)
-                    originalRequestForQuote.Legs = ClonedRequest.Legs;
-
-                // TODO chat mesages?
-                if (ClonedRequest.Messages != null)                
-                    originalRequestForQuote.Messages = ClonedRequest.Messages;
-            }
-            originalRequestForQuote.Popup.HideWindow();
+            SelectedRequestForQuote.Popup.HideWindow();
         }
 
         public bool CanSave(string saveChanges)
         {
-            return ClonedRequest != null;
+            return SelectedRequestForQuote != null;
+        }
+
+        public void BeginEdit()
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Beginning edit, creating from backup of currently selected request.");
+
+            backupOfRequestForQuote = SelectedRequestForQuote.Clone(SelectedRequestForQuote.Identifier);
+        }
+
+        public void EndEdit()
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Ending edit, saving currently selected request as is.");
+
+            // Save to the database
+        }
+
+        public void CancelEdit()
+        {
+            if(log.IsDebugEnabled)
+                log.Debug("User cancelled edit, restoring from backup");
+
+            SelectedRequestForQuote.CopyMembers(backupOfRequestForQuote);
         }
     }
 }

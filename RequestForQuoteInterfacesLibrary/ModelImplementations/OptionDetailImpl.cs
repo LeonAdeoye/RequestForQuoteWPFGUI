@@ -95,7 +95,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder("RIC: ");
+            var builder = new StringBuilder("RIC: ");
             builder.Append(this.RIC);
             builder.Append(", BBG");
             builder.Append(this.BBG);

@@ -95,21 +95,21 @@
                         </Grid.RowDefinitions>            
                         <StackPanel Grid.Row="0">
                             <DockPanel >
-                                <TextBox IsReadOnly="True" DockPanel.Dock="Right"  Width="250"  Text="{Binding Path=ClonedRequest.Request, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                <TextBox IsReadOnly="True" DockPanel.Dock="Right"  Width="250"  Text="{Binding Path=SelectedRequestForQuote.Request, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                 <Label DockPanel.Dock="Left">Request</Label>
                             </DockPanel>
                             <DockPanel >
                                 <ComboBox   DockPanel.Dock="Right" Width="250"
                                             ItemsSource="{Binding Path=DataContext.Clients,
-                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
-                                            SelectedItem="{Binding ClonedRequest.Client}" DisplayMemberPath="Name"/>
+                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedRequestForQuote.Client}" DisplayMemberPath="Name"/>
                                 <Label DockPanel.Dock="Right">Client</Label>
                             </DockPanel>
                             <DockPanel >
                                 <ComboBox DockPanel.Dock="Right" Width="250"
                                     ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}" 
                                     DisplayMemberPath="Description" 
-                                    SelectedValue="{Binding ClonedRequest.Status}"  
+                                    SelectedValue="{Binding SelectedRequestForQuote.Status}"  
                                     SelectedValuePath="Value"  />                                
                                 <Label DockPanel.Dock="Right">Status</Label>                                
                             </DockPanel>
@@ -118,72 +118,72 @@
                             <DockPanel>
                                 <ComboBox   DockPanel.Dock="Right" Width="90"
                                             ItemsSource="{Binding Path=DataContext.Books,
-                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=OneWay}"
-                                            SelectedValue="{Binding ClonedRequest.BookCode}" SelectedValuePath="BookCode" DisplayMemberPath="BookCode"/>
+                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay}"
+                                            SelectedValue="{Binding SelectedRequestForQuote.BookCode}" SelectedValuePath="BookCode" DisplayMemberPath="BookCode"/>
                                 <Label DockPanel.Dock="Right" Width="70">BookCode</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.NotionalMillions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Notional.$m</Label>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.NotionalMillions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">Notional(m)</Label>
                             </DockPanel>
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
-                                            SelectedItem="{Binding Path=ClonedRequest.NotionalCurrency, Mode=TwoWay}"
-                                            SelectedValue="{Binding ClonedRequest.NotionalCurrency}"/>
+                                            SelectedItem="{Binding Path=SelectedRequestForQuote.NotionalCurrency, Mode=TwoWay}"
+                                            SelectedValue="{Binding SelectedRequestForQuote.NotionalCurrency}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Currency</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.NotionalFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.NotionalFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">FX</Label>
                             </DockPanel>                            
                             <DockPanel>
-                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=ClonedRequest.ExpiryDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.ExpiryDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Expiry Date</Label>
-                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=ClonedRequest.TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Trade Date</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.Multiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.Multiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Multiplier</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.Contracts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.Contracts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Contracts</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Quantity, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Quantity, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Quantity</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.LotSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.LotSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Lot Size</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">S.Credit %</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">S.Credit</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.SalesCreditFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">S.Credit FX</Label>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
-                                            SelectedItem="{Binding Path=ClonedRequest.SalesCreditCurrency, Mode=TwoWay}"
-                                            SelectedValue="{Binding ClonedRequest.SalesCreditCurrency}"/>
+                                            SelectedItem="{Binding Path=SelectedRequestForQuote.SalesCreditCurrency, Mode=TwoWay}"
+                                            SelectedValue="{Binding SelectedRequestForQuote.SalesCreditCurrency}"/>
                                 <Label DockPanel.Dock="Right" Width="75">S.Credit Curr</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.PremiumSettlementDaysOverride, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementDaysOverride, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Stt.FX</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.PremiumSettlementFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Stt.Days</Label>
                             </DockPanel>                           
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
-                                            SelectedItem="{Binding Path=ClonedRequest.PremiumSettlementCurrency, Mode=TwoWay}"
-                                            SelectedValue="{Binding ClonedRequest.PremiumSettlementCurrency}"/>                        
+                                            SelectedItem="{Binding Path=SelectedRequestForQuote.PremiumSettlementCurrency, Mode=TwoWay}"
+                                            SelectedValue="{Binding SelectedRequestForQuote.PremiumSettlementCurrency}"/>                        
                                 <Label DockPanel.Dock="Right" Width="70">Stt.Curr</Label>
-                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=ClonedRequest.PremiumSettlementDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.PremiumSettlementDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Stt.Date</Label>
                             </DockPanel>
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource HedgeTypeEnum}}"                                  
-                                            SelectedItem="{Binding Path=ClonedRequest.HedgeType, Mode=TwoWay}"
-                                            SelectedValue="{Binding ClonedRequest.HedgeType}"/>
+                                            SelectedItem="{Binding Path=SelectedRequestForQuote.HedgeType, Mode=TwoWay}"
+                                            SelectedValue="{Binding SelectedRequestForQuote.HedgeType}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Hedge Type</Label>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=ClonedRequest.HedgePrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.HedgePrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Hedge Price</Label>
                             </DockPanel>
                         </StackPanel>
@@ -195,21 +195,21 @@
                                 <Label Width="70" HorizontalContentAlignment="Center" DockPanel.Dock="Right"></Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.AskImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.ImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.BidImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Impl Vol%</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.AskPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.PremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.BidPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.PremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Premium$</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.AskPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.PremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.BidPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.PremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Premium%</Label>
                             </DockPanel>
                             <!--<CustomCntls:HorizontalRule/>-->
@@ -220,38 +220,38 @@
                                 <Label Width="70" HorizontalContentAlignment="Center" DockPanel.Dock="Right"></Label>
                             </DockPanel>                            
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.DeltaShares, UpdateSourceTrigger=PropertyChanged, Mode=Oneway, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.DeltaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Delta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.DeltaShares, UpdateSourceTrigger=PropertyChanged, Mode=Oneway, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.DeltaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Delta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Delta</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.GammaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.GammaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Gamma, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.GammaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.GammaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Gamma, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Gamma</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.ThetaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.ThetaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Theta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ThetaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ThetaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Theta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Theta</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.VegaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.VegaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Vega, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.VegaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.VegaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Vega, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Vega</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.RhoShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.RhoNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=ClonedRequest.Rho, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.RhoShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.RhoNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+                                <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Rho, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <Label Width="70" DockPanel.Dock="Right">Rho</Label>
                             </DockPanel>                            
                         </StackPanel>
                     </Grid>
-                    <ItemsControl Margin="7" ItemsSource="{Binding ClonedRequest.Legs}">
+                    <ItemsControl Margin="7" ItemsSource="{Binding SelectedRequestForQuote.Legs}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -284,8 +284,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
             
-                        <Button Grid.Column="0" Margin="7"  HorizontalAlignment="Left" Width="50" Command="{Binding SaveRequestCommand}" CommandParameter="true">Save</Button>
-                        <Button Grid.Column="1" Margin="7"  HorizontalAlignment="Right" Width="50" Command="{Binding ClosePopupCommand}" CommandParameter="false">Close</Button>
+                        <Button Grid.Column="0" Margin="7"  HorizontalAlignment="Left" Width="50" Command="{Binding SaveRequestCommand}" CommandParameter="true">Save</Button>                        
+                        <Button Grid.Column="1" Margin="7"  HorizontalAlignment="Right" Width="50" Command="{Binding SaveRequestCommand}" CommandParameter="false">Cancel</Button>
                     </Grid>
                 </StackPanel>
             </Grid>
