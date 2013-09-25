@@ -14,11 +14,6 @@
                     <x:Type TypeName="Enums:CurrencyEnum"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <ObjectDataProvider x:Key="StatusEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum }">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="Enums:StatusEnum"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
             <ObjectDataProvider x:Key="PrivacyEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum }">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="Enums:PrivacyEnum"/>
