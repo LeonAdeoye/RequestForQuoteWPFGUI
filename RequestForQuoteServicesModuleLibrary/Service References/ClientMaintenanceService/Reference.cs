@@ -134,7 +134,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://client.rfq.ws.leon.com/")]
-    public partial class clientDetail : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class clientDetailImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int identifierField;
         
@@ -220,12 +220,12 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public clientDetail[] @return;
+        public clientDetailImpl[] @return;
         
         public getAllResponse() {
         }
         
-        public getAllResponse(clientDetail[] @return) {
+        public getAllResponse(clientDetailImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -365,7 +365,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.getAll(request);
         }
         
-        public clientDetail[] getAll() {
+        public clientDetailImpl[] getAll() {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.getAll inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.getAll();
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).getAll(inValue);
             return retVal.@return;

@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\BookMaintenanceService\BookController.wsdl" />
-    <None Include="Service References\BookMaintenanceService\RequestForQuoteServicesModuleLibrary.BookMaintenanceService.bookDetail.datasource">
+    <None Include="Service References\BookMaintenanceService\RequestForQuoteServicesModuleLibrary.BookMaintenanceService.bookDetailImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ChatService\ChatMediator.wsdl" />
@@ -129,10 +129,10 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ClientMaintenanceService\ClientController.wsdl" />
-    <None Include="Service References\ClientMaintenanceService\RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.clientDetail.datasource">
+    <None Include="Service References\ClientMaintenanceService\RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.clientDetailImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\HolidayMaintenanceService\RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.holiday.datasource">
+    <None Include="Service References\HolidayMaintenanceService\RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.holidayImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\OptionPricerService\OptionPricingController.wsdl" />

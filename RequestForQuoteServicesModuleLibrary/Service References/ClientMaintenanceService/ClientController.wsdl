@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://client.rfq.ws.leon.com/" name="ClientController" targetNamespace="http://client.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://client.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="ClientDetail" type="tns:clientDetail" />
+      <xs:element name="ClientDetailImpl" type="tns:clientDetailImpl" />
       <xs:element name="delete" type="tns:delete" />
       <xs:element name="deleteResponse" type="tns:deleteResponse" />
       <xs:element name="getAll" type="tns:getAll" />
@@ -40,10 +40,10 @@
       </xs:complexType>
       <xs:complexType name="getAllResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:clientDetail" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:clientDetailImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="clientDetail">
+      <xs:complexType name="clientDetailImpl">
         <xs:sequence>
           <xs:element name="identifier" type="xs:int" />
           <xs:element name="isValid" type="xs:boolean" />

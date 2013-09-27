@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://holiday.rfq.ws.leon.com/" name="HolidayControllerImplService" targetNamespace="http://holiday.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://holiday.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="Holiday" type="tns:holiday" />
+      <xs:element name="HolidayImpl" type="tns:holidayImpl" />
       <xs:element name="delete" type="tns:delete" />
       <xs:element name="deleteResponse" type="tns:deleteResponse" />
       <xs:element name="get" type="tns:get" />
@@ -28,10 +28,10 @@
       </xs:complexType>
       <xs:complexType name="getAllResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:holiday" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:holidayImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="holiday">
+      <xs:complexType name="holidayImpl">
         <xs:sequence>
           <xs:element minOccurs="0" name="holidayDate" type="xs:dateTime" />
           <xs:element minOccurs="0" name="location" type="xs:string" />
@@ -55,7 +55,7 @@
       </xs:complexType>
       <xs:complexType name="getResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:holiday" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:holidayImpl" />
         </xs:sequence>
       </xs:complexType>
     </xs:schema>

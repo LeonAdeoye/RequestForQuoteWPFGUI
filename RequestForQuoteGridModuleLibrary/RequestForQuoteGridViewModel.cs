@@ -221,7 +221,7 @@ namespace RequestForQuoteGridModuleLibrary
             request.Legs = optionRequestParser.ParseRequest(eventPayload.NewRequestText.ToUpper(), request);
             request.Request = eventPayload.NewRequestText;
             request.Status = StatusEnum.PENDING;
-            request.Identifier = ++identifier;
+            request.Identifier = -1;
             request.Client = eventPayload.NewRequestClient;
             request.TradeDate = DateTime.Today;
             request.CalculatePricing(optionRequestPricer);

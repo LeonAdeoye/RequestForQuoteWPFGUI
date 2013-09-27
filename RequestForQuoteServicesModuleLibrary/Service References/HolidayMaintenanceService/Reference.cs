@@ -112,7 +112,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://holiday.rfq.ws.leon.com/")]
-    public partial class holiday : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class holidayImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.DateTime holidayDateField;
         
@@ -184,12 +184,12 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public holiday[] @return;
+        public holidayImpl[] @return;
         
         public getAllResponse() {
         }
         
-        public getAllResponse(holiday[] @return) {
+        public getAllResponse(holidayImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -261,12 +261,12 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public holiday[] @return;
+        public holidayImpl[] @return;
         
         public getResponse() {
         }
         
-        public getResponse(holiday[] @return) {
+        public getResponse(holidayImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -305,10 +305,10 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             this.results = results;
         }
         
-        public holiday[] Result {
+        public holidayImpl[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((holiday[])(this.results[0]));
+                return ((holidayImpl[])(this.results[0]));
             }
         }
     }
@@ -343,10 +343,10 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             this.results = results;
         }
         
-        public holiday[] Result {
+        public holidayImpl[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((holiday[])(this.results[0]));
+                return ((holidayImpl[])(this.results[0]));
             }
         }
     }
@@ -490,7 +490,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.getAll(request);
         }
         
-        public holiday[] getAll() {
+        public holidayImpl[] getAll() {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getAll inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getAll();
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).getAll(inValue);
             return retVal.@return;
@@ -513,7 +513,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public holiday[] EndgetAll(System.IAsyncResult result) {
+        public holidayImpl[] EndgetAll(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).EndgetAll(result);
             return retVal.@return;
         }
@@ -523,7 +523,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         private object[] OnEndgetAll(System.IAsyncResult result) {
-            holiday[] retVal = this.EndgetAll(result);
+            holidayImpl[] retVal = this.EndgetAll(result);
             return new object[] {
                     retVal};
         }
@@ -632,7 +632,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.get(request);
         }
         
-        public holiday[] get(string location) {
+        public holidayImpl[] get(string location) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.get inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.get();
             inValue.location = location;
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).get(inValue);
@@ -657,7 +657,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public holiday[] Endget(System.IAsyncResult result) {
+        public holidayImpl[] Endget(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.getResponse retVal = ((RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.HolidayController)(this)).Endget(result);
             return retVal.@return;
         }
@@ -668,7 +668,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         private object[] OnEndget(System.IAsyncResult result) {
-            holiday[] retVal = this.Endget(result);
+            holidayImpl[] retVal = this.Endget(result);
             return new object[] {
                     retVal};
         }

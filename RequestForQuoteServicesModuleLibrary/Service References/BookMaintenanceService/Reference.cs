@@ -66,7 +66,7 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://book.rfq.ws.leon.com/")]
-    public partial class bookDetail : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class bookDetailImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string bookCodeField;
         
@@ -138,12 +138,12 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://book.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bookDetail[] @return;
+        public bookDetailImpl[] @return;
         
         public getAllResponse() {
         }
         
-        public getAllResponse(bookDetail[] @return) {
+        public getAllResponse(bookDetailImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -286,10 +286,10 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             this.results = results;
         }
         
-        public bookDetail[] Result {
+        public bookDetailImpl[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((bookDetail[])(this.results[0]));
+                return ((bookDetailImpl[])(this.results[0]));
             }
         }
     }
@@ -411,7 +411,7 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             return base.Channel.getAll(request);
         }
         
-        public bookDetail[] getAll() {
+        public bookDetailImpl[] getAll() {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAll inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAll();
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).getAll(inValue);
             return retVal.@return;
@@ -434,7 +434,7 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public bookDetail[] EndgetAll(System.IAsyncResult result) {
+        public bookDetailImpl[] EndgetAll(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).EndgetAll(result);
             return retVal.@return;
         }
@@ -444,7 +444,7 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         private object[] OnEndgetAll(System.IAsyncResult result) {
-            bookDetail[] retVal = this.EndgetAll(result);
+            bookDetailImpl[] retVal = this.EndgetAll(result);
             return new object[] {
                     retVal};
         }
