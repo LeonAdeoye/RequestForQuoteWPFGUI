@@ -20,6 +20,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         private readonly Mock<IEventAggregator> eventAggregatorMock = new Mock<IEventAggregator>();
         private readonly Mock<IChatServiceManager> chatServiceManager = new Mock<IChatServiceManager>();
         private readonly Mock<IOptionRequestPricer> optionRequestPricer = new Mock<IOptionRequestPricer>();
+        private readonly Mock<IOptionRequestPersistanceManager> optionRequestPersistanceManager = new Mock<IOptionRequestPersistanceManager>();
         private readonly Mock<IRequestForQuote> request = new Mock<IRequestForQuote>();
 
         private readonly Mock<NewBookEvent> newBookEventMock = new Mock<NewBookEvent>();
@@ -76,7 +77,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
             viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer.Object, request.Object, clientManagerMock.Object,
-                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManager.Object);
+                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManager.Object, optionRequestPersistanceManager.Object);
         }
 
         [SetUp]

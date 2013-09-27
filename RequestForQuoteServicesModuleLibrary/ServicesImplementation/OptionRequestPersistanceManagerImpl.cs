@@ -9,7 +9,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     {
         private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
 
-        public bool SaveRequest(IRequestForQuote requestToSave)
+        public int SaveRequest(IRequestForQuote requestToSave)
         {
             var requestDetail = new requestDetailImpl();
             if(requestToSave.Legs != null && requestToSave.Legs.Count > 0)
@@ -32,7 +32,6 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             requestDetail.bookCode = requestToSave.BookCode;
             requestDetail.request = requestToSave.Request;
 
-            // TODO check return value is greater than 0 and then return true otherwise false
             return requestControllerProxy.save(requestDetail);
         }
 

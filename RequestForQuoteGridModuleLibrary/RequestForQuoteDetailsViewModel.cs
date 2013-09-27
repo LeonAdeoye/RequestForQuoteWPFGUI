@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -42,13 +41,15 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IEventAggregator eventAggregator;
         
         private readonly IOptionRequestPricer optionRequestPricer;
+        private readonly IOptionRequestPersistanceManager optionRequestPersistanceManager;
+
         public IRequestForQuote SelectedRequestForQuote { get; set; }
         private IRequestForQuote backupOfRequestForQuote;
         
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
         private readonly IUnderlyingManager underlyingManager;
-        private readonly IChatServiceManager chatServiceManager;
+        private readonly IChatServiceManager chatServiceManager;        
 
         public IClient SelectedSearchClient { get; set; }
         public ICommand SaveRequestCommand { get; private set; }
@@ -71,7 +72,8 @@ namespace RequestForQuoteGridModuleLibrary
 
         public RequestForQuoteDetailsViewModel(IOptionRequestPricer optionRequestPricer, IRequestForQuote requestForQuote,
                                                 IClientManager clientManager, IBookManager bookManager, IEventAggregator eventAggregator,
-                                                IUnderlyingManager underlyingManager, IChatServiceManager chatServiceManager)
+                                                IUnderlyingManager underlyingManager, IChatServiceManager chatServiceManager,
+                                                IOptionRequestPersistanceManager optionRequestPersistanceManager)
         {
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
@@ -79,6 +81,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.underlyingManager = underlyingManager;
             this.chatServiceManager = chatServiceManager;
             this.eventAggregator = eventAggregator;
+            this.optionRequestPersistanceManager = optionRequestPersistanceManager;
 
             SelectedRequestForQuote = requestForQuote;
 
@@ -210,7 +213,27 @@ namespace RequestForQuoteGridModuleLibrary
                 log.Debug("Ending edit, saving currently selected request as is.");
 
             // Save to the database
-            SelectedRequestForQuote.Save();
+            var success = false;
+            if (SelectedRequestForQuote.Identifier == -1)
+            {
+                var newIdentifer = optionRequestPersistanceManager.SaveRequest(SelectedRequestForQuote);
+                if (newIdentifer != -1)
+                {
+                    SelectedRequestForQuote.Identifier = newIdentifer;
+                    success = true;
+                }
+            }
+                
+            else
+                success = optionRequestPersistanceManager.UpdateRequest(SelectedRequestForQuote);
+
+            if (!success && log.IsErrorEnabled)
+            {
+                MessageBox.Show("Failed to save/update request: " + SelectedRequestForQuote.Request,
+                    "Request For Quote Persistance Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                log.Error("Request for quote was not saved/update => " + SelectedRequestForQuote);
+            }
         }
 
         public void CancelEdit()

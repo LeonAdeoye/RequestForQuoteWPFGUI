@@ -459,12 +459,12 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool @return;
+        public int @return;
         
         public saveResponse() {
         }
         
-        public saveResponse(bool @return) {
+        public saveResponse(int @return) {
             this.@return = @return;
         }
     }
@@ -613,10 +613,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             this.results = results;
         }
         
-        public bool Result {
+        public int Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((int)(this.results[0]));
             }
         }
     }
@@ -960,7 +960,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
+        public int save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save();
             inValue.requestDetail = requestDetail;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).save(inValue);
@@ -985,7 +985,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public bool Endsave(System.IAsyncResult result) {
+        public int Endsave(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).Endsave(result);
             return retVal.@return;
         }
@@ -996,7 +996,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
-            bool retVal = this.Endsave(result);
+            int retVal = this.Endsave(result);
             return new object[] {
                     retVal};
         }

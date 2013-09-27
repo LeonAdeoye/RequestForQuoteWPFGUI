@@ -111,7 +111,7 @@
       </xs:complexType>
       <xs:complexType name="saveResponse">
         <xs:sequence>
-          <xs:element name="return" type="xs:boolean" />
+          <xs:element name="return" type="xs:int" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="getRequestsMatchingAdhocCriteria">

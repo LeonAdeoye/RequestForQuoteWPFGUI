@@ -24,7 +24,8 @@ namespace RequestForQuoteGridModuleLibrary
 
             viewModel = new RequestForQuoteGridViewModel(container.Resolve<IBookManager>(), container.Resolve<IClientManager>(),
                 container.Resolve<IOptionRequestParser>(), container.Resolve<IOptionRequestPricer>(), 
-                container.Resolve<IChatServiceManager>(), container.Resolve<IUnderlyingManager>(), eventAggregator);
+                container.Resolve<IChatServiceManager>(), container.Resolve<IUnderlyingManager>(), 
+                container.Resolve<IOptionRequestPersistanceManager>(), eventAggregator);
             
             this.DataContext = viewModel;
         }

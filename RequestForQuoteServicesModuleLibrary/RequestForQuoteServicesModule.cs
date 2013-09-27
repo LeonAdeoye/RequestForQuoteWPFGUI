@@ -51,6 +51,7 @@ namespace RequestForQuoteServicesModuleLibrary
 
             container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IOptionRequestPersistanceManager, OptionRequestPersistanceManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChatServiceManager, ChatServiceManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterInstance(new JsonParserImpl());
 

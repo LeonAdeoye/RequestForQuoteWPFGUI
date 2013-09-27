@@ -28,6 +28,8 @@ namespace RequestForQuoteGridModuleLibrary
 
         private readonly IOptionRequestParser optionRequestParser;
         private readonly IOptionRequestPricer optionRequestPricer;
+        private readonly IOptionRequestPersistanceManager optionRequestPersistanceManager;
+
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
         private readonly IChatServiceManager chatServiceManager;
@@ -57,7 +59,8 @@ namespace RequestForQuoteGridModuleLibrary
         private int identifier = 9;
 
         public RequestForQuoteGridViewModel(IBookManager bookManager, IClientManager clientManager, IOptionRequestParser optionRequestParser,
-            IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager, IUnderlyingManager underlyingManager, IEventAggregator eventAggregator)
+            IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager, IUnderlyingManager underlyingManager,
+            IOptionRequestPersistanceManager optionRequestPersistanceManager, IEventAggregator eventAggregator)
         {
             Requests = new ObservableCollection<IRequestForQuote>();
             SearchedRequests = new ObservableCollection<IRequestForQuote>();
@@ -79,6 +82,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.chatServiceManager = chatServiceManager;
             this.underlyingManager = underlyingManager;
             this.eventAggregator = eventAggregator;
+            this.optionRequestPersistanceManager = optionRequestPersistanceManager;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -144,7 +148,8 @@ namespace RequestForQuoteGridModuleLibrary
 
                 var viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest,
                                                                     clientManager, bookManager, eventAggregator,
-                                                                    underlyingManager, chatServiceManager);
+                                                                    underlyingManager, chatServiceManager,
+                                                                    optionRequestPersistanceManager);
 
                 SelectedRequest.EditableViewModel = viewModel;
                 SelectedRequest.EditableViewModel.BeginEdit();

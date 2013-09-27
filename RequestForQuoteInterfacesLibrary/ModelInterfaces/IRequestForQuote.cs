@@ -93,6 +93,5 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         void AddChatMessage(ChatMessageImpl message);
 
         void CopyMembers(IRequestForQuote fromSourceRequest);
-        void Save();
     }
 }

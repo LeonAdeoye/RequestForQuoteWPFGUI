@@ -5,7 +5,7 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
 {
     public interface IOptionRequestPersistanceManager
     {
-        bool SaveRequest(IRequestForQuote requestToSave);
+        int SaveRequest(IRequestForQuote requestToSave);
         bool UpdateRequest(IRequestForQuote requestToUpdate);
         IRequestForQuote GetRequest(int identifier, bool rePrice);
         List<IRequestForQuote> GetRequestMatchingAdhocCriteria(ISearch search, bool rePrice);

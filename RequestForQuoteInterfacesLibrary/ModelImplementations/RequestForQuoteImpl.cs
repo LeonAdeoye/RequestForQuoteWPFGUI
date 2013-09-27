@@ -150,11 +150,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 Messages = new List<ChatMessageImpl>(fromSourceRequest.Messages);
         }
 
-        public void Save()
-        {
-
-        }
-
         public IRequestForQuote Clone(int nextIdentifier)
         {
             IRequestForQuote clone = new RequestForQuoteImpl();
