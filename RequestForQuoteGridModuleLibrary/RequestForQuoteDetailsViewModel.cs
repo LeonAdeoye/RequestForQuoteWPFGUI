@@ -210,6 +210,7 @@ namespace RequestForQuoteGridModuleLibrary
                 log.Debug("Ending edit, saving currently selected request as is.");
 
             // Save to the database
+            SelectedRequestForQuote.Save();
         }
 
         public void CancelEdit()

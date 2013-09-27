@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://request.rfq.ws.leon.com/" name="RequestController" targetNamespace="http://request.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.request" elementFormDefault="unqualified" targetNamespace="http://request.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="com.leon.ws.rfq.request" />
+      <xs:element name="getRequest" type="tns:getRequest" />
+      <xs:element name="getRequestResponse" type="tns:getRequestResponse" />
+      <xs:element name="getRequestsForToday" type="tns:getRequestsForToday" />
+      <xs:element name="getRequestsForTodayResponse" type="tns:getRequestsForTodayResponse" />
+      <xs:element name="getRequestsMatchingAdhocCriteria" type="tns:getRequestsMatchingAdhocCriteria" />
+      <xs:element name="getRequestsMatchingAdhocCriteriaResponse" type="tns:getRequestsMatchingAdhocCriteriaResponse" />
+      <xs:element name="getRequestsMatchingExistingCriteria" type="tns:getRequestsMatchingExistingCriteria" />
+      <xs:element name="getRequestsMatchingExistingCriteriaResponse" type="tns:getRequestsMatchingExistingCriteriaResponse" />
+      <xs:element name="save" type="tns:save" />
+      <xs:element name="saveResponse" type="tns:saveResponse" />
+      <xs:element name="update" type="tns:update" />
+      <xs:element name="updateResponse" type="tns:updateResponse" />
+      <xs:complexType name="getRequest">
+        <xs:sequence>
+          <xs:element name="identifier" type="xs:int" />
+          <xs:element name="rePrice" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:requestDetailImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestDetailImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bookCode" type="xs:string" />
+          <xs:element name="identifier" type="xs:int" />
+          <xs:element minOccurs="0" name="legs" type="tns:optionDetailListImpl" />
+          <xs:element minOccurs="0" name="request" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="optionDetailListImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OptionDetailListImpl">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:OptionDetailImpl" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionDetailList" nillable="true" type="tns:optionDetailImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="optionDetailImpl">
+        <xs:sequence>
+          <xs:element name="isCall" type="xs:boolean" />
+          <xs:element name="isEuropean" type="xs:boolean" />
+          <xs:element name="legId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="arrayList">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractList">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractList" abstract="true">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractCollection">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractCollection" abstract="true">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="update">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="updateResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsMatchingExistingCriteria">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="criteriaOwner" type="xs:string" />
+          <xs:element minOccurs="0" name="criteriaKey" type="xs:string" />
+          <xs:element name="rePrice" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsMatchingExistingCriteriaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:requestDetailListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestDetailListImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RequestDetailListImpl">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:RequestDetailImpl" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="requestDetailList" nillable="true" type="tns:requestDetailImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="save">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="saveResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsMatchingAdhocCriteria">
+        <xs:sequence>
+          <xs:element name="rePrice" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsMatchingAdhocCriteriaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:requestDetailListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsForToday">
+        <xs:sequence>
+          <xs:element name="rePrice" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsForTodayResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:requestDetailListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.request" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://request.rfq.ws.leon.com/" />
+      <xs:element name="OptionDetailImpl" type="ns1:optionDetailImpl" />
+      <xs:element name="OptionDetailListImpl" type="ns1:optionDetailListImpl" />
+      <xs:element name="RequestDetailImpl" type="ns1:requestDetailImpl" />
+      <xs:element name="RequestDetailListImpl" type="ns1:requestDetailListImpl" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getRequestsForTodayResponse">
+    <wsdl:part name="parameters" element="tns:getRequestsForTodayResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRequest">
+    <wsdl:part name="parameters" element="tns:getRequest" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsForToday">
+    <wsdl:part name="parameters" element="tns:getRequestsForToday" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsMatchingAdhocCriteriaResponse">
+    <wsdl:part name="parameters" element="tns:getRequestsMatchingAdhocCriteriaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsMatchingExistingCriteriaResponse">
+    <wsdl:part name="parameters" element="tns:getRequestsMatchingExistingCriteriaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRequestResponse">
+    <wsdl:part name="parameters" element="tns:getRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="update">
+    <wsdl:part name="parameters" element="tns:update" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsMatchingExistingCriteria">
+    <wsdl:part name="parameters" element="tns:getRequestsMatchingExistingCriteria" />
+  </wsdl:message>
+  <wsdl:message name="save">
+    <wsdl:part name="parameters" element="tns:save" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsMatchingAdhocCriteria">
+    <wsdl:part name="parameters" element="tns:getRequestsMatchingAdhocCriteria" />
+  </wsdl:message>
+  <wsdl:message name="saveResponse">
+    <wsdl:part name="parameters" element="tns:saveResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part name="parameters" element="tns:updateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RequestController">
+    <wsdl:operation name="getRequest">
+      <wsdl:input name="getRequest" message="tns:getRequest" />
+      <wsdl:output name="getRequestResponse" message="tns:getRequestResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <wsdl:input name="update" message="tns:update" />
+      <wsdl:output name="updateResponse" message="tns:updateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsMatchingExistingCriteria">
+      <wsdl:input name="getRequestsMatchingExistingCriteria" message="tns:getRequestsMatchingExistingCriteria" />
+      <wsdl:output name="getRequestsMatchingExistingCriteriaResponse" message="tns:getRequestsMatchingExistingCriteriaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="save">
+      <wsdl:input name="save" message="tns:save" />
+      <wsdl:output name="saveResponse" message="tns:saveResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsMatchingAdhocCriteria">
+      <wsdl:input name="getRequestsMatchingAdhocCriteria" message="tns:getRequestsMatchingAdhocCriteria" />
+      <wsdl:output name="getRequestsMatchingAdhocCriteriaResponse" message="tns:getRequestsMatchingAdhocCriteriaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsForToday">
+      <wsdl:input name="getRequestsForToday" message="tns:getRequestsForToday" />
+      <wsdl:output name="getRequestsForTodayResponse" message="tns:getRequestsForTodayResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RequestControllerSoapBinding" type="tns:RequestController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getRequest">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRequestResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsMatchingExistingCriteria">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRequestsMatchingExistingCriteria">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRequestsMatchingExistingCriteriaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="update">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsMatchingAdhocCriteria">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRequestsMatchingAdhocCriteria">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRequestsMatchingAdhocCriteriaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="save">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="save">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="saveResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestsForToday">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRequestsForToday">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRequestsForTodayResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RequestController">
+    <wsdl:port name="RequestControllerImplPort" binding="tns:RequestControllerSoapBinding">
+      <soap:address location="http://localhost:8080/rfq/services/RequestMaintenance" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

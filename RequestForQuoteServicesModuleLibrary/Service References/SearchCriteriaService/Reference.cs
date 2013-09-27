@@ -98,7 +98,7 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://search.rfq.ws.leon.com/")]
-    public partial class searchCriterion : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class searchCriterionImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string controlNameField;
         
@@ -240,12 +240,12 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public searchCriterion[] @return;
+        public searchCriterionImpl[] @return;
         
         public getAllResponse() {
         }
         
-        public getAllResponse(searchCriterion[] @return) {
+        public getAllResponse(searchCriterionImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -383,12 +383,12 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://search.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public searchCriterion[] @return;
+        public searchCriterionImpl[] @return;
         
         public getResponse() {
         }
         
-        public getResponse(searchCriterion[] @return) {
+        public getResponse(searchCriterionImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -439,7 +439,7 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
             return base.Channel.getAll(request);
         }
         
-        public searchCriterion[] getAll() {
+        public searchCriterionImpl[] getAll() {
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getAll inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getAll();
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.getAllResponse retVal = ((RequestForQuoteServicesModuleLibrary.SearchCriteriaService.SearchController)(this)).getAll(inValue);
             return retVal.@return;
@@ -480,7 +480,7 @@ namespace RequestForQuoteServicesModuleLibrary.SearchCriteriaService {
             return base.Channel.get(request);
         }
         
-        public searchCriterion[] get(string owner, string key) {
+        public searchCriterionImpl[] get(string owner, string key) {
             RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get inValue = new RequestForQuoteServicesModuleLibrary.SearchCriteriaService.get();
             inValue.owner = owner;
             inValue.key = key;

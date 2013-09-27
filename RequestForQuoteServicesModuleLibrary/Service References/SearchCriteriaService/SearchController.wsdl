@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://search.rfq.ws.leon.com/" name="SearchController" targetNamespace="http://search.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://search.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="SearchCriterion" type="tns:searchCriterion" />
+      <xs:element name="SearchCriterionImpl" type="tns:searchCriterionImpl" />
       <xs:element name="delete" type="tns:delete" />
       <xs:element name="deleteResponse" type="tns:deleteResponse" />
       <xs:element name="get" type="tns:get" />
@@ -30,10 +30,10 @@
       </xs:complexType>
       <xs:complexType name="getAllResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:searchCriterion" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:searchCriterionImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="searchCriterion">
+      <xs:complexType name="searchCriterionImpl">
         <xs:sequence>
           <xs:element minOccurs="0" name="controlName" type="xs:string" />
           <xs:element minOccurs="0" name="controlValue" type="xs:string" />
@@ -77,7 +77,7 @@
       </xs:complexType>
       <xs:complexType name="getResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:searchCriterion" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:searchCriterionImpl" />
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
