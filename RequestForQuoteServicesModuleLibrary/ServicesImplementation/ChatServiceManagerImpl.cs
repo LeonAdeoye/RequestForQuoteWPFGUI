@@ -66,11 +66,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             var result = new List<ChatMessageImpl>();
             try
             {
-                var messages = chatMediatorProxy.registerParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
+                var messages = chatMediatorProxy.registerParticipant(requestForQuoteId,
+                                                                     RequestForQuoteConstants.MY_USER_NAME);
 
                 if (messages.chatMessageList != null)
                     foreach (var message in messages.chatMessageList)
-                        result.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId, message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+                        result.Add(new ChatMessageImpl(message.owner, message.content, message.requestForQuoteId,
+                                                       message.sequenceId, Convert.ToDateTime(message.timeStamp)));
+            }
+            catch (FormatException feException)
+            {
+                log.Error("Failed to convert chat message timeStamp to datetime. Exception thrown: ", feException);
             }
             catch (EndpointNotFoundException exception)
             {
