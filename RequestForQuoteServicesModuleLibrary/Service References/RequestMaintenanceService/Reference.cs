@@ -90,16 +90,444 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
     public partial class requestDetailImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private decimal askFinalAmountField;
+        
+        private bool askFinalAmountFieldSpecified;
+        
+        private decimal askFinalPercentageField;
+        
+        private bool askFinalPercentageFieldSpecified;
+        
+        private decimal askImpliedVolField;
+        
+        private bool askImpliedVolFieldSpecified;
+        
+        private decimal askPremiumAmountField;
+        
+        private bool askPremiumAmountFieldSpecified;
+        
+        private decimal askPremiumPercentageField;
+        
+        private bool askPremiumPercentageFieldSpecified;
+        
+        private decimal bidFinalAmountField;
+        
+        private bool bidFinalAmountFieldSpecified;
+        
+        private decimal bidFinalPercentageField;
+        
+        private bool bidFinalPercentageFieldSpecified;
+        
+        private decimal bidImpliedVolField;
+        
+        private bool bidImpliedVolFieldSpecified;
+        
+        private decimal bidPremiumAmountField;
+        
+        private bool bidPremiumAmountFieldSpecified;
+        
+        private decimal bidPremiumPercentageField;
+        
+        private bool bidPremiumPercentageFieldSpecified;
+        
         private string bookCodeField;
+        
+        private string clientCommentField;
+        
+        private int clientIdField;
+        
+        private int contractsField;
+        
+        private decimal deltaField;
+        
+        private bool deltaFieldSpecified;
+        
+        private decimal deltaNotionalField;
+        
+        private bool deltaNotionalFieldSpecified;
+        
+        private decimal deltaSharesField;
+        
+        private bool deltaSharesFieldSpecified;
+        
+        private System.DateTime expiryDateField;
+        
+        private bool expiryDateFieldSpecified;
+        
+        private decimal gammaField;
+        
+        private bool gammaFieldSpecified;
+        
+        private decimal gammaNotionalField;
+        
+        private bool gammaNotionalFieldSpecified;
+        
+        private decimal gammaSharesField;
+        
+        private bool gammaSharesFieldSpecified;
+        
+        private decimal hedgePriceField;
+        
+        private bool hedgePriceFieldSpecified;
+        
+        private string hedgeTypeField;
         
         private int identifierField;
         
+        private decimal impliedVolField;
+        
+        private bool impliedVolFieldSpecified;
+        
+        private bool isOTCField;
+        
         private optionDetailListImpl legsField;
+        
+        private int lotSizeField;
+        
+        private int multiplierField;
+        
+        private string notionalCurrencyField;
+        
+        private decimal notionalFXRateField;
+        
+        private bool notionalFXRateFieldSpecified;
+        
+        private decimal notionalMillionsField;
+        
+        private bool notionalMillionsFieldSpecified;
+        
+        private string pickedUpByField;
+        
+        private decimal premiumAmountField;
+        
+        private bool premiumAmountFieldSpecified;
+        
+        private decimal premiumPercentageField;
+        
+        private bool premiumPercentageFieldSpecified;
+        
+        private string premiumSettlementCurrencyField;
+        
+        private System.DateTime premiumSettlementDateField;
+        
+        private bool premiumSettlementDateFieldSpecified;
+        
+        private int premiumSettlementDaysOverrideField;
+        
+        private decimal premiumSettlementFXRateField;
+        
+        private bool premiumSettlementFXRateFieldSpecified;
+        
+        private int quantityField;
         
         private string requestField;
         
+        private decimal rhoField;
+        
+        private bool rhoFieldSpecified;
+        
+        private decimal rhoNotionalField;
+        
+        private bool rhoNotionalFieldSpecified;
+        
+        private decimal rhoSharesField;
+        
+        private bool rhoSharesFieldSpecified;
+        
+        private string salesCommentField;
+        
+        private decimal salesCreditAmountField;
+        
+        private bool salesCreditAmountFieldSpecified;
+        
+        private string salesCreditCurrencyField;
+        
+        private decimal salesCreditFXRateField;
+        
+        private bool salesCreditFXRateFieldSpecified;
+        
+        private decimal salesCreditPercentageField;
+        
+        private bool salesCreditPercentageFieldSpecified;
+        
+        private string statusField;
+        
+        private decimal thetaField;
+        
+        private bool thetaFieldSpecified;
+        
+        private decimal thetaNotionalField;
+        
+        private bool thetaNotionalFieldSpecified;
+        
+        private decimal thetaSharesField;
+        
+        private bool thetaSharesFieldSpecified;
+        
+        private decimal totalPremiumField;
+        
+        private bool totalPremiumFieldSpecified;
+        
+        private System.DateTime tradeDateField;
+        
+        private bool tradeDateFieldSpecified;
+        
+        private string traderCommentField;
+        
+        private decimal vegaField;
+        
+        private bool vegaFieldSpecified;
+        
+        private decimal vegaNotionalField;
+        
+        private bool vegaNotionalFieldSpecified;
+        
+        private decimal vegaSharesField;
+        
+        private bool vegaSharesFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public decimal askFinalAmount {
+            get {
+                return this.askFinalAmountField;
+            }
+            set {
+                this.askFinalAmountField = value;
+                this.RaisePropertyChanged("askFinalAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool askFinalAmountSpecified {
+            get {
+                return this.askFinalAmountFieldSpecified;
+            }
+            set {
+                this.askFinalAmountFieldSpecified = value;
+                this.RaisePropertyChanged("askFinalAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public decimal askFinalPercentage {
+            get {
+                return this.askFinalPercentageField;
+            }
+            set {
+                this.askFinalPercentageField = value;
+                this.RaisePropertyChanged("askFinalPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool askFinalPercentageSpecified {
+            get {
+                return this.askFinalPercentageFieldSpecified;
+            }
+            set {
+                this.askFinalPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("askFinalPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public decimal askImpliedVol {
+            get {
+                return this.askImpliedVolField;
+            }
+            set {
+                this.askImpliedVolField = value;
+                this.RaisePropertyChanged("askImpliedVol");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool askImpliedVolSpecified {
+            get {
+                return this.askImpliedVolFieldSpecified;
+            }
+            set {
+                this.askImpliedVolFieldSpecified = value;
+                this.RaisePropertyChanged("askImpliedVolSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public decimal askPremiumAmount {
+            get {
+                return this.askPremiumAmountField;
+            }
+            set {
+                this.askPremiumAmountField = value;
+                this.RaisePropertyChanged("askPremiumAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool askPremiumAmountSpecified {
+            get {
+                return this.askPremiumAmountFieldSpecified;
+            }
+            set {
+                this.askPremiumAmountFieldSpecified = value;
+                this.RaisePropertyChanged("askPremiumAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public decimal askPremiumPercentage {
+            get {
+                return this.askPremiumPercentageField;
+            }
+            set {
+                this.askPremiumPercentageField = value;
+                this.RaisePropertyChanged("askPremiumPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool askPremiumPercentageSpecified {
+            get {
+                return this.askPremiumPercentageFieldSpecified;
+            }
+            set {
+                this.askPremiumPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("askPremiumPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public decimal bidFinalAmount {
+            get {
+                return this.bidFinalAmountField;
+            }
+            set {
+                this.bidFinalAmountField = value;
+                this.RaisePropertyChanged("bidFinalAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bidFinalAmountSpecified {
+            get {
+                return this.bidFinalAmountFieldSpecified;
+            }
+            set {
+                this.bidFinalAmountFieldSpecified = value;
+                this.RaisePropertyChanged("bidFinalAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public decimal bidFinalPercentage {
+            get {
+                return this.bidFinalPercentageField;
+            }
+            set {
+                this.bidFinalPercentageField = value;
+                this.RaisePropertyChanged("bidFinalPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bidFinalPercentageSpecified {
+            get {
+                return this.bidFinalPercentageFieldSpecified;
+            }
+            set {
+                this.bidFinalPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("bidFinalPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public decimal bidImpliedVol {
+            get {
+                return this.bidImpliedVolField;
+            }
+            set {
+                this.bidImpliedVolField = value;
+                this.RaisePropertyChanged("bidImpliedVol");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bidImpliedVolSpecified {
+            get {
+                return this.bidImpliedVolFieldSpecified;
+            }
+            set {
+                this.bidImpliedVolFieldSpecified = value;
+                this.RaisePropertyChanged("bidImpliedVolSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        public decimal bidPremiumAmount {
+            get {
+                return this.bidPremiumAmountField;
+            }
+            set {
+                this.bidPremiumAmountField = value;
+                this.RaisePropertyChanged("bidPremiumAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bidPremiumAmountSpecified {
+            get {
+                return this.bidPremiumAmountFieldSpecified;
+            }
+            set {
+                this.bidPremiumAmountFieldSpecified = value;
+                this.RaisePropertyChanged("bidPremiumAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        public decimal bidPremiumPercentage {
+            get {
+                return this.bidPremiumPercentageField;
+            }
+            set {
+                this.bidPremiumPercentageField = value;
+                this.RaisePropertyChanged("bidPremiumPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool bidPremiumPercentageSpecified {
+            get {
+                return this.bidPremiumPercentageFieldSpecified;
+            }
+            set {
+                this.bidPremiumPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("bidPremiumPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
         public string bookCode {
             get {
                 return this.bookCodeField;
@@ -111,7 +539,247 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
+        public string clientComment {
+            get {
+                return this.clientCommentField;
+            }
+            set {
+                this.clientCommentField = value;
+                this.RaisePropertyChanged("clientComment");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=12)]
+        public int clientId {
+            get {
+                return this.clientIdField;
+            }
+            set {
+                this.clientIdField = value;
+                this.RaisePropertyChanged("clientId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=13)]
+        public int contracts {
+            get {
+                return this.contractsField;
+            }
+            set {
+                this.contractsField = value;
+                this.RaisePropertyChanged("contracts");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=14)]
+        public decimal delta {
+            get {
+                return this.deltaField;
+            }
+            set {
+                this.deltaField = value;
+                this.RaisePropertyChanged("delta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deltaSpecified {
+            get {
+                return this.deltaFieldSpecified;
+            }
+            set {
+                this.deltaFieldSpecified = value;
+                this.RaisePropertyChanged("deltaSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=15)]
+        public decimal deltaNotional {
+            get {
+                return this.deltaNotionalField;
+            }
+            set {
+                this.deltaNotionalField = value;
+                this.RaisePropertyChanged("deltaNotional");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deltaNotionalSpecified {
+            get {
+                return this.deltaNotionalFieldSpecified;
+            }
+            set {
+                this.deltaNotionalFieldSpecified = value;
+                this.RaisePropertyChanged("deltaNotionalSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=16)]
+        public decimal deltaShares {
+            get {
+                return this.deltaSharesField;
+            }
+            set {
+                this.deltaSharesField = value;
+                this.RaisePropertyChanged("deltaShares");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deltaSharesSpecified {
+            get {
+                return this.deltaSharesFieldSpecified;
+            }
+            set {
+                this.deltaSharesFieldSpecified = value;
+                this.RaisePropertyChanged("deltaSharesSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=17)]
+        public System.DateTime expiryDate {
+            get {
+                return this.expiryDateField;
+            }
+            set {
+                this.expiryDateField = value;
+                this.RaisePropertyChanged("expiryDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool expiryDateSpecified {
+            get {
+                return this.expiryDateFieldSpecified;
+            }
+            set {
+                this.expiryDateFieldSpecified = value;
+                this.RaisePropertyChanged("expiryDateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=18)]
+        public decimal gamma {
+            get {
+                return this.gammaField;
+            }
+            set {
+                this.gammaField = value;
+                this.RaisePropertyChanged("gamma");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool gammaSpecified {
+            get {
+                return this.gammaFieldSpecified;
+            }
+            set {
+                this.gammaFieldSpecified = value;
+                this.RaisePropertyChanged("gammaSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=19)]
+        public decimal gammaNotional {
+            get {
+                return this.gammaNotionalField;
+            }
+            set {
+                this.gammaNotionalField = value;
+                this.RaisePropertyChanged("gammaNotional");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool gammaNotionalSpecified {
+            get {
+                return this.gammaNotionalFieldSpecified;
+            }
+            set {
+                this.gammaNotionalFieldSpecified = value;
+                this.RaisePropertyChanged("gammaNotionalSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=20)]
+        public decimal gammaShares {
+            get {
+                return this.gammaSharesField;
+            }
+            set {
+                this.gammaSharesField = value;
+                this.RaisePropertyChanged("gammaShares");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool gammaSharesSpecified {
+            get {
+                return this.gammaSharesFieldSpecified;
+            }
+            set {
+                this.gammaSharesFieldSpecified = value;
+                this.RaisePropertyChanged("gammaSharesSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=21)]
+        public decimal hedgePrice {
+            get {
+                return this.hedgePriceField;
+            }
+            set {
+                this.hedgePriceField = value;
+                this.RaisePropertyChanged("hedgePrice");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hedgePriceSpecified {
+            get {
+                return this.hedgePriceFieldSpecified;
+            }
+            set {
+                this.hedgePriceFieldSpecified = value;
+                this.RaisePropertyChanged("hedgePriceSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=22)]
+        public string hedgeType {
+            get {
+                return this.hedgeTypeField;
+            }
+            set {
+                this.hedgeTypeField = value;
+                this.RaisePropertyChanged("hedgeType");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=23)]
         public int identifier {
             get {
                 return this.identifierField;
@@ -123,7 +791,43 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=24)]
+        public decimal impliedVol {
+            get {
+                return this.impliedVolField;
+            }
+            set {
+                this.impliedVolField = value;
+                this.RaisePropertyChanged("impliedVol");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool impliedVolSpecified {
+            get {
+                return this.impliedVolFieldSpecified;
+            }
+            set {
+                this.impliedVolFieldSpecified = value;
+                this.RaisePropertyChanged("impliedVolSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=25)]
+        public bool isOTC {
+            get {
+                return this.isOTCField;
+            }
+            set {
+                this.isOTCField = value;
+                this.RaisePropertyChanged("isOTC");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=26)]
         public optionDetailListImpl legs {
             get {
                 return this.legsField;
@@ -135,7 +839,235 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=27)]
+        public int lotSize {
+            get {
+                return this.lotSizeField;
+            }
+            set {
+                this.lotSizeField = value;
+                this.RaisePropertyChanged("lotSize");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=28)]
+        public int multiplier {
+            get {
+                return this.multiplierField;
+            }
+            set {
+                this.multiplierField = value;
+                this.RaisePropertyChanged("multiplier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=29)]
+        public string notionalCurrency {
+            get {
+                return this.notionalCurrencyField;
+            }
+            set {
+                this.notionalCurrencyField = value;
+                this.RaisePropertyChanged("notionalCurrency");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=30)]
+        public decimal notionalFXRate {
+            get {
+                return this.notionalFXRateField;
+            }
+            set {
+                this.notionalFXRateField = value;
+                this.RaisePropertyChanged("notionalFXRate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool notionalFXRateSpecified {
+            get {
+                return this.notionalFXRateFieldSpecified;
+            }
+            set {
+                this.notionalFXRateFieldSpecified = value;
+                this.RaisePropertyChanged("notionalFXRateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=31)]
+        public decimal notionalMillions {
+            get {
+                return this.notionalMillionsField;
+            }
+            set {
+                this.notionalMillionsField = value;
+                this.RaisePropertyChanged("notionalMillions");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool notionalMillionsSpecified {
+            get {
+                return this.notionalMillionsFieldSpecified;
+            }
+            set {
+                this.notionalMillionsFieldSpecified = value;
+                this.RaisePropertyChanged("notionalMillionsSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=32)]
+        public string pickedUpBy {
+            get {
+                return this.pickedUpByField;
+            }
+            set {
+                this.pickedUpByField = value;
+                this.RaisePropertyChanged("pickedUpBy");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=33)]
+        public decimal premiumAmount {
+            get {
+                return this.premiumAmountField;
+            }
+            set {
+                this.premiumAmountField = value;
+                this.RaisePropertyChanged("premiumAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool premiumAmountSpecified {
+            get {
+                return this.premiumAmountFieldSpecified;
+            }
+            set {
+                this.premiumAmountFieldSpecified = value;
+                this.RaisePropertyChanged("premiumAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=34)]
+        public decimal premiumPercentage {
+            get {
+                return this.premiumPercentageField;
+            }
+            set {
+                this.premiumPercentageField = value;
+                this.RaisePropertyChanged("premiumPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool premiumPercentageSpecified {
+            get {
+                return this.premiumPercentageFieldSpecified;
+            }
+            set {
+                this.premiumPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("premiumPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=35)]
+        public string premiumSettlementCurrency {
+            get {
+                return this.premiumSettlementCurrencyField;
+            }
+            set {
+                this.premiumSettlementCurrencyField = value;
+                this.RaisePropertyChanged("premiumSettlementCurrency");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=36)]
+        public System.DateTime premiumSettlementDate {
+            get {
+                return this.premiumSettlementDateField;
+            }
+            set {
+                this.premiumSettlementDateField = value;
+                this.RaisePropertyChanged("premiumSettlementDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool premiumSettlementDateSpecified {
+            get {
+                return this.premiumSettlementDateFieldSpecified;
+            }
+            set {
+                this.premiumSettlementDateFieldSpecified = value;
+                this.RaisePropertyChanged("premiumSettlementDateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=37)]
+        public int premiumSettlementDaysOverride {
+            get {
+                return this.premiumSettlementDaysOverrideField;
+            }
+            set {
+                this.premiumSettlementDaysOverrideField = value;
+                this.RaisePropertyChanged("premiumSettlementDaysOverride");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=38)]
+        public decimal premiumSettlementFXRate {
+            get {
+                return this.premiumSettlementFXRateField;
+            }
+            set {
+                this.premiumSettlementFXRateField = value;
+                this.RaisePropertyChanged("premiumSettlementFXRate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool premiumSettlementFXRateSpecified {
+            get {
+                return this.premiumSettlementFXRateFieldSpecified;
+            }
+            set {
+                this.premiumSettlementFXRateFieldSpecified = value;
+                this.RaisePropertyChanged("premiumSettlementFXRateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=39)]
+        public int quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+                this.RaisePropertyChanged("quantity");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=40)]
         public string request {
             get {
                 return this.requestField;
@@ -143,6 +1075,390 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             set {
                 this.requestField = value;
                 this.RaisePropertyChanged("request");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=41)]
+        public decimal rho {
+            get {
+                return this.rhoField;
+            }
+            set {
+                this.rhoField = value;
+                this.RaisePropertyChanged("rho");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool rhoSpecified {
+            get {
+                return this.rhoFieldSpecified;
+            }
+            set {
+                this.rhoFieldSpecified = value;
+                this.RaisePropertyChanged("rhoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=42)]
+        public decimal rhoNotional {
+            get {
+                return this.rhoNotionalField;
+            }
+            set {
+                this.rhoNotionalField = value;
+                this.RaisePropertyChanged("rhoNotional");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool rhoNotionalSpecified {
+            get {
+                return this.rhoNotionalFieldSpecified;
+            }
+            set {
+                this.rhoNotionalFieldSpecified = value;
+                this.RaisePropertyChanged("rhoNotionalSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=43)]
+        public decimal rhoShares {
+            get {
+                return this.rhoSharesField;
+            }
+            set {
+                this.rhoSharesField = value;
+                this.RaisePropertyChanged("rhoShares");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool rhoSharesSpecified {
+            get {
+                return this.rhoSharesFieldSpecified;
+            }
+            set {
+                this.rhoSharesFieldSpecified = value;
+                this.RaisePropertyChanged("rhoSharesSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=44)]
+        public string salesComment {
+            get {
+                return this.salesCommentField;
+            }
+            set {
+                this.salesCommentField = value;
+                this.RaisePropertyChanged("salesComment");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=45)]
+        public decimal salesCreditAmount {
+            get {
+                return this.salesCreditAmountField;
+            }
+            set {
+                this.salesCreditAmountField = value;
+                this.RaisePropertyChanged("salesCreditAmount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool salesCreditAmountSpecified {
+            get {
+                return this.salesCreditAmountFieldSpecified;
+            }
+            set {
+                this.salesCreditAmountFieldSpecified = value;
+                this.RaisePropertyChanged("salesCreditAmountSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=46)]
+        public string salesCreditCurrency {
+            get {
+                return this.salesCreditCurrencyField;
+            }
+            set {
+                this.salesCreditCurrencyField = value;
+                this.RaisePropertyChanged("salesCreditCurrency");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=47)]
+        public decimal salesCreditFXRate {
+            get {
+                return this.salesCreditFXRateField;
+            }
+            set {
+                this.salesCreditFXRateField = value;
+                this.RaisePropertyChanged("salesCreditFXRate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool salesCreditFXRateSpecified {
+            get {
+                return this.salesCreditFXRateFieldSpecified;
+            }
+            set {
+                this.salesCreditFXRateFieldSpecified = value;
+                this.RaisePropertyChanged("salesCreditFXRateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=48)]
+        public decimal salesCreditPercentage {
+            get {
+                return this.salesCreditPercentageField;
+            }
+            set {
+                this.salesCreditPercentageField = value;
+                this.RaisePropertyChanged("salesCreditPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool salesCreditPercentageSpecified {
+            get {
+                return this.salesCreditPercentageFieldSpecified;
+            }
+            set {
+                this.salesCreditPercentageFieldSpecified = value;
+                this.RaisePropertyChanged("salesCreditPercentageSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=49)]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+                this.RaisePropertyChanged("status");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=50)]
+        public decimal theta {
+            get {
+                return this.thetaField;
+            }
+            set {
+                this.thetaField = value;
+                this.RaisePropertyChanged("theta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool thetaSpecified {
+            get {
+                return this.thetaFieldSpecified;
+            }
+            set {
+                this.thetaFieldSpecified = value;
+                this.RaisePropertyChanged("thetaSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=51)]
+        public decimal thetaNotional {
+            get {
+                return this.thetaNotionalField;
+            }
+            set {
+                this.thetaNotionalField = value;
+                this.RaisePropertyChanged("thetaNotional");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool thetaNotionalSpecified {
+            get {
+                return this.thetaNotionalFieldSpecified;
+            }
+            set {
+                this.thetaNotionalFieldSpecified = value;
+                this.RaisePropertyChanged("thetaNotionalSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=52)]
+        public decimal thetaShares {
+            get {
+                return this.thetaSharesField;
+            }
+            set {
+                this.thetaSharesField = value;
+                this.RaisePropertyChanged("thetaShares");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool thetaSharesSpecified {
+            get {
+                return this.thetaSharesFieldSpecified;
+            }
+            set {
+                this.thetaSharesFieldSpecified = value;
+                this.RaisePropertyChanged("thetaSharesSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=53)]
+        public decimal totalPremium {
+            get {
+                return this.totalPremiumField;
+            }
+            set {
+                this.totalPremiumField = value;
+                this.RaisePropertyChanged("totalPremium");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool totalPremiumSpecified {
+            get {
+                return this.totalPremiumFieldSpecified;
+            }
+            set {
+                this.totalPremiumFieldSpecified = value;
+                this.RaisePropertyChanged("totalPremiumSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=54)]
+        public System.DateTime tradeDate {
+            get {
+                return this.tradeDateField;
+            }
+            set {
+                this.tradeDateField = value;
+                this.RaisePropertyChanged("tradeDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tradeDateSpecified {
+            get {
+                return this.tradeDateFieldSpecified;
+            }
+            set {
+                this.tradeDateFieldSpecified = value;
+                this.RaisePropertyChanged("tradeDateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=55)]
+        public string traderComment {
+            get {
+                return this.traderCommentField;
+            }
+            set {
+                this.traderCommentField = value;
+                this.RaisePropertyChanged("traderComment");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=56)]
+        public decimal vega {
+            get {
+                return this.vegaField;
+            }
+            set {
+                this.vegaField = value;
+                this.RaisePropertyChanged("vega");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool vegaSpecified {
+            get {
+                return this.vegaFieldSpecified;
+            }
+            set {
+                this.vegaFieldSpecified = value;
+                this.RaisePropertyChanged("vegaSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=57)]
+        public decimal vegaNotional {
+            get {
+                return this.vegaNotionalField;
+            }
+            set {
+                this.vegaNotionalField = value;
+                this.RaisePropertyChanged("vegaNotional");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool vegaNotionalSpecified {
+            get {
+                return this.vegaNotionalFieldSpecified;
+            }
+            set {
+                this.vegaNotionalFieldSpecified = value;
+                this.RaisePropertyChanged("vegaNotionalSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=58)]
+        public decimal vegaShares {
+            get {
+                return this.vegaSharesField;
+            }
+            set {
+                this.vegaSharesField = value;
+                this.RaisePropertyChanged("vegaShares");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool vegaSharesSpecified {
+            get {
+                return this.vegaSharesFieldSpecified;
+            }
+            set {
+                this.vegaSharesFieldSpecified = value;
+                this.RaisePropertyChanged("vegaSharesSpecified");
             }
         }
         
@@ -361,11 +1677,16 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string updatedByUser;
+        
         public update() {
         }
         
-        public update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
+        public update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
             this.requestDetail = requestDetail;
+            this.updatedByUser = updatedByUser;
         }
     }
     
@@ -443,11 +1764,16 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string savedByUser;
+        
         public save() {
         }
         
-        public save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
+        public save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
             this.requestDetail = requestDetail;
+            this.savedByUser = savedByUser;
         }
     }
     
@@ -810,9 +2136,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.update(request);
         }
         
-        public bool update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
+        public bool update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update();
             inValue.requestDetail = requestDetail;
+            inValue.updatedByUser = updatedByUser;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.updateResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).update(inValue);
             return retVal.@return;
         }
@@ -823,9 +2150,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginupdate(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginupdate(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update();
             inValue.requestDetail = requestDetail;
+            inValue.updatedByUser = updatedByUser;
             return ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).Beginupdate(inValue, callback, asyncState);
         }
         
@@ -842,7 +2170,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private System.IAsyncResult OnBeginupdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl)(inValues[0]));
-            return this.Beginupdate(requestDetail, callback, asyncState);
+            string updatedByUser = ((string)(inValues[1]));
+            return this.Beginupdate(requestDetail, updatedByUser, callback, asyncState);
         }
         
         private object[] OnEndupdate(System.IAsyncResult result) {
@@ -858,11 +2187,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
-            this.updateAsync(requestDetail, null);
+        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
+            this.updateAsync(requestDetail, updatedByUser, null);
         }
         
-        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, object userState) {
+        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser, object userState) {
             if ((this.onBeginupdateDelegate == null)) {
                 this.onBeginupdateDelegate = new BeginOperationDelegate(this.OnBeginupdate);
             }
@@ -873,7 +2202,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
                 this.onupdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnupdateCompleted);
             }
             base.InvokeAsync(this.onBeginupdateDelegate, new object[] {
-                        requestDetail}, this.onEndupdateDelegate, this.onupdateCompletedDelegate, userState);
+                        requestDetail,
+                        updatedByUser}, this.onEndupdateDelegate, this.onupdateCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -960,9 +2290,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public int save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
+        public int save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save();
             inValue.requestDetail = requestDetail;
+            inValue.savedByUser = savedByUser;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).save(inValue);
             return retVal.@return;
         }
@@ -973,9 +2304,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginsave(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginsave(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save();
             inValue.requestDetail = requestDetail;
+            inValue.savedByUser = savedByUser;
             return ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).Beginsave(inValue, callback, asyncState);
         }
         
@@ -992,7 +2324,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl)(inValues[0]));
-            return this.Beginsave(requestDetail, callback, asyncState);
+            string savedByUser = ((string)(inValues[1]));
+            return this.Beginsave(requestDetail, savedByUser, callback, asyncState);
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
@@ -1008,11 +2341,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail) {
-            this.saveAsync(requestDetail, null);
+        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
+            this.saveAsync(requestDetail, savedByUser, null);
         }
         
-        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, object userState) {
+        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser, object userState) {
             if ((this.onBeginsaveDelegate == null)) {
                 this.onBeginsaveDelegate = new BeginOperationDelegate(this.OnBeginsave);
             }
@@ -1023,7 +2356,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
                 this.onsaveCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnsaveCompleted);
             }
             base.InvokeAsync(this.onBeginsaveDelegate, new object[] {
-                        requestDetail}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
+                        requestDetail,
+                        savedByUser}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

@@ -28,10 +28,65 @@
       </xs:complexType>
       <xs:complexType name="requestDetailImpl">
         <xs:sequence>
+          <xs:element minOccurs="0" name="askFinalAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="askFinalPercentage" type="xs:decimal" />
+          <xs:element minOccurs="0" name="askImpliedVol" type="xs:decimal" />
+          <xs:element minOccurs="0" name="askPremiumAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="askPremiumPercentage" type="xs:decimal" />
+          <xs:element minOccurs="0" name="bidFinalAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="bidFinalPercentage" type="xs:decimal" />
+          <xs:element minOccurs="0" name="bidImpliedVol" type="xs:decimal" />
+          <xs:element minOccurs="0" name="bidPremiumAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="bidPremiumPercentage" type="xs:decimal" />
           <xs:element minOccurs="0" name="bookCode" type="xs:string" />
+          <xs:element minOccurs="0" name="clientComment" type="xs:string" />
+          <xs:element name="clientId" type="xs:int" />
+          <xs:element name="contracts" type="xs:int" />
+          <xs:element minOccurs="0" name="delta" type="xs:decimal" />
+          <xs:element minOccurs="0" name="deltaNotional" type="xs:decimal" />
+          <xs:element minOccurs="0" name="deltaShares" type="xs:decimal" />
+          <xs:element minOccurs="0" name="expiryDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="gamma" type="xs:decimal" />
+          <xs:element minOccurs="0" name="gammaNotional" type="xs:decimal" />
+          <xs:element minOccurs="0" name="gammaShares" type="xs:decimal" />
+          <xs:element minOccurs="0" name="hedgePrice" type="xs:decimal" />
+          <xs:element minOccurs="0" name="hedgeType" type="xs:string" />
           <xs:element name="identifier" type="xs:int" />
+          <xs:element minOccurs="0" name="impliedVol" type="xs:decimal" />
+          <xs:element name="isOTC" type="xs:boolean" />
           <xs:element minOccurs="0" name="legs" type="tns:optionDetailListImpl" />
+          <xs:element name="lotSize" type="xs:int" />
+          <xs:element name="multiplier" type="xs:int" />
+          <xs:element minOccurs="0" name="notionalCurrency" type="xs:string" />
+          <xs:element minOccurs="0" name="notionalFXRate" type="xs:decimal" />
+          <xs:element minOccurs="0" name="notionalMillions" type="xs:decimal" />
+          <xs:element minOccurs="0" name="pickedUpBy" type="xs:string" />
+          <xs:element minOccurs="0" name="premiumAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="premiumPercentage" type="xs:decimal" />
+          <xs:element minOccurs="0" name="premiumSettlementCurrency" type="xs:string" />
+          <xs:element minOccurs="0" name="premiumSettlementDate" type="xs:dateTime" />
+          <xs:element name="premiumSettlementDaysOverride" type="xs:int" />
+          <xs:element minOccurs="0" name="premiumSettlementFXRate" type="xs:decimal" />
+          <xs:element name="quantity" type="xs:int" />
           <xs:element minOccurs="0" name="request" type="xs:string" />
+          <xs:element minOccurs="0" name="rho" type="xs:decimal" />
+          <xs:element minOccurs="0" name="rhoNotional" type="xs:decimal" />
+          <xs:element minOccurs="0" name="rhoShares" type="xs:decimal" />
+          <xs:element minOccurs="0" name="salesComment" type="xs:string" />
+          <xs:element minOccurs="0" name="salesCreditAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="salesCreditCurrency" type="xs:string" />
+          <xs:element minOccurs="0" name="salesCreditFXRate" type="xs:decimal" />
+          <xs:element minOccurs="0" name="salesCreditPercentage" type="xs:decimal" />
+          <xs:element minOccurs="0" name="status" type="xs:string" />
+          <xs:element minOccurs="0" name="theta" type="xs:decimal" />
+          <xs:element minOccurs="0" name="thetaNotional" type="xs:decimal" />
+          <xs:element minOccurs="0" name="thetaShares" type="xs:decimal" />
+          <xs:element minOccurs="0" name="totalPremium" type="xs:decimal" />
+          <xs:element minOccurs="0" name="tradeDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="traderComment" type="xs:string" />
+          <xs:element minOccurs="0" name="vega" type="xs:decimal" />
+          <xs:element minOccurs="0" name="vegaNotional" type="xs:decimal" />
+          <xs:element minOccurs="0" name="vegaShares" type="xs:decimal" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="optionDetailListImpl">
@@ -73,6 +128,7 @@
       <xs:complexType name="update">
         <xs:sequence>
           <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
+          <xs:element minOccurs="0" name="updatedByUser" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateResponse">
@@ -107,6 +163,7 @@
       <xs:complexType name="save">
         <xs:sequence>
           <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
+          <xs:element minOccurs="0" name="savedByUser" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="saveResponse">

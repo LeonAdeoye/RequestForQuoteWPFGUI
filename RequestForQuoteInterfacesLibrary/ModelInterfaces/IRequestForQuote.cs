@@ -51,8 +51,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
                 
         int Multiplier { get; set; }
         int LotSize { get; set; }
-        decimal Contracts { get; set; }
-        decimal Quantity { get; }
+        int Contracts { get; set; }
+        int Quantity { get; }
 
         decimal NotionalMillions { get; set; }
         CurrencyEnum NotionalCurrency { get; set; }

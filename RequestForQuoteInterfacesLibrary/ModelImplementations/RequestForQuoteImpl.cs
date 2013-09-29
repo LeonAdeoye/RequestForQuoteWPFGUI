@@ -15,7 +15,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         private bool isOTC;
         
         private int multiplier;
-        private decimal contracts;
+        private int contracts;
         private int lotSize;
 
         private decimal notionalMillions;        
@@ -682,7 +682,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Contracts
+        public int Contracts
         {
             get
             {
@@ -705,7 +705,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Quantity
+        public int Quantity
         {
             get
             {
