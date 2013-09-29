@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.RequestMaintenanceService;
+using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
     public class OptionRequestPersistanceManagerImpl : IOptionRequestPersistanceManager
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
 
         public int SaveRequest(IRequestForQuote requestToSave)
@@ -32,10 +36,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             requestDetail.bookCode = requestToSave.BookCode;
             requestDetail.request = requestToSave.Request;
-			requestDetail.identifier =	requestToSave.Identifier; 			
+			//requestDetail.identifier =	requestToSave.Identifier; 			
 			requestDetail.clientId = requestToSave.Client.Identifier;  
 			requestDetail.isOTC =requestToSave.IsOTC; 
-		    requestDetail.status = requestToSave.Status.ToString(); //6
+		    requestDetail.status = requestToSave.Status.ToString(); //6-1
 
 			requestDetail.tradeDate = requestToSave.TradeDate; 
 			requestDetail.expiryDate = requestToSave.ExpiryDate; //8
@@ -102,7 +106,15 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			requestDetail.totalPremium = requestToSave.TotalPremium;
 			requestDetail.pickedUpBy =	requestToSave.PickedUpBy; //58
 
-            return requestControllerProxy.save(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+            try
+            {
+                return requestControllerProxy.save(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+            }
+            catch (FaultException exception)
+            {
+                log.Error("Failed to save request. exception thrown: " , exception);
+                return -1;
+            }            
         }
 
         public bool UpdateRequest(IRequestForQuote requestToUpdate)
@@ -197,7 +209,15 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             requestDetail.totalPremium = requestToUpdate.TotalPremium;
             requestDetail.pickedUpBy = requestToUpdate.PickedUpBy; //58
 
-            return requestControllerProxy.update(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+            try
+            {
+                return requestControllerProxy.update(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+            }
+            catch (FaultException exception)
+            {
+                log.Error("Failed to update request. exception thrown: ", exception);
+                return false;
+            }
         }
 
         public IRequestForQuote GetRequest(int identifier, bool rePrice)
