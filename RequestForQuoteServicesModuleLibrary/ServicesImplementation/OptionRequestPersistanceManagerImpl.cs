@@ -36,10 +36,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             requestDetail.bookCode = requestToSave.BookCode;
             requestDetail.request = requestToSave.Request;
-			//requestDetail.identifier =	requestToSave.Identifier; 			
+			requestDetail.identifier =	requestToSave.Identifier; 			
 			requestDetail.clientId = requestToSave.Client.Identifier;  
 			requestDetail.isOTC =requestToSave.IsOTC; 
-		    requestDetail.status = requestToSave.Status.ToString(); //6-1
+		    requestDetail.status = requestToSave.Status.ToString(); //6
 
 			requestDetail.tradeDate = requestToSave.TradeDate; 
 			requestDetail.expiryDate = requestToSave.ExpiryDate; //8
