@@ -17,7 +17,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public bool IsValidOptionRequest(string request)
         {
-            Regex optionReg = new Regex(@"^([+-]?[\d]*[CP]{1}){1}([-+]{1}[\d]*[CP]{1})* ([\d]+){1}(,{1}[\d]+)* [\d]{1,2}(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)20[\d]{2}(,{1}[\d]{1,2}(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)20[\d]{2})* (\w){4,7}\.[A-Z]{1,2}(,{1}(\w){4,7}\.[A-Z]{1,2})*$", RegexOptions.IgnoreCase);
+            var optionReg = new Regex(@"^([+-]?[\d]*[CP]{1}){1}([-+]{1}[\d]*[CP]{1})* ([\d]+){1}(,{1}[\d]+)* [\d]{1,2}(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)20[\d]{2}(,{1}[\d]{1,2}(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)20[\d]{2})* (\w){4,7}\.[A-Z]{1,2}(,{1}(\w){4,7}\.[A-Z]{1,2})*$", RegexOptions.IgnoreCase);
             return optionReg.Match(request).Success;
         }
 
@@ -27,19 +27,18 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (strikes.Length == 1)
             {
                 foreach (var optionLeg in optionLegs)                
-                    optionLeg.Strike = Convert.ToDecimal(strikes[0]);
+                    optionLeg.Strike = Convert.ToDouble(strikes[0]);
             }
             else
             {
                 var count = strikes.Length - 1;
                 foreach (var optionLeg in optionLegs)
-                    optionLeg.Strike = Convert.ToDecimal(strikes[count--]);
+                    optionLeg.Strike = Convert.ToDouble(strikes[count--]);
             }
         }
 
         public void ParseOptionMaturityDates(string delimitedDates, List<IOptionDetail> optionLegs)
         {
-            var count = 0;
             var dates = delimitedDates.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (dates.Length == 1)
             {
@@ -52,7 +51,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             else
             {
-                count = 0;
+                var count = 0;
                 foreach (var optionLeg in optionLegs)
                 {
                     optionLeg.MaturityDate = Convert.ToDateTime(dates[count++]);
@@ -72,10 +71,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     optionLeg.RIC = underlyings[0];
                     // TO-DO Add underlying manager
-                    optionLeg.Volatility = 0.2M;
+                    optionLeg.Volatility = 0.2;
                     optionLeg.UnderlyingPrice = 90;
                     optionLeg.IsEuropean = true;
-                    optionLeg.InterestRate = 0.1M;
+                    optionLeg.InterestRate = 0.1;
                     optionLeg.DayCountConvention = OptionDetailImpl.DAY_COUNT_CONVENTION_250;
                 }
             }
@@ -86,10 +85,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     optionLeg.RIC = underlyings[count++];
                     // TO-DO Add underlying manager
-                    optionLeg.Volatility = 0.2M;
+                    optionLeg.Volatility = 0.2;
                     optionLeg.UnderlyingPrice = 90;
                     optionLeg.IsEuropean = true;
-                    optionLeg.InterestRate = 0.1M;
+                    optionLeg.InterestRate = 0.1;
                     optionLeg.DayCountConvention = OptionDetailImpl.DAY_COUNT_CONVENTION_250;
                 }
             }

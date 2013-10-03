@@ -18,41 +18,41 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         private int contracts;
         private int lotSize;
 
-        private decimal notionalMillions;        
+        private double notionalMillions;        
         private CurrencyEnum notionalCurrency;
         // TODO need an FX manager - which mocks FX rates using random numbers.
-        private decimal notionalFXRate;
+        private double notionalFXRate;
 
         private CurrencyEnum premiumSettlementCurrency; 
         private int premiumSettlementDaysOverride; 
         private DateTime premiumSettlementDate; 
-        private decimal premiumSettlementFXRate;
+        private double premiumSettlementFXRate;
         
-        private decimal salesCreditAmount;
-        private decimal salesCreditPercentage;
+        private double salesCreditAmount;
+        private double salesCreditPercentage;
         private CurrencyEnum salesCreditCurrency;
-        private decimal salesCreditFXRate;
+        private double salesCreditFXRate;
 
-        private decimal impliedVol;
-        private decimal premiumAmount;
-        private decimal premiumPercentage;
+        private double impliedVol;
+        private double premiumAmount;
+        private double premiumPercentage;
 
         private string request;
         private int identifier;
 
-        private decimal gamma;
-        private decimal delta;
-        private decimal vega;
-        private decimal theta;
-        private decimal rho;
+        private double gamma;
+        private double delta;
+        private double vega;
+        private double theta;
+        private double rho;
 
-        private decimal hedgePrice;
+        private double hedgePrice;
         private HedgeTypeEnum hedgeType;
         
-        private decimal bidFinalAmount;
-        private decimal bidFinalPercentage;
-        private decimal askFinalAmount;
-        private decimal askFinalPercentage;
+        private double bidFinalAmount;
+        private double bidFinalPercentage;
+        private double askFinalAmount;
+        private double askFinalPercentage;
 
         private DateTime tradeDate;
         private DateTime expiryDate;
@@ -60,13 +60,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         private StatusEnum status;
         private string bookCode;
 
-        private decimal bidImpliedVol;
-        private decimal bidPremiumPercentage;
-        private decimal bidPremiumAmount;
+        private double bidImpliedVol;
+        private double bidPremiumPercentage;
+        private double bidPremiumAmount;
         
-        private decimal askImpliedVol;
-        private decimal askPremiumPercentage;
-        private decimal askPremiumAmount;
+        private double askImpliedVol;
+        private double askPremiumPercentage;
+        private double askPremiumAmount;
 
         private string salesComment;
         private string traderComment;
@@ -558,7 +558,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal PremiumSettlementFXRate
+        public double PremiumSettlementFXRate
         {
             get
             {
@@ -574,7 +574,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal SalesCreditAmount
+        public double SalesCreditAmount
         {
             get
             {
@@ -590,7 +590,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal SalesCreditPercentage
+        public double SalesCreditPercentage
         {
             get
             {
@@ -622,7 +622,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal SalesCreditFXRate
+        public double SalesCreditFXRate
         {
             get
             {
@@ -713,7 +713,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal NotionalMillions
+        public double NotionalMillions
         {
             get
             {
@@ -741,7 +741,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal NotionalFXRate
+        public double NotionalFXRate
         {
             get
             {
@@ -773,7 +773,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal BidImpliedVol
+        public double BidImpliedVol
         {
             get
             {
@@ -789,7 +789,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal BidPremiumAmount
+        public double BidPremiumAmount
         {
             get
             {
@@ -805,7 +805,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal BidPremiumPercentage
+        public double BidPremiumPercentage
         {
             get
             {
@@ -821,7 +821,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal BidFinalPercentage
+        public double BidFinalPercentage
         {
             get
             {
@@ -837,7 +837,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal BidFinalAmount
+        public double BidFinalAmount
         {
             get
             {
@@ -853,7 +853,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal AskImpliedVol
+        public double AskImpliedVol
         {
             get
             {
@@ -869,7 +869,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal AskPremiumAmount
+        public double AskPremiumAmount
         {
             get
             {
@@ -885,7 +885,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal AskPremiumPercentage
+        public double AskPremiumPercentage
         {
             get
             {
@@ -902,7 +902,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         }
 
 
-        public decimal AskFinalPercentage
+        public double AskFinalPercentage
         {
             get
             {
@@ -918,7 +918,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal AskFinalAmount
+        public double AskFinalAmount
         {
             get
             {
@@ -982,7 +982,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal PremiumAmount
+        public double PremiumAmount
         {
             get
             {
@@ -999,7 +999,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal PremiumPercentage
+        public double PremiumPercentage
         {
             get
             {
@@ -1015,7 +1015,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal ImpliedVol
+        public double ImpliedVol
         {
             get
             {
@@ -1031,7 +1031,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Delta
+        public double Delta
         {
             get
             {
@@ -1049,7 +1049,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal DeltaNotional
+        public double DeltaNotional
         {
             get
             {
@@ -1057,7 +1057,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal DeltaShares
+        public double DeltaShares
         {
             get
             {
@@ -1068,7 +1068,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Gamma
+        public double Gamma
         {
             get
             {
@@ -1086,7 +1086,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal GammaNotional
+        public double GammaNotional
         {
             get
             {
@@ -1094,7 +1094,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal GammaShares
+        public double GammaShares
         {
             get
             {
@@ -1106,7 +1106,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Theta
+        public double Theta
         {
             get
             {
@@ -1124,7 +1124,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal ThetaNotional
+        public double ThetaNotional
         {
             get
             {
@@ -1132,7 +1132,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal ThetaShares
+        public double ThetaShares
         {
             get
             {
@@ -1144,7 +1144,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Vega
+        public double Vega
         {
             get
             {
@@ -1162,7 +1162,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal VegaNotional
+        public double VegaNotional
         {
             get
             {
@@ -1170,7 +1170,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal VegaShares
+        public double VegaShares
         {
             get
             {
@@ -1184,7 +1184,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal Rho
+        public double Rho
         {
             get
             {
@@ -1202,7 +1202,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal RhoNotional
+        public double RhoNotional
         {
             get
             {
@@ -1210,7 +1210,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal RhoShares
+        public double RhoShares
         {
             get
             {
@@ -1222,7 +1222,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal HedgePrice
+        public double HedgePrice
         {
             get
             {
@@ -1254,7 +1254,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public decimal TotalPremium
+        public double TotalPremium
         {
             get
             {

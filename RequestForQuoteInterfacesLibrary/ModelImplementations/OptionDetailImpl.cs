@@ -7,14 +7,14 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     public sealed class OptionDetailImpl : IOptionDetail
     {
-        public static decimal DAY_COUNT_CONVENTION_255 = 255;
-        public static decimal DAY_COUNT_CONVENTION_250 = 250;
-        public static decimal DAY_COUNT_CONVENTION_265 = 265;
+        public static double DAY_COUNT_CONVENTION_255 = 255;
+        public static double DAY_COUNT_CONVENTION_250 = 250;
+        public static double DAY_COUNT_CONVENTION_265 = 265;
         private int quantity;
 
         public int LegId { get; set; }
-        public decimal Strike { get; set; }
-        public decimal StrikePercentage 
+        public double Strike { get; set; }
+        public double StrikePercentage 
         {
             get { return 100*Strike/UnderlyingPrice; }
         }
@@ -26,35 +26,35 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public string RIC { get; set; }
         public string BBG { get; set; }
         //public string Underlying { get; set; }
-        public decimal UnderlyingPrice { get; set; }
+        public double UnderlyingPrice { get; set; }
         public SideEnum Side { get; set; }
         public bool IsCall { get; set; }
         public bool IsEuropean { get; set; }
-        public decimal Delta { get; set; }
-        public decimal Gamma { get; set; }
-        public decimal Vega { get; set; }
-        public decimal Theta { get; set; }
-        public decimal Rho { get; set; }
-        public decimal InterestRate { get; set; }
-        public decimal DaysToExpiry { get; set; }
-        public decimal YearsToExpiry { get; set; }
-        public decimal DayCountConvention { get; set; }
+        public double Delta { get; set; }
+        public double Gamma { get; set; }
+        public double Vega { get; set; }
+        public double Theta { get; set; }
+        public double Rho { get; set; }
+        public double InterestRate { get; set; }
+        public double DaysToExpiry { get; set; }
+        public double YearsToExpiry { get; set; }
+        public double DayCountConvention { get; set; }
         public DateTime MaturityDate { get; set; }
         public DateTime TradeDate { get; set; }
         public DateTime FinalPaymentDate { get; set; }
         public String Description { get; set; }
         public ProductTypeEnum ProductType { get;set; }
 
-        public decimal PremiumAmount { get; set; }
-        public decimal PremiumPercentage
+        public double PremiumAmount { get; set; }
+        public double PremiumPercentage
         {
             get { return 100*PremiumAmount/UnderlyingPrice; }
         }
-        public decimal Volatility { get; set; }
-        public decimal ImpliedVol { get; set; }
+        public double Volatility { get; set; }
+        public double ImpliedVol { get; set; }
 
         public IRequestForQuote ParentRequest { get; set; }
-        public decimal ForwardPrice { get; set; }
+        public double ForwardPrice { get; set; }
 
         public IOptionDetail CloneOptionDetails()
         {

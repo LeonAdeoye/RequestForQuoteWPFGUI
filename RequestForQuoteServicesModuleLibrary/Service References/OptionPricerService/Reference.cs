@@ -47,23 +47,23 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal strike;
+        public double strike;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal volatility;
+        public double volatility;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal underlyingPrice;
+        public double underlyingPrice;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal daysToExpiry;
+        public double daysToExpiry;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=4)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal interestRate;
+        public double interestRate;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=5)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -75,12 +75,12 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=7)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal dayCountConvention;
+        public double dayCountConvention;
         
         public parameterize() {
         }
         
-        public parameterize(decimal strike, decimal volatility, decimal underlyingPrice, decimal daysToExpiry, decimal interestRate, bool isCall, bool isEuropean, decimal dayCountConvention) {
+        public parameterize(double strike, double volatility, double underlyingPrice, double daysToExpiry, double interestRate, bool isCall, bool isEuropean, double dayCountConvention) {
             this.strike = strike;
             this.volatility = volatility;
             this.underlyingPrice = underlyingPrice;
@@ -110,33 +110,21 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://model.option.rfq.ws.leon.com/")]
     public partial class optionPriceResult : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private decimal deltaField;
+        private double deltaField;
         
-        private bool deltaFieldSpecified;
+        private double gammaField;
         
-        private decimal gammaField;
+        private double priceField;
         
-        private bool gammaFieldSpecified;
+        private double rhoField;
         
-        private decimal priceField;
+        private double thetaField;
         
-        private bool priceFieldSpecified;
-        
-        private decimal rhoField;
-        
-        private bool rhoFieldSpecified;
-        
-        private decimal thetaField;
-        
-        private bool thetaFieldSpecified;
-        
-        private decimal vegaField;
-        
-        private bool vegaFieldSpecified;
+        private double vegaField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public decimal delta {
+        public double delta {
             get {
                 return this.deltaField;
             }
@@ -147,20 +135,8 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool deltaSpecified {
-            get {
-                return this.deltaFieldSpecified;
-            }
-            set {
-                this.deltaFieldSpecified = value;
-                this.RaisePropertyChanged("deltaSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public decimal gamma {
+        public double gamma {
             get {
                 return this.gammaField;
             }
@@ -171,20 +147,8 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool gammaSpecified {
-            get {
-                return this.gammaFieldSpecified;
-            }
-            set {
-                this.gammaFieldSpecified = value;
-                this.RaisePropertyChanged("gammaSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public decimal price {
+        public double price {
             get {
                 return this.priceField;
             }
@@ -195,20 +159,8 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool priceSpecified {
-            get {
-                return this.priceFieldSpecified;
-            }
-            set {
-                this.priceFieldSpecified = value;
-                this.RaisePropertyChanged("priceSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public decimal rho {
+        public double rho {
             get {
                 return this.rhoField;
             }
@@ -219,20 +171,8 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool rhoSpecified {
-            get {
-                return this.rhoFieldSpecified;
-            }
-            set {
-                this.rhoFieldSpecified = value;
-                this.RaisePropertyChanged("rhoSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public decimal theta {
+        public double theta {
             get {
                 return this.thetaField;
             }
@@ -243,38 +183,14 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool thetaSpecified {
-            get {
-                return this.thetaFieldSpecified;
-            }
-            set {
-                this.thetaFieldSpecified = value;
-                this.RaisePropertyChanged("thetaSpecified");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
-        public decimal vega {
+        public double vega {
             get {
                 return this.vegaField;
             }
             set {
                 this.vegaField = value;
                 this.RaisePropertyChanged("vega");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool vegaSpecified {
-            get {
-                return this.vegaFieldSpecified;
-            }
-            set {
-                this.vegaFieldSpecified = value;
-                this.RaisePropertyChanged("vegaSpecified");
             }
         }
         
@@ -329,23 +245,23 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal strike;
+        public double strike;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal volatility;
+        public double volatility;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal underlyingPrice;
+        public double underlyingPrice;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal daysToExpiry;
+        public double daysToExpiry;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=4)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal interestRate;
+        public double interestRate;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=5)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -357,12 +273,12 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=7)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal dayCountConvention;
+        public double dayCountConvention;
         
         public calculate() {
         }
         
-        public calculate(decimal strike, decimal volatility, decimal underlyingPrice, decimal daysToExpiry, decimal interestRate, bool isCall, bool isEuropean, decimal dayCountConvention) {
+        public calculate(double strike, double volatility, double underlyingPrice, double daysToExpiry, double interestRate, bool isCall, bool isEuropean, double dayCountConvention) {
             this.strike = strike;
             this.volatility = volatility;
             this.underlyingPrice = underlyingPrice;
@@ -432,20 +348,20 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal startValue;
+        public double startValue;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal endValue;
+        public double endValue;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public decimal increment;
+        public double increment;
         
         public calculateRange() {
         }
         
-        public calculateRange(string rangeKey, decimal startValue, decimal endValue, decimal increment) {
+        public calculateRange(string rangeKey, double startValue, double endValue, double increment) {
             this.rangeKey = rangeKey;
             this.startValue = startValue;
             this.endValue = endValue;
@@ -503,7 +419,7 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
             return base.Channel.parameterize(request);
         }
         
-        public void parameterize(decimal strike, decimal volatility, decimal underlyingPrice, decimal daysToExpiry, decimal interestRate, bool isCall, bool isEuropean, decimal dayCountConvention) {
+        public void parameterize(double strike, double volatility, double underlyingPrice, double daysToExpiry, double interestRate, bool isCall, bool isEuropean, double dayCountConvention) {
             RequestForQuoteServicesModuleLibrary.OptionPricerService.parameterize inValue = new RequestForQuoteServicesModuleLibrary.OptionPricerService.parameterize();
             inValue.strike = strike;
             inValue.volatility = volatility;
@@ -521,7 +437,7 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
             return base.Channel.calculate(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResult calculate(decimal strike, decimal volatility, decimal underlyingPrice, decimal daysToExpiry, decimal interestRate, bool isCall, bool isEuropean, decimal dayCountConvention) {
+        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResult calculate(double strike, double volatility, double underlyingPrice, double daysToExpiry, double interestRate, bool isCall, bool isEuropean, double dayCountConvention) {
             RequestForQuoteServicesModuleLibrary.OptionPricerService.calculate inValue = new RequestForQuoteServicesModuleLibrary.OptionPricerService.calculate();
             inValue.strike = strike;
             inValue.volatility = volatility;
@@ -551,7 +467,7 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
             return base.Channel.calculateRange(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet calculateRange(string rangeKey, decimal startValue, decimal endValue, decimal increment) {
+        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet calculateRange(string rangeKey, double startValue, double endValue, double increment) {
             RequestForQuoteServicesModuleLibrary.OptionPricerService.calculateRange inValue = new RequestForQuoteServicesModuleLibrary.OptionPricerService.calculateRange();
             inValue.rangeKey = rangeKey;
             inValue.startValue = startValue;

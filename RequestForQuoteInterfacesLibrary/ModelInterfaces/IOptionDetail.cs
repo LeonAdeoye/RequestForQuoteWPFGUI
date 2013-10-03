@@ -10,31 +10,31 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         string RIC { get; set; }
         string BBG { get; set; }
         String Description { get; set; }
-        decimal UnderlyingPrice { get; set; }
-        decimal Strike { get; set; }
-        decimal StrikePercentage { get; }
-        decimal ForwardPrice { get; set; }
+        double UnderlyingPrice { get; set; }
+        double Strike { get; set; }
+        double StrikePercentage { get; }
+        double ForwardPrice { get; set; }
         ProductTypeEnum ProductType { get; set; }
         DateTime MaturityDate { get; set; }
         DateTime TradeDate { get; set; }
-        decimal DaysToExpiry { get; set; }
-        decimal YearsToExpiry { get; set; }
+        double DaysToExpiry { get; set; }
+        double YearsToExpiry { get; set; }
         DateTime FinalPaymentDate { get; set; }
-        decimal PremiumAmount { get; set; }
-        decimal PremiumPercentage { get; }
-        decimal Delta { get; set; }
-        decimal Gamma { get; set; }
-        decimal Vega { get; set; }
-        decimal Theta { get; set; }
-        decimal Rho { get; set; }
-        decimal ImpliedVol { get; set; }
+        double PremiumAmount { get; set; }
+        double PremiumPercentage { get; }
+        double Delta { get; set; }
+        double Gamma { get; set; }
+        double Vega { get; set; }
+        double Theta { get; set; }
+        double Rho { get; set; }
+        double ImpliedVol { get; set; }
         int Quantity { get; set; }
         SideEnum Side { get; set; }
         bool IsCall { get; set; }
         bool IsEuropean { get; set; }
-        decimal InterestRate { get; set; }              
-        decimal DayCountConvention { get; set; }
-        decimal Volatility { get; set; }
+        double InterestRate { get; set; }              
+        double DayCountConvention { get; set; }
+        double Volatility { get; set; }
 
         IRequestForQuote ParentRequest { get; set; }
         IOptionDetail CloneOptionDetails();

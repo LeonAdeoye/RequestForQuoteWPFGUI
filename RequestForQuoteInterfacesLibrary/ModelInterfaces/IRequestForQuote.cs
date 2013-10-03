@@ -16,23 +16,23 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         StatusEnum Status { get; set; }
         IClient Client { get; set; }       
         
-        decimal Delta { get; set; }
-        decimal Gamma { get; set; }
-        decimal Theta { get; set; }
-        decimal Vega { get; set; }
-        decimal Rho { get; set; }
+        double Delta { get; set; }
+        double Gamma { get; set; }
+        double Theta { get; set; }
+        double Vega { get; set; }
+        double Rho { get; set; }
 
-        decimal DeltaNotional { get; }
-        decimal GammaNotional { get; }
-        decimal ThetaNotional { get; }
-        decimal VegaNotional { get; }
-        decimal RhoNotional { get; }
+        double DeltaNotional { get; }
+        double GammaNotional { get; }
+        double ThetaNotional { get; }
+        double VegaNotional { get; }
+        double RhoNotional { get; }
 
-        decimal DeltaShares { get; }
-        decimal GammaShares { get; }
-        decimal ThetaShares { get; }
-        decimal VegaShares { get; }
-        decimal RhoShares { get; }
+        double DeltaShares { get; }
+        double GammaShares { get; }
+        double ThetaShares { get; }
+        double VegaShares { get; }
+        double RhoShares { get; }
         
         IWindowPopup Popup { get; set; }
         DateTime TradeDate { get; set; }
@@ -42,11 +42,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         CurrencyEnum PremiumSettlementCurrency { get; set; }
         DateTime PremiumSettlementDate { get; set; }
         int PremiumSettlementDaysOverride { get; set; }
-        decimal PremiumSettlementFXRate { get; set; }
+        double PremiumSettlementFXRate { get; set; }
         
-        decimal SalesCreditAmount { get; set; }
-        decimal SalesCreditPercentage { get; set; }
-        decimal SalesCreditFXRate { get; set; }
+        double SalesCreditAmount { get; set; }
+        double SalesCreditPercentage { get; set; }
+        double SalesCreditFXRate { get; set; }
         CurrencyEnum SalesCreditCurrency { get; set; }
                 
         int Multiplier { get; set; }
@@ -54,25 +54,25 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         int Contracts { get; set; }
         int Quantity { get; }
 
-        decimal NotionalMillions { get; set; }
+        double NotionalMillions { get; set; }
         CurrencyEnum NotionalCurrency { get; set; }
-        decimal NotionalFXRate { get; set; }
+        double NotionalFXRate { get; set; }
 
-        decimal BidImpliedVol { get; set; }
-        decimal BidPremiumPercentage { get; set; }
-        decimal BidPremiumAmount { get; set; }
-        decimal BidFinalAmount { get; set; }
-        decimal BidFinalPercentage { get; set; }
+        double BidImpliedVol { get; set; }
+        double BidPremiumPercentage { get; set; }
+        double BidPremiumAmount { get; set; }
+        double BidFinalAmount { get; set; }
+        double BidFinalPercentage { get; set; }
 
-        decimal ImpliedVol { get; set; }
-        decimal PremiumAmount { get; set; }
-        decimal PremiumPercentage { get; set; }
+        double ImpliedVol { get; set; }
+        double PremiumAmount { get; set; }
+        double PremiumPercentage { get; set; }
 
-        decimal AskImpliedVol { get; set; }
-        decimal AskPremiumPercentage { get; set; }
-        decimal AskPremiumAmount { get; set; }
-        decimal AskFinalAmount { get; set; }
-        decimal AskFinalPercentage { get; set; }
+        double AskImpliedVol { get; set; }
+        double AskPremiumPercentage { get; set; }
+        double AskPremiumAmount { get; set; }
+        double AskFinalAmount { get; set; }
+        double AskFinalPercentage { get; set; }
 
         string SalesComment { get; set; }
         string TraderComment { get; set; }
@@ -80,8 +80,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         string PickedUpBy { get; set; }
 
         HedgeTypeEnum HedgeType { get; set; }
-        decimal HedgePrice { get; set; }
-        decimal TotalPremium { get; }
+        double HedgePrice { get; set; }
+        double TotalPremium { get; }
 
         List<IOptionDetail> Legs { get; set; }
         List<ChatMessageImpl> Messages { get; set; }

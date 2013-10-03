@@ -14,14 +14,14 @@
       <xs:element name="parameterizeResponse" type="tns:parameterizeResponse" />
       <xs:complexType name="parameterize">
         <xs:sequence>
-          <xs:element minOccurs="0" name="strike" type="xs:decimal" />
-          <xs:element minOccurs="0" name="volatility" type="xs:decimal" />
-          <xs:element minOccurs="0" name="underlyingPrice" type="xs:decimal" />
-          <xs:element minOccurs="0" name="daysToExpiry" type="xs:decimal" />
-          <xs:element minOccurs="0" name="interestRate" type="xs:decimal" />
+          <xs:element name="strike" type="xs:double" />
+          <xs:element name="volatility" type="xs:double" />
+          <xs:element name="underlyingPrice" type="xs:double" />
+          <xs:element name="daysToExpiry" type="xs:double" />
+          <xs:element name="interestRate" type="xs:double" />
           <xs:element name="isCall" type="xs:boolean" />
           <xs:element name="isEuropean" type="xs:boolean" />
-          <xs:element minOccurs="0" name="dayCountConvention" type="xs:decimal" />
+          <xs:element name="dayCountConvention" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="parameterizeResponse">
@@ -29,14 +29,14 @@
       </xs:complexType>
       <xs:complexType name="calculate">
         <xs:sequence>
-          <xs:element minOccurs="0" name="strike" type="xs:decimal" />
-          <xs:element minOccurs="0" name="volatility" type="xs:decimal" />
-          <xs:element minOccurs="0" name="underlyingPrice" type="xs:decimal" />
-          <xs:element minOccurs="0" name="daysToExpiry" type="xs:decimal" />
-          <xs:element minOccurs="0" name="interestRate" type="xs:decimal" />
+          <xs:element name="strike" type="xs:double" />
+          <xs:element name="volatility" type="xs:double" />
+          <xs:element name="underlyingPrice" type="xs:double" />
+          <xs:element name="daysToExpiry" type="xs:double" />
+          <xs:element name="interestRate" type="xs:double" />
           <xs:element name="isCall" type="xs:boolean" />
           <xs:element name="isEuropean" type="xs:boolean" />
-          <xs:element minOccurs="0" name="dayCountConvention" type="xs:decimal" />
+          <xs:element name="dayCountConvention" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="calculateResponse">
@@ -46,12 +46,12 @@
       </xs:complexType>
       <xs:complexType name="optionPriceResult">
         <xs:sequence>
-          <xs:element minOccurs="0" name="delta" type="xs:decimal" />
-          <xs:element minOccurs="0" name="gamma" type="xs:decimal" />
-          <xs:element minOccurs="0" name="price" type="xs:decimal" />
-          <xs:element minOccurs="0" name="rho" type="xs:decimal" />
-          <xs:element minOccurs="0" name="theta" type="xs:decimal" />
-          <xs:element minOccurs="0" name="vega" type="xs:decimal" />
+          <xs:element name="delta" type="xs:double" />
+          <xs:element name="gamma" type="xs:double" />
+          <xs:element name="price" type="xs:double" />
+          <xs:element name="rho" type="xs:double" />
+          <xs:element name="theta" type="xs:double" />
+          <xs:element name="vega" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="getModelDetails">
@@ -65,9 +65,9 @@
       <xs:complexType name="calculateRange">
         <xs:sequence>
           <xs:element minOccurs="0" name="rangeKey" type="xs:string" />
-          <xs:element minOccurs="0" name="startValue" type="xs:decimal" />
-          <xs:element minOccurs="0" name="endValue" type="xs:decimal" />
-          <xs:element minOccurs="0" name="increment" type="xs:decimal" />
+          <xs:element name="startValue" type="xs:double" />
+          <xs:element name="endValue" type="xs:double" />
+          <xs:element name="increment" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="calculateRangeResponse">

@@ -18,9 +18,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             pricerProxy = new OptionPricingControllerClient();
         }
 
-        private bool CanCalculatePricing(decimal strike, decimal volatility, decimal underlyingPrice, decimal interestRate, decimal daysToExpiry, decimal dayCountConvention)
+        private bool CanCalculatePricing(double strike, double volatility, double underlyingPrice, double interestRate, double daysToExpiry, double dayCountConvention)
         {
-            return (strike > 0.0M && volatility > 0.0M && underlyingPrice > 0.0M && interestRate > 0.0M && daysToExpiry > 0.0M && dayCountConvention > 0.0M);
+            return (strike > 0.0 && volatility > 0.0 && underlyingPrice > 0.0 && interestRate > 0.0 && daysToExpiry > 0.0 && dayCountConvention > 0.0);
         }
 
         public bool CalculatePricing(IOptionDetail optionToPrice)
