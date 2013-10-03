@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.RequestMaintenanceService;
@@ -15,213 +17,49 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 		public int SaveRequest(IRequestForQuote requestToSave)
 		{
-			var requestDetail = new requestDetailImpl();
-			if(requestToSave.Legs != null && requestToSave.Legs.Count > 0)
-			{
-				var legsArray = new optionDetailImpl[requestToSave.Legs.Count];
-				var legCount = 0;
-				foreach(var leg in requestToSave.Legs)
-				{
-					legsArray[legCount++] = new optionDetailImpl()
-						{
-							isCall = leg.IsCall,
-							legId = leg.LegId,
-							isEuropean = leg.IsEuropean
-							// TODO add more properties
-						};
-				}
-				requestDetail.legs = new optionDetailListImpl() {optionDetailList = legsArray};
-			}
-
-			requestDetail.bookCode = requestToSave.BookCode;
-			requestDetail.request = requestToSave.Request;
-			requestDetail.identifier =	requestToSave.Identifier; 			
-			requestDetail.clientId = requestToSave.Client.Identifier;  
-			requestDetail.isOTC =requestToSave.IsOTC; 
-			requestDetail.status = requestToSave.Status.ToString(); //6
-
-			requestDetail.tradeDate = requestToSave.TradeDate; 
-			requestDetail.expiryDate = requestToSave.ExpiryDate; //8
-								
-			requestDetail.lotSize =	requestToSave.LotSize;
-			requestDetail.multiplier = requestToSave.Multiplier; 
-			requestDetail.contracts = requestToSave.Contracts; 
-			requestDetail.quantity = requestToSave.Quantity; //12
-				
-			requestDetail.notionalMillions = requestToSave.NotionalMillions;
-			requestDetail.notionalFXRate = requestToSave.NotionalFXRate; 
-			requestDetail.notionalCurrency = requestToSave.NotionalCurrency.ToString(); //15
-				
-			requestDetail.delta = requestToSave.Delta; 
-			requestDetail.gamma = requestToSave.Gamma;
-			requestDetail.vega = requestToSave.Vega; 
-			requestDetail.theta = requestToSave.Theta; 
-			requestDetail.rho =	requestToSave.Rho; //20
-				
-			requestDetail.deltaNotional = requestToSave.DeltaNotional; 
-			requestDetail.gammaNotional = requestToSave.GammaNotional;
-			requestDetail.vegaNotional = requestToSave.VegaNotional; 
-			requestDetail.thetaNotional = requestToSave.ThetaNotional; 
-			requestDetail.rhoNotional =	requestToSave.RhoNotional; //25
-				
-			requestDetail.deltaShares =	requestToSave.DeltaShares;
-			requestDetail.gammaShares =	requestToSave.GammaShares; 
-			requestDetail.vegaShares =	requestToSave.VegaShares; 
-			requestDetail.thetaShares =	requestToSave.ThetaShares; 
-			requestDetail.rhoShares	= requestToSave.RhoShares; //30
-				
-			requestDetail.askFinalAmount =	requestToSave.AskFinalAmount; 
-			requestDetail.askFinalPercentage =	requestToSave.AskFinalPercentage; 
-			requestDetail.askImpliedVol = requestToSave.AskImpliedVol; 
-			requestDetail.askPremiumAmount = requestToSave.AskPremiumAmount;
-			requestDetail.askPremiumPercentage = requestToSave.AskPremiumPercentage; //35
-				
-			requestDetail.bidFinalAmount =	requestToSave.BidFinalAmount; 
-			requestDetail.bidFinalPercentage = requestToSave.BidFinalPercentage; 
-			requestDetail.bidImpliedVol = requestToSave.BidImpliedVol;
-			requestDetail.bidPremiumAmount = requestToSave.BidPremiumAmount; 
-			requestDetail.bidPremiumPercentage = requestToSave.BidPremiumPercentage; //40
-				
-			requestDetail.premiumAmount = requestToSave.PremiumAmount; 
-			requestDetail.premiumPercentage = requestToSave.PremiumPercentage;
-			requestDetail.impliedVol = requestToSave.ImpliedVol; //43
-				
-			requestDetail.salesCreditAmount = requestToSave.SalesCreditAmount;
-			requestDetail.salesCreditPercentage = requestToSave.SalesCreditPercentage;
-			requestDetail.salesCreditCurrency =	requestToSave.SalesCreditCurrency.ToString();
-			requestDetail.salesCreditFXRate = requestToSave.SalesCreditFXRate; //47
-				
-			requestDetail.premiumSettlementCurrency = requestToSave.PremiumSettlementCurrency.ToString();
-			requestDetail.premiumSettlementDate = requestToSave.PremiumSettlementDate;
-			requestDetail.premiumSettlementDaysOverride = requestToSave.PremiumSettlementDaysOverride;
-			requestDetail.premiumSettlementFXRate =	requestToSave.PremiumSettlementFXRate; //51
-				
-			requestDetail.salesComment = requestToSave.SalesComment;
-			requestDetail.traderComment = requestToSave.TraderComment;
-			requestDetail.clientComment = requestToSave.ClientComment; //54
-				
-			requestDetail.hedgePrice =	requestToSave.HedgePrice;
-			requestDetail.hedgeType = requestToSave.HedgeType.ToString();
-			requestDetail.totalPremium = requestToSave.TotalPremium;
-			requestDetail.pickedUpBy =	requestToSave.PickedUpBy; //58
+            if (requestToSave == null)
+                throw new ArgumentNullException("requestToSave");
 
 			try
 			{
-				return requestControllerProxy.save(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+				return requestControllerProxy.save(CreateServiceRequestFromRequestForQuote(requestToSave), 
+                    RequestForQuoteConstants.MY_USER_NAME);
 			}
-			catch (FaultException exception)
+			catch (FaultException fe)
 			{
-				log.Error("Failed to save request. exception thrown: " , exception);
-				return -1;
-			}            
+				log.Error("Failed to save request. Exception thrown: " , fe);
+			}
+            catch (EndpointNotFoundException enfe)
+            {
+                log.Error("Failed to save request. Exception thrown: ", enfe);
+            }
+            return -1;  
 		}
 
 		public bool UpdateRequest(IRequestForQuote requestToUpdate)
 		{
-			var requestDetail = new requestDetailImpl();
-			if (requestToUpdate.Legs != null && requestToUpdate.Legs.Count > 0)
-			{
-				var legsArray = new optionDetailImpl[requestToUpdate.Legs.Count];
-				var legCount = 0;
-				foreach (var leg in requestToUpdate.Legs)
-				{
-					legsArray[legCount++] = new optionDetailImpl()
-					{
-						isCall = leg.IsCall,
-						legId = leg.LegId,
-						isEuropean = leg.IsEuropean
-						// TODO add more properties
-					};
-				}
-				requestDetail.legs = new optionDetailListImpl() { optionDetailList = legsArray };
-			}
-
-			requestDetail.bookCode = requestToUpdate.BookCode;
-			requestDetail.request = requestToUpdate.Request;
-			requestDetail.identifier = requestToUpdate.Identifier;
-			requestDetail.clientId = requestToUpdate.Client.Identifier;
-			requestDetail.isOTC = requestToUpdate.IsOTC;
-			requestDetail.status = requestToUpdate.Status.ToString(); //6
-
-			requestDetail.tradeDate = requestToUpdate.TradeDate;
-			requestDetail.expiryDate = requestToUpdate.ExpiryDate; //8
-
-			requestDetail.lotSize = requestToUpdate.LotSize;
-			requestDetail.multiplier = requestToUpdate.Multiplier;
-			requestDetail.contracts = requestToUpdate.Contracts;
-			requestDetail.quantity = requestToUpdate.Quantity; //12
-
-			requestDetail.notionalMillions = requestToUpdate.NotionalMillions;
-			requestDetail.notionalFXRate = requestToUpdate.NotionalFXRate;
-			requestDetail.notionalCurrency = requestToUpdate.NotionalCurrency.ToString(); //15
-
-			requestDetail.delta = requestToUpdate.Delta;
-			requestDetail.gamma = requestToUpdate.Gamma;
-			requestDetail.vega = requestToUpdate.Vega;
-			requestDetail.theta = requestToUpdate.Theta;
-			requestDetail.rho = requestToUpdate.Rho; //20
-
-			requestDetail.deltaNotional = requestToUpdate.DeltaNotional;
-			requestDetail.gammaNotional = requestToUpdate.GammaNotional;
-			requestDetail.vegaNotional = requestToUpdate.VegaNotional;
-			requestDetail.thetaNotional = requestToUpdate.ThetaNotional;
-			requestDetail.rhoNotional = requestToUpdate.RhoNotional; //25
-
-			requestDetail.deltaShares = requestToUpdate.DeltaShares;
-			requestDetail.gammaShares = requestToUpdate.GammaShares;
-			requestDetail.vegaShares = requestToUpdate.VegaShares;
-			requestDetail.thetaShares = requestToUpdate.ThetaShares;
-			requestDetail.rhoShares = requestToUpdate.RhoShares; //30
-
-			requestDetail.askFinalAmount = requestToUpdate.AskFinalAmount;
-			requestDetail.askFinalPercentage = requestToUpdate.AskFinalPercentage;
-			requestDetail.askImpliedVol = requestToUpdate.AskImpliedVol;
-			requestDetail.askPremiumAmount = requestToUpdate.AskPremiumAmount;
-			requestDetail.askPremiumPercentage = requestToUpdate.AskPremiumPercentage; //35
-
-			requestDetail.bidFinalAmount = requestToUpdate.BidFinalAmount;
-			requestDetail.bidFinalPercentage = requestToUpdate.BidFinalPercentage;
-			requestDetail.bidImpliedVol = requestToUpdate.BidImpliedVol;
-			requestDetail.bidPremiumAmount = requestToUpdate.BidPremiumAmount;
-			requestDetail.bidPremiumPercentage = requestToUpdate.BidPremiumPercentage; //40
-
-			requestDetail.premiumAmount = requestToUpdate.PremiumAmount;
-			requestDetail.premiumPercentage = requestToUpdate.PremiumPercentage;
-			requestDetail.impliedVol = requestToUpdate.ImpliedVol; //43
-
-			requestDetail.salesCreditAmount = requestToUpdate.SalesCreditAmount;
-			requestDetail.salesCreditPercentage = requestToUpdate.SalesCreditPercentage;
-			requestDetail.salesCreditCurrency = requestToUpdate.SalesCreditCurrency.ToString();
-			requestDetail.salesCreditFXRate = requestToUpdate.SalesCreditFXRate; //47
-
-			requestDetail.premiumSettlementCurrency = requestToUpdate.PremiumSettlementCurrency.ToString();
-			requestDetail.premiumSettlementDate = requestToUpdate.PremiumSettlementDate;
-			requestDetail.premiumSettlementDaysOverride = requestToUpdate.PremiumSettlementDaysOverride;
-			requestDetail.premiumSettlementFXRate = requestToUpdate.PremiumSettlementFXRate; //51
-
-			requestDetail.salesComment = requestToUpdate.SalesComment;
-			requestDetail.traderComment = requestToUpdate.TraderComment;
-			requestDetail.clientComment = requestToUpdate.ClientComment; //54
-
-			requestDetail.hedgePrice = requestToUpdate.HedgePrice;
-			requestDetail.hedgeType = requestToUpdate.HedgeType.ToString();
-			requestDetail.totalPremium = requestToUpdate.TotalPremium;
-			requestDetail.pickedUpBy = requestToUpdate.PickedUpBy; //58
+            if (requestToUpdate == null)
+                throw new ArgumentNullException("requestToUpdate");
 
 			try
 			{
-				return requestControllerProxy.update(requestDetail, RequestForQuoteConstants.MY_USER_NAME);
+                return requestControllerProxy.update(CreateServiceRequestFromRequestForQuote(requestToUpdate),
+                    RequestForQuoteConstants.MY_USER_NAME);
 			}
-			catch (FaultException exception)
-			{
-				log.Error("Failed to update request. exception thrown: ", exception);
-				return false;
-			}
+            catch (FaultException fe)
+            {
+                log.Error("Failed to update request. Exception thrown: ", fe);
+            }
+            catch (EndpointNotFoundException enfe)
+            {
+                log.Error("Failed to update request. Exception thrown: ", enfe);
+            }
+		    return false;
 		}
 
 		public IRequestForQuote GetRequest(int identifier, bool rePrice)
 		{
-			throw new System.NotImplementedException();
+            return CreateRequestForQuoteFromServiceRequest(requestControllerProxy.getRequest(identifier, rePrice));
 		}
 
 		public List<IRequestForQuote> GetRequestMatchingAdhocCriteria(ISearch search, bool rePrice)
@@ -233,5 +71,128 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		{
 			throw new System.NotImplementedException();
 		}
+
+        private IOptionDetail CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
+        {
+            if (serviceOptionLeg == null)
+                throw new ArgumentNullException("serviceOptionLeg");
+
+            return new OptionDetailImpl()
+                {
+                    IsCall = serviceOptionLeg.isCall,
+                    IsEuropean = serviceOptionLeg.isEuropean,
+                    LegId = serviceOptionLeg.legId
+                    // TODO add all properties
+                };
+        }
+
+        private optionDetailImpl CreateServiceOptionLegFromRequestForQuoteLeg(IOptionDetail requestForQuoteOptionLeg)
+        {
+            if (requestForQuoteOptionLeg == null)
+                throw new ArgumentNullException("requestForQuoteOptionLeg");
+
+            return new optionDetailImpl()
+                {
+                    isCall = requestForQuoteOptionLeg.IsCall,
+                    isEuropean = requestForQuoteOptionLeg.IsEuropean,
+                    legId = requestForQuoteOptionLeg.LegId
+                    // TODO add all properties
+                };
+        }
+
+        private IRequestForQuote CreateRequestForQuoteFromServiceRequest(requestDetailImpl serviceRequest)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)
+        {
+            var serviceRequestToBeCreated = new requestDetailImpl();
+
+            if (sourceRequestForQuote.Legs != null && sourceRequestForQuote.Legs.Count > 0)
+            {
+                var legsArray = new optionDetailImpl[sourceRequestForQuote.Legs.Count];
+                var legCount = 0;
+                foreach (var leg in sourceRequestForQuote.Legs)
+                {
+                    legsArray[legCount++] = CreateServiceOptionLegFromRequestForQuoteLeg(leg);
+                }
+                serviceRequestToBeCreated.legs = new optionDetailListImpl() { optionDetailList = legsArray };
+            }
+
+            serviceRequestToBeCreated.bookCode = sourceRequestForQuote.BookCode;
+            serviceRequestToBeCreated.request = sourceRequestForQuote.Request;
+            serviceRequestToBeCreated.identifier = sourceRequestForQuote.Identifier;
+            serviceRequestToBeCreated.clientId = sourceRequestForQuote.Client.Identifier;
+            serviceRequestToBeCreated.isOTC = sourceRequestForQuote.IsOTC;
+            serviceRequestToBeCreated.status = sourceRequestForQuote.Status.ToString(); //6
+
+            serviceRequestToBeCreated.tradeDate = sourceRequestForQuote.TradeDate;
+            serviceRequestToBeCreated.expiryDate = sourceRequestForQuote.ExpiryDate; //8
+
+            serviceRequestToBeCreated.lotSize = sourceRequestForQuote.LotSize;
+            serviceRequestToBeCreated.multiplier = sourceRequestForQuote.Multiplier;
+            serviceRequestToBeCreated.contracts = sourceRequestForQuote.Contracts;
+            serviceRequestToBeCreated.quantity = sourceRequestForQuote.Quantity; //12
+
+            serviceRequestToBeCreated.notionalMillions = sourceRequestForQuote.NotionalMillions;
+            serviceRequestToBeCreated.notionalFXRate = sourceRequestForQuote.NotionalFXRate;
+            serviceRequestToBeCreated.notionalCurrency = sourceRequestForQuote.NotionalCurrency.ToString(); //15
+
+            serviceRequestToBeCreated.delta = sourceRequestForQuote.Delta;
+            serviceRequestToBeCreated.gamma = sourceRequestForQuote.Gamma;
+            serviceRequestToBeCreated.vega = sourceRequestForQuote.Vega;
+            serviceRequestToBeCreated.theta = sourceRequestForQuote.Theta;
+            serviceRequestToBeCreated.rho = sourceRequestForQuote.Rho; //20
+
+            serviceRequestToBeCreated.deltaNotional = sourceRequestForQuote.DeltaNotional;
+            serviceRequestToBeCreated.gammaNotional = sourceRequestForQuote.GammaNotional;
+            serviceRequestToBeCreated.vegaNotional = sourceRequestForQuote.VegaNotional;
+            serviceRequestToBeCreated.thetaNotional = sourceRequestForQuote.ThetaNotional;
+            serviceRequestToBeCreated.rhoNotional = sourceRequestForQuote.RhoNotional; //25
+
+            serviceRequestToBeCreated.deltaShares = sourceRequestForQuote.DeltaShares;
+            serviceRequestToBeCreated.gammaShares = sourceRequestForQuote.GammaShares;
+            serviceRequestToBeCreated.vegaShares = sourceRequestForQuote.VegaShares;
+            serviceRequestToBeCreated.thetaShares = sourceRequestForQuote.ThetaShares;
+            serviceRequestToBeCreated.rhoShares = sourceRequestForQuote.RhoShares; //30
+
+            serviceRequestToBeCreated.askFinalAmount = sourceRequestForQuote.AskFinalAmount;
+            serviceRequestToBeCreated.askFinalPercentage = sourceRequestForQuote.AskFinalPercentage;
+            serviceRequestToBeCreated.askImpliedVol = sourceRequestForQuote.AskImpliedVol;
+            serviceRequestToBeCreated.askPremiumAmount = sourceRequestForQuote.AskPremiumAmount;
+            serviceRequestToBeCreated.askPremiumPercentage = sourceRequestForQuote.AskPremiumPercentage; //35
+
+            serviceRequestToBeCreated.bidFinalAmount = sourceRequestForQuote.BidFinalAmount;
+            serviceRequestToBeCreated.bidFinalPercentage = sourceRequestForQuote.BidFinalPercentage;
+            serviceRequestToBeCreated.bidImpliedVol = sourceRequestForQuote.BidImpliedVol;
+            serviceRequestToBeCreated.bidPremiumAmount = sourceRequestForQuote.BidPremiumAmount;
+            serviceRequestToBeCreated.bidPremiumPercentage = sourceRequestForQuote.BidPremiumPercentage; //40
+
+            serviceRequestToBeCreated.premiumAmount = sourceRequestForQuote.PremiumAmount;
+            serviceRequestToBeCreated.premiumPercentage = sourceRequestForQuote.PremiumPercentage;
+            serviceRequestToBeCreated.impliedVol = sourceRequestForQuote.ImpliedVol; //43
+
+            serviceRequestToBeCreated.salesCreditAmount = sourceRequestForQuote.SalesCreditAmount;
+            serviceRequestToBeCreated.salesCreditPercentage = sourceRequestForQuote.SalesCreditPercentage;
+            serviceRequestToBeCreated.salesCreditCurrency = sourceRequestForQuote.SalesCreditCurrency.ToString();
+            serviceRequestToBeCreated.salesCreditFXRate = sourceRequestForQuote.SalesCreditFXRate; //47
+
+            serviceRequestToBeCreated.premiumSettlementCurrency = sourceRequestForQuote.PremiumSettlementCurrency.ToString();
+            serviceRequestToBeCreated.premiumSettlementDate = sourceRequestForQuote.PremiumSettlementDate;
+            serviceRequestToBeCreated.premiumSettlementDaysOverride = sourceRequestForQuote.PremiumSettlementDaysOverride;
+            serviceRequestToBeCreated.premiumSettlementFXRate = sourceRequestForQuote.PremiumSettlementFXRate; //51
+
+            serviceRequestToBeCreated.salesComment = sourceRequestForQuote.SalesComment;
+            serviceRequestToBeCreated.traderComment = sourceRequestForQuote.TraderComment;
+            serviceRequestToBeCreated.clientComment = sourceRequestForQuote.ClientComment; //54
+
+            serviceRequestToBeCreated.hedgePrice = sourceRequestForQuote.HedgePrice;
+            serviceRequestToBeCreated.hedgeType = sourceRequestForQuote.HedgeType.ToString();
+            serviceRequestToBeCreated.totalPremium = sourceRequestForQuote.TotalPremium;
+            serviceRequestToBeCreated.pickedUpBy = sourceRequestForQuote.PickedUpBy; //58
+
+            return serviceRequestToBeCreated;
+        }
 	}
 }
