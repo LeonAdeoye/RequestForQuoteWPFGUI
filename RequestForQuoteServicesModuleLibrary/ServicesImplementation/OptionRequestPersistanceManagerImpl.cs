@@ -15,7 +15,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 	{
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
 		private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
-	    private IClientManager clientManager;
+	    private readonly IClientManager clientManager;
 
         public OptionRequestPersistanceManagerImpl(IClientManager clientManager)
         {
@@ -112,75 +112,75 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (serviceRequest == null)
                 throw new ArgumentNullException("serviceRequest");
 
-            IRequestForQuote requestForQuoteToBeCreated = new RequestForQuoteImpl();
+            var requestForQuoteToCreate = new RequestForQuoteImpl();
 
             foreach(var leg in serviceRequest.legs.optionDetailList)
-                requestForQuoteToBeCreated.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
+                requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
 
-            requestForQuoteToBeCreated.BookCode = serviceRequest.bookCode;
-            requestForQuoteToBeCreated.Request = serviceRequest.request;
-            requestForQuoteToBeCreated.Identifier = serviceRequest.identifier;
-            requestForQuoteToBeCreated.Client = clientManager.GetClientWithMatchingIdentifier(serviceRequest.clientId);
-            requestForQuoteToBeCreated.IsOTC = serviceRequest.isOTC;
-            requestForQuoteToBeCreated.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), serviceRequest.status); //6
+            requestForQuoteToCreate.BookCode = serviceRequest.bookCode;
+            requestForQuoteToCreate.Request = serviceRequest.request;
+            requestForQuoteToCreate.Identifier = serviceRequest.identifier;
+            requestForQuoteToCreate.Client = clientManager.GetClientWithMatchingIdentifier(serviceRequest.clientId);
+            requestForQuoteToCreate.IsOTC = serviceRequest.isOTC;
+            requestForQuoteToCreate.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), serviceRequest.status); //6
 
-            requestForQuoteToBeCreated.TradeDate = serviceRequest.tradeDate;
-            requestForQuoteToBeCreated.ExpiryDate = serviceRequest.expiryDate; //8
+            requestForQuoteToCreate.TradeDate = serviceRequest.tradeDate;
+            requestForQuoteToCreate.ExpiryDate = serviceRequest.expiryDate; //8
 
-            requestForQuoteToBeCreated.LotSize = serviceRequest.lotSize;
-            requestForQuoteToBeCreated.Multiplier = serviceRequest.multiplier;
-            requestForQuoteToBeCreated.Contracts = serviceRequest.contracts;
+            requestForQuoteToCreate.LotSize = serviceRequest.lotSize;
+            requestForQuoteToCreate.Multiplier = serviceRequest.multiplier;
+            requestForQuoteToCreate.Contracts = serviceRequest.contracts;
 
-            requestForQuoteToBeCreated.NotionalMillions = serviceRequest.notionalMillions;
-            requestForQuoteToBeCreated.NotionalFXRate = serviceRequest.notionalFXRate;
-            requestForQuoteToBeCreated.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.notionalCurrency); //15
+            requestForQuoteToCreate.NotionalMillions = serviceRequest.notionalMillions;
+            requestForQuoteToCreate.NotionalFXRate = serviceRequest.notionalFXRate;
+            requestForQuoteToCreate.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.notionalCurrency); //15
 
-            requestForQuoteToBeCreated.Delta = serviceRequest.delta;
-            requestForQuoteToBeCreated.Gamma = serviceRequest.gamma;
-            requestForQuoteToBeCreated.Vega = serviceRequest.vega;
-            requestForQuoteToBeCreated.Theta = serviceRequest.theta;
-            requestForQuoteToBeCreated.Rho = serviceRequest.rho; //20
+            requestForQuoteToCreate.Delta = serviceRequest.delta;
+            requestForQuoteToCreate.Gamma = serviceRequest.gamma;
+            requestForQuoteToCreate.Vega = serviceRequest.vega;
+            requestForQuoteToCreate.Theta = serviceRequest.theta;
+            requestForQuoteToCreate.Rho = serviceRequest.rho; //20
 
-            requestForQuoteToBeCreated.AskFinalAmount = serviceRequest.askFinalAmount;
-            requestForQuoteToBeCreated.AskFinalPercentage = serviceRequest.askFinalPercentage;
-            requestForQuoteToBeCreated.AskImpliedVol = serviceRequest.askImpliedVol;
-            requestForQuoteToBeCreated.AskPremiumAmount = serviceRequest.askPremiumAmount;
-            requestForQuoteToBeCreated.AskPremiumPercentage = serviceRequest.askPremiumPercentage; //35
+            requestForQuoteToCreate.AskFinalAmount = serviceRequest.askFinalAmount;
+            requestForQuoteToCreate.AskFinalPercentage = serviceRequest.askFinalPercentage;
+            requestForQuoteToCreate.AskImpliedVol = serviceRequest.askImpliedVol;
+            requestForQuoteToCreate.AskPremiumAmount = serviceRequest.askPremiumAmount;
+            requestForQuoteToCreate.AskPremiumPercentage = serviceRequest.askPremiumPercentage; //35
 
-            requestForQuoteToBeCreated.BidFinalAmount = serviceRequest.bidFinalAmount;
-            requestForQuoteToBeCreated.BidFinalPercentage = serviceRequest.bidFinalPercentage;
-            requestForQuoteToBeCreated.BidImpliedVol = serviceRequest.bidImpliedVol;
-            requestForQuoteToBeCreated.BidPremiumAmount = serviceRequest.bidPremiumAmount;
-            requestForQuoteToBeCreated.BidPremiumPercentage = serviceRequest.bidPremiumPercentage; //40
+            requestForQuoteToCreate.BidFinalAmount = serviceRequest.bidFinalAmount;
+            requestForQuoteToCreate.BidFinalPercentage = serviceRequest.bidFinalPercentage;
+            requestForQuoteToCreate.BidImpliedVol = serviceRequest.bidImpliedVol;
+            requestForQuoteToCreate.BidPremiumAmount = serviceRequest.bidPremiumAmount;
+            requestForQuoteToCreate.BidPremiumPercentage = serviceRequest.bidPremiumPercentage; //40
 
-            requestForQuoteToBeCreated.PremiumAmount = serviceRequest.premiumAmount;
-            requestForQuoteToBeCreated.PremiumPercentage = serviceRequest.premiumPercentage;
-            requestForQuoteToBeCreated.ImpliedVol = serviceRequest.impliedVol; //43
+            requestForQuoteToCreate.PremiumAmount = serviceRequest.premiumAmount;
+            requestForQuoteToCreate.PremiumPercentage = serviceRequest.premiumPercentage;
+            requestForQuoteToCreate.ImpliedVol = serviceRequest.impliedVol; //43
 
-            requestForQuoteToBeCreated.SalesCreditAmount = serviceRequest.salesCreditAmount;
-            requestForQuoteToBeCreated.SalesCreditPercentage = serviceRequest.salesCreditPercentage;
-            requestForQuoteToBeCreated.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.salesCreditCurrency);
-            requestForQuoteToBeCreated.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
+            requestForQuoteToCreate.SalesCreditAmount = serviceRequest.salesCreditAmount;
+            requestForQuoteToCreate.SalesCreditPercentage = serviceRequest.salesCreditPercentage;
+            requestForQuoteToCreate.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.salesCreditCurrency);
+            requestForQuoteToCreate.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
 
-            requestForQuoteToBeCreated.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
-            requestForQuoteToBeCreated.PremiumSettlementDate = serviceRequest.premiumSettlementDate;
-            requestForQuoteToBeCreated.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
-            requestForQuoteToBeCreated.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
+            requestForQuoteToCreate.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
+            requestForQuoteToCreate.PremiumSettlementDate = serviceRequest.premiumSettlementDate;
+            requestForQuoteToCreate.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
+            requestForQuoteToCreate.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
 
-            requestForQuoteToBeCreated.SalesComment = serviceRequest.salesComment;
-            requestForQuoteToBeCreated.TraderComment = serviceRequest.traderComment;
-            requestForQuoteToBeCreated.ClientComment = serviceRequest.clientComment; //54
+            requestForQuoteToCreate.SalesComment = serviceRequest.salesComment;
+            requestForQuoteToCreate.TraderComment = serviceRequest.traderComment;
+            requestForQuoteToCreate.ClientComment = serviceRequest.clientComment; //54
 
-            requestForQuoteToBeCreated.HedgePrice = serviceRequest.hedgePrice;
-            requestForQuoteToBeCreated.HedgeType = (HedgeTypeEnum) Enum.Parse(typeof(HedgeTypeEnum), serviceRequest.hedgeType);
-            requestForQuoteToBeCreated.PickedUpBy = serviceRequest.pickedUpBy; //58
+            requestForQuoteToCreate.HedgePrice = serviceRequest.hedgePrice;
+            requestForQuoteToCreate.HedgeType = (HedgeTypeEnum) Enum.Parse(typeof(HedgeTypeEnum), serviceRequest.hedgeType);
+            requestForQuoteToCreate.PickedUpBy = serviceRequest.pickedUpBy; //58
 
-            return requestForQuoteToBeCreated;
+            return requestForQuoteToCreate;
         }
 
         private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)
         {
-            var serviceRequestToBeCreated = new requestDetailImpl();
+            var serviceRequestToCreate = new requestDetailImpl();
 
             if (sourceRequestForQuote.Legs != null && sourceRequestForQuote.Legs.Count > 0)
             {
@@ -190,82 +190,82 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     legsArray[legCount++] = CreateServiceOptionLegFromRequestForQuoteLeg(leg);
                 }
-                serviceRequestToBeCreated.legs = new optionDetailListImpl() { optionDetailList = legsArray };
+                serviceRequestToCreate.legs = new optionDetailListImpl() { optionDetailList = legsArray };
             }
 
-            serviceRequestToBeCreated.bookCode = sourceRequestForQuote.BookCode;
-            serviceRequestToBeCreated.request = sourceRequestForQuote.Request;
-            serviceRequestToBeCreated.identifier = sourceRequestForQuote.Identifier;
-            serviceRequestToBeCreated.clientId = sourceRequestForQuote.Client.Identifier;
-            serviceRequestToBeCreated.isOTC = sourceRequestForQuote.IsOTC;
-            serviceRequestToBeCreated.status = sourceRequestForQuote.Status.ToString(); //6
+            serviceRequestToCreate.bookCode = sourceRequestForQuote.BookCode;
+            serviceRequestToCreate.request = sourceRequestForQuote.Request;
+            serviceRequestToCreate.identifier = sourceRequestForQuote.Identifier;
+            serviceRequestToCreate.clientId = sourceRequestForQuote.Client.Identifier;
+            serviceRequestToCreate.isOTC = sourceRequestForQuote.IsOTC;
+            serviceRequestToCreate.status = sourceRequestForQuote.Status.ToString(); //6
 
-            serviceRequestToBeCreated.tradeDate = sourceRequestForQuote.TradeDate;
-            serviceRequestToBeCreated.expiryDate = sourceRequestForQuote.ExpiryDate; //8
+            serviceRequestToCreate.tradeDate = sourceRequestForQuote.TradeDate;
+            serviceRequestToCreate.expiryDate = sourceRequestForQuote.ExpiryDate; //8
 
-            serviceRequestToBeCreated.lotSize = sourceRequestForQuote.LotSize;
-            serviceRequestToBeCreated.multiplier = sourceRequestForQuote.Multiplier;
-            serviceRequestToBeCreated.contracts = sourceRequestForQuote.Contracts;
-            serviceRequestToBeCreated.quantity = sourceRequestForQuote.Quantity; //12
+            serviceRequestToCreate.lotSize = sourceRequestForQuote.LotSize;
+            serviceRequestToCreate.multiplier = sourceRequestForQuote.Multiplier;
+            serviceRequestToCreate.contracts = sourceRequestForQuote.Contracts;
+            serviceRequestToCreate.quantity = sourceRequestForQuote.Quantity; //12
 
-            serviceRequestToBeCreated.notionalMillions = sourceRequestForQuote.NotionalMillions;
-            serviceRequestToBeCreated.notionalFXRate = sourceRequestForQuote.NotionalFXRate;
-            serviceRequestToBeCreated.notionalCurrency = sourceRequestForQuote.NotionalCurrency.ToString(); //15
+            serviceRequestToCreate.notionalMillions = sourceRequestForQuote.NotionalMillions;
+            serviceRequestToCreate.notionalFXRate = sourceRequestForQuote.NotionalFXRate;
+            serviceRequestToCreate.notionalCurrency = sourceRequestForQuote.NotionalCurrency.ToString(); //15
 
-            serviceRequestToBeCreated.delta = sourceRequestForQuote.Delta;
-            serviceRequestToBeCreated.gamma = sourceRequestForQuote.Gamma;
-            serviceRequestToBeCreated.vega = sourceRequestForQuote.Vega;
-            serviceRequestToBeCreated.theta = sourceRequestForQuote.Theta;
-            serviceRequestToBeCreated.rho = sourceRequestForQuote.Rho; //20
+            serviceRequestToCreate.delta = sourceRequestForQuote.Delta;
+            serviceRequestToCreate.gamma = sourceRequestForQuote.Gamma;
+            serviceRequestToCreate.vega = sourceRequestForQuote.Vega;
+            serviceRequestToCreate.theta = sourceRequestForQuote.Theta;
+            serviceRequestToCreate.rho = sourceRequestForQuote.Rho; //20
 
-            serviceRequestToBeCreated.deltaNotional = sourceRequestForQuote.DeltaNotional;
-            serviceRequestToBeCreated.gammaNotional = sourceRequestForQuote.GammaNotional;
-            serviceRequestToBeCreated.vegaNotional = sourceRequestForQuote.VegaNotional;
-            serviceRequestToBeCreated.thetaNotional = sourceRequestForQuote.ThetaNotional;
-            serviceRequestToBeCreated.rhoNotional = sourceRequestForQuote.RhoNotional; //25
+            serviceRequestToCreate.deltaNotional = sourceRequestForQuote.DeltaNotional;
+            serviceRequestToCreate.gammaNotional = sourceRequestForQuote.GammaNotional;
+            serviceRequestToCreate.vegaNotional = sourceRequestForQuote.VegaNotional;
+            serviceRequestToCreate.thetaNotional = sourceRequestForQuote.ThetaNotional;
+            serviceRequestToCreate.rhoNotional = sourceRequestForQuote.RhoNotional; //25
 
-            serviceRequestToBeCreated.deltaShares = sourceRequestForQuote.DeltaShares;
-            serviceRequestToBeCreated.gammaShares = sourceRequestForQuote.GammaShares;
-            serviceRequestToBeCreated.vegaShares = sourceRequestForQuote.VegaShares;
-            serviceRequestToBeCreated.thetaShares = sourceRequestForQuote.ThetaShares;
-            serviceRequestToBeCreated.rhoShares = sourceRequestForQuote.RhoShares; //30
+            serviceRequestToCreate.deltaShares = sourceRequestForQuote.DeltaShares;
+            serviceRequestToCreate.gammaShares = sourceRequestForQuote.GammaShares;
+            serviceRequestToCreate.vegaShares = sourceRequestForQuote.VegaShares;
+            serviceRequestToCreate.thetaShares = sourceRequestForQuote.ThetaShares;
+            serviceRequestToCreate.rhoShares = sourceRequestForQuote.RhoShares; //30
 
-            serviceRequestToBeCreated.askFinalAmount = sourceRequestForQuote.AskFinalAmount;
-            serviceRequestToBeCreated.askFinalPercentage = sourceRequestForQuote.AskFinalPercentage;
-            serviceRequestToBeCreated.askImpliedVol = sourceRequestForQuote.AskImpliedVol;
-            serviceRequestToBeCreated.askPremiumAmount = sourceRequestForQuote.AskPremiumAmount;
-            serviceRequestToBeCreated.askPremiumPercentage = sourceRequestForQuote.AskPremiumPercentage; //35
+            serviceRequestToCreate.askFinalAmount = sourceRequestForQuote.AskFinalAmount;
+            serviceRequestToCreate.askFinalPercentage = sourceRequestForQuote.AskFinalPercentage;
+            serviceRequestToCreate.askImpliedVol = sourceRequestForQuote.AskImpliedVol;
+            serviceRequestToCreate.askPremiumAmount = sourceRequestForQuote.AskPremiumAmount;
+            serviceRequestToCreate.askPremiumPercentage = sourceRequestForQuote.AskPremiumPercentage; //35
 
-            serviceRequestToBeCreated.bidFinalAmount = sourceRequestForQuote.BidFinalAmount;
-            serviceRequestToBeCreated.bidFinalPercentage = sourceRequestForQuote.BidFinalPercentage;
-            serviceRequestToBeCreated.bidImpliedVol = sourceRequestForQuote.BidImpliedVol;
-            serviceRequestToBeCreated.bidPremiumAmount = sourceRequestForQuote.BidPremiumAmount;
-            serviceRequestToBeCreated.bidPremiumPercentage = sourceRequestForQuote.BidPremiumPercentage; //40
+            serviceRequestToCreate.bidFinalAmount = sourceRequestForQuote.BidFinalAmount;
+            serviceRequestToCreate.bidFinalPercentage = sourceRequestForQuote.BidFinalPercentage;
+            serviceRequestToCreate.bidImpliedVol = sourceRequestForQuote.BidImpliedVol;
+            serviceRequestToCreate.bidPremiumAmount = sourceRequestForQuote.BidPremiumAmount;
+            serviceRequestToCreate.bidPremiumPercentage = sourceRequestForQuote.BidPremiumPercentage; //40
 
-            serviceRequestToBeCreated.premiumAmount = sourceRequestForQuote.PremiumAmount;
-            serviceRequestToBeCreated.premiumPercentage = sourceRequestForQuote.PremiumPercentage;
-            serviceRequestToBeCreated.impliedVol = sourceRequestForQuote.ImpliedVol; //43
+            serviceRequestToCreate.premiumAmount = sourceRequestForQuote.PremiumAmount;
+            serviceRequestToCreate.premiumPercentage = sourceRequestForQuote.PremiumPercentage;
+            serviceRequestToCreate.impliedVol = sourceRequestForQuote.ImpliedVol; //43
 
-            serviceRequestToBeCreated.salesCreditAmount = sourceRequestForQuote.SalesCreditAmount;
-            serviceRequestToBeCreated.salesCreditPercentage = sourceRequestForQuote.SalesCreditPercentage;
-            serviceRequestToBeCreated.salesCreditCurrency = sourceRequestForQuote.SalesCreditCurrency.ToString();
-            serviceRequestToBeCreated.salesCreditFXRate = sourceRequestForQuote.SalesCreditFXRate; //47
+            serviceRequestToCreate.salesCreditAmount = sourceRequestForQuote.SalesCreditAmount;
+            serviceRequestToCreate.salesCreditPercentage = sourceRequestForQuote.SalesCreditPercentage;
+            serviceRequestToCreate.salesCreditCurrency = sourceRequestForQuote.SalesCreditCurrency.ToString();
+            serviceRequestToCreate.salesCreditFXRate = sourceRequestForQuote.SalesCreditFXRate; //47
 
-            serviceRequestToBeCreated.premiumSettlementCurrency = sourceRequestForQuote.PremiumSettlementCurrency.ToString();
-            serviceRequestToBeCreated.premiumSettlementDate = sourceRequestForQuote.PremiumSettlementDate;
-            serviceRequestToBeCreated.premiumSettlementDaysOverride = sourceRequestForQuote.PremiumSettlementDaysOverride;
-            serviceRequestToBeCreated.premiumSettlementFXRate = sourceRequestForQuote.PremiumSettlementFXRate; //51
+            serviceRequestToCreate.premiumSettlementCurrency = sourceRequestForQuote.PremiumSettlementCurrency.ToString();
+            serviceRequestToCreate.premiumSettlementDate = sourceRequestForQuote.PremiumSettlementDate;
+            serviceRequestToCreate.premiumSettlementDaysOverride = sourceRequestForQuote.PremiumSettlementDaysOverride;
+            serviceRequestToCreate.premiumSettlementFXRate = sourceRequestForQuote.PremiumSettlementFXRate; //51
 
-            serviceRequestToBeCreated.salesComment = sourceRequestForQuote.SalesComment;
-            serviceRequestToBeCreated.traderComment = sourceRequestForQuote.TraderComment;
-            serviceRequestToBeCreated.clientComment = sourceRequestForQuote.ClientComment; //54
+            serviceRequestToCreate.salesComment = sourceRequestForQuote.SalesComment;
+            serviceRequestToCreate.traderComment = sourceRequestForQuote.TraderComment;
+            serviceRequestToCreate.clientComment = sourceRequestForQuote.ClientComment; //54
 
-            serviceRequestToBeCreated.hedgePrice = sourceRequestForQuote.HedgePrice;
-            serviceRequestToBeCreated.hedgeType = sourceRequestForQuote.HedgeType.ToString();
-            serviceRequestToBeCreated.totalPremium = sourceRequestForQuote.TotalPremium;
-            serviceRequestToBeCreated.pickedUpBy = sourceRequestForQuote.PickedUpBy; //58
+            serviceRequestToCreate.hedgePrice = sourceRequestForQuote.HedgePrice;
+            serviceRequestToCreate.hedgeType = sourceRequestForQuote.HedgeType.ToString();
+            serviceRequestToCreate.totalPremium = sourceRequestForQuote.TotalPremium;
+            serviceRequestToCreate.pickedUpBy = sourceRequestForQuote.PickedUpBy; //58
 
-            return serviceRequestToBeCreated;
+            return serviceRequestToCreate;
         }
 	}
 }
