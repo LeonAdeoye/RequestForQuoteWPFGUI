@@ -49,9 +49,11 @@ namespace RequestForQuoteServicesModuleLibrary
             container.RegisterInstance<ISearchManager>(searchManager);
             tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize(isStandAlone));
 
+            var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager);
+            container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);
+
             container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IOptionRequestPersistanceManager, OptionRequestPersistanceManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChatServiceManager, ChatServiceManagerImpl>(new ContainerControlledLifetimeManager());
             container.RegisterInstance(new JsonParserImpl());
 

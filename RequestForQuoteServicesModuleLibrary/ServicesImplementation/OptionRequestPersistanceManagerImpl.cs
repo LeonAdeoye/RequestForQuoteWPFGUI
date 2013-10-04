@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -14,6 +15,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 	{
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
 		private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
+	    private IClientManager clientManager;
+
+        public OptionRequestPersistanceManagerImpl(IClientManager clientManager)
+        {
+            this.clientManager = clientManager;
+        }
 
 		public int SaveRequest(IRequestForQuote requestToSave)
 		{
@@ -102,7 +109,73 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private IRequestForQuote CreateRequestForQuoteFromServiceRequest(requestDetailImpl serviceRequest)
         {
-            throw new System.NotImplementedException();
+            if (serviceRequest == null)
+                throw new ArgumentNullException("serviceRequest");
+
+            IRequestForQuote requestForQuoteToBeCreated = new RequestForQuoteImpl();
+
+            foreach(var leg in serviceRequest.legs.optionDetailList)
+                requestForQuoteToBeCreated.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
+
+            requestForQuoteToBeCreated.BookCode = serviceRequest.bookCode;
+            requestForQuoteToBeCreated.Request = serviceRequest.request;
+            requestForQuoteToBeCreated.Identifier = serviceRequest.identifier;
+            requestForQuoteToBeCreated.Client = clientManager.GetClientWithMatchingIdentifier(serviceRequest.clientId);
+            requestForQuoteToBeCreated.IsOTC = serviceRequest.isOTC;
+            requestForQuoteToBeCreated.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), serviceRequest.status); //6
+
+            requestForQuoteToBeCreated.TradeDate = serviceRequest.tradeDate;
+            requestForQuoteToBeCreated.ExpiryDate = serviceRequest.expiryDate; //8
+
+            requestForQuoteToBeCreated.LotSize = serviceRequest.lotSize;
+            requestForQuoteToBeCreated.Multiplier = serviceRequest.multiplier;
+            requestForQuoteToBeCreated.Contracts = serviceRequest.contracts;
+
+            requestForQuoteToBeCreated.NotionalMillions = serviceRequest.notionalMillions;
+            requestForQuoteToBeCreated.NotionalFXRate = serviceRequest.notionalFXRate;
+            requestForQuoteToBeCreated.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.notionalCurrency); //15
+
+            requestForQuoteToBeCreated.Delta = serviceRequest.delta;
+            requestForQuoteToBeCreated.Gamma = serviceRequest.gamma;
+            requestForQuoteToBeCreated.Vega = serviceRequest.vega;
+            requestForQuoteToBeCreated.Theta = serviceRequest.theta;
+            requestForQuoteToBeCreated.Rho = serviceRequest.rho; //20
+
+            requestForQuoteToBeCreated.AskFinalAmount = serviceRequest.askFinalAmount;
+            requestForQuoteToBeCreated.AskFinalPercentage = serviceRequest.askFinalPercentage;
+            requestForQuoteToBeCreated.AskImpliedVol = serviceRequest.askImpliedVol;
+            requestForQuoteToBeCreated.AskPremiumAmount = serviceRequest.askPremiumAmount;
+            requestForQuoteToBeCreated.AskPremiumPercentage = serviceRequest.askPremiumPercentage; //35
+
+            requestForQuoteToBeCreated.BidFinalAmount = serviceRequest.bidFinalAmount;
+            requestForQuoteToBeCreated.BidFinalPercentage = serviceRequest.bidFinalPercentage;
+            requestForQuoteToBeCreated.BidImpliedVol = serviceRequest.bidImpliedVol;
+            requestForQuoteToBeCreated.BidPremiumAmount = serviceRequest.bidPremiumAmount;
+            requestForQuoteToBeCreated.BidPremiumPercentage = serviceRequest.bidPremiumPercentage; //40
+
+            requestForQuoteToBeCreated.PremiumAmount = serviceRequest.premiumAmount;
+            requestForQuoteToBeCreated.PremiumPercentage = serviceRequest.premiumPercentage;
+            requestForQuoteToBeCreated.ImpliedVol = serviceRequest.impliedVol; //43
+
+            requestForQuoteToBeCreated.SalesCreditAmount = serviceRequest.salesCreditAmount;
+            requestForQuoteToBeCreated.SalesCreditPercentage = serviceRequest.salesCreditPercentage;
+            requestForQuoteToBeCreated.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.salesCreditCurrency);
+            requestForQuoteToBeCreated.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
+
+            requestForQuoteToBeCreated.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
+            requestForQuoteToBeCreated.PremiumSettlementDate = serviceRequest.premiumSettlementDate;
+            requestForQuoteToBeCreated.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
+            requestForQuoteToBeCreated.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
+
+            requestForQuoteToBeCreated.SalesComment = serviceRequest.salesComment;
+            requestForQuoteToBeCreated.TraderComment = serviceRequest.traderComment;
+            requestForQuoteToBeCreated.ClientComment = serviceRequest.clientComment; //54
+
+            requestForQuoteToBeCreated.HedgePrice = serviceRequest.hedgePrice;
+            requestForQuoteToBeCreated.HedgeType = (HedgeTypeEnum) Enum.Parse(typeof(HedgeTypeEnum), serviceRequest.hedgeType);
+            requestForQuoteToBeCreated.PickedUpBy = serviceRequest.pickedUpBy; //58
+
+            return requestForQuoteToBeCreated;
         }
 
         private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)

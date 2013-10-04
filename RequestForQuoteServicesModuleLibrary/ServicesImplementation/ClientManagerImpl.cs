@@ -101,5 +101,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             return clientControllerProxy.updateValidity(identifier, isValid);
         }
+
+        public IClient GetClientWithMatchingIdentifier(int clientId)
+        {
+            return Clients.Find(client => client.Identifier == clientId);
+        }
     }
 }
