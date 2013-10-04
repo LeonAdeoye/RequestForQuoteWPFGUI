@@ -224,6 +224,7 @@ namespace RequestForQuoteGridModuleLibrary
             request.Identifier = -1;
             request.Client = eventPayload.NewRequestClient;
             request.TradeDate = DateTime.Today;
+            request.ExpiryDate = request.Legs[0].MaturityDate;
             request.CalculatePricing(optionRequestPricer);
             request.LotSize = 100;
             request.Multiplier = 10;
