@@ -45,7 +45,7 @@
           <xs:element name="delta" type="xs:double" />
           <xs:element name="deltaNotional" type="xs:double" />
           <xs:element name="deltaShares" type="xs:double" />
-          <xs:element minOccurs="0" name="expiryDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="expiryDate" type="xs:string" />
           <xs:element name="gamma" type="xs:double" />
           <xs:element name="gammaNotional" type="xs:double" />
           <xs:element name="gammaShares" type="xs:double" />
@@ -64,7 +64,7 @@
           <xs:element name="premiumAmount" type="xs:double" />
           <xs:element name="premiumPercentage" type="xs:double" />
           <xs:element minOccurs="0" name="premiumSettlementCurrency" type="xs:string" />
-          <xs:element minOccurs="0" name="premiumSettlementDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="premiumSettlementDate" type="xs:string" />
           <xs:element name="premiumSettlementDaysOverride" type="xs:int" />
           <xs:element name="premiumSettlementFXRate" type="xs:double" />
           <xs:element name="quantity" type="xs:int" />
@@ -82,7 +82,7 @@
           <xs:element name="thetaNotional" type="xs:double" />
           <xs:element name="thetaShares" type="xs:double" />
           <xs:element name="totalPremium" type="xs:double" />
-          <xs:element minOccurs="0" name="tradeDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="tradeDate" type="xs:string" />
           <xs:element minOccurs="0" name="traderComment" type="xs:string" />
           <xs:element name="vega" type="xs:double" />
           <xs:element name="vegaNotional" type="xs:double" />

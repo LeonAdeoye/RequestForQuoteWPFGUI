@@ -124,8 +124,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             requestForQuoteToCreate.IsOTC = serviceRequest.isOTC;
             requestForQuoteToCreate.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), serviceRequest.status); //6
 
-            requestForQuoteToCreate.TradeDate = serviceRequest.tradeDate;
-            requestForQuoteToCreate.ExpiryDate = serviceRequest.expiryDate; //8
+            requestForQuoteToCreate.TradeDate = System.Convert.ToDateTime(serviceRequest.tradeDate);
+            requestForQuoteToCreate.ExpiryDate  = System.Convert.ToDateTime(serviceRequest.expiryDate); //8
 
             requestForQuoteToCreate.LotSize = serviceRequest.lotSize;
             requestForQuoteToCreate.Multiplier = serviceRequest.multiplier;
@@ -163,7 +163,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             requestForQuoteToCreate.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
 
             requestForQuoteToCreate.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
-            requestForQuoteToCreate.PremiumSettlementDate = serviceRequest.premiumSettlementDate;
+            requestForQuoteToCreate.PremiumSettlementDate = System.Convert.ToDateTime(serviceRequest.premiumSettlementDate);
             requestForQuoteToCreate.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
             requestForQuoteToCreate.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
 
@@ -200,8 +200,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             serviceRequestToCreate.isOTC = sourceRequestForQuote.IsOTC;
             serviceRequestToCreate.status = sourceRequestForQuote.Status.ToString(); //6
 
-            serviceRequestToCreate.tradeDate = sourceRequestForQuote.TradeDate;
-            serviceRequestToCreate.expiryDate = sourceRequestForQuote.ExpiryDate; //8
+            serviceRequestToCreate.tradeDate = sourceRequestForQuote.TradeDate.ToShortDateString();
+            serviceRequestToCreate.expiryDate = sourceRequestForQuote.ExpiryDate.ToShortDateString(); //8
 
             serviceRequestToCreate.lotSize = sourceRequestForQuote.LotSize;
             serviceRequestToCreate.multiplier = sourceRequestForQuote.Multiplier;
@@ -252,7 +252,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             serviceRequestToCreate.salesCreditFXRate = sourceRequestForQuote.SalesCreditFXRate; //47
 
             serviceRequestToCreate.premiumSettlementCurrency = sourceRequestForQuote.PremiumSettlementCurrency.ToString();
-            serviceRequestToCreate.premiumSettlementDate = sourceRequestForQuote.PremiumSettlementDate;
+            serviceRequestToCreate.premiumSettlementDate = sourceRequestForQuote.PremiumSettlementDate.ToShortDateString();
             serviceRequestToCreate.premiumSettlementDaysOverride = sourceRequestForQuote.PremiumSettlementDaysOverride;
             serviceRequestToCreate.premiumSettlementFXRate = sourceRequestForQuote.PremiumSettlementFXRate; //51
 

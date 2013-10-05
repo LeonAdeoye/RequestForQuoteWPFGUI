@@ -124,9 +124,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private double deltaSharesField;
         
-        private System.DateTime expiryDateField;
-        
-        private bool expiryDateFieldSpecified;
+        private string expiryDateField;
         
         private double gammaField;
         
@@ -164,9 +162,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private string premiumSettlementCurrencyField;
         
-        private System.DateTime premiumSettlementDateField;
-        
-        private bool premiumSettlementDateFieldSpecified;
+        private string premiumSettlementDateField;
         
         private int premiumSettlementDaysOverrideField;
         
@@ -202,9 +198,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private double totalPremiumField;
         
-        private System.DateTime tradeDateField;
-        
-        private bool tradeDateFieldSpecified;
+        private string tradeDateField;
         
         private string traderCommentField;
         
@@ -420,25 +414,13 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=17)]
-        public System.DateTime expiryDate {
+        public string expiryDate {
             get {
                 return this.expiryDateField;
             }
             set {
                 this.expiryDateField = value;
                 this.RaisePropertyChanged("expiryDate");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool expiryDateSpecified {
-            get {
-                return this.expiryDateFieldSpecified;
-            }
-            set {
-                this.expiryDateFieldSpecified = value;
-                this.RaisePropertyChanged("expiryDateSpecified");
             }
         }
         
@@ -660,25 +642,13 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=36)]
-        public System.DateTime premiumSettlementDate {
+        public string premiumSettlementDate {
             get {
                 return this.premiumSettlementDateField;
             }
             set {
                 this.premiumSettlementDateField = value;
                 this.RaisePropertyChanged("premiumSettlementDate");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool premiumSettlementDateSpecified {
-            get {
-                return this.premiumSettlementDateFieldSpecified;
-            }
-            set {
-                this.premiumSettlementDateFieldSpecified = value;
-                this.RaisePropertyChanged("premiumSettlementDateSpecified");
             }
         }
         
@@ -888,25 +858,13 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=54)]
-        public System.DateTime tradeDate {
+        public string tradeDate {
             get {
                 return this.tradeDateField;
             }
             set {
                 this.tradeDateField = value;
                 this.RaisePropertyChanged("tradeDate");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool tradeDateSpecified {
-            get {
-                return this.tradeDateFieldSpecified;
-            }
-            set {
-                this.tradeDateFieldSpecified = value;
-                this.RaisePropertyChanged("tradeDateSpecified");
             }
         }
         
