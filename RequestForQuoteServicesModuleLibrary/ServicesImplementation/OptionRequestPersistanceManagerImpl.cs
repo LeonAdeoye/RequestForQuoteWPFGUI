@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
@@ -64,6 +65,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		    return false;
 		}
 
+        public List<IRequestForQuote> GetRequestsForToday(bool rePrice)
+        {
+            var listOfRequests = new List<IRequestForQuote>();
+            try
+            {
+                listOfRequests.AddRange(requestControllerProxy.getRequestsForToday(rePrice).requestDetailList
+                    .Select(request => CreateRequestForQuoteFromServiceRequest(request)));
+            }
+            catch (EndpointNotFoundException enfe)
+            {
+                log.Error("Failed to get requests for today. Exception thrown: ", enfe);                
+            }
+            return listOfRequests;
+        }
+
 		public IRequestForQuote GetRequest(int identifier, bool rePrice)
 		{
             return CreateRequestForQuoteFromServiceRequest(requestControllerProxy.getRequest(identifier, rePrice));
@@ -114,8 +130,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             var requestForQuoteToCreate = new RequestForQuoteImpl();
 
-            foreach(var leg in serviceRequest.legs.optionDetailList)
-                requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
+            if (serviceRequest.legs.optionDetailList != null)
+            {
+                foreach (var leg in serviceRequest.legs.optionDetailList)
+                    requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));                
+            }
 
             requestForQuoteToCreate.BookCode = serviceRequest.bookCode;
             requestForQuoteToCreate.Request = serviceRequest.request;

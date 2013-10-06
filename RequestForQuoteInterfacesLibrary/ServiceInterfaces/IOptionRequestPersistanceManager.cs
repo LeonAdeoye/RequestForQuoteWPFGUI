@@ -8,6 +8,7 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         int SaveRequest(IRequestForQuote requestToSave);
         bool UpdateRequest(IRequestForQuote requestToUpdate);
         IRequestForQuote GetRequest(int identifier, bool rePrice);
+        List<IRequestForQuote> GetRequestsForToday(bool rePrice);
         List<IRequestForQuote> GetRequestMatchingAdhocCriteria(ISearch search, bool rePrice);
         List<IRequestForQuote> GetRequestMatchingExistingCriteria(string criteriaOwner, string criteriaDescriptionKey, bool rePrice);
     }
