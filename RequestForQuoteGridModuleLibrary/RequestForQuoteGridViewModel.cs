@@ -98,9 +98,6 @@ namespace RequestForQuoteGridModuleLibrary
             foreach (var status in Enum.GetNames(typeof(StatusEnum)))
                 Status.Add(status);
 
-            foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(false))
-                TodaysRequests.Add(request);
-
             if((Environment.GetCommandLineArgs().Length > 1 && Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE))
             {
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
@@ -109,6 +106,11 @@ namespace RequestForQuoteGridModuleLibrary
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C-P 100 23Dec2013 0004.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 4, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.USD, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = Clients[1], TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = Clients[2], TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });                
+            }
+            else
+            {
+                foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(false))
+                    TodaysRequests.Add(request);                
             }
           
             Requests = TodaysRequests;

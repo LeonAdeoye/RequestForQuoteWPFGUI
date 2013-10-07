@@ -65,7 +65,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(BookImpl));
                 IBook newBook = (BookImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid, false);
+                //bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid, false);
             }
             catch (Exception exc)
             {

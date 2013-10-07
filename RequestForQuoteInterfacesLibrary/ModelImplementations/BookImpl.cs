@@ -1,14 +1,43 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
+    [DataContract]
     public sealed class BookImpl : IBook, INotifyPropertyChanged
     {
-        private bool isValid;
-        public string BookCode { get; set; }
-        public string Entity { get; set; }
+        [DataMember] private bool isValid;
+        [DataMember] private string bookCode;
+        [DataMember] private string entity;
+
+        public string BookCode
+        {
+            get
+            {
+                return bookCode;
+            }
+            set
+            {
+                bookCode = value;
+                NotifyPropertyChanged("BookCode");
+            }
+        }
+
+        public string Entity
+        {
+            get
+            {
+                return entity;
+            }
+            set
+            {
+                entity = value;
+                NotifyPropertyChanged("Entity");
+            }
+        }
+
         public bool IsValid
         {
             get

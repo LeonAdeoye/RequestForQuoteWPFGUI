@@ -70,8 +70,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             var listOfRequests = new List<IRequestForQuote>();
             try
             {
-                listOfRequests.AddRange(requestControllerProxy.getRequestsForToday(rePrice).requestDetailList
-                    .Select(request => CreateRequestForQuoteFromServiceRequest(request)));
+                var requests = requestControllerProxy.getRequestsForToday(rePrice).requestDetailList;
+                if (requests != null)
+                {
+                    foreach (var request in requests)
+                        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
+                }
             }
             catch (EndpointNotFoundException enfe)
             {
