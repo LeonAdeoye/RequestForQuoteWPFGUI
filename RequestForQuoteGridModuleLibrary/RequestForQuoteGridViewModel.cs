@@ -109,7 +109,7 @@ namespace RequestForQuoteGridModuleLibrary
             }
             else
             {
-                foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(false))
+                foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(true))
                     TodaysRequests.Add(request);                
             }
           

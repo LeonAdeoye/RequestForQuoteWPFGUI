@@ -20,9 +20,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             // Client socket.
             public Socket workSocket = null;
             // Size of receive buffer.
-            public const int BufferSize = 1024;
+            public const int BUFFER_SIZE = 4096;
             // Receive buffer.
-            public byte[] buffer = new byte[BufferSize];
+            public readonly byte[] buffer = new byte[BUFFER_SIZE];
             // Received data string.
             public StringBuilder sb = new StringBuilder();
         }
@@ -117,7 +117,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 // Create the state object.
                 var state = new StateObject {workSocket = socketConnection};
                 // Begin receiving the data from the remote device.
-                socketConnection.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                socketConnection.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, 0, new AsyncCallback(ReceiveCallback), state);
             }
             catch (Exception e)
             {
@@ -143,7 +143,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {                    
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
                     ProcessMessage(state);
-                    clientSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+                    clientSocket.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
                 }
             }
             catch (Exception e)
