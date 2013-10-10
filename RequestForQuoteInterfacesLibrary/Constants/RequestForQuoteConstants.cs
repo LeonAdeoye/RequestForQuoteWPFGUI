@@ -1,7 +1,7 @@
 ﻿namespace RequestForQuoteInterfacesLibrary.Constants
 {
     public static class RequestForQuoteConstants
-    {        
+    {
         public const string CALCULATE_REQUEST = "Calculate Request";
         public const string ENTER_SALES_COMMENTARY = "Sales' comment...";
         public const string ENTER_TRADER_COMMENTARY = "Trader's comment...";
@@ -26,6 +26,8 @@
         public const string SERVER_IP_ADDRESS = "127.0.0.1";
         public const int SERVER_PORT_NUMBER = 1972;
         public const int SERVER_SLEEP_INTERVAL = 1000;
+        public const int JSON_MESSAGE_SIZE_PREFIX_LENGTH = 4;
+        public const int JSON_MESSAGE_SIZE_MAXIMUM = 5120;
 
         public const string NEW_CHAT_MESSAGE = "NewChatMessage";
         public const string NEW_BOOK_UPDATE = "NewBookUpdate";
@@ -38,6 +40,5 @@
         public const bool MAINTAIN_STRONG_REFERENCE = true;
 
         public const string STANDALONE_MODE_WITHOUT_WEB_SERVICE = "StandAlone";
-
     }
 }

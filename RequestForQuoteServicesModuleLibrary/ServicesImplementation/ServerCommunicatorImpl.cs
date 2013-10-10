@@ -5,6 +5,7 @@ using System.Threading;
 using System.Text;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
+using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -19,10 +20,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             // Client socket.
             public Socket workSocket = null;
-            // Size of receive buffer.
-            public const int BUFFER_SIZE = 4096;
             // Receive buffer.
-            public readonly byte[] buffer = new byte[BUFFER_SIZE];
+            public readonly byte[] buffer = new byte[RequestForQuoteConstants.JSON_MESSAGE_SIZE_MAXIMUM];
             // Received data string.
             public StringBuilder sb = new StringBuilder();
         }
@@ -117,7 +116,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 // Create the state object.
                 var state = new StateObject {workSocket = socketConnection};
                 // Begin receiving the data from the remote device.
-                socketConnection.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, 0, new AsyncCallback(ReceiveCallback), state);
+                socketConnection.BeginReceive(state.buffer, 0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_MAXIMUM, 0, new AsyncCallback(ReceiveCallback), state);
             }
             catch (Exception e)
             {
@@ -143,7 +142,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {                    
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
                     ProcessMessage(state);
-                    clientSocket.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+                    clientSocket.BeginReceive(state.buffer, 0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_MAXIMUM, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
                 }
             }
             catch (Exception e)
@@ -155,17 +154,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private void ProcessMessage(StateObject state)
         {
             int sizeOfMessage;
-            if (Int32.TryParse(state.sb.ToString().Substring(0, 3), out sizeOfMessage))
+            if (Int32.TryParse(state.sb.ToString().Substring(0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH), out sizeOfMessage))
             {
-                if (state.sb.Length > sizeOfMessage + 3)
+                if (state.sb.Length > sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH)
                 {
-                    PublishMessageToJSONParser(state.sb.ToString().Substring(3, sizeOfMessage));
-                    state.sb.Remove(0, sizeOfMessage + 3);
+                    PublishMessageToJSONParser(state.sb.ToString().Substring(RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH, sizeOfMessage));
+                    state.sb.Remove(0, sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH);
                 }
-                else if (state.sb.Length == sizeOfMessage + 3)
+                else if (state.sb.Length == sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH)
                 {
-                    PublishMessageToJSONParser(state.sb.ToString().Substring(3, sizeOfMessage));
-                    state.sb.Remove(0, sizeOfMessage + 3);
+                    PublishMessageToJSONParser(state.sb.ToString().Substring(RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH, sizeOfMessage));
+                    state.sb.Remove(0, sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH);
                     receiveDone.Set();
                 }
             }

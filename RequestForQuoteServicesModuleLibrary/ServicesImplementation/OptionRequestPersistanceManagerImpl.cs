@@ -108,8 +108,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     IsCall = serviceOptionLeg.isCall,
                     IsEuropean = serviceOptionLeg.isEuropean,
-                    LegId = serviceOptionLeg.legId
-                    // TODO add all properties
+                    LegId = serviceOptionLeg.legId,
+                    Delta = serviceOptionLeg.delta,
+                    Gamma = serviceOptionLeg.gamma,
+                    Vega = serviceOptionLeg.vega,
+                    Theta = serviceOptionLeg.theta,
+                    Rho = serviceOptionLeg.rho,
+                    PremiumAmount = serviceOptionLeg.premium,
+                    DayCountConvention = serviceOptionLeg.dayCountConvention,
+                    DaysToExpiry = serviceOptionLeg.daysToExpiry,
+                    UnderlyingPrice = serviceOptionLeg.underlyingPrice,
+                    Volatility = serviceOptionLeg.volatility,
+                    InterestRate = serviceOptionLeg.interestRate,
+                    RIC = serviceOptionLeg.underlyingRIC,
+                    Strike = serviceOptionLeg.strike,
+                    Side = (SideEnum)Enum.Parse(typeof(SideEnum), serviceOptionLeg.side)
                 };
         }
 
@@ -122,8 +135,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     isCall = requestForQuoteOptionLeg.IsCall,
                     isEuropean = requestForQuoteOptionLeg.IsEuropean,
-                    legId = requestForQuoteOptionLeg.LegId
-                    // TODO add all properties
+                    legId = requestForQuoteOptionLeg.LegId,
+                    delta = requestForQuoteOptionLeg.Delta,
+                    gamma = requestForQuoteOptionLeg.Gamma,
+                    vega = requestForQuoteOptionLeg.Vega,
+                    theta = requestForQuoteOptionLeg.Theta,
+                    rho = requestForQuoteOptionLeg.Rho,
+                    interestRate = requestForQuoteOptionLeg.InterestRate,
+                    volatility = requestForQuoteOptionLeg.Volatility,
+                    underlyingPrice = requestForQuoteOptionLeg.UnderlyingPrice,
+                    dayCountConvention = requestForQuoteOptionLeg.DayCountConvention,
+                    daysToExpiry = requestForQuoteOptionLeg.DayCountConvention,
+                    premium = requestForQuoteOptionLeg.PremiumAmount,
+                    underlyingRIC = requestForQuoteOptionLeg.RIC,
+                    strike = requestForQuoteOptionLeg.Strike,
+                    side = requestForQuoteOptionLeg.Side.ToString()
                 };
         }
 
@@ -203,6 +229,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)
         {
+            if(sourceRequestForQuote == null)
+                throw new ArgumentNullException("sourceRequestForQuote");
+
             var serviceRequestToCreate = new requestDetailImpl();
 
             if (sourceRequestForQuote.Legs != null && sourceRequestForQuote.Legs.Count > 0)

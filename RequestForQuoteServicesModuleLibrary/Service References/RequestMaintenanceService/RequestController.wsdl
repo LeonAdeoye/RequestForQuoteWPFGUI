@@ -26,7 +26,7 @@
           <xs:element minOccurs="0" name="return" type="tns:requestDetailImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="requestDetailImpl">
+      <xs:complexType name="requestDetailImpl" final="extension restriction">
         <xs:sequence>
           <xs:element name="askFinalAmount" type="xs:double" />
           <xs:element name="askFinalPercentage" type="xs:double" />
@@ -89,7 +89,7 @@
           <xs:element name="vegaShares" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="optionDetailListImpl">
+      <xs:complexType name="optionDetailListImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="OptionDetailListImpl">
             <xs:complexType>
@@ -101,16 +101,25 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="optionDetailList" nillable="true" type="tns:optionDetailImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="optionDetailImpl">
+      <xs:complexType name="optionDetailImpl" final="extension restriction">
         <xs:sequence>
+          <xs:element name="dayCountConvention" type="xs:double" />
+          <xs:element name="daysToExpiry" type="xs:double" />
           <xs:element name="delta" type="xs:double" />
           <xs:element name="gamma" type="xs:double" />
+          <xs:element name="interestRate" type="xs:double" />
           <xs:element name="isCall" type="xs:boolean" />
           <xs:element name="isEuropean" type="xs:boolean" />
           <xs:element name="legId" type="xs:int" />
+          <xs:element name="premium" type="xs:double" />
           <xs:element name="rho" type="xs:double" />
+          <xs:element minOccurs="0" name="side" type="xs:string" />
+          <xs:element name="strike" type="xs:double" />
           <xs:element name="theta" type="xs:double" />
+          <xs:element name="underlyingPrice" type="xs:double" />
+          <xs:element minOccurs="0" name="underlyingRIC" type="xs:string" />
           <xs:element name="vega" type="xs:double" />
+          <xs:element name="volatility" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="arrayList">
@@ -153,7 +162,7 @@
           <xs:element minOccurs="0" name="return" type="tns:requestDetailListImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="requestDetailListImpl">
+      <xs:complexType name="requestDetailListImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="RequestDetailListImpl">
             <xs:complexType>
