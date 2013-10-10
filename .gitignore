@@ -35,6 +35,7 @@ WPFStyley*.dll
 dlls/RFQ.*
 *Result.xml
 RFQ.suo
+dlls/RequestForQuoteServicesModuleLibrary.dll.config
 
 _ReSharper.RFQ/
 RFQ.sln.docstates.suo
