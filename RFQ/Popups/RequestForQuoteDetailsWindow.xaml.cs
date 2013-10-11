@@ -7,7 +7,7 @@ namespace RFQ.Popups
     /// <summary>
     /// Interaction logic for RequestForQuoteDetailsWindow.xaml
     /// </summary>
-    public partial class RequestForQuoteDetailsWindow : Window, IRequestForQuoteDetailsPopupWindow
+    public partial class RequestForQuoteDetailsWindow : Window, IWindowPopup
     {
         public RequestForQuoteDetailsWindow()
         {

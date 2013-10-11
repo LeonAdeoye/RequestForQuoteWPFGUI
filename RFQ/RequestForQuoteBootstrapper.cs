@@ -5,6 +5,7 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
 using RFQ.Popups;
+using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RFQ
@@ -39,12 +40,12 @@ namespace RFQ
 
         private void RegisterAllPopups()
         {
-            Container.RegisterType<IRequestForQuoteDetailsPopupWindow, RequestForQuoteDetailsWindow>();
-            Container.RegisterType<IBookMaintenancePopupWindow, BookMaintenanceWindow>();
-            Container.RegisterType<IClientMaintenancePopupWindow, ClientMaintenanceWindow>();
-            Container.RegisterType<IBankHolidayMaintenancePopupWindow, BankHolidayMaintenanceWindow>();
-            Container.RegisterType<IUnderlyingMaintenancePopupWindow, UnderlyingMaintenanceWindow>();
-            Container.RegisterType<ISaveSearchPopupWindow, SaveSearchWindow>(); 
+            Container.RegisterType<IWindowPopup, RequestForQuoteDetailsWindow>(WindowPopupNames.REQUEST_DETAIL_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, BookMaintenanceWindow>(WindowPopupNames.BOOK_MAINTENANCE_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, ClientMaintenanceWindow>(WindowPopupNames.CLIENT_MAINTENANCE_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, BankHolidayMaintenanceWindow>(WindowPopupNames.BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, UnderlyingMaintenanceWindow>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP); 
         }
     }
 }

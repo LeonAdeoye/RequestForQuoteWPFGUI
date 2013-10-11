@@ -6,7 +6,7 @@ namespace RFQ.Popups
     /// <summary>
     /// Interaction logic for ClientMaintenanceWindow.xaml
     /// </summary>
-    public partial class ClientMaintenanceWindow : Window, IClientMaintenancePopupWindow
+    public partial class ClientMaintenanceWindow : Window, IWindowPopup
     {
         public ClientMaintenanceWindow()
         {

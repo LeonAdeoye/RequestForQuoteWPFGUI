@@ -6,7 +6,7 @@ namespace RFQ.Popups
     /// <summary>
     /// Interaction logic for SaveSearchWindow.xaml
     /// </summary>
-    public partial class SaveSearchWindow : Window, ISaveSearchPopupWindow
+    public partial class SaveSearchWindow : Window, IWindowPopup
     {
         public SaveSearchWindow()
         {

@@ -19,8 +19,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
             InitializeComponent();
 
-            DataContext = new RequestForQuoteFunctionsViewModel(eventAggregator, container.Resolve<IClientManager>(), 
-                container.Resolve<IUnderlyingManager>(), container.Resolve<IBookManager>(), container.Resolve<ISearchManager>());
+            DataContext = container.Resolve<RequestForQuoteFunctionsViewModel>();
         }
     }
 }

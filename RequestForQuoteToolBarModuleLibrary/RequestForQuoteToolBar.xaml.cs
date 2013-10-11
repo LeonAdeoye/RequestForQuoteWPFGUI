@@ -15,9 +15,7 @@ namespace RequestForQuoteToolBarModuleLibrary
         {
             InitializeComponent();
 
-            DataContext = new RequestForQuoteToolBarViewModel(container.Resolve<IOptionRequestParser>(), 
-                container.Resolve<IClientManager>(),
-                container.Resolve<IBookManager>());
+            DataContext = container.Resolve<RequestForQuoteToolBarViewModel>();
         }
     }
 }

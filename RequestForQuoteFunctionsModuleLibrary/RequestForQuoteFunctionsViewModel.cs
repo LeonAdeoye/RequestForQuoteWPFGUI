@@ -411,7 +411,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 TypeOfCriteria = CriteriaTypeEnum.FILTER;
 
                 // Cannot use constructor injection because ISaveSearchPopupWindow is not registered within the unity container the constructor is called.
-                ISaveSearchPopupWindow searchPopupWindow = ServiceLocator.Current.GetInstance<ISaveSearchPopupWindow>();
+                IWindowPopup searchPopupWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP);
                 searchPopupWindow.ShowModalWindow(this);
                 // TODO verify search owner+key does not alreday exist in universe.
             }                

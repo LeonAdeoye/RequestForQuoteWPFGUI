@@ -6,7 +6,7 @@ namespace RFQ.Popups
     /// <summary>
     /// Interaction logic for BankHolidayMaintenanceWindow.xaml
     /// </summary>
-    public partial class BankHolidayMaintenanceWindow : Window, IBankHolidayMaintenancePopupWindow
+    public partial class BankHolidayMaintenanceWindow : Window, IWindowPopup
     {
         public BankHolidayMaintenanceWindow()
         {

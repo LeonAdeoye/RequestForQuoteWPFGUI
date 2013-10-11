@@ -72,7 +72,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                socketConnection.Shutdown(SocketShutdown.Both);
+                if (IsConnected())
+                    socketConnection.Shutdown(SocketShutdown.Both);
             }
             catch (Exception e)
             {

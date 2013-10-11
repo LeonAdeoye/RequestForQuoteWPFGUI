@@ -22,10 +22,7 @@ namespace RequestForQuoteGridModuleLibrary
 
             InitializeComponent();
 
-            viewModel = new RequestForQuoteGridViewModel(container.Resolve<IBookManager>(), container.Resolve<IClientManager>(),
-                container.Resolve<IOptionRequestParser>(), container.Resolve<IOptionRequestPricer>(), 
-                container.Resolve<IChatServiceManager>(), container.Resolve<IUnderlyingManager>(), 
-                container.Resolve<IOptionRequestPersistanceManager>(), eventAggregator);
+            viewModel = container.Resolve<RequestForQuoteGridViewModel>();
             
             this.DataContext = viewModel;
         }

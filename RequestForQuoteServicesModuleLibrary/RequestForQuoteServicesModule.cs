@@ -52,10 +52,10 @@ namespace RequestForQuoteServicesModuleLibrary
             var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager);
             container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);
 
-            container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IChatServiceManager, ChatServiceManagerImpl>(new ContainerControlledLifetimeManager());
-            container.RegisterInstance(new JsonParserImpl());
+            container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager())
+                .RegisterType<IOptionRequestPricer, OptionRequestPricerImpl>(new ContainerControlledLifetimeManager())
+                .RegisterType<IChatServiceManager, ChatServiceManagerImpl>(new ContainerControlledLifetimeManager())
+                .RegisterInstance(new JsonParserImpl());
 
             InitializeServerCommunicator(isStandAlone);
 
