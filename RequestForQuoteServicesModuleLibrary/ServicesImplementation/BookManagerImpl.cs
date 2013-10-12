@@ -59,29 +59,37 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public bool AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase)
+        public void AddBook(string bookCode, string entity, bool isValid)
         {
-            var wasSavedToDatabase = false;
+            if (String.IsNullOrEmpty(bookCode))
+                throw new ArgumentException("bookCode");
+
+            if (String.IsNullOrEmpty(entity))
+                throw new ArgumentException("entity");
+
             var newBook = new BookImpl() { BookCode = bookCode, Entity = entity, IsValid = isValid };
             
-            // Add to collection...
+            // Add to book maintenance manager's collection (master copy)...
             Books.Add(newBook);
 
-            // Add to database...
-            if (canSaveToDatabase)
-                wasSavedToDatabase = bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
-
             // Publish event for other observer view models
-            // TODO - does this not need to be inside the above if statement? Verify
             eventAggregator.GetEvent<NewBookEvent>().Publish(new NewBookEventPayload()
             {
                 NewBook = newBook
             });
-
-            // if no save is required then this should return true
-            // otherwise if saved required the save through web service proxy must succeed.
-            return !canSaveToDatabase || wasSavedToDatabase;
         }
+
+        public bool SaveToDatabase(string bookCode, string entity, bool isValid)
+        {
+            if (String.IsNullOrEmpty(bookCode))
+                throw new ArgumentException("bookCode");
+
+            if (String.IsNullOrEmpty(entity))
+                throw new ArgumentException("entity");
+
+            return bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
+        }
+
 
         public bool UpdateValidity(string bookCode, bool isValid)
         {

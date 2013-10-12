@@ -33,6 +33,7 @@
         public const string NEW_BOOK_UPDATE = "NewBookUpdate";
         public const string NEW_CLIENT_UPDATE = "NewClientUpdate";
         public const string NEW_UNDERLYIER_UPDATE = "NewUnderlyierUpdate";
+        public const string NEW_REQUEST_UPDATE = "NewRequestUpdate";
 
         public const bool SAVE_TO_DATABASE = true;
         public const bool DO_NOT_SAVE_TO_DATABASE = false;

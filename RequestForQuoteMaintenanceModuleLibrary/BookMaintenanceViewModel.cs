@@ -88,7 +88,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         {
             if (!bookManager.Books.Exists((book) => book.BookCode == NewBookCode))
             {
-                bookManager.AddBook(NewBookCode, NewEntityCode, RequestForQuoteConstants.VALID, RequestForQuoteConstants.SAVE_TO_DATABASE);
+                bookManager.SaveToDatabase(NewBookCode, NewEntityCode, RequestForQuoteConstants.VALID);
                 ClearInput();
             }
             else

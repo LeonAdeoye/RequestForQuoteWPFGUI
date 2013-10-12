@@ -7,7 +7,8 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
     public interface IBookManager
     {
         List<IBook> Books { get; set; }
-        bool AddBook(string bookCode, string entity, bool isValid, bool canSaveToDatabase);
+        void AddBook(string bookCode, string entity, bool isValid);
+        bool SaveToDatabase(string bookCode, string entity, bool isValid);
         bool RemoveBook(string bookCode);
         bool UpdateValidity(string bookCode, bool isValid);
         void Initialize(bool isStandAlone);

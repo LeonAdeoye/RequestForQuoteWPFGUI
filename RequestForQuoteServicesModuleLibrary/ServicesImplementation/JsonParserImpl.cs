@@ -65,7 +65,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(BookImpl));
                 IBook newBook = (BookImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                //bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid, false);
+                bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid);
             }
             catch (Exception exc)
             {
@@ -104,18 +104,23 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void HandleServerUpdateEvent(ServerUpdateEventPayload serverUpdate)
         {
-            if(log.IsDebugEnabled)
+            if(log.IsDebugEnabled) 
                 log.Debug(String.Format("JSON parser recieved server update: [{0}]", serverUpdate.Content));
 
             var index = serverUpdate.Content.IndexOf("=");
-            var typeOfMessage = serverUpdate.Content.Substring(0, index);
-            var json = serverUpdate.Content.Substring(index + 1);
 
-            if (actions.ContainsKey(typeOfMessage))
-                actions[typeOfMessage](json);
+            if (index >= 0)
+            {
+                var typeOfMessage = serverUpdate.Content.Substring(0, index);
+                var json = serverUpdate.Content.Substring(index + 1);
+
+                if (actions.ContainsKey(typeOfMessage))
+                    actions[typeOfMessage](json);
+                else
+                    log.Error(String.Format("Unrecognized message type [{0}] recieved. Cannot action update.", typeOfMessage));                
+            }
             else
-                log.Error(String.Format("Unrecognized message type [{0}] recieved. Cannot action update.", typeOfMessage));
-
+                throw new InvalidDataException("Missing message type prefix in : " + serverUpdate.Content);
         }
     }
 }

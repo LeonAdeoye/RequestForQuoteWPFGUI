@@ -58,7 +58,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 }
                 catch (Exception e)
                 {
-                    log.Error(String.Format("Failed to connect socket to server with hostname: {0} and port number: {1}. Exception raised: {2}", remoteAddress, remotePort, e.Message));
+                    if(log.IsErrorEnabled)
+                        log.Error(String.Format("Failed to connect socket to server with hostname: {0} and port number: {1}. Exception raised: {2}", remoteAddress, remotePort, e.Message));
                 }
             }
         }
@@ -77,7 +78,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (Exception e)
             {
-                log.Error(string.Format("Exception raised when shutting down in/out traffic through the socket: {0}", e.Message));
+                if (log.IsErrorEnabled)
+                    log.Error(string.Format("Exception raised when shutting down in/out traffic through the socket: {0}", e.Message));
             }
             finally
             {
@@ -101,7 +103,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (Exception e)
             {
-                log.Error(String.Format("Exception raised: {0}", e.Message));
+                if (log.IsErrorEnabled)
+                    log.Error(String.Format("Exception raised: {0}", e.Message));
             }
             finally
             {
@@ -121,7 +124,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (Exception e)
             {
-                log.Error(String.Format("Exception raised before reading data: {0}", e.Message));
+                if (log.IsErrorEnabled)
+                    log.Error(String.Format("Exception raised before reading data: {0}", e.Message));
             }
         }
 
@@ -148,7 +152,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (Exception e)
             {
-                log.Error(String.Format("Failed to read and process new data [{0}] sent over socket connection. Exception raised [{1}]", state.sb, e.Message));
+                if (log.IsErrorEnabled)
+                    log.Error(String.Format("Failed to read and process new data [{0}] sent over socket connection. Exception raised [{1}]", state.sb, e.Message));
             }
         }
 
@@ -171,7 +176,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             else
             {
-                log.Error(String.Format("Size prefix of new message [{0}] is missing", state.sb));
+                if (log.IsErrorEnabled)
+                    log.Error(String.Format("Size prefix of new message [{0}] is missing", state.sb));
+
                 throw new ArgumentException(String.Format("Size prefix is missing in new message [{0}]", state.sb));    
             }
         }

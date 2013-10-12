@@ -32,7 +32,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             new Mock<SearchRequestForQuoteEvent>();
 
         private RequestForQuoteDetailsViewModel viewModel;
-        private bool wasCalled;
+        //private bool wasCalled;
 
         private readonly IBook testBook = new BookImpl() { BookCode = "test book" };
 
@@ -83,7 +83,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [SetUp]
         public void SetUpBeforeEachAndEveryTest()
         {
-            wasCalled = false;
+            //wasCalled = false;
         }
 
         [TearDown]
