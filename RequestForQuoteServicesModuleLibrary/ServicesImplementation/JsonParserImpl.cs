@@ -21,7 +21,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         private static readonly IBookManager bookManager = ServiceLocator.Current.GetInstance<IBookManager>();
         private static readonly IClientManager clientManager = ServiceLocator.Current.GetInstance<IClientManager>();
-        private static readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();        
+        private static readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
+        private static readonly IBankHolidayManager bankHolidayManager = ServiceLocator.Current.GetInstance<IBankHolidayManager>();        
         private static Dictionary<string, Action<string>> actions;
 
         public JsonParserImpl()
@@ -39,8 +40,24 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     {RequestForQuoteConstants.NEW_CHAT_MESSAGE, ProcessNewChatMessage},
                     {RequestForQuoteConstants.NEW_BOOK_UPDATE, ProcessNewBookUpdate},
                     {RequestForQuoteConstants.NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
-                    {RequestForQuoteConstants.NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate}
+                    {RequestForQuoteConstants.NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate},
+                    {RequestForQuoteConstants.NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate}
                 };
+        }
+
+        private void ProcessNewHolidayUpdate(string json)
+        {
+            try
+            {
+                var serializer = new DataContractJsonSerializer(typeof(BankHolidayImpl));
+                IBankHoliday newHoliday = (BankHolidayImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                bankHolidayManager.AddHoliday(newHoliday.BankHoliday, newHoliday.Location,
+                                              RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE);
+            }
+            catch (Exception exc)
+            {
+                log.Error(String.Format("Failed to deserialize json [{0}] into new holiday update. Exception raised [{1}]", json, exc.Message));
+            } 
         }
 
         private void ProcessNewChatMessage(string json)

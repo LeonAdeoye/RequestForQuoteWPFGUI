@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
+using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -73,7 +74,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             // Save to database
             if (canSaveToDatabase)
-                wasSavedToDatabase = clientControllerProxy.save(name, tier);
+                wasSavedToDatabase = clientControllerProxy.save(name, tier, RequestForQuoteConstants.MY_USER_NAME);
 
             // TODO verify that this needs to be called even if canSaveToDatabase = false;
             // Publish event for other observer view models
@@ -87,19 +88,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return !canSaveToDatabase || wasSavedToDatabase;
         }
 
-        public bool RemoveClient(int identifier)
-        {
-            return clientControllerProxy.delete(identifier);
-        }
-
         public bool UpdateTier(int identifier, int tier)
         {
-            return clientControllerProxy.updateTier(identifier, tier);
+            return clientControllerProxy.updateTier(identifier, tier, RequestForQuoteConstants.MY_USER_NAME);
         }
 
         public bool UpdateValidity(int identifier, bool isValid)
         {
-            return clientControllerProxy.updateValidity(identifier, isValid);
+            return clientControllerProxy.updateValidity(identifier, isValid, RequestForQuoteConstants.MY_USER_NAME);
         }
 
         public IClient GetClientWithMatchingIdentifier(int clientId)
