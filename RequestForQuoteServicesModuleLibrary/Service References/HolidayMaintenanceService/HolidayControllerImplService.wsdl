@@ -31,7 +31,7 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:holidayImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="holidayImpl">
+      <xs:complexType name="holidayImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="holidayDate" type="xs:dateTime" />
           <xs:element minOccurs="0" name="location" type="xs:string" />

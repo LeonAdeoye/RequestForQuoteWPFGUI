@@ -37,12 +37,6 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.deleteResponse delete(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete request);
-        
-        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTierResponse updateTier(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier request);
     }
     
@@ -60,12 +54,17 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int tier;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string savedBy;
+        
         public save() {
         }
         
-        public save(string name, int tier) {
+        public save(string name, int tier, string savedBy) {
             this.name = name;
             this.tier = tier;
+            this.savedBy = savedBy;
         }
     }
     
@@ -101,12 +100,17 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public bool isValid;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string updatedBy;
+        
         public updateValidity() {
         }
         
-        public updateValidity(int identifier, bool isValid) {
+        public updateValidity(int identifier, bool isValid, string updatedBy) {
             this.identifier = identifier;
             this.isValid = isValid;
+            this.updatedBy = updatedBy;
         }
     }
     
@@ -233,42 +237,6 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="delete", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class delete {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int identifier;
-        
-        public delete() {
-        }
-        
-        public delete(int identifier) {
-            this.identifier = identifier;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="deleteResponse", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class deleteResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool @return;
-        
-        public deleteResponse() {
-        }
-        
-        public deleteResponse(bool @return) {
-            this.@return = @return;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="updateTier", WrapperNamespace="http://client.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class updateTier {
         
@@ -280,12 +248,17 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int tier;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string updatedBy;
+        
         public updateTier() {
         }
         
-        public updateTier(int identifier, int tier) {
+        public updateTier(int identifier, int tier, string updatedBy) {
             this.identifier = identifier;
             this.tier = tier;
+            this.updatedBy = updatedBy;
         }
     }
     
@@ -339,10 +312,11 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(string name, int tier) {
+        public bool save(string name, int tier, string savedBy) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save();
             inValue.name = name;
             inValue.tier = tier;
+            inValue.savedBy = savedBy;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).save(inValue);
             return retVal.@return;
         }
@@ -352,10 +326,11 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.updateValidity(request);
         }
         
-        public bool updateValidity(int identifier, bool isValid) {
+        public bool updateValidity(int identifier, bool isValid, string updatedBy) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidity inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidity();
             inValue.identifier = identifier;
             inValue.isValid = isValid;
+            inValue.updatedBy = updatedBy;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateValidityResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).updateValidity(inValue);
             return retVal.@return;
         }
@@ -372,26 +347,15 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.deleteResponse RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController.delete(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete request) {
-            return base.Channel.delete(request);
-        }
-        
-        public bool delete(int identifier) {
-            RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.delete();
-            inValue.identifier = identifier;
-            RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.deleteResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).delete(inValue);
-            return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTierResponse RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController.updateTier(RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier request) {
             return base.Channel.updateTier(request);
         }
         
-        public bool updateTier(int identifier, int tier) {
+        public bool updateTier(int identifier, int tier, string updatedBy) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier();
             inValue.identifier = identifier;
             inValue.tier = tier;
+            inValue.updatedBy = updatedBy;
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTierResponse retVal = ((RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.ClientController)(this)).updateTier(inValue);
             return retVal.@return;
         }

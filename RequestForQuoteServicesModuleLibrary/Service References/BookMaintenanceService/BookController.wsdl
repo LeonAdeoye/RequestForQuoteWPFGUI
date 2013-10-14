@@ -19,7 +19,7 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:bookDetailImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="bookDetailImpl">
+      <xs:complexType name="bookDetailImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="bookCode" type="xs:string" />
           <xs:element minOccurs="0" name="entity" type="xs:string" />
