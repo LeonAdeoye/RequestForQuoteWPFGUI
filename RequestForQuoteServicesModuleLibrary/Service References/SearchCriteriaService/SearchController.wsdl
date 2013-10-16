@@ -33,7 +33,7 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:searchCriterionImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="searchCriterionImpl">
+      <xs:complexType name="searchCriterionImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="controlName" type="xs:string" />
           <xs:element minOccurs="0" name="controlValue" type="xs:string" />

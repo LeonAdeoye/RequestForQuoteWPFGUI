@@ -44,7 +44,7 @@
           <xs:element minOccurs="0" name="return" type="tns:optionPriceResult" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="optionPriceResult">
+      <xs:complexType name="optionPriceResult" final="extension restriction">
         <xs:sequence>
           <xs:element name="delta" type="xs:double" />
           <xs:element name="gamma" type="xs:double" />
@@ -75,7 +75,7 @@
           <xs:element minOccurs="0" name="return" type="tns:optionPriceResultSet" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="optionPriceResultSet">
+      <xs:complexType name="optionPriceResultSet" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="optionPriceResults">
             <xs:complexType>

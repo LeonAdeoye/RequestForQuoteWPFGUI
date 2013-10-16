@@ -47,7 +47,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     {
                         foreach (var client in clientControllerProxy.getAll())
                         {
-                            Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
+                            if(client != null)
+                                Clients.Add(new ClientImpl() { Identifier = client.identifier, Name = client.name, Tier = client.tier, IsValid = client.isValid });
                         }                        
                     }
                 }

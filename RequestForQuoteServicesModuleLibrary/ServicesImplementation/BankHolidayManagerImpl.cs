@@ -85,7 +85,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             
             // TODO - probably makes more sense to move below into two separate methods
             if (canSaveToDatabase)
-                wasSavedInDatabase = holidayControllerProxy.save(location.ToString(), holidayDate, RequestForQuoteConstants.MY_USER_NAME);
+                wasSavedInDatabase = holidayControllerProxy.save(location.ToString(), holidayDate.ToLongDateString(), RequestForQuoteConstants.MY_USER_NAME);
 
             // TODO verify that this needs to be called even if canSaveToDatabase == false
             // Publish event for other observer view models...
@@ -122,12 +122,15 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     foreach (var bankHoliday in allHolidays)
                     {
                         LocationEnum locationEnumValue;
+                        DateTime holidayDate;
 
                         if (!string.IsNullOrEmpty(bankHoliday.location) &&
-                            Enum.TryParse(bankHoliday.location, true, out locationEnumValue) && 
-                            AddHoliday(bankHoliday.holidayDate, locationEnumValue,RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
-
+                            !Enum.TryParse(bankHoliday.location, true, out locationEnumValue) &&
+                            !DateTime.TryParse(bankHoliday.holidayDate, out holidayDate) &&
+                            !AddHoliday(holidayDate, locationEnumValue, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
+                        {
                             log.Error(string.Format("Failed to add bank holiday with location: {0} and holidayDate: {1}.", bankHoliday.location, bankHoliday.holidayDate));
+                        }                            
                     }
 
                     if (log.IsDebugEnabled)

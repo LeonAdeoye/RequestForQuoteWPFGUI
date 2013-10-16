@@ -35,7 +35,7 @@
           <xs:element minOccurs="0" name="return" type="tns:chatMessageListImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="chatMessageListImpl">
+      <xs:complexType name="chatMessageListImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="ChatMessageListImpl">
             <xs:complexType>
@@ -47,7 +47,7 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="chatMessageList" nillable="true" type="tns:chatMessageImpl" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="chatMessageImpl">
+      <xs:complexType name="chatMessageImpl" final="extension restriction">
         <xs:sequence>
           <xs:element minOccurs="0" name="content" type="xs:string" />
           <xs:element minOccurs="0" name="owner" type="xs:string" />

@@ -24,8 +24,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             set { quantity = value; }
         }
         public string RIC { get; set; }
-        public string BBG { get; set; }
-        //public string Underlying { get; set; }
         public double UnderlyingPrice { get; set; }
         public SideEnum Side { get; set; }
         public bool IsCall { get; set; }
@@ -41,7 +39,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public double DayCountConvention { get; set; }
         public DateTime MaturityDate { get; set; }
         public DateTime TradeDate { get; set; }
-        public DateTime FinalPaymentDate { get; set; }
         public String Description { get; set; }
         public ProductTypeEnum ProductType { get;set; }
 
@@ -54,7 +51,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public double ImpliedVol { get; set; }
 
         public IRequestForQuote ParentRequest { get; set; }
-        public double ForwardPrice { get; set; }
 
         public IOptionDetail CloneOptionDetails()
         {
@@ -64,7 +60,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                     Quantity = this.Quantity,
                     Strike = this.Strike,
                     RIC = this.RIC,
-                    BBG = this.BBG,
                     UnderlyingPrice = this.UnderlyingPrice,
                     Side = this.Side,
                     IsCall = this.IsCall,
@@ -80,13 +75,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                     DayCountConvention = this.DayCountConvention,
                     MaturityDate = this.MaturityDate,
                     TradeDate = this.TradeDate,
-                    FinalPaymentDate = this.FinalPaymentDate,
                     Description = this.Description,
                     ProductType = this.ProductType,
                     PremiumAmount = this.PremiumAmount,
                     Volatility = this.Volatility,
                     ImpliedVol = this.ImpliedVol,
-                    ForwardPrice = this.ForwardPrice,
                     ParentRequest = this.ParentRequest                    
                 };
 
@@ -97,11 +90,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             var builder = new StringBuilder("RIC: ");
             builder.Append(this.RIC);
-            builder.Append(", BBG");
-            builder.Append(this.BBG);
-            builder.Append(", Description");
+            builder.Append(", Description: ");
             builder.Append(this.Description);
-            builder.Append(", Leg");
+            builder.Append(", Leg: ");
             builder.Append(this.LegId);
             builder.Append(", Strike: ");
             builder.Append(this.Strike);
@@ -131,14 +122,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             builder.Append(this.TradeDate);
             builder.Append(", Maturity Date: ");
             builder.Append(this.MaturityDate);
-            builder.Append(", Final Payment Date: ");
-            builder.Append(this.FinalPaymentDate);
             builder.Append(", Years To Expiry: ");
             builder.Append(this.YearsToExpiry);
             builder.Append(", Days To Expiry: ");
             builder.Append(this.DaysToExpiry);
-            builder.Append(", Final Payment Date: ");
-            builder.Append(this.FinalPaymentDate);
             builder.Append(", Implied Vol: ");
             builder.Append(this.ImpliedVol);
             builder.Append(", Interest Rate: ");

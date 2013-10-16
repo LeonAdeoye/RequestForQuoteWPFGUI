@@ -142,7 +142,7 @@
       <xs:complexType name="update">
         <xs:sequence>
           <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
-          <xs:element minOccurs="0" name="updatedByUser" type="xs:string" />
+          <xs:element minOccurs="0" name="updatedBy" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateResponse">
@@ -177,7 +177,7 @@
       <xs:complexType name="save">
         <xs:sequence>
           <xs:element minOccurs="0" name="requestDetail" type="tns:requestDetailImpl" />
-          <xs:element minOccurs="0" name="savedByUser" type="xs:string" />
+          <xs:element minOccurs="0" name="savedBy" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="saveResponse">

@@ -8,18 +8,15 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
     {
         int LegId { get; set; }
         string RIC { get; set; }
-        string BBG { get; set; }
         String Description { get; set; }
         double UnderlyingPrice { get; set; }
         double Strike { get; set; }
         double StrikePercentage { get; }
-        double ForwardPrice { get; set; }
         ProductTypeEnum ProductType { get; set; }
         DateTime MaturityDate { get; set; }
         DateTime TradeDate { get; set; }
         double DaysToExpiry { get; set; }
         double YearsToExpiry { get; set; }
-        DateTime FinalPaymentDate { get; set; }
         double PremiumAmount { get; set; }
         double PremiumPercentage { get; }
         double Delta { get; set; }

@@ -1329,14 +1329,14 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string updatedByUser;
+        public string updatedBy;
         
         public update() {
         }
         
-        public update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
+        public update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedBy) {
             this.requestDetail = requestDetail;
-            this.updatedByUser = updatedByUser;
+            this.updatedBy = updatedBy;
         }
     }
     
@@ -1416,14 +1416,14 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string savedByUser;
+        public string savedBy;
         
         public save() {
         }
         
-        public save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
+        public save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedBy) {
             this.requestDetail = requestDetail;
-            this.savedByUser = savedByUser;
+            this.savedBy = savedBy;
         }
     }
     
@@ -1786,10 +1786,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.update(request);
         }
         
-        public bool update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
+        public bool update(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedBy) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update();
             inValue.requestDetail = requestDetail;
-            inValue.updatedByUser = updatedByUser;
+            inValue.updatedBy = updatedBy;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.updateResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).update(inValue);
             return retVal.@return;
         }
@@ -1800,10 +1800,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginupdate(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginupdate(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedBy, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.update();
             inValue.requestDetail = requestDetail;
-            inValue.updatedByUser = updatedByUser;
+            inValue.updatedBy = updatedBy;
             return ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).Beginupdate(inValue, callback, asyncState);
         }
         
@@ -1820,8 +1820,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private System.IAsyncResult OnBeginupdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl)(inValues[0]));
-            string updatedByUser = ((string)(inValues[1]));
-            return this.Beginupdate(requestDetail, updatedByUser, callback, asyncState);
+            string updatedBy = ((string)(inValues[1]));
+            return this.Beginupdate(requestDetail, updatedBy, callback, asyncState);
         }
         
         private object[] OnEndupdate(System.IAsyncResult result) {
@@ -1837,11 +1837,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser) {
-            this.updateAsync(requestDetail, updatedByUser, null);
+        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedBy) {
+            this.updateAsync(requestDetail, updatedBy, null);
         }
         
-        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedByUser, object userState) {
+        public void updateAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string updatedBy, object userState) {
             if ((this.onBeginupdateDelegate == null)) {
                 this.onBeginupdateDelegate = new BeginOperationDelegate(this.OnBeginupdate);
             }
@@ -1853,7 +1853,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
             base.InvokeAsync(this.onBeginupdateDelegate, new object[] {
                         requestDetail,
-                        updatedByUser}, this.onEndupdateDelegate, this.onupdateCompletedDelegate, userState);
+                        updatedBy}, this.onEndupdateDelegate, this.onupdateCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1940,10 +1940,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public int save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
+        public int save(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedBy) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save();
             inValue.requestDetail = requestDetail;
-            inValue.savedByUser = savedByUser;
+            inValue.savedBy = savedBy;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).save(inValue);
             return retVal.@return;
         }
@@ -1954,10 +1954,10 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginsave(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginsave(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedBy, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.save();
             inValue.requestDetail = requestDetail;
-            inValue.savedByUser = savedByUser;
+            inValue.savedBy = savedBy;
             return ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).Beginsave(inValue, callback, asyncState);
         }
         
@@ -1974,8 +1974,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl)(inValues[0]));
-            string savedByUser = ((string)(inValues[1]));
-            return this.Beginsave(requestDetail, savedByUser, callback, asyncState);
+            string savedBy = ((string)(inValues[1]));
+            return this.Beginsave(requestDetail, savedBy, callback, asyncState);
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
@@ -1991,11 +1991,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser) {
-            this.saveAsync(requestDetail, savedByUser, null);
+        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedBy) {
+            this.saveAsync(requestDetail, savedBy, null);
         }
         
-        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedByUser, object userState) {
+        public void saveAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl requestDetail, string savedBy, object userState) {
             if ((this.onBeginsaveDelegate == null)) {
                 this.onBeginsaveDelegate = new BeginOperationDelegate(this.OnBeginsave);
             }
@@ -2007,7 +2007,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
             base.InvokeAsync(this.onBeginsaveDelegate, new object[] {
                         requestDetail,
-                        savedByUser}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
+                        savedBy}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

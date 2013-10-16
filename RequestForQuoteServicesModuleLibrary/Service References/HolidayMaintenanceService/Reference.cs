@@ -72,7 +72,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime holidayDate;
+        public string holidayDate;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -81,7 +81,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         public save() {
         }
         
-        public save(string location, System.DateTime holidayDate, string addedByUser) {
+        public save(string location, string holidayDate, string addedByUser) {
             this.location = location;
             this.holidayDate = holidayDate;
             this.addedByUser = addedByUser;
@@ -114,33 +114,19 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://holiday.rfq.ws.leon.com/")]
     public partial class holidayImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private System.DateTime holidayDateField;
-        
-        private bool holidayDateFieldSpecified;
+        private string holidayDateField;
         
         private string locationField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public System.DateTime holidayDate {
+        public string holidayDate {
             get {
                 return this.holidayDateField;
             }
             set {
                 this.holidayDateField = value;
                 this.RaisePropertyChanged("holidayDate");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool holidayDateSpecified {
-            get {
-                return this.holidayDateFieldSpecified;
-            }
-            set {
-                this.holidayDateFieldSpecified = value;
-                this.RaisePropertyChanged("holidayDateSpecified");
             }
         }
         
@@ -206,12 +192,12 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://holiday.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime holidayDate;
+        public string holidayDate;
         
         public delete() {
         }
         
-        public delete(string location, System.DateTime holidayDate) {
+        public delete(string location, string holidayDate) {
             this.location = location;
             this.holidayDate = holidayDate;
         }
@@ -411,7 +397,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(string location, System.DateTime holidayDate, string addedByUser) {
+        public bool save(string location, string holidayDate, string addedByUser) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
@@ -426,7 +412,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginsave(string location, System.DateTime holidayDate, string addedByUser, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginsave(string location, string holidayDate, string addedByUser, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.save();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
@@ -447,7 +433,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string location = ((string)(inValues[0]));
-            System.DateTime holidayDate = ((System.DateTime)(inValues[1]));
+            string holidayDate = ((string)(inValues[1]));
             string addedByUser = ((string)(inValues[2]));
             return this.Beginsave(location, holidayDate, addedByUser, callback, asyncState);
         }
@@ -465,11 +451,11 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             }
         }
         
-        public void saveAsync(string location, System.DateTime holidayDate, string addedByUser) {
+        public void saveAsync(string location, string holidayDate, string addedByUser) {
             this.saveAsync(location, holidayDate, addedByUser, null);
         }
         
-        public void saveAsync(string location, System.DateTime holidayDate, string addedByUser, object userState) {
+        public void saveAsync(string location, string holidayDate, string addedByUser, object userState) {
             if ((this.onBeginsaveDelegate == null)) {
                 this.onBeginsaveDelegate = new BeginOperationDelegate(this.OnBeginsave);
             }
@@ -557,7 +543,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             return base.Channel.delete(request);
         }
         
-        public bool delete(string location, System.DateTime holidayDate) {
+        public bool delete(string location, string holidayDate) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
@@ -571,7 +557,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Begindelete(string location, System.DateTime holidayDate, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Begindelete(string location, string holidayDate, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete inValue = new RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService.delete();
             inValue.location = location;
             inValue.holidayDate = holidayDate;
@@ -591,7 +577,7 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
         
         private System.IAsyncResult OnBegindelete(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string location = ((string)(inValues[0]));
-            System.DateTime holidayDate = ((System.DateTime)(inValues[1]));
+            string holidayDate = ((string)(inValues[1]));
             return this.Begindelete(location, holidayDate, callback, asyncState);
         }
         
@@ -608,11 +594,11 @@ namespace RequestForQuoteServicesModuleLibrary.HolidayMaintenanceService {
             }
         }
         
-        public void deleteAsync(string location, System.DateTime holidayDate) {
+        public void deleteAsync(string location, string holidayDate) {
             this.deleteAsync(location, holidayDate, null);
         }
         
-        public void deleteAsync(string location, System.DateTime holidayDate, object userState) {
+        public void deleteAsync(string location, string holidayDate, object userState) {
             if ((this.onBegindeleteDelegate == null)) {
                 this.onBegindeleteDelegate = new BeginOperationDelegate(this.OnBegindelete);
             }

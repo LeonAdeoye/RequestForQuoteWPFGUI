@@ -30,10 +30,6 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">RIC</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=BBG}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">BBG</Label>
-        </DockPanel>
-        <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding Path=Description}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Desc.</Label>
         </DockPanel>
@@ -48,11 +44,7 @@
         <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=StrikePercentage, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Strike %</Label>
-        </DockPanel>        
-        <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" Text="{Binding Path=ForwardPrice}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Forward</Label>
-        </DockPanel>        
+        </DockPanel>                
         <DockPanel>
             <ComboBox DockPanel.Dock="Right" Width="100" ItemsSource="{Binding Source={StaticResource ProductTypeEnum}}"
                                             SelectedItem="{Binding Path=ProductType, Mode=TwoWay}"
@@ -75,10 +67,6 @@
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding DaysToExpiry, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Days</Label>
         </DockPanel>        
-        <DockPanel>
-            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=FinalPaymentDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Final payment</Label>
-        </DockPanel>
         <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding PremiumAmount, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Premium Amt</Label>

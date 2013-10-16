@@ -14,7 +14,7 @@
       <xs:complexType name="save">
         <xs:sequence>
           <xs:element minOccurs="0" name="location" type="xs:string" />
-          <xs:element minOccurs="0" name="holidayDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="holidayDate" type="xs:string" />
           <xs:element minOccurs="0" name="addedByUser" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
@@ -33,14 +33,14 @@
       </xs:complexType>
       <xs:complexType name="holidayImpl" final="extension restriction">
         <xs:sequence>
-          <xs:element minOccurs="0" name="holidayDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="holidayDate" type="xs:string" />
           <xs:element minOccurs="0" name="location" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="delete">
         <xs:sequence>
           <xs:element minOccurs="0" name="location" type="xs:string" />
-          <xs:element minOccurs="0" name="holidayDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="holidayDate" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="deleteResponse">
