@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -34,10 +34,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             if (isStandAlone)
             {
-                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Nomura Securities", Tier = 1, IsValid = true });
-                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Goldman Sachs", Tier = 1, IsValid = true });
-                Clients.Add(new ClientImpl() { Identifier = 1, Name = "JP Morgan", Tier = 1, IsValid = true });
-                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Morgan Stanley", Tier = 1, IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Nomura Securities", Tier = TierEnum.Top.ToString(), IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Goldman Sachs", Tier = TierEnum.Top.ToString(), IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "JP Morgan", Tier = TierEnum.Top.ToString(), IsValid = true });
+                Clients.Add(new ClientImpl() { Identifier = 1, Name = "Morgan Stanley", Tier = TierEnum.Top.ToString(), IsValid = true });
             }
             else
             {
@@ -65,31 +65,32 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public bool AddClient(string name, int tier, bool isValid, bool canSaveToDatabase)
+        public void AddClient(string name, string tier, bool isValid)
         {
-            var wasSavedToDatabase = false;
             var newClient = new ClientImpl() {Identifier = ++startingIdentifier, Name = name, IsValid = isValid, Tier = tier};
             
             // Add to collection
             Clients.Add(newClient);
 
-            // Save to database
-            if (canSaveToDatabase)
-                wasSavedToDatabase = clientControllerProxy.save(name, tier, RequestForQuoteConstants.MY_USER_NAME);
-
-            // TODO verify that this needs to be called even if canSaveToDatabase = false;
             // Publish event for other observer view models
             eventAggregator.GetEvent<NewClientEvent>().Publish(new NewClientEventPayload()
             {
                 NewClient = newClient
             });
-
-            // if no save is required then this should return true
-            // otherwise if saved required the save through web service proxy must succeed.
-            return !canSaveToDatabase || wasSavedToDatabase;
         }
 
-        public bool UpdateTier(int identifier, int tier)
+        public bool SaveToDatabase(string name, string tier)
+        {
+            if (String.IsNullOrEmpty(name))
+                throw new ArgumentException("name");
+
+            if (String.IsNullOrEmpty(tier))
+                throw new ArgumentException("tier");
+
+            return clientControllerProxy.save(name, tier, RequestForQuoteConstants.MY_USER_NAME);    
+        }
+
+        public bool UpdateTier(int identifier, string tier)
         {
             return clientControllerProxy.updateTier(identifier, tier, RequestForQuoteConstants.MY_USER_NAME);
         }

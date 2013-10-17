@@ -72,15 +72,15 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public static readonly DependencyProperty NewClientNameProperty =
             DependencyProperty.Register("NewClientName", typeof(string), typeof(ClientMaintenanceViewModel), new UIPropertyMetadata(""));
 
-        public int? NewClientTier
+        public string NewClientTier
         {
-            get { return (int?)GetValue(NewClientTierProperty); }
+            get { return (string)GetValue(NewClientTierProperty); }
             set { SetValue(NewClientTierProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for NewClientTier.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NewClientTierProperty =
-            DependencyProperty.Register("NewClientTier", typeof(int?), typeof(ClientMaintenanceViewModel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("NewClientTier", typeof(string), typeof(ClientMaintenanceViewModel), new UIPropertyMetadata(TierEnum.Top.ToString()));
               
         public void HandleNewClientEvent(NewClientEventPayload eventPayLoad)
         {
@@ -93,7 +93,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public void ClearInput()
         {
             NewClientName = "";
-            NewClientTier = null;
+            NewClientTier = TierEnum.Top.ToString();
         }
 
         public bool CanClearInput()
@@ -105,9 +105,9 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         {
             if (!clientManager.Clients.Exists((client) => client.Name == NewClientName))
             {
-                if (NewClientTier.HasValue)
+                if (!String.IsNullOrEmpty(NewClientTier))
                 {
-                    if (clientManager.AddClient(NewClientName, NewClientTier.Value, RequestForQuoteConstants.VALID, RequestForQuoteConstants.SAVE_TO_DATABASE))
+                    if (clientManager.SaveToDatabase(NewClientName, NewClientTier))
                         ClearInput();
                     else
                         MessageBox.Show("Failed to add new client " + NewClientName +
@@ -125,7 +125,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public bool CanAddNewItem()
         {
             // TODO the NewClientTier.HasValue part does not work when you select from the tier combobox.
-            return !string.IsNullOrEmpty(NewClientName) && NewClientTier.HasValue;    
+            return !string.IsNullOrEmpty(NewClientName) && !String.IsNullOrEmpty(NewClientTier);    
         }
 
         public bool CanUpdateValidity(bool isRequestToMakeValid)

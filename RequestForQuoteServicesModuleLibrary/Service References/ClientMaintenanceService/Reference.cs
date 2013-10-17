@@ -52,7 +52,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int tier;
+        public string tier;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -61,7 +61,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         public save() {
         }
         
-        public save(string name, int tier, string savedBy) {
+        public save(string name, string tier, string savedBy) {
             this.name = name;
             this.tier = tier;
             this.savedBy = savedBy;
@@ -146,7 +146,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         
         private string nameField;
         
-        private int tierField;
+        private string tierField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -186,7 +186,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public int tier {
+        public string tier {
             get {
                 return this.tierField;
             }
@@ -246,7 +246,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int tier;
+        public string tier;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://client.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -255,7 +255,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
         public updateTier() {
         }
         
-        public updateTier(int identifier, int tier, string updatedBy) {
+        public updateTier(int identifier, string tier, string updatedBy) {
             this.identifier = identifier;
             this.tier = tier;
             this.updatedBy = updatedBy;
@@ -312,7 +312,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(string name, int tier, string savedBy) {
+        public bool save(string name, string tier, string savedBy) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.save();
             inValue.name = name;
             inValue.tier = tier;
@@ -351,7 +351,7 @@ namespace RequestForQuoteServicesModuleLibrary.ClientMaintenanceService {
             return base.Channel.updateTier(request);
         }
         
-        public bool updateTier(int identifier, int tier, string updatedBy) {
+        public bool updateTier(int identifier, string tier, string updatedBy) {
             RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier inValue = new RequestForQuoteServicesModuleLibrary.ClientMaintenanceService.updateTier();
             inValue.identifier = identifier;
             inValue.tier = tier;

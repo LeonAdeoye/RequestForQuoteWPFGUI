@@ -5,6 +5,7 @@ using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -37,7 +38,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 Identifier = 1,
                 IsValid = true,
                 Name = "test client",
-                Tier = 1
+                Tier = TierEnum.Top.ToString()
             };
 
         private readonly IUnderlyier testUnderlyier = new UnderlyierImpl()

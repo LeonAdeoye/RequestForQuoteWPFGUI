@@ -14,7 +14,7 @@
       <xs:complexType name="save">
         <xs:sequence>
           <xs:element minOccurs="0" name="name" type="xs:string" />
-          <xs:element name="tier" type="xs:int" />
+          <xs:element minOccurs="0" name="tier" type="xs:string" />
           <xs:element minOccurs="0" name="savedBy" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
@@ -48,13 +48,13 @@
           <xs:element name="identifier" type="xs:int" />
           <xs:element name="isValid" type="xs:boolean" />
           <xs:element minOccurs="0" name="name" type="xs:string" />
-          <xs:element name="tier" type="xs:int" />
+          <xs:element minOccurs="0" name="tier" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="updateTier">
         <xs:sequence>
           <xs:element name="identifier" type="xs:int" />
-          <xs:element name="tier" type="xs:int" />
+          <xs:element minOccurs="0" name="tier" type="xs:string" />
           <xs:element minOccurs="0" name="updatedBy" type="xs:string" />
         </xs:sequence>
       </xs:complexType>

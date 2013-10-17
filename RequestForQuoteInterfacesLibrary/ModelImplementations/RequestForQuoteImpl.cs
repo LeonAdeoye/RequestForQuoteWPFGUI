@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.ComponentModel;
 using RequestForQuoteInterfacesLibrary.Enums;
@@ -10,23 +11,21 @@ using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
+    [DataContract]
     public sealed class RequestForQuoteImpl : IRequestForQuote, INotifyPropertyChanged
     {
-        private bool isOTC;
-        
-        private int multiplier;
-        private int contracts;
-        private int lotSize;
-
-        private double notionalMillions;        
-        private CurrencyEnum notionalCurrency;
+        [DataMember] private bool isOTC;
+        [DataMember] private int multiplier;
+        [DataMember] private int contracts;
+        [DataMember] private int lotSize;
+        [DataMember] private double notionalMillions;
+        [DataMember] private CurrencyEnum notionalCurrency;
         // TODO need an FX manager - which mocks FX rates using random numbers.
-        private double notionalFXRate;
-
-        private CurrencyEnum premiumSettlementCurrency; 
-        private int premiumSettlementDaysOverride; 
-        private DateTime premiumSettlementDate; 
-        private double premiumSettlementFXRate;
+        [DataMember] private double notionalFXRate;
+        [DataMember] private CurrencyEnum premiumSettlementCurrency;
+        [DataMember] private int premiumSettlementDaysOverride;
+        [DataMember] private DateTime premiumSettlementDate;
+        [DataMember] private double premiumSettlementFXRate;
         
         private double salesCreditAmount;
         private double salesCreditPercentage;
@@ -37,14 +36,14 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         private double premiumAmount;
         private double premiumPercentage;
 
-        private string request;
-        private int identifier;
+        [DataMember] private string request;
+        [DataMember] private int identifier;
 
-        private double gamma;
-        private double delta;
-        private double vega;
-        private double theta;
-        private double rho;
+        [DataMember] private double gamma;
+        [DataMember] private double delta;
+        [DataMember] private double vega;
+        [DataMember] private double theta;
+        [DataMember] private double rho;
 
         private double hedgePrice;
         private HedgeTypeEnum hedgeType;

@@ -120,7 +120,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Service References\BookMaintenanceService\BookController.wsdl" />
     <None Include="Service References\BookMaintenanceService\RequestForQuoteServicesModuleLibrary.BookMaintenanceService.bookDetailImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

@@ -99,12 +99,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             LocationEnum locationEnumValue;
             if (SelectedBankHoliday.HasValue && Enum.TryParse(SelectedLocation, true, out locationEnumValue))
             {
-                if (bankHolidayManager.AddHoliday(SelectedBankHoliday.Value, locationEnumValue, RequestForQuoteConstants.SAVE_TO_DATABASE))
+                if (bankHolidayManager.SaveToDatabase(SelectedBankHoliday.Value, locationEnumValue))
                     SelectedBankHoliday = null;
                 else
                     MessageBox.Show("Failed to add new bank holiday " + SelectedBankHoliday.Value + " to location " +
-                                    locationEnumValue, "Bank Holiday Maintenance Error", MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                                    locationEnumValue, "Bank Holiday Maintenance Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }                
         }
 

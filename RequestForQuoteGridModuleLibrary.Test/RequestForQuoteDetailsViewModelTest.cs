@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -41,7 +42,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             Identifier = 1,
             IsValid = true,
             Name = "test client",
-            Tier = 1
+            Tier = TierEnum.Top.ToString()
         };
 
         private readonly IUnderlyier testUnderlyier = new UnderlyierImpl()

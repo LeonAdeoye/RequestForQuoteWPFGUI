@@ -41,8 +41,23 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     {RequestForQuoteConstants.NEW_BOOK_UPDATE, ProcessNewBookUpdate},
                     {RequestForQuoteConstants.NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
                     {RequestForQuoteConstants.NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate},
-                    {RequestForQuoteConstants.NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate}
+                    {RequestForQuoteConstants.NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate},
+                    {RequestForQuoteConstants.NEW_REQUEST_UPDATE, ProcessNewRequestUpdate}
+
                 };
+        }
+
+        private void ProcessNewRequestUpdate(string json)
+        {
+            try
+            {
+                var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));
+                IRequestForQuote newRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+            }
+            catch (Exception exc)
+            {
+                log.Error(String.Format("Failed to deserialize json [{0}] into new holiday update. Exception raised [{1}]", json, exc.Message));
+            } 
         }
 
         private void ProcessNewHolidayUpdate(string json)
@@ -51,8 +66,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(BankHolidayImpl));
                 IBankHoliday newHoliday = (BankHolidayImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                bankHolidayManager.AddHoliday(newHoliday.BankHoliday, newHoliday.Location,
-                                              RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE);
+                bankHolidayManager.AddHoliday(newHoliday.BankHoliday, newHoliday.Location);
             }
             catch (Exception exc)
             {
@@ -96,7 +110,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(ClientImpl));
                 IClient newClient = (ClientImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                clientManager.AddClient(newClient.Name, newClient.Tier, newClient.IsValid, false);
+                clientManager.AddClient(newClient.Name, newClient.Tier, newClient.IsValid);
             }
             catch (Exception exc)
             {
@@ -110,8 +124,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
                 IUnderlyier newUnderlyier = (UnderlyierImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                if(!underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, false))
-                    log.Error("Failed to add undelyier with RIC " + newUnderlyier.RIC + " from properly deserialized json.");
+                if (!underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
+                {
+                    log.Error("Failed to add underlying with RIC " + newUnderlyier.RIC + " from properly deserialized json.");
+                }                    
             }
             catch (Exception exc)
             {

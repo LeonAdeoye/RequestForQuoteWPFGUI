@@ -14,7 +14,8 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         int CalculateBusinessDaysToExpiryFromToday(DateTime endDate, LocationEnum location);
         bool IsHoliday(DateTime dateToValidate, LocationEnum location);
         bool IsValidBusinessDay(DateTime dateToValidate, LocationEnum location);
-        bool AddHoliday(DateTime holidayDate, LocationEnum location, bool canSaveToDatabase);
+        void AddHoliday(DateTime holidayDate, LocationEnum location);
+        bool SaveToDatabase(DateTime holidayDate, LocationEnum location);
         List<IBankHoliday> GetHolidaysInLocation(LocationEnum location);
         void Initialize(bool isStandAlone);
     }

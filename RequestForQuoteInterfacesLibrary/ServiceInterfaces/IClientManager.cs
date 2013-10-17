@@ -7,8 +7,9 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
     public interface IClientManager
     {
         List<IClient> Clients { get; set; }
-        bool AddClient(string name, int tier, bool isValid, bool canSaveToDatabase);
-        bool UpdateTier(int identifier, int tier);
+        void AddClient(string name, string tier, bool isValid);
+        bool SaveToDatabase(string name, string tier);
+        bool UpdateTier(int identifier, string tier);
         bool UpdateValidity(int identifier, bool isValid);
         void Initialize(bool isStandAlone);
         IClient GetClientWithMatchingIdentifier(int clientId);

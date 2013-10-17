@@ -1,16 +1,19 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.Serialization;
 using System.Text;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
+    [DataContract]
     public sealed class ClientImpl : IClient, INotifyPropertyChanged
     {
-        private bool isValid;
-        public int Identifier { get; set; }
-        public string Name { get; set; }
-        public int Tier { get; set; }
+        [DataMember] private bool isValid;
+        [DataMember] private int identifier;
+        [DataMember] private string name;
+        [DataMember] private string tier;
+        
         public bool IsValid
         {
             get
@@ -24,14 +27,53 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
+        public int Identifier
+        {
+            get
+            {
+                return identifier;
+            }
+            set
+            {
+                identifier = value;
+                NotifyPropertyChanged("Identifier");
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
+        public string Tier
+        {
+            get
+            {
+                return tier;
+            }
+            set
+            {
+                tier = value;
+                NotifyPropertyChanged("Tier");
+            }
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder("Identifier = ");
-            builder.Append(Identifier.ToString(CultureInfo.InvariantCulture));
+            builder.Append(identifier);
             builder.Append(", Name = ");
-            builder.Append(Name);
+            builder.Append(name);
             builder.Append(", Tier = ");
-            builder.Append(Tier);
+            builder.Append(tier);
             return builder.ToString();
         }
 

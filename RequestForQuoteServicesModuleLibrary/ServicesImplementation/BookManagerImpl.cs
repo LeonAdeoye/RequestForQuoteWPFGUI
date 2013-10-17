@@ -90,7 +90,6 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
         }
 
-
         public bool UpdateValidity(string bookCode, bool isValid)
         {
             return bookControllerProxy.updateValidity(bookCode, isValid);
