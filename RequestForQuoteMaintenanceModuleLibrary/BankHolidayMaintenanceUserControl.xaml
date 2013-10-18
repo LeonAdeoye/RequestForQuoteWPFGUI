@@ -18,7 +18,7 @@
                     <ListBox Height="200" ItemsSource="{Binding BankHolidays}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=BankHoliday, StringFormat='dd MMM yyyy'}"/>
+                                <TextBlock Text="{Binding Path=HolidayDate, StringFormat='dd MMM yyyy'}"/>
                             </DataTemplate>                            
                         </ListBox.ItemTemplate>
                     </ListBox>

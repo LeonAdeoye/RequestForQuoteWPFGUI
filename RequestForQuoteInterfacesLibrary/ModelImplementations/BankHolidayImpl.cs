@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -6,9 +7,43 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
-    public sealed class BankHolidayImpl : IBankHoliday
+    public sealed class BankHolidayImpl : IBankHoliday, INotifyPropertyChanged
     {
-        [DataMember] public LocationEnum Location { get; set; }
-        [DataMember] public DateTime BankHoliday { get; set; } //TODO - cannot convert to datetime from json - need epoch time
+        [DataMember] private string location;
+        [DataMember] private string holidayDate;
+
+        public LocationEnum Location
+        {
+            get
+            {
+                return (LocationEnum) Enum.Parse(typeof(LocationEnum), location);
+            }
+            set
+            {
+                location = value.ToString();
+                NotifyPropertyChanged("Location");
+            }
+        }
+
+        public DateTime HolidayDate
+        {
+            get
+            {
+                return Convert.ToDateTime(holidayDate);
+            }
+            set
+            {
+                holidayDate = value.ToShortDateString();
+                NotifyPropertyChanged("HolidayDate");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

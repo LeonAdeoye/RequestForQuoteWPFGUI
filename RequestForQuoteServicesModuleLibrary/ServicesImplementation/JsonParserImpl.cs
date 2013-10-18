@@ -66,7 +66,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(BankHolidayImpl));
                 IBankHoliday newHoliday = (BankHolidayImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                bankHolidayManager.AddHoliday(newHoliday.BankHoliday, newHoliday.Location);
+                bankHolidayManager.AddHoliday(newHoliday.HolidayDate, newHoliday.Location);
             }
             catch (Exception exc)
             {

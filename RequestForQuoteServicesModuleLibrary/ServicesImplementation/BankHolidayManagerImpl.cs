@@ -91,10 +91,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public bool SaveToDatabase(DateTime holidayDate, LocationEnum location)
         {
-            if (holidayDate != null)
+            if (holidayDate == null)
                 throw new ArgumentException("holidayDate");
 
-            return holidayControllerProxy.save(location.ToString(), holidayDate.ToLongDateString(), RequestForQuoteConstants.MY_USER_NAME);
+            return holidayControllerProxy.save(location.ToString(), holidayDate.ToShortDateString(), RequestForQuoteConstants.MY_USER_NAME);
         }
 
         public List<IBankHoliday> GetHolidaysInLocation(LocationEnum location)
@@ -103,7 +103,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             if (BankHolidays.ContainsKey(location))
                 foreach (var holiday in BankHolidays[location])
-                    holidaysInLocation.Add(new BankHolidayImpl() {BankHoliday = holiday.Key, Location = location});
+                    holidaysInLocation.Add(new BankHolidayImpl() {HolidayDate = holiday.Key, Location = location});
 
             return holidaysInLocation;
         }

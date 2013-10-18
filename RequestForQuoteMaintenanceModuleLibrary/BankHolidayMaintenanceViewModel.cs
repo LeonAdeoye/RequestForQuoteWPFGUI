@@ -70,7 +70,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             if (SelectedLocation != null && SelectedLocation == eventPayLoad.Location.ToString())
                 BankHolidays.Add(new BankHolidayImpl()
                     {
-                        BankHoliday = eventPayLoad.NewBankHolidayDate,
+                        HolidayDate = eventPayLoad.NewBankHolidayDate,
                         Location = eventPayLoad.Location
                     });
         }
