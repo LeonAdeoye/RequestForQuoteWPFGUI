@@ -22,8 +22,19 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly IBookManager bookManager = ServiceLocator.Current.GetInstance<IBookManager>();
         private static readonly IClientManager clientManager = ServiceLocator.Current.GetInstance<IClientManager>();
         private static readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
-        private static readonly IBankHolidayManager bankHolidayManager = ServiceLocator.Current.GetInstance<IBankHolidayManager>();        
+        private static readonly IBankHolidayManager bankHolidayManager = ServiceLocator.Current.GetInstance<IBankHolidayManager>();
+        private static readonly ISearchManager searchManager = ServiceLocator.Current.GetInstance<ISearchManager>();        
         private static Dictionary<string, Action<string>> actions;
+
+        private const string NEW_CHAT_MESSAGE = "NewChatMessage";
+        private const string NEW_BOOK_UPDATE = "NewBookUpdate";
+        private const string NEW_CLIENT_UPDATE = "NewClientUpdate";
+        private const string NEW_UNDERLYIER_UPDATE = "NewUnderlyierUpdate";
+        private const string NEW_REQUEST_UPDATE = "NewRequestUpdate";
+        private const string NEW_HOLIDAY_UPDATE = "NewHolidayUpdate";
+        private const string NEW_CRITERION_UPDATE = "NewCriterionUpdate";
+        private readonly Object lockObject = new Object();
+
 
         public JsonParserImpl()
         {
@@ -37,14 +48,29 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             actions = new Dictionary<string, Action<string>>
                 {
-                    {RequestForQuoteConstants.NEW_CHAT_MESSAGE, ProcessNewChatMessage},
-                    {RequestForQuoteConstants.NEW_BOOK_UPDATE, ProcessNewBookUpdate},
-                    {RequestForQuoteConstants.NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
-                    {RequestForQuoteConstants.NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate},
-                    {RequestForQuoteConstants.NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate},
-                    {RequestForQuoteConstants.NEW_REQUEST_UPDATE, ProcessNewRequestUpdate}
-
+                    {NEW_CHAT_MESSAGE, ProcessNewChatMessage},
+                    {NEW_BOOK_UPDATE, ProcessNewBookUpdate},
+                    {NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
+                    {NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate},
+                    {NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate},
+                    {NEW_REQUEST_UPDATE, ProcessNewRequestUpdate},
+                    {NEW_CRITERION_UPDATE, ProcessNewCriterionUpdate}
                 };
+        }
+
+        private void ProcessNewCriterionUpdate(string json)
+        {
+            try
+            {
+                var serializer = new DataContractJsonSerializer(typeof(SearchCriterionImpl));
+                ISearchCriterion newCriterion = (SearchCriterionImpl) serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                searchManager.AddSearch(newCriterion.Owner, newCriterion.DescriptionKey, newCriterion.IsPrivate, newCriterion.IsFilter, 
+                    newCriterion.ControlName, newCriterion.ControlValue);
+            }
+            catch (Exception exc)
+            {
+                log.Error(String.Format("Failed to deserialize json [{0}] into new search criterion update. Exception raised [{1}]", json, exc.Message));
+            } 
         }
 
         private void ProcessNewRequestUpdate(string json)
@@ -56,7 +82,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (Exception exc)
             {
-                log.Error(String.Format("Failed to deserialize json [{0}] into new holiday update. Exception raised [{1}]", json, exc.Message));
+                log.Error(String.Format("Failed to deserialize json [{0}] into new request update. Exception raised [{1}]", json, exc.Message));
             } 
         }
 
@@ -148,7 +174,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 var json = serverUpdate.Content.Substring(index + 1);
 
                 if (actions.ContainsKey(typeOfMessage))
-                    actions[typeOfMessage](json);
+                {
+                    lock (lockObject)
+                    {
+                        actions[typeOfMessage](json);    
+                    }                    
+                }                    
                 else
                     log.Error(String.Format("Unrecognized message type [{0}] recieved. Cannot action update.", typeOfMessage));                
             }

@@ -33,7 +33,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
         private readonly IBook testBook = new BookImpl() {BookCode = "test book"};
 
-        private readonly IClient testClient = new ClientImpl()
+        /*private readonly IClient testClient = new ClientImpl()
             {
                 Identifier = 1,
                 IsValid = true,
@@ -49,7 +49,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 RIC = "test RIC"
             };
 
-        private readonly ISearch testSearch = new SearchImpl()
+        private readonly ISearch testSearch = new SearchCriterionImpl()
             {
                 Criteria = new Dictionary<string, string>(),
                 DescriptionKey = "test key",
@@ -811,6 +811,6 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.FilterRequests(isExistingSearch);
             // Assert
             wasCalled.Should().BeTrue("the event should be raised if criteria are initialized");
-        }
+        }*/
     }
 }

@@ -22,20 +22,13 @@
         public const string INVALIDATE_BY_SETTING_ISVALID_TO_FALSE = "false";
         public const string VALIDATE_BY_SETTING_ISVALID_TO_TRUE = "true";
 
-        public static readonly string MY_USER_NAME = System.Environment.UserName;
-        
+        public static readonly string MY_USER_NAME = System.Environment.UserName;        
+
         public const string SERVER_IP_ADDRESS = "127.0.0.1";
         public const int SERVER_PORT_NUMBER = 1972;
         public const int SERVER_SLEEP_INTERVAL = 1000;
         public const int JSON_MESSAGE_SIZE_PREFIX_LENGTH = 4;
         public const int JSON_MESSAGE_SIZE_MAXIMUM = 5120;
-
-        public const string NEW_CHAT_MESSAGE = "NewChatMessage";
-        public const string NEW_BOOK_UPDATE = "NewBookUpdate";
-        public const string NEW_CLIENT_UPDATE = "NewClientUpdate";
-        public const string NEW_UNDERLYIER_UPDATE = "NewUnderlyierUpdate";
-        public const string NEW_REQUEST_UPDATE = "NewRequestUpdate";
-        public const string NEW_HOLIDAY_UPDATE = "NewHolidayUpdate";
 
         public const bool SAVE_TO_DATABASE = true;
         public const bool DO_NOT_SAVE_TO_DATABASE = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
@@ -25,7 +26,44 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             Searches = new List<ISearch>();
         }
-       
+
+        public ISearch AddCriterionToRelatedSearch(string owner, string descriptionKey, string controlName, string controlValue, bool isPrivate, bool isFilter)
+        {
+            var criterion = new SearchCriterionImpl
+            {
+                ControlName = controlName,
+                ControlValue = controlValue,
+                Owner = owner,
+                DescriptionKey = descriptionKey,
+                IsFilter = isFilter,
+                IsPrivate = isPrivate
+            };
+
+            var searchToBeUpdated = Searches.FirstOrDefault((existingSearch) => (existingSearch.Owner == owner) && (existingSearch.DescriptionKey == descriptionKey));
+            if (searchToBeUpdated == null)
+            {
+                if(log.IsDebugEnabled)
+                    log.Debug("Adding JSON search criterion to NON-EXISTENT search with owner: " + owner + " and key: " + descriptionKey);
+
+                var newSearch = new SearchImpl
+                    {
+                        Owner = criterion.Owner,
+                        DescriptionKey = criterion.DescriptionKey,
+                        IsFilter = criterion.IsFilter,
+                        IsPrivate = criterion.IsPrivate,
+                    };
+                newSearch.Criteria.Add(criterion);
+                Searches.Add(newSearch);
+                return newSearch;
+            }
+
+            if (log.IsDebugEnabled)
+                log.Debug("Adding JSON search criterion to EXISTING search with owner: " + owner + " and key: " + descriptionKey);
+
+            searchToBeUpdated.Criteria.Add(criterion);
+            return searchToBeUpdated;
+        }
+
         public void Initialize(bool isStandAlone)
         {
             if (isStandAlone)
@@ -37,22 +75,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 if (searches != null)
                 {
                     foreach (var search in searches)
-                    {
-                        var searchToBeUpdated = Searches.Find((existingSearch) => (existingSearch.Owner == search.owner) && (existingSearch.DescriptionKey == search.key));
-                        if (searchToBeUpdated == null)
-                        {
-                            Searches.Add(new SearchImpl
-                            {
-                                Owner = search.owner,
-                                DescriptionKey = search.key,
-                                IsFilter = search.isFilter,
-                                IsPrivate = search.isPrivate,
-                                Criteria = new Dictionary<string, string>() { { search.controlName, search.controlValue } }
-                            });
-                        }
-                        else
-                            searchToBeUpdated.Criteria[search.controlName] = search.controlValue;
-                    }
+                        AddCriterionToRelatedSearch(search.owner, search.key, search.controlName, search.controlValue, search.isPrivate, search.isFilter);                   
                 }
             }
             catch (EndpointNotFoundException exception)
@@ -67,41 +90,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
         
-        public bool SaveSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, IDictionary<string, string> criteria)
-        {
-            var wasSavedToDatabase = false;
-            var newCriteria = new Dictionary<string, string>(criteria);
-            var newSearch = new SearchImpl
-                {
-                    Owner = owner,
-                    DescriptionKey = descriptionKey,
-                    IsPrivate = isPrivate,
-                    IsFilter = isFilter,
-                    Criteria = newCriteria
-                };
-            
-            Searches.Add(newSearch);
-
-            foreach (var criterion in criteria)
-            {
-                wasSavedToDatabase = searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, criterion.Key, criterion.Value, isPrivate, isFilter);
-                if (!wasSavedToDatabase)
-                    break;
-            }
-                                    
+        public void AddSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, string controlName, string controlValue)
+        {                                   
             eventAggregator.GetEvent<NewSearchEvent>().Publish(new NewSearchEventPayload()
             {
-                NewSearch = newSearch,
+                NewSearch = AddCriterionToRelatedSearch(owner, descriptionKey, controlName, controlValue, isPrivate, isFilter)
             });
+        }
 
-            // if no save is required then this should return true
-            // otherwise if saved required the save through web service proxy must succeed.
-            return wasSavedToDatabase;
+        public bool SaveSearchToDatabase(string owner, string descriptionKey, bool isPrivate, bool isFilter, string controlName, string controlValue)
+        {
+            return searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, controlName, controlValue, isPrivate, isFilter);    
         }
 
         public bool DeleteSearch(string owner, string descriptionKey)
         {
-            // Remove from Searches and delete from database.
             if (searchContollerProxy.delete(owner, descriptionKey))
             {
                 Searches.RemoveAll((existingSearch) => existingSearch.Owner == owner && existingSearch.DescriptionKey == descriptionKey);

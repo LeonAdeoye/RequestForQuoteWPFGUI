@@ -1,36 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
-    public sealed class SearchImpl : ISearch, INotifyPropertyChanged
+    public class SearchImpl : ISearch
     {
-        private bool isPrivate;
+        public List<ISearchCriterion> Criteria { get; set; }
+        public string Owner { get; set; }
         public string DescriptionKey { get; set; }
         public bool IsFilter { get; set; }
-        public string Owner { get; set; }
-        public IDictionary<string, string> Criteria { get; set; }
+        public bool IsPrivate { get; set; }
 
-        public bool IsPrivate
+        public SearchImpl()
         {
-            get
-            {
-                return isPrivate;
-            }
-            set
-            {
-                isPrivate = value;
-                NotifyPropertyChanged("IsPrivate");
-            }
+            Criteria = new List<ISearchCriterion>();    
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string propertyName)
+        public void AddCriteria(ISearchCriterion criterion)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            Criteria.Add(criterion);
+        }
+
+        public bool IsValidCriterionForCurrentSearch(ISearchCriterion criterion)
+        {
+            return this.Owner == criterion.Owner && this.DescriptionKey == criterion.DescriptionKey;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         private readonly IUnderlyingManager underlyingManager;
         private readonly IBookManager bookManager;
         private readonly ISearchManager searchManager;
+        private readonly Object thisLock = new Object();
 
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IUnderlyier> Underlyiers { get; set; }
@@ -165,7 +166,21 @@ namespace RequestForQuoteFunctionsModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new search: " + eventPayLoad);
 
-            Searches.Add(eventPayLoad.NewSearch);
+            AddToExistingSearchesOrCreateNew(eventPayLoad.NewSearch);
+        }
+
+        private void AddToExistingSearchesOrCreateNew(ISearch searchToBeAdded)
+        {
+            lock (thisLock)
+            {
+                var matchingSearch = Searches.FirstOrDefault((existingSearch) => existingSearch.Owner == searchToBeAdded.Owner
+                    && existingSearch.DescriptionKey == searchToBeAdded.DescriptionKey);
+
+                if (matchingSearch != null)
+                    matchingSearch.Criteria.AddRange(searchToBeAdded.Criteria);
+                else
+                    Searches.Add(searchToBeAdded);                
+            }
         }
 
         public void HandleNewUnderlyierEvent(NewUnderlyierEventPayload eventPayLoad)
@@ -427,32 +442,32 @@ namespace RequestForQuoteFunctionsModuleLibrary
             InitializeAndPublishCriteria(isExistingCriteria, true);
         }
 
-        private void InitializeControlsWithCriteria(IEnumerable<KeyValuePair<string, string>> controlCriteria)
+        private void InitializeControlsWithCriteria(IEnumerable<ISearchCriterion> controlCriteria)
         {
             if (controlCriteria != null)
             {
                 foreach (var controlCriterion in controlCriteria)
                 {
-                    switch (controlCriterion.Key)
+                    switch (controlCriterion.ControlName)
                     {
                         case RequestForQuoteConstants.CLIENT_CRITERION:
                             int clientIdentifier;
-                            if(int.TryParse(controlCriterion.Value, out clientIdentifier))
-                                SelectedClient = Clients.First((client) => client.Identifier == clientIdentifier);
+                            if(int.TryParse(controlCriterion.ControlValue, out clientIdentifier))
+                                SelectedClient = Clients.FirstOrDefault((client) => client.Identifier == clientIdentifier);
                             break;
                         case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                            var dates = controlCriterion.Value.Split('-').ToArray();
+                            var dates = controlCriterion.ControlValue.Split('-').ToArray();
                             StartTradeDate = Convert.ToDateTime(dates[0]);
                             EndTradeDate = Convert.ToDateTime(dates[1]);
                             break;
                         case RequestForQuoteConstants.BOOK_CRITERION:
-                            SelectedBook = Books.First((book) => book.BookCode == controlCriterion.Value);
+                            SelectedBook = Books.FirstOrDefault((book) => book.BookCode == controlCriterion.ControlValue);
                             break;
                         case RequestForQuoteConstants.STATUS_CRITERION:
-                            SelectedStatus = Status.First((status) => status == controlCriterion.Value);
+                            SelectedStatus = Status.FirstOrDefault((status) => status == controlCriterion.ControlValue);
                             break;
                         case RequestForQuoteConstants.UNDERLYIER_CRITERION:
-                            SelectedUnderlyier = Underlyiers.First((underlyier) => underlyier.RIC == controlCriterion.Value);
+                            SelectedUnderlyier = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
                             break;
                     }
                 }    
@@ -499,11 +514,15 @@ namespace RequestForQuoteFunctionsModuleLibrary
         {
             if (criteria.Count > 0 && !string.IsNullOrEmpty(CriteriaDescriptionKey))
             {
-                if (!searchManager.SaveSearch(RequestForQuoteConstants.MY_USER_NAME, CriteriaDescriptionKey,
-                                              PrivacyOfCriteria == PrivacyEnum.PRIVATE, TypeOfCriteria == CriteriaTypeEnum.FILTER, criteria))
+                foreach (var criterion in criteria)
                 {
-                    MessageBox.Show("Failed to save search " + CriteriaDescriptionKey, "Search Management Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);                    
+                    if (!searchManager.SaveSearchToDatabase(RequestForQuoteConstants.MY_USER_NAME, CriteriaDescriptionKey,
+                        PrivacyOfCriteria == PrivacyEnum.PRIVATE, TypeOfCriteria == CriteriaTypeEnum.FILTER, criterion.Key, criterion.Value))
+                    {
+                        MessageBox.Show("Failed to save search " + CriteriaDescriptionKey, "Search Management Error",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);   
+                        break;
+                    }
                 }
             }                
         }

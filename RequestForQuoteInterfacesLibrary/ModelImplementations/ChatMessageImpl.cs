@@ -9,7 +9,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
     {
         [DataMember] private string content;
         [DataMember] private string owner;
-        [DataMember] private DateTime timeStamp;
+        [DataMember] private string timeStamp;
         [DataMember] private int requestForQuoteId;
         [DataMember] private int sequenceId;
 
@@ -23,12 +23,15 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             this.owner = owner;
             this.requestForQuoteId = requestForQuoteId;
             this.sequenceId = sequenceId;
-            this.timeStamp = Convert.ToDateTime(timeStamp);
+            this.timeStamp = timeStamp.ToShortDateString();
         }
 
         public String Owner
         {
-            get { return owner; }
+            get
+            {
+                return owner;
+            }
             set 
             { 
                 owner = value;
@@ -39,7 +42,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public String Content
         {
-            get { return content; }
+            get
+            {
+                return content;
+            }
             set
             {
                 content = value;
@@ -50,7 +56,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public int RequestForQuoteId
         {
-            get { return requestForQuoteId; }
+            get
+            {
+                return requestForQuoteId;
+            }
             set
             {
                 requestForQuoteId = value;
@@ -61,7 +70,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public int SequenceId
         {
-            get { return sequenceId; }
+            get
+            {
+                return sequenceId;
+            }
             set
             {
                 sequenceId = value;
@@ -72,10 +84,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public DateTime TimeStamp
         {
-            get { return timeStamp; }
+            get
+            {
+                return Convert.ToDateTime(timeStamp);
+            }
             set
             {
-                timeStamp = value;
+                timeStamp = value.ToShortDateString();
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("TimeStamp"));
             }

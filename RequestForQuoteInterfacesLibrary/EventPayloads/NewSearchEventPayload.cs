@@ -9,22 +9,17 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
 
         public override string ToString()
         {
-            var builder = new StringBuilder("New Search = [DescriptionKey =");
+            var builder = new StringBuilder("New Search [ Description key: ");
             builder.Append(NewSearch.DescriptionKey);
-            builder.Append(", Is Private = ");
+            builder.Append(", Is private: ");
             builder.Append(NewSearch.IsPrivate);
-            builder.Append(", Owner = ");
-                builder.Append(NewSearch.Owner);
-            builder.Append(", Criteria = {");
-            foreach (var pair in NewSearch.Criteria)
-            {
-                builder.Append("{");
-                builder.Append(pair.Key);
-                builder.Append(" => ");
-                builder.Append(pair.Value);
-                builder.Append("}");
-            }
-            builder.Append("}");
+            builder.Append(", Is filter: ");
+            builder.Append(NewSearch.IsFilter);
+            builder.Append(", Owner: ");
+            builder.Append(NewSearch.Owner);
+            builder.Append(", Criteria: [");
+            // TODO
+            builder.Append(" ]");
             return builder.ToString();
         }
     }

@@ -4,10 +4,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
 {
     public interface ISearch
     {
-        string DescriptionKey { get; set; }
-        bool IsPrivate { get; set; }
-        bool IsFilter { get; set; }
+        List<ISearchCriterion> Criteria { get; set; }
         string Owner { get; set; }
-        IDictionary<string, string> Criteria { get; set; }
+        string DescriptionKey { get; set; }
+        bool IsFilter { get; set; }
+        bool IsPrivate { get; set; }
     }
 }

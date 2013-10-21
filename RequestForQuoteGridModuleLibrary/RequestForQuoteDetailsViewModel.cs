@@ -101,7 +101,11 @@ namespace RequestForQuoteGridModuleLibrary
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
-            ChatMessages = new ObservableCollection<ChatMessageImpl>(chatServiceManager.RegisterParticipant(SelectedRequestForQuote.Identifier));
+
+            if(SelectedRequestForQuote.Identifier == -1)
+                ChatMessages = new ObservableCollection<ChatMessageImpl>();
+            else
+                ChatMessages = new ObservableCollection<ChatMessageImpl>(chatServiceManager.RegisterParticipant(SelectedRequestForQuote.Identifier));
 
             var messagesCollectionView = CollectionViewSource.GetDefaultView(ChatMessages) as ListCollectionView;
             if (messagesCollectionView != null)
@@ -220,10 +224,10 @@ namespace RequestForQuoteGridModuleLibrary
                 if (newIdentifer != -1)
                 {
                     SelectedRequestForQuote.Identifier = newIdentifer;
+                    chatServiceManager.RegisterParticipant(newIdentifer);
                     success = true;
                 }
-            }
-                
+            }                
             else
                 success = optionRequestPersistanceManager.UpdateRequest(SelectedRequestForQuote);
 

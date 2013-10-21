@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -146,8 +147,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 if (bytesRead > 0)
                 {                    
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
-                    ProcessMessage(state);
-                    clientSocket.BeginReceive(state.buffer, 0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_MAXIMUM, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+
+                    Debug.Print("Buffer content => " + state.sb.ToString());
+
+                    lock (lockObject)
+                    {
+                        ProcessMessage(state);
+                        clientSocket.BeginReceive(state.buffer, 0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_MAXIMUM, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+                    }                                       
                 }
             }
             catch (Exception e)
@@ -159,6 +166,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessMessage(StateObject state)
         {
+            Debug.Print("Processing message => " + state.sb.ToString());
             int sizeOfMessage;
             if (Int32.TryParse(state.sb.ToString().Substring(0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH), out sizeOfMessage))
             {
@@ -166,6 +174,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     PublishMessageToJSONParser(state.sb.ToString().Substring(RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH, sizeOfMessage));
                     state.sb.Remove(0, sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH);
+                    ProcessMessage(state);
                 }
                 else if (state.sb.Length == sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH)
                 {

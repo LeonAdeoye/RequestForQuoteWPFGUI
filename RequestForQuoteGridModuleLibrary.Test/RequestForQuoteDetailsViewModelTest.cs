@@ -55,11 +55,11 @@ namespace RequestForQuoteGridModuleLibrary.Test
 
         private readonly ISearch testSearch = new SearchImpl()
         {
-            Criteria = new Dictionary<string, string>(),
             DescriptionKey = "test key",
             IsFilter = false,
             IsPrivate = false,
-            Owner = "test owner"
+            Owner = "test owner",
+            Criteria = new List<ISearchCriterion>(){ new SearchCriterionImpl() {ControlName = "test control name", ControlValue = "test control value"}} //TODO
         };
 
         [TestFixtureSetUp]

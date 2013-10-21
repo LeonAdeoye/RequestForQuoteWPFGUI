@@ -106,8 +106,10 @@
     <Compile Include="ModelImplementations\OptionDetailImpl.cs" />
     <Compile Include="ModelImplementations\ProductImpl.cs" />
     <Compile Include="ModelImplementations\RequestForQuoteImpl.cs" />
+    <Compile Include="ModelImplementations\SearchCriterionImpl.cs" />
     <Compile Include="ModelImplementations\SearchImpl.cs" />
     <Compile Include="ModelInterfaces\IBankHoliday.cs" />
+    <Compile Include="ModelInterfaces\ISearch.cs" />
     <Compile Include="ServiceInterfaces\IBankHolidayManager.cs" />
     <Compile Include="ServiceInterfaces\IChatServiceManager.cs" />
     <Compile Include="ServiceInterfaces\IOptionRequestPersistanceManager.cs" />
@@ -128,7 +130,7 @@
     <Compile Include="ServiceInterfaces\IClientManager.cs" />
     <Compile Include="ServiceInterfaces\IOptionRequestParser.cs" />
     <Compile Include="ModelInterfaces\IRequestForQuote.cs" />
-    <Compile Include="ModelInterfaces\ISearch.cs" />
+    <Compile Include="ModelInterfaces\ISearchCriterion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceInterfaces\ISearchManager.cs" />
     <Compile Include="ServiceInterfaces\IUnderlyingManager.cs" />
