@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
+using System.Windows;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
@@ -174,6 +175,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     PublishMessageToJSONParser(state.sb.ToString().Substring(RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH, sizeOfMessage));
                     state.sb.Remove(0, sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH);
+                    MessageBox.Show("Process larger message via recursion: " + state.sb.ToString());
                     ProcessMessage(state);
                 }
                 else if (state.sb.Length == sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH)

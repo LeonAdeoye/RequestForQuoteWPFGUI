@@ -33,7 +33,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
         private readonly IBook testBook = new BookImpl() {BookCode = "test book"};
 
-        /*private readonly IClient testClient = new ClientImpl()
+        private readonly IClient testClient = new ClientImpl()
             {
                 Identifier = 1,
                 IsValid = true,
@@ -49,9 +49,9 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 RIC = "test RIC"
             };
 
-        private readonly ISearch testSearch = new SearchCriterionImpl()
+        private readonly ISearch testSearch = new SearchImpl()
             {
-                Criteria = new Dictionary<string, string>(),
+                Criteria = new List<ISearchCriterion>(),
                 DescriptionKey = "test key",
                 IsFilter = false,
                 IsPrivate = false,
@@ -203,29 +203,24 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
-        public void
-            SaveSearch_WithNonEmptyCriteriaAndCriteriaDescriptionKeyPropertySet_SaveSearchMethodOfISearchManagerInstanceShouldBeCalled
-            ()
+        public void SaveSearch_WithNonEmptyCriteriaAndCriteriaDescriptionKeyPropertySet_SaveSearchMethodOfISearchManagerInstanceShouldBeCalled()
         {
-            searchManagerMock.Setup(sm => sm.SaveSearch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
-                                                        It.IsAny<bool>(), It.IsAny<IDictionary<string, string>>()))
-                             .Callback(() => wasCalled = true);
+            searchManagerMock.Setup(sm => sm.SaveSearchToDatabase(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
+                             It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true).Callback(() => wasCalled = true);
 
             viewModel.SelectedBook = testBook;
             viewModel.CriteriaDescriptionKey = "test Criteria";
             viewModel.SaveSearch();
 
-            Assert.IsTrue(wasCalled,
-                          "Saving newly added book criteria does NOT call SaveSearch method of ISearchManager instance!");
+            Assert.IsTrue(wasCalled, "Saving newly added book criteria does NOT call SaveSearch method of ISearchManager instance!");
         }
 
         [Test]
         public void
             SaveSearch_CriteriaDescriptionKeyPropertyNotSet_SaveSearchMethodOfISearchManagerInstanceShouldNeverBeCalled()
         {
-            searchManagerMock.Setup(sm => sm.SaveSearch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
-                                                        It.IsAny<bool>(), It.IsAny<IDictionary<string, string>>()))
-                             .Callback(() => wasCalled = false);
+            searchManagerMock.Setup(sm => sm.SaveSearchToDatabase(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
+                             It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>())).Callback(() => wasCalled = false);
 
             viewModel.SelectedBook = testBook;
             viewModel.SaveSearch();
@@ -238,10 +233,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         public void SaveSearch_WithEmptyCriteria_SaveSearchMethodOfISearchManagerInstanceShouldNeverBeCalled()
         {
             // Arrange
-            searchManagerMock.Setup(sm => sm.SaveSearch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
-                                                        It.IsAny<bool>(), It.IsAny<IDictionary<string, string>>()))
-                             .Callback(() => wasCalled = false);
+            searchManagerMock.Setup(sm => sm.SaveSearchToDatabase(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
+                            It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>())).Callback(() => wasCalled = false);
+
             viewModel.CriteriaDescriptionKey = "test Criteria";
+
             // Act
             viewModel.SaveSearch();
             // Assert
@@ -257,9 +253,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedBook = null;
             // Assert
-            viewModel.Criteria.Should()
-                     .NotContainKey(RequestForQuoteConstants.BOOK_CRITERION,
-                                    "because the selected book value is invalid");
+            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.BOOK_CRITERION,"because the selected book value is invalid");
         }
 
         [Test]
@@ -281,9 +275,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedClient = null;
             // Assert
-            viewModel.Criteria.Should()
-                     .NotContainKey(RequestForQuoteConstants.CLIENT_CRITERION,
-                                    "because the selected client property value is invalid");
+            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.CLIENT_CRITERION,"because the selected client property value is invalid");
         }
 
         [Test]
@@ -294,8 +286,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedClient = testClient;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(testClient.Name, "because the selected client property value is valid");
+            viewModel.Criteria.Should().ContainValue(testClient.Identifier.ToString(), "because the selected client property value is valid");
         }
 
         [Test]
@@ -306,9 +297,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedUnderlyier = null;
             // Assert
-            viewModel.Criteria.Should()
-                     .NotContainKey(RequestForQuoteConstants.UNDERLYIER_CRITERION,
-                                    "because the selected underlyier property value is invalid");
+            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.UNDERLYIER_CRITERION,"because the selected underlyier property value is invalid");
         }
 
         [Test]
@@ -319,8 +308,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedUnderlyier = testUnderlyier;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(testUnderlyier.RIC, "because the selected underlyier property value is valid");
+            viewModel.Criteria.Should().ContainValue(testUnderlyier.RIC, "because the selected underlyier property value is valid");
         }
 
         [Test]
@@ -331,9 +319,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedStatus = null;
             // Assert
-            viewModel.Criteria.Should()
-                     .NotContainKey(RequestForQuoteConstants.STATUS_CRITERION,
-                                    "because the selected status property value is invalid");
+            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.STATUS_CRITERION,"because the selected status property value is invalid");
         }
 
         [Test]
@@ -344,8 +330,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedStatus = "test status";
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue("test status", "because the selected status property value is valid");
+            viewModel.Criteria.Should().ContainValue("test status", "because the selected status property value is valid");
         }
 
         [Test]
@@ -357,9 +342,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.StartTradeDate = startDate;
             viewModel.EndTradeDate = endDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(startDate + "-" + endDate,
-                                   "because the start trade date can be added before the end trade date");
+            viewModel.Criteria.Should().ContainValue(startDate + "-" + endDate,"because the start trade date can be added before the end trade date");
         }
 
         [Test]
@@ -371,9 +354,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.EndTradeDate = endDate;
             viewModel.StartTradeDate = startDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(startDate + "-" + endDate,
-                                   "because the start trade date can be added before the end trade date");
+            viewModel.Criteria.Should().ContainValue(startDate + "-" + endDate,"because the start trade date can be added before the end trade date");
         }
 
         [Test]
@@ -383,9 +364,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
             viewModel.StartTradeDate = startDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(startDate + "-",
-                                   "because the start trade date can be added without the end trade date");
+            viewModel.Criteria.Should().ContainValue(startDate + "-","because the start trade date can be added without the end trade date");
         }
 
         [Test]
@@ -396,13 +375,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.EndTradeDate = endDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue("-" + endDate, "because the end trade date can be added before the start trade date");
+            viewModel.Criteria.Should().ContainValue("-" + endDate, "because the end trade date can be added before the start trade date");
         }
 
         [Test]
-        public void
-            StartTradeDate_StartTradeDateSetTwice_StartTradeDateWithHyphenSuffixShouldBeReplacedInTheCriteriaCollection()
+        public void StartTradeDate_StartTradeDateSetTwice_StartTradeDateWithHyphenSuffixShouldBeReplacedInTheCriteriaCollection()
         {
             // Arrange
             DateTime updatedDate = new DateTime(2014, 12, 23);
@@ -410,14 +387,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.StartTradeDate = startDate;
             viewModel.StartTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(updatedDate + "-",
-                                   "because the start trade date can be overwritten without the end trade date");
+            viewModel.Criteria.Should().ContainValue(updatedDate + "-","because the start trade date can be overwritten without the end trade date");
         }
 
         [Test]
-        public void
-            EndTradeDate_EndTradeDateSetTwice_EndTradeDateWithHyphenPrefixShouldBeReplacedInTheCriteriaCollection()
+        public void EndTradeDate_EndTradeDateSetTwice_EndTradeDateWithHyphenPrefixShouldBeReplacedInTheCriteriaCollection()
         {
             // Arrange
             DateTime updatedDate = new DateTime(2014, 12, 23);
@@ -425,15 +399,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.EndTradeDate = endDate;
             viewModel.EndTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue("-" + updatedDate,
-                                   "because the end trade date can be overwritten without the start trade date");
+            viewModel.Criteria.Should().ContainValue("-" + updatedDate,"because the end trade date can be overwritten without the start trade date");
         }
 
         [Test]
-        public void
-            EndTradeDate_StartTradeDateSetAndEndTradeDateSetTwice_JusTheEndTradeDateShouldBeReplacedInTheCriteriaCollection
-            ()
+        public void EndTradeDate_StartTradeDateSetAndEndTradeDateSetTwice_JusTheEndTradeDateShouldBeReplacedInTheCriteriaCollection()
         {
             // Arrange
             DateTime updatedDate = new DateTime(2014, 12, 23);
@@ -442,15 +412,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act            
             viewModel.EndTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(startDate + "-" + updatedDate,
-                                   "because the end trade date can be overwritten even with the start trade date set");
+            viewModel.Criteria.Should().ContainValue(startDate + "-" + updatedDate,"because the end trade date can be overwritten even with the start trade date set");
         }
 
         [Test]
-        public void
-            StartTradeDate_EndTradeDateSetAndStartTradeDateSetTwice_JusTheStartTradeDateShouldBeReplacedInTheCriteriaCollection
-            ()
+        public void tartTradeDate_EndTradeDateSetAndStartTradeDateSetTwice_JusTheStartTradeDateShouldBeReplacedInTheCriteriaCollection()
         {
             // Arrange
             DateTime updatedDate = new DateTime(2014, 12, 23);
@@ -459,9 +425,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act            
             viewModel.StartTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should()
-                     .ContainValue(updatedDate + "-" + endDate,
-                                   "because the start trade date can be overwritten even with the end trade date set");
+            viewModel.Criteria.Should().ContainValue(updatedDate + "-" + endDate,"because the start trade date can be overwritten even with the end trade date set");
         }
 
         [Test]
@@ -560,9 +524,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch)
-                     .Should()
-                     .BeFalse("because there are no criteria and existing search param set to false");
+            viewModel.CanSearchRequests(isExistingSearch).Should().BeFalse("because there are no criteria and existing search param set to false");
         }
 
         [Test]
@@ -574,14 +536,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch)
-                     .Should()
-                     .BeFalse("because there are no criteria and selected search property is not set");            
+            viewModel.CanSearchRequests(isExistingSearch).Should().BeFalse("because there are no criteria and selected search property is not set");            
         }
 
         [Test]
-        public void
-            CanSearchRequests_EmptyCriteriaAndSetExistingSearchParamSetToTrueAndSelectedSearchSet_ShouldReturnTrue()
+        public void CanSearchRequests_EmptyCriteriaAndSetExistingSearchParamSetToTrueAndSelectedSearchSet_ShouldReturnTrue()
         {
             // Arrange 
             // ClearCriteria() method called in SetUp method
@@ -601,9 +560,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate)
-                     .Should()
-                     .BeFalse("because selected search property is not set");
+            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because selected search property is not set");
         }
 
         [Test]
@@ -618,9 +575,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate)
-                     .Should()
-                     .BeFalse("because the selected search owner is invalid");
+            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because the selected search owner is invalid");
         }
 
         [Test]
@@ -635,9 +590,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate)
-                     .Should()
-                     .BeFalse("because the selected search description key is invalid");
+            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because the selected search description key is invalid");
         }
 
         [Test]
@@ -653,9 +606,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate)
-                     .Should()
-                     .BeFalse("because there is not change to the privacy flag");
+            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because there is not change to the privacy flag");
         }
 
         [Test]
@@ -678,8 +629,8 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         public void UpdatePrivacy_ValidOwnerAndDescriptionKeyPropertiesSet_UpdatePrivacyMethodShouldBeCalled()
         {
             // Arrange
-            searchManagerMock.Setup(sm => sm.UpdatePrivacy(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()))
-                             .Callback(() => wasCalled = true);
+            searchManagerMock.Setup(sm => sm.UpdatePrivacy(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(true).Callback(() => wasCalled = true);
+
             var searchMock = new Mock<ISearch>();
             viewModel.SelectedSearch = searchMock.Object;
             searchMock.Setup(s => s.IsPrivate).Returns(true);
@@ -695,8 +646,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         public void DeleteSearch_WithAllValidPropertiesSet_DeleteSearchMethodShouldBeCalled()
         {
             // Arrange
-            searchManagerMock.Setup(sm => sm.DeleteSearch(It.IsAny<string>(), It.IsAny<string>()))
-                             .Callback(() => wasCalled = true);
+            searchManagerMock.Setup(sm => sm.DeleteSearch(It.IsAny<string>(), It.IsAny<string>())).Returns(true).Callback(() => wasCalled = true);
             var searchMock = new Mock<ISearch>();
             viewModel.SelectedSearch = searchMock.Object;
             searchMock.Setup(s => s.DescriptionKey).Returns("test description key");
@@ -714,6 +664,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.Searches.Clear();
             var searchMock = new Mock<ISearch>();
             viewModel.SelectedSearch = searchMock.Object;
+            searchManagerMock.Setup(sm => sm.DeleteSearch(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             searchMock.Setup(s => s.DescriptionKey).Returns("test description key");
             searchMock.Setup(s => s.Owner).Returns("test owner");
             viewModel.Searches.Add(searchMock.Object);
@@ -731,12 +682,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.SelectedSearch = searchMock.Object;
             const bool isExistingSearch = true;
             searchMock.Setup(s => s.Criteria)
-                      .Returns(new Dictionary<string, string>() {{RequestForQuoteConstants.BOOK_CRITERION, "test book"}});
+                .Returns(new List<ISearchCriterion>() { new SearchCriterionImpl() { ControlName = RequestForQuoteConstants.BOOK_CRITERION, ControlValue = "test book"} });
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
-            viewModel.SelectedBook.BookCode.Should()
-                     .BeEquivalentTo("test book", "because a valid book criterion was used");
+            viewModel.SelectedBook.BookCode.Should().BeEquivalentTo("test book", "because a valid book criterion was used");
         }
 
         [Test]
@@ -747,12 +697,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.SelectedSearch = searchMock.Object;
             const bool isExistingSearch = true;
             searchMock.Setup(s => s.Criteria)
-                      .Returns(new Dictionary<string, string>() {{RequestForQuoteConstants.BOOK_CRITERION, "test book"}});
+                      .Returns(new List<ISearchCriterion>() { new SearchCriterionImpl() { ControlName = RequestForQuoteConstants.BOOK_CRITERION, ControlValue = "test book" } });
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
-            viewModel.SelectedBook.BookCode.Should()
-                     .BeEquivalentTo("test book", "because a valid book criterion was used");
+            viewModel.SelectedBook.BookCode.Should().BeEquivalentTo("test book", "because a valid book criterion was used");
         }
 
         [Test]
@@ -763,7 +712,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.SelectedSearch = searchMock.Object;
             const bool isExistingSearch = true;
             searchMock.Setup(s => s.Criteria)
-                      .Returns(new Dictionary<string, string>() {{RequestForQuoteConstants.BOOK_CRITERION, "test book"}});
+                      .Returns(new List<ISearchCriterion>() { new SearchCriterionImpl() { ControlName = RequestForQuoteConstants.BOOK_CRITERION, ControlValue = "test book" } });
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
@@ -778,7 +727,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.SelectedSearch = searchMock.Object;
             const bool isExistingSearch = true;
             searchMock.Setup(s => s.Criteria)
-                      .Returns(new Dictionary<string, string>() {{RequestForQuoteConstants.BOOK_CRITERION, "test book"}});
+                      .Returns(new List<ISearchCriterion>() { new SearchCriterionImpl() { ControlName = RequestForQuoteConstants.BOOK_CRITERION, ControlValue = "test book" } });
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
@@ -791,8 +740,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Arrange
             viewModel.SelectedBook = testBook;
             const bool isExistingSearch = false;
-            searchRequestForQuoteEventMock.Setup(s => s.Publish(It.IsAny<CriteriaUsageEventPayload>()))
-                                          .Callback(() => wasCalled = true);
+            searchRequestForQuoteEventMock.Setup(s => s.Publish(It.IsAny<CriteriaUsageEventPayload>())).Callback(() => wasCalled = true);
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
@@ -805,12 +753,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Arrange
             viewModel.SelectedBook = testBook;
             const bool isExistingSearch = false;
-            searchRequestForQuoteEventMock.Setup(s => s.Publish(It.IsAny<CriteriaUsageEventPayload>()))
-                                          .Callback(() => wasCalled = true);
+            searchRequestForQuoteEventMock.Setup(s => s.Publish(It.IsAny<CriteriaUsageEventPayload>())).Callback(() => wasCalled = true);
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
             wasCalled.Should().BeTrue("the event should be raised if criteria are initialized");
-        }*/
+        }
     }
 }
