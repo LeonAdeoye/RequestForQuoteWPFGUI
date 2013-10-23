@@ -14,11 +14,15 @@ namespace RequestForQuoteFunctionsModuleLibrary
         private readonly IEventAggregator eventAggregator;
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand CompileReportCommand { get; set; }
+        public ICommand ClearReportInputCommand { get; set; }
+        public ICommand SaveReportInputCommand { get; set; }
 
         public RequestForQuoteReportsViewModel(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             CompileReportCommand = new CompileReportCommand(this);
+            ClearReportInputCommand = new ClearReportInputCommand(this);
+            SaveReportInputCommand = new SaveReportInputCommand(this);
         }
 
         private void NotifyPropertyChanged(string propertyName)
@@ -47,6 +51,20 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public static readonly DependencyProperty RequestsCountCategoryProperty =
             DependencyProperty.Register("RequestsCountCategory", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
 
+
+
+        public int? MinimumCount
+        {
+            get { return (int?)GetValue(MinimumCountProperty); }
+            set { SetValue(MinimumCountProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinimumCount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinimumCountProperty =
+            DependencyProperty.Register("MinimumCount", typeof(int?), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(null));
+
+        
+
         public bool CanCompileResport()
         {
             return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
@@ -57,10 +75,31 @@ namespace RequestForQuoteFunctionsModuleLibrary
             ClearRequestsPerCategoryInputs();
         }
 
-        public void ClearRequestsPerCategoryInputs()
+        private void ClearRequestsPerCategoryInputs()
         {
             ReportType = "";
             RequestsCountCategory = "";
+            MinimumCount = null;
+        }
+
+        public bool CanClearReportInput()
+        {
+            return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount.HasValue;
+        }
+
+        public void ClearReportInput()
+        {
+            ClearRequestsPerCategoryInputs();
+        }
+
+        public void SaveReportInput()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanSaveReportInput()
+        {
+            return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
         }
     }
 }

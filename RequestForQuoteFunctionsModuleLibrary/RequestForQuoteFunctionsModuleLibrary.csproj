@@ -62,6 +62,8 @@
   <ItemGroup>
     <Compile Include="Commands\ClearCriteriaCommand.cs" />
     <Compile Include="Commands\CompileReportCommand.cs" />
+    <Compile Include="Commands\ClearReportInputCommand.cs" />
+    <Compile Include="Commands\SaveReportInputCommand.cs" />
     <Compile Include="Commands\DeleteSearchCommand.cs" />
     <Compile Include="Commands\UpdatePrivacyCommand.cs" />
     <Compile Include="Commands\FilterRequestsCommand.cs" />
