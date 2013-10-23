@@ -19,8 +19,7 @@ namespace RFQ
 
         public Shell(IModuleManager moduleManager)
         {
-            this.Resources = Application.LoadComponent(
-            new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
+            this.Resources = Application.LoadComponent(new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
 
             InitializeComponent();
             this.moduleManager = moduleManager;

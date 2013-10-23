@@ -96,22 +96,22 @@
                         <StackPanel Grid.Row="0">
                             <DockPanel >
                                 <TextBox IsReadOnly="True" DockPanel.Dock="Right"  Width="250"  Text="{Binding Path=SelectedRequestForQuote.Request, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                <Label DockPanel.Dock="Left">Request</Label>
+                                <Label DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,0,0,0">Request</Label>
                             </DockPanel>
                             <DockPanel >
                                 <ComboBox   DockPanel.Dock="Right" Width="250"
                                             ItemsSource="{Binding Path=DataContext.Clients,
                                             RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay}"
                                             SelectedItem="{Binding SelectedRequestForQuote.Client}" DisplayMemberPath="Name"/>
-                                <Label DockPanel.Dock="Right">Client</Label>
+                                <Label DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Client</Label>
                             </DockPanel>
                             <DockPanel >
                                 <ComboBox DockPanel.Dock="Right" Width="250"
                                     ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}" 
                                     DisplayMemberPath="Description" 
                                     SelectedValue="{Binding SelectedRequestForQuote.Status}"  
-                                    SelectedValuePath="Value"  />                                
-                                <Label DockPanel.Dock="Right">Status</Label>                                
+                                    SelectedValuePath="Value"  />
+                                <Label DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Status</Label>                                
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Row="1">
@@ -122,7 +122,7 @@
                                             SelectedValue="{Binding SelectedRequestForQuote.BookCode}" SelectedValuePath="BookCode" DisplayMemberPath="BookCode"/>
                                 <Label DockPanel.Dock="Right" Width="70">BookCode</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.NotionalMillions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Notional(m)</Label>
+                                <Label DockPanel.Dock="Right" Width="75" HorizontalAlignment="Left" Margin="10,0,0,0">Notional(m)</Label>
                             </DockPanel>
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
@@ -130,31 +130,31 @@
                                             SelectedValue="{Binding SelectedRequestForQuote.NotionalCurrency}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Currency</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.NotionalFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">FX</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">FX</Label>
                             </DockPanel>                            
                             <DockPanel>
                                 <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.ExpiryDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Expiry Date</Label>
                                 <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Trade Date</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Trade Date</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.Multiplier, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Multiplier</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.Contracts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Contracts</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Contracts</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Width="90" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Quantity, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Quantity</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.LotSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Lot Size</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Lot Size</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">S.Credit %</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">S.Credit</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">S.Credit</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
@@ -162,13 +162,13 @@
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
                                             SelectedItem="{Binding Path=SelectedRequestForQuote.SalesCreditCurrency, Mode=TwoWay}"
                                             SelectedValue="{Binding SelectedRequestForQuote.SalesCreditCurrency}"/>
-                                <Label DockPanel.Dock="Right" Width="75">S.Credit Curr</Label>
+                                <Label DockPanel.Dock="Right" Width="80" HorizontalAlignment="Left" Margin="10,0,0,0">S.Credit Curr</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementDaysOverride, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Stt.FX</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Stt.Days</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Stt.Days</Label>
                             </DockPanel>                           
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource CurrencyEnum}}"                                  
@@ -176,7 +176,7 @@
                                             SelectedValue="{Binding SelectedRequestForQuote.PremiumSettlementCurrency}"/>                        
                                 <Label DockPanel.Dock="Right" Width="70">Stt.Curr</Label>
                                 <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.PremiumSettlementDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Stt.Date</Label>
+                                <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Stt.Date</Label>
                             </DockPanel>
                             <DockPanel>
                                 <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding Source={StaticResource HedgeTypeEnum}}"                                  
@@ -184,7 +184,7 @@
                                             SelectedValue="{Binding SelectedRequestForQuote.HedgeType}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Hedge Type</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.HedgePrice, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Hedge Price</Label>
+                                <Label DockPanel.Dock="Right" Width="80" HorizontalAlignment="Left" Margin="10,0,0,0">Hedge Price</Label>
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Row="2">
@@ -198,21 +198,20 @@
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidImpliedVol, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Impl Vol%</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Impl Vol%</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.PremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidPremiumAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Premium$</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Premium$</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.AskPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.PremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.BidPremiumPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Premium%</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Premium%</Label>
                             </DockPanel>
-                            <!--<CustomCntls:HorizontalRule/>-->
                             <DockPanel>
                                 <Label Width="90" HorizontalContentAlignment="Center" DockPanel.Dock="Right">In Shares</Label>
                                 <Label Width="90" HorizontalContentAlignment="Center" DockPanel.Dock="Right">In Notional</Label>
@@ -223,31 +222,31 @@
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.DeltaShares, UpdateSourceTrigger=PropertyChanged, Mode=Oneway, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.DeltaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Delta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Delta</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Delta</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.GammaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.GammaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Gamma, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Gamma</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Gamma</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ThetaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.ThetaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Theta, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Theta</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Theta</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.VegaShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.VegaNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Vega, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Vega</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Vega</Label>
                             </DockPanel>
                             <DockPanel>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.RhoShares, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.RhoNotional, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
                                 <TextBox Width="90" DockPanel.Dock="Right" IsReadOnly="true" Text="{Binding Path=SelectedRequestForQuote.Rho, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
-                                <Label Width="70" DockPanel.Dock="Right">Rho</Label>
+                                <Label Width="70" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="10,0,0,0">Rho</Label>
                             </DockPanel>                            
                         </StackPanel>
                     </Grid>

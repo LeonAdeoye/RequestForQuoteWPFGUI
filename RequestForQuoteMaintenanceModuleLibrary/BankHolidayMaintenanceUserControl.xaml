@@ -3,13 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:vm="clr-namespace:RequestForQuoteMaintenanceModuleLibrary"
-                mc:Ignorable="d" Background="Gray">
-    
-    <UserControl.DataContext>
-        <vm:BankHolidayMaintenanceViewModel/>
-    </UserControl.DataContext>    
-    
+             mc:Ignorable="d" Background="Gray">      
     <Grid>
         <StackPanel>
             <GroupBox Header="List of bank holidays per location" >

@@ -1,8 +1,5 @@
 ﻿using System.Windows.Controls;
-using Microsoft.Practices.Prism;
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
-using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 
 namespace RequestForQuoteToolBarModuleLibrary
 {
@@ -14,7 +11,6 @@ namespace RequestForQuoteToolBarModuleLibrary
         public RequestForQuoteToolBar(IUnityContainer container)
         {
             InitializeComponent();
-
             DataContext = container.Resolve<RequestForQuoteToolBarViewModel>();
         }
     }

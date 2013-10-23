@@ -11,8 +11,6 @@ namespace RequestForQuoteGridModuleLibrary
     {
         public RequestForQuoteLegDetails()
         {
-            this.Resources = Application.LoadComponent(
-            new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
             InitializeComponent();
         }
     }

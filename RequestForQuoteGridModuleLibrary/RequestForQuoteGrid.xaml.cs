@@ -17,13 +17,9 @@ namespace RequestForQuoteGridModuleLibrary
 
         public RequestForQuoteGrid(IUnityContainer container, IEventAggregator eventAggregator)
         {
-            this.Resources = Application.LoadComponent(
-            new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
-
             InitializeComponent();
 
-            viewModel = container.Resolve<RequestForQuoteGridViewModel>();
-            
+            viewModel = container.Resolve<RequestForQuoteGridViewModel>();            
             this.DataContext = viewModel;
         }
 

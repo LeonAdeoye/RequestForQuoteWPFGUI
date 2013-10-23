@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace RequestForQuoteMaintenanceModuleLibrary
 {
@@ -19,9 +20,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
     /// </summary>
     public partial class UnderlyingMaintenanceUserControl : UserControl
     {
-        public UnderlyingMaintenanceUserControl()
+        public UnderlyingMaintenanceUserControl(IUnityContainer container)
         {
+            this.Resources = Application.LoadComponent(new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
             InitializeComponent();
+            DataContext = container.Resolve<UnderlyingMaintenanceViewModel>();
         }
     }
 }

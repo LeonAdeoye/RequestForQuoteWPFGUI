@@ -105,6 +105,10 @@
       <Project>{BE45E368-2750-430C-A15D-536544B37AB5}</Project>
       <Name>RequestForQuoteInterfacesLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFStyley_Metallic4\WPFStyley_Metallic4.csproj">
+      <Project>{4E61E17D-38F1-4C53-B0FB-6F96F9B33553}</Project>
+      <Name>WPFStyley_Metallic4</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
