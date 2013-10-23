@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="RequestForQuoteFunctionsModuleLibrary.ReportsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MetallicTabItemStyle}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}" Margin="0,3,0,3">
+                            <ContentPresenter.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </ContentPresenter.LayoutTransform>
+                        </ContentPresenter>
+                     </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="Auto"/>
+        </Style>
+    </UserControl.Resources>    
+    <Grid>
+        <StackPanel>
+            <Label Content="Select report type:" HorizontalAlignment="Left" Margin="0,5,5,5"/>
+            <ComboBox SelectedValue="{Binding ReportType}">
+                <ComboBoxItem>Pie chart</ComboBoxItem>
+                <ComboBoxItem>Bar chart</ComboBoxItem>
+                <ComboBoxItem>Line chart</ComboBoxItem>
+                <ComboBoxItem>Table chart</ComboBoxItem>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" Margin="0,5,5,5">
+                <Button Content="Compile report" Command="{Binding CompileReportCommand}"/>
+                <Button Content="Save"/>
+                <Button Content="Clear"/>
+            </StackPanel>
+            <TabControl TabStripPlacement="Right">
+                <TabItem Header="RFQs/Category">
+                    <StackPanel>
+                        <Label Content="Select category:" HorizontalAlignment="Left" Margin="5"/>
+                        <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" SelectedValue="{Binding RequestsCountCategory}">
+                            <ComboBoxItem>By client</ComboBoxItem>
+                            <ComboBoxItem>By underlying</ComboBoxItem>
+                            <ComboBoxItem>By book code</ComboBoxItem>
+                            <ComboBoxItem>By initiator</ComboBoxItem>
+                        </ComboBox>
+                        <GroupBox>
+                            <StackPanel>
+                                <RadioButton Content="All" GroupName="Range" Margin="5"/>
+                                <RadioButton Content="Today" GroupName="Range" Margin="5"/>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <RadioButton Content="From" GroupName="Range" VerticalAlignment="Center"/>
+                                    <DatePicker Margin="5,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <Label Content="Minimum count:" HorizontalAlignment="Left" Margin="5"/>
+                        <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="RFQs/Date"></TabItem>
+                <TabItem Header="Greek/Category"></TabItem>
+                <TabItem Header="Greek/Date"></TabItem>
+                <TabItem Header="Greek/Input"></TabItem>
+            </TabControl>
+        </StackPanel>        
+    </Grid>
+</UserControl>

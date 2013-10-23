@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
         <Expander IsExpanded="false">            
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TabControl TabStripPlacement="Bottom" >
+                <TabControl TabStripPlacement="Bottom" MinWidth="265">
                     <TabItem Header="Search/Filter">
                         <StackPanel>
                             <GroupBox Header="Search/Filter">
@@ -134,7 +134,7 @@
                         <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.TREE_BROWSER_USER_CONTROL_REGION}"/>
                     </TabItem>
                     <TabItem Header="Reports">
-                        <TreeView></TreeView>
+                        <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.REPORTS_USER_CONTROL_REGION}"/>
                     </TabItem>
                     <TabItem Header="Chat">
                         <ListBox></ListBox>

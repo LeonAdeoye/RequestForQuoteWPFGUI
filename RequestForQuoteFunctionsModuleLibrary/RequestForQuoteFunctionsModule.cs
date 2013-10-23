@@ -25,6 +25,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             regionManager.RegisterViewWithRegion(RegionNames.FUNCTIONS_USER_CONTROL_REGION, typeof(RequestForQuoteFunctions));
             regionManager.RegisterViewWithRegion(RegionNames.SAVE_SEARCH_USER_CONTROL_REGION, typeof(SaveSearchUserControl));
             regionManager.RegisterViewWithRegion(RegionNames.TREE_BROWSER_USER_CONTROL_REGION, typeof (TreeBrowserUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof(ReportsUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteFunctionsModule initialized successfully.");

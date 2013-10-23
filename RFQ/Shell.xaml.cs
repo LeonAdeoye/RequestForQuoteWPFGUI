@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Unity;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 using log4net;
 
