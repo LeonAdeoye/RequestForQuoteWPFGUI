@@ -40,6 +40,17 @@
                                 <Setter Property="Margin" Value="0,1,0,1"/>
                                 <Setter Property="Padding" Value="0"/>
                                 <Setter Property="Foreground" Value="Black"/>
+                                <!--<Style.Triggers> TODO - also first time of chat is zero.
+                                    <Trigger Property="ScrollViewer.ComputedVerticalScrollBarVisibility" Value="Visible">
+                                        <Setter Property="Width" Value="100"/>
+                                    </Trigger>
+                                    <Trigger Property="ScrollViewer.ComputedVerticalScrollBarVisibility" Value="Hidden">
+                                        <Setter Property="Width" Value="500"/>
+                                    </Trigger>
+                                    <Trigger Property="ScrollViewer.ComputedVerticalScrollBarVisibility" Value="Collapsed">
+                                        <Setter Property="Width" Value="1000"/>
+                                    </Trigger>
+                                </Style.Triggers>-->
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>

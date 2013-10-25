@@ -22,7 +22,8 @@
         public const string INVALIDATE_BY_SETTING_ISVALID_TO_FALSE = "false";
         public const string VALIDATE_BY_SETTING_ISVALID_TO_TRUE = "true";
 
-        public static readonly string MY_USER_NAME = System.Environment.UserName;        
+        public static readonly string MY_USER_NAME = System.Environment.UserName;
+        public const string REQUEST_COUNT_BY_BOOKCODE = "BookCode";
 
         public const string SERVER_IP_ADDRESS = "127.0.0.1";
         public const int SERVER_PORT_NUMBER = 1972;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://reporting.rfq.ws.leon.com/" name="ReportingController" targetNamespace="http://reporting.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.reporting" elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="com.leon.ws.rfq.reporting" />
+      <xs:element name="getRequestsByCategory" type="tns:getRequestsByCategory" />
+      <xs:element name="getRequestsByCategoryResponse" type="tns:getRequestsByCategoryResponse" />
+      <xs:complexType name="getRequestsByCategory">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="categoryType" type="xs:string" />
+          <xs:element minOccurs="0" name="fromDate" type="xs:dateTime" />
+          <xs:element name="minimumCount" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getRequestsByCategoryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:requestCountReportDataListImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestCountReportDataListImpl" final="extension restriction">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RequestCountReportDataListImpl">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="RequestCountReportDataImpl" type="tns:requestCountReportDataImpl" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="requestCountList" nillable="true" type="tns:requestCountReportDataImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestCountReportDataImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="categoryValue" type="xs:string" />
+          <xs:element name="requestCount" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="arrayList">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractList">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractList" abstract="true">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractCollection">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractCollection" abstract="true">
+        <xs:sequence />
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:ns1="http://reporting.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.reporting" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://reporting.rfq.ws.leon.com/" />
+      <xs:element name="RequestCountReportDataListImpl" type="ns1:requestCountReportDataListImpl" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getRequestsByCategoryResponse">
+    <wsdl:part name="parameters" element="tns:getRequestsByCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRequestsByCategory">
+    <wsdl:part name="parameters" element="tns:getRequestsByCategory" />
+  </wsdl:message>
+  <wsdl:portType name="ReportingController">
+    <wsdl:operation name="getRequestsByCategory">
+      <wsdl:input name="getRequestsByCategory" message="tns:getRequestsByCategory" />
+      <wsdl:output name="getRequestsByCategoryResponse" message="tns:getRequestsByCategoryResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReportingControllerSoapBinding" type="tns:ReportingController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getRequestsByCategory">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getRequestsByCategory">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRequestsByCategoryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReportingController">
+    <wsdl:port name="ReportingControllerImplPort" binding="tns:ReportingControllerSoapBinding">
+      <soap:address location="http://localhost:8080/rfq/services/Report" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

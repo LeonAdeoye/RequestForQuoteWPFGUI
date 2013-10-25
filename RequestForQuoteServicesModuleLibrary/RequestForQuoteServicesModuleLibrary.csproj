@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ReportingService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\RequestMaintenanceService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,10 +107,12 @@
     <Compile Include="ServicesImplementation\BankHolidayManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ChatServiceManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ClientManagerImpl.cs" />
+    <Compile Include="ServicesImplementation\IReportDataManager.cs" />
     <Compile Include="ServicesImplementation\JsonParserImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestParserImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestPersistanceManagerImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestPricerImpl.cs" />
+    <Compile Include="ServicesImplementation\ReportDataManagerImpl.cs" />
     <Compile Include="ServicesImplementation\SearchManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ServerCommunicatorImpl.cs" />
     <Compile Include="ServicesImplementation\UnderlyingManagerImpl.cs" />
@@ -142,6 +149,10 @@
     <None Include="Service References\OptionPricerService\RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ReportingService\ReportingController.wsdl" />
+    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\RequestMaintenanceService\RequestController.wsdl" />
     <None Include="Service References\RequestMaintenanceService\RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -160,6 +171,7 @@
     <WCFMetadataStorage Include="Service References\ChatService\" />
     <WCFMetadataStorage Include="Service References\ClientMaintenanceService\" />
     <WCFMetadataStorage Include="Service References\OptionPricerService\" />
+    <WCFMetadataStorage Include="Service References\ReportingService\" />
     <WCFMetadataStorage Include="Service References\RequestMaintenanceService\" />
     <WCFMetadataStorage Include="Service References\SearchCriteriaService\" />
     <WCFMetadataStorage Include="Service References\HolidayMaintenanceService\" />
@@ -244,6 +256,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RequestMaintenanceService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReportingService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReportingService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReportingService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

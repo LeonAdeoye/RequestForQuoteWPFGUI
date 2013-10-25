@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
 using RequestForQuoteFunctionsModuleLibrary.Commands;
+using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
 using log4net;
 
 namespace RequestForQuoteFunctionsModuleLibrary
@@ -11,15 +13,20 @@ namespace RequestForQuoteFunctionsModuleLibrary
     public class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IEventAggregator eventAggregator;
+        private readonly IReportDataManager reportingManager;
+
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand CompileReportCommand { get; set; }
         public ICommand ClearReportInputCommand { get; set; }
         public ICommand SaveReportInputCommand { get; set; }
 
-        public RequestForQuoteReportsViewModel(IEventAggregator eventAggregator)
+        public RequestForQuoteReportsViewModel(IEventAggregator eventAggregator, IReportDataManager reportingManager)
         {
             this.eventAggregator = eventAggregator;
+            this.reportingManager = reportingManager;
+
             CompileReportCommand = new CompileReportCommand(this);
             ClearReportInputCommand = new ClearReportInputCommand(this);
             SaveReportInputCommand = new SaveReportInputCommand(this);
@@ -72,6 +79,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void CompileReport()
         {
+            reportingManager.GetRequestCountPerCategory(RequestForQuoteConstants.REQUEST_COUNT_BY_BOOKCODE, new DateTime(2013,10,1), 0);
             ClearRequestsPerCategoryInputs();
         }
 
