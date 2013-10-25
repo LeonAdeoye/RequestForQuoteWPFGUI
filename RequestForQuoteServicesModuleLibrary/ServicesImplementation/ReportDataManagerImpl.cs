@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.ServiceModel;
 using RequestForQuoteServicesModuleLibrary.ReportingService;
 using log4net;
 
@@ -12,10 +13,24 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void GetRequestCountPerCategory(string categoryType, DateTime fromDate, int minimumCount)
         {
-            var requestCategoryCounts =  reportingContollerProxy.getRequestsByCategory(categoryType, fromDate, minimumCount);
+            try
+            {
+                var requestCategoryCounts = reportingContollerProxy.getRequestsByCategory(categoryType, fromDate,
+                                                                                          minimumCount);
 
-            foreach (var categoryCount in requestCategoryCounts.RequestCountReportDataListImpl)
-                Debug.WriteLine(categoryCount.categoryValue + " = " + categoryCount.requestCount);                
+                foreach (var categoryCount in requestCategoryCounts.RequestCountReportDataListImpl)
+                    Debug.WriteLine(categoryCount.categoryValue + " = " + categoryCount.requestCount);
+            }
+            catch (FaultException fe)
+            {
+                if (log.IsErrorEnabled)
+                    log.Error("Exception thrown while compile report data for requests by category: " + categoryType + ": " + fe);
+            }
+            catch (EndpointNotFoundException epnfe)
+            {
+                if (log.IsErrorEnabled)
+                    log.Error("Exception thrown while compile report data for requests by category: " + categoryType + ": " + epnfe);
+            }
         }
     }
 }
