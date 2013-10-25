@@ -15,8 +15,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                var requestCategoryCounts = reportingContollerProxy.getRequestsByCategory(categoryType, fromDate,
-                                                                                          minimumCount);
+                var requestCategoryCounts = reportingContollerProxy.getRequestsByCategory(categoryType, fromDate, minimumCount);
 
                 foreach (var categoryCount in requestCategoryCounts.RequestCountReportDataListImpl)
                     Debug.WriteLine(categoryCount.categoryValue + " = " + categoryCount.requestCount);
