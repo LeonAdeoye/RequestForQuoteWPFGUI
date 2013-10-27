@@ -58,8 +58,6 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public static readonly DependencyProperty RequestsCountCategoryProperty =
             DependencyProperty.Register("RequestsCountCategory", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
 
-
-
         public int? MinimumCount
         {
             get { return (int?)GetValue(MinimumCountProperty); }
@@ -70,8 +68,6 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public static readonly DependencyProperty MinimumCountProperty =
             DependencyProperty.Register("MinimumCount", typeof(int?), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(null));
 
-        
-
         public bool CanCompileResport()
         {
             return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
@@ -79,7 +75,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void CompileReport()
         {
-            reportingManager.GetRequestCountPerCategory(RequestForQuoteConstants.REQUEST_COUNT_BY_BOOKCODE, new DateTime(2013,10,1), 0);
+            reportingManager.GetRequestCountPerCategory(ReportType, RequestForQuoteConstants.REQUEST_COUNT_BY_BOOKCODE, new DateTime(2013, 10, 1), 0);
             ClearRequestsPerCategoryInputs();
         }
 

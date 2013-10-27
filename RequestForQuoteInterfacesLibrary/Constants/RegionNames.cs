@@ -15,6 +15,7 @@
         public const string REQUESTS_GRID_USER_CONTROL_REGION = "RequestForQuoteGridPane";
         public const string REQUEST_DETAIL_USER_CONTROL_REGION = "RequestForQuoteDetailsPane";
         public const string REQUEST_LEG_DETAIL_USER_CONTROL_REGION = "RequestForQuoteLegDetailsPane";
-        
+        public const string GENERATED_REPORT_USER_CONTROL_REGION = "GeneratedReportUserControl";
+
     }
 }

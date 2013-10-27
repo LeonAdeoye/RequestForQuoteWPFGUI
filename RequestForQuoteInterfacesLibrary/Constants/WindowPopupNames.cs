@@ -7,6 +7,7 @@
         public const string CLIENT_MAINTENANCE_WINDOW_POPUP = "ClientMaintenanceWindowPopup";
         public const string UNDERLYING_MAINTENANCE_WINDOW_POPUP = "UnderlyingMaintenanceWindowPopup";
         public const string BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP = "BankHolidayMaintenanceWindowPopup";
-        public const string REQUEST_DETAIL_WINDOW_POPUP = "RequestForQuoteDetailsWindowPopup";                
+        public const string REQUEST_DETAIL_WINDOW_POPUP = "RequestForQuoteDetailsWindowPopup";
+        public const string REPORT_WINDOW_POPUP = "ReportWindowPopup";                
     }
 }

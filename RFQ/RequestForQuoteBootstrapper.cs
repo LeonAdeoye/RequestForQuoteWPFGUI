@@ -45,7 +45,8 @@ namespace RFQ
                 .RegisterType<IWindowPopup, ClientMaintenanceWindow>(WindowPopupNames.CLIENT_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, BankHolidayMaintenanceWindow>(WindowPopupNames.BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, UnderlyingMaintenanceWindow>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP)
-                .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP); 
+                .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.REPORT_WINDOW_POPUP); 
         }
     }
 }

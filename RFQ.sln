@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestForQuoteFunctionsMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestForQuoteGridModuleLibrary.Test", "RequestForQuoteGridModuleLibrary.Test\RequestForQuoteGridModuleLibrary.Test.csproj", "{EF7926BE-5A6D-4975-935B-A62F96BC41F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestForQuoteReportsModuleLibrary", "RequestForQuoteReportsModuleLibrary\RequestForQuoteReportsModuleLibrary.csproj", "{00FF1583-9C71-4E7F-9A63-A1F59D92608D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,16 @@ Global
 		{EF7926BE-5A6D-4975-935B-A62F96BC41F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EF7926BE-5A6D-4975-935B-A62F96BC41F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EF7926BE-5A6D-4975-935B-A62F96BC41F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{00FF1583-9C71-4E7F-9A63-A1F59D92608D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
     public class RequestsCountByCategoryReportEventPayLoad 
     {
+        public string ReportType { get; set; }
         public string Category { get; set; }
         public DateTime FromDate { get; set; }
         public int MinimumCount { get; set; }
@@ -21,6 +21,8 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         {
             var builder = new StringBuilder("Category = ");
             builder.Append(Category);
+            builder.Append(", Report type = ");
+            builder.Append(ReportType);
             builder.Append(", FromDate = ");
             builder.Append(FromDate);
             builder.Append(", MinimumCount = ");

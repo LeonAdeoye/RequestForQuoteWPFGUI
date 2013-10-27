@@ -16,7 +16,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly IEventAggregator eventAggregator     = ServiceLocator.Current.GetInstance<IEventAggregator>();
         private readonly ReportingControllerClient reportingContollerProxy = new ReportingControllerClient();
 
-        public void GetRequestCountPerCategory(string categoryType, DateTime fromDate, int minimumCount)
+        public void GetRequestCountPerCategory(string reportType, string categoryType, DateTime fromDate, int minimumCount)
         {
             try
             {
@@ -26,6 +26,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     var eventPayLoad = new RequestsCountByCategoryReportEventPayLoad
                         {
+                            ReportType = reportType,
                             Category = categoryType,
                             FromDate = fromDate,
                             MinimumCount = minimumCount
