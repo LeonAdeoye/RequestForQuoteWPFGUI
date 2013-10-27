@@ -77,6 +77,7 @@
     <Compile Include="Enums\StatusEnum.cs" />
     <Compile Include="Enums\LocationEnum.cs" />
     <Compile Include="Enums\SideEnum.cs" />
+    <Compile Include="EventPayloads\RequestsCountByCategoryReportEventPayLoad.cs" />
     <Compile Include="EventPayloads\NewBankHolidayEventPayload.cs" />
     <Compile Include="EventPayloads\NewChatMessageEventPayload.cs" />
     <Compile Include="EventPayloads\ServerUpdateEventPayload.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="EventPayloads\NewUnderlyierEventPayload.cs" />
     <Compile Include="EventPayloads\EmptyEventPayload.cs" />
     <Compile Include="EventPayloads\CriteriaUsageEventPayload.cs" />
+    <Compile Include="Events\RequestsCountByCategoryReportEvent.cs" />
     <Compile Include="Events\NewBankHolidayEvent.cs" />
     <Compile Include="Events\NewChatMessageEvent.cs" />
     <Compile Include="Events\ServerUpdateEvent.cs" />
