@@ -3,8 +3,12 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteFunctionsModuleLibrary.Commands;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.EventPayloads;
+using RequestForQuoteInterfacesLibrary.Events;
+using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
 using log4net;
 
@@ -30,6 +34,21 @@ namespace RequestForQuoteFunctionsModuleLibrary
             CompileReportCommand = new CompileReportCommand(this);
             ClearReportInputCommand = new ClearReportInputCommand(this);
             SaveReportInputCommand = new SaveReportInputCommand(this);
+
+            InitializeEventSubscriptions();
+        }
+
+        private void InitializeEventSubscriptions()
+        {
+            eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>()
+                           .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+        }
+
+        private void HandleRequestsCountByCategoryReportEvent(RequestsCountByCategoryReportEventPayLoad eventPayLoad)
+        {
+            IWindowPopup reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            reportWindow.ShowModalWindow();
         }
 
         private void NotifyPropertyChanged(string propertyName)
