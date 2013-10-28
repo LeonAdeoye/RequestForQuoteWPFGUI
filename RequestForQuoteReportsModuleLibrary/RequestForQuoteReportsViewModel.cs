@@ -79,7 +79,7 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             ReportData.Clear();
             ReportData.AddRange(eventPayLoad.CountByCategory);
-            ReportTitle = eventPayLoad.ReportDescription + " Showing Request Count " + eventPayLoad.CategoryDescription + ":";
+            ReportTitle = "Request Count By " + eventPayLoad.Category + ":";
 
             regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, new Uri(eventPayLoad.ReportType, UriKind.Relative));
 

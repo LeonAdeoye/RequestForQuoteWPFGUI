@@ -27,7 +27,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                         ReportType = reportType,
                         Category = categoryType,
                         FromDate = fromDate,
-                        MinimumCount = minimumCount
+                        MinimumCount = minimumCount,                       
                     };
 
                 if (!configManager.IsStandAlone())
