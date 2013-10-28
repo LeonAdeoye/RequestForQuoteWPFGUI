@@ -4,5 +4,5 @@
 xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
         xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
         Title="Generated Report" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
-    <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.GENERATED_REPORT_USER_CONTROL_REGION}"/>
+    <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.BAR_CHART_USER_CONTROL_REGION}"/>
 </Window>

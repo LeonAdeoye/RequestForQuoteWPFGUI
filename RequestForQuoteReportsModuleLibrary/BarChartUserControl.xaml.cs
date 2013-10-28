@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace RequestForQuoteReportsModuleLibrary
 {
@@ -19,7 +20,7 @@ namespace RequestForQuoteReportsModuleLibrary
     /// </summary>
     public partial class BarChartUserControl : UserControl
     {
-        public BarChartUserControl()
+        public BarChartUserControl(IUnityContainer container)
         {
             InitializeComponent();
         }

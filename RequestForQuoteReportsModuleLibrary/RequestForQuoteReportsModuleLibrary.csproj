@@ -55,6 +55,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFStyley_Metallic4, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\dlls\WPFToolkit.dll</HintPath>
     </Reference>
@@ -66,9 +67,6 @@
     <Compile Include="Commands\ClearReportInputCommand.cs" />
     <Compile Include="Commands\CompileReportCommand.cs" />
     <Compile Include="Commands\SaveReportInputCommand.cs" />
-    <Compile Include="GeneratedReportUserControl.xaml.cs">
-      <DependentUpon>GeneratedReportUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PieChartUserControl.xaml.cs">
       <DependentUpon>PieChartUserControl.xaml</DependentUpon>
     </Compile>
@@ -87,10 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="BarChartUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GeneratedReportUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

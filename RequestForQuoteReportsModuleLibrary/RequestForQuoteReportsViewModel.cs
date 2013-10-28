@@ -84,7 +84,7 @@ namespace RequestForQuoteReportsModuleLibrary
             regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, new Uri(eventPayLoad.ReportType, UriKind.Relative));
 
             IWindowPopup reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
-            reportWindow.ShowModalWindow();
+            reportWindow.ShowWindow(this);
         }
 
         private void NotifyPropertyChanged(string propertyName)
