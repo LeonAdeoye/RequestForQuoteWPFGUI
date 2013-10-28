@@ -36,6 +36,15 @@ namespace RequestForQuoteReportsModuleLibrary
 
         public RequestForQuoteReportsViewModel(IEventAggregator eventAggregator, IReportDataManager reportingManager, IRegionManager regionManager)
         {
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            if (reportingManager == null)
+                throw new ArgumentNullException("reportingManager");
+
+            if (regionManager == null)
+                throw new ArgumentNullException("regionManager");
+
             this.eventAggregator = eventAggregator;
             this.reportingManager = reportingManager;
             this.regionManager = regionManager;
@@ -77,6 +86,9 @@ namespace RequestForQuoteReportsModuleLibrary
 
         private void HandleRequestsCountByCategoryReportEvent(RequestsCountByCategoryReportEventPayLoad eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             ReportData.Clear();
             ReportData.AddRange(eventPayLoad.CountByCategory);
             ReportTitle = "Request Count By " + eventPayLoad.Category + ":";

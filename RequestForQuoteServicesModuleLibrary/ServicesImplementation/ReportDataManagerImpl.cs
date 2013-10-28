@@ -20,6 +20,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void GetRequestCountPerCategory(string reportType, string categoryType, DateTime fromDate, int minimumCount)
         {
+            if (String.IsNullOrEmpty(reportType))
+                throw new ArgumentException("reportType");
+
+            if (String.IsNullOrEmpty(categoryType))
+                throw new ArgumentException("categoryType");
+
             try
             {
                 var eventPayLoad = new RequestsCountByCategoryReportEventPayLoad
