@@ -107,7 +107,7 @@
     <Compile Include="ServicesImplementation\BankHolidayManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ChatServiceManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ClientManagerImpl.cs" />
-    <Compile Include="ServicesImplementation\IReportDataManager.cs" />
+    <Compile Include="ServicesImplementation\ConfigurationManagerImpl.cs" />
     <Compile Include="ServicesImplementation\JsonParserImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestParserImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestPersistanceManagerImpl.cs" />
@@ -150,7 +150,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ReportingService\ReportingController.wsdl" />
-    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl.datasource">
+    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RequestMaintenanceService\RequestController.wsdl" />

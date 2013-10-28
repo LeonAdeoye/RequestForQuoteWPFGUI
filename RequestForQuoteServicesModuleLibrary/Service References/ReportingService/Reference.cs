@@ -33,53 +33,6 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class requestCountReportDataListImpl : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private requestCountReportDataImpl[] requestCountReportDataListImplField;
-        
-        private requestCountReportDataImpl[] requestCountListField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("RequestCountReportDataImpl", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public requestCountReportDataImpl[] RequestCountReportDataListImpl {
-            get {
-                return this.requestCountReportDataListImplField;
-            }
-            set {
-                this.requestCountReportDataListImplField = value;
-                this.RaisePropertyChanged("RequestCountReportDataListImpl");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("requestCountList", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
-        public requestCountReportDataImpl[] requestCountList {
-            get {
-                return this.requestCountListField;
-            }
-            set {
-                this.requestCountListField = value;
-                this.RaisePropertyChanged("requestCountList");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
     public partial class requestCountReportDataImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string categoryValueField;
@@ -155,13 +108,13 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     public partial class getRequestsByCategoryResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl @return;
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public requestCountReportDataImpl[] @return;
         
         public getRequestsByCategoryResponse() {
         }
         
-        public getRequestsByCategoryResponse(RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl @return) {
+        public getRequestsByCategoryResponse(requestCountReportDataImpl[] @return) {
             this.@return = @return;
         }
     }
@@ -181,10 +134,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             this.results = results;
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl Result {
+        public requestCountReportDataImpl[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl)(this.results[0]));
+                return ((requestCountReportDataImpl[])(this.results[0]));
             }
         }
     }
@@ -225,7 +178,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             return base.Channel.getRequestsByCategory(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl getRequestsByCategory(string categoryType, System.DateTime fromDate, int minimumCount) {
+        public requestCountReportDataImpl[] getRequestsByCategory(string categoryType, System.DateTime fromDate, int minimumCount) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getRequestsByCategory inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getRequestsByCategory();
             inValue.categoryType = categoryType;
             inValue.fromDate = fromDate;
@@ -254,7 +207,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl EndgetRequestsByCategory(System.IAsyncResult result) {
+        public requestCountReportDataImpl[] EndgetRequestsByCategory(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getRequestsByCategoryResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetRequestsByCategory(result);
             return retVal.@return;
         }
@@ -267,7 +220,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         private object[] OnEndgetRequestsByCategory(System.IAsyncResult result) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataListImpl retVal = this.EndgetRequestsByCategory(result);
+            requestCountReportDataImpl[] retVal = this.EndgetRequestsByCategory(result);
             return new object[] {
                     retVal};
         }

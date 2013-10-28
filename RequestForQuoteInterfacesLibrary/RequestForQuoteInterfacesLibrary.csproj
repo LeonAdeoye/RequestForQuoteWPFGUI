@@ -114,7 +114,9 @@
     <Compile Include="ModelInterfaces\ISearch.cs" />
     <Compile Include="ServiceInterfaces\IBankHolidayManager.cs" />
     <Compile Include="ServiceInterfaces\IChatServiceManager.cs" />
+    <Compile Include="ServiceInterfaces\IConfigurationManager.cs" />
     <Compile Include="ServiceInterfaces\IOptionRequestPersistanceManager.cs" />
+    <Compile Include="ServiceInterfaces\IReportDataManager.cs" />
     <Compile Include="ServiceInterfaces\IServerCommunicator.cs" />
     <Compile Include="ViewModelInterfaces\IClearInputViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IAddNewItemViewModel.cs" />

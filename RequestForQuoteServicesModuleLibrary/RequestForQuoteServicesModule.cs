@@ -24,8 +24,9 @@ namespace RequestForQuoteServicesModuleLibrary
 
         public void Initialize()
         {            
-            var isStandAlone = (Environment.GetCommandLineArgs().Length > 1
-                && Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE);
+            var configManager = new ConfigurationManagerImpl();
+            container.RegisterInstance<IConfigurationManager>(configManager);
+            configManager.Initialize();
             
             var tasks = new Task[5];
 
@@ -35,19 +36,19 @@ namespace RequestForQuoteServicesModuleLibrary
 
             var clientManager = new ClientManagerImpl();
             container.RegisterInstance<IClientManager>(clientManager);
-            tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize(isStandAlone));
+            tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize(configManager.IsStandAlone()));
 
             var bookManager = new BookManagerImpl();
             container.RegisterInstance<IBookManager>(bookManager);
-            tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize(isStandAlone));
+            tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize(configManager.IsStandAlone()));
 
             var bankHolidayManager = new BankHolidayManagerImpl();
             container.RegisterInstance<IBankHolidayManager>(bankHolidayManager);
-            tasks[3] = Task.Factory.StartNew(() => bankHolidayManager.Initialize(isStandAlone));
+            tasks[3] = Task.Factory.StartNew(() => bankHolidayManager.Initialize(configManager.IsStandAlone()));
 
             var searchManager = new SearchManagerImpl();
             container.RegisterInstance<ISearchManager>(searchManager);
-            tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize(isStandAlone));
+            tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize(configManager.IsStandAlone()));
 
             var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager);
             container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);
@@ -58,7 +59,7 @@ namespace RequestForQuoteServicesModuleLibrary
                 .RegisterType<IReportDataManager, ReportDataManagerImpl>(new ContainerControlledLifetimeManager())
                 .RegisterInstance(new JsonParserImpl());
 
-            InitializeServerCommunicator(isStandAlone);
+            InitializeServerCommunicator(configManager.IsStandAlone());
 
             // Exceptions thrown by tasks will be propagated to the main thread 
             // while it waits for the tasks. The actual exceptions will be wrapped in AggregateException. 

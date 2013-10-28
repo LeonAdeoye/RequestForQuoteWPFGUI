@@ -11,6 +11,8 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public DateTime FromDate { get; set; }
         public int MinimumCount { get; set; }
         public IDictionary<String, int> CountByCategory { get; set; }
+        public String ReportDescription { get; set; }
+        public string CategoryDescription { get; set; }
 
         public RequestsCountByCategoryReportEventPayLoad() 
         {
@@ -21,6 +23,10 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         {
             var builder = new StringBuilder("Category = ");
             builder.Append(Category);
+            builder.Append(", Category description = ");
+            builder.Append(CategoryDescription);
+            builder.Append(", Report description = ");
+            builder.Append(ReportDescription);
             builder.Append(", Report type = ");
             builder.Append(ReportType);
             builder.Append(", FromDate = ");

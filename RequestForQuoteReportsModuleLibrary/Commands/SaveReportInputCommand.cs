@@ -1,22 +1,23 @@
 ﻿using RequestForQuoteInterfacesLibrary.Commands;
 
-namespace RequestForQuoteFunctionsModuleLibrary.Commands
+namespace RequestForQuoteReportsModuleLibrary.Commands
 {
-    public class ClearReportInputCommand : AbstractRequestForQuoteCommand
+    public class SaveReportInputCommand : AbstractRequestForQuoteCommand
     {
-        public ClearReportInputCommand(RequestForQuoteReportsViewModel viewModel): base()
+        public SaveReportInputCommand(RequestForQuoteReportsViewModel viewModel)
+            : base()
         {
             this.viewModel = viewModel;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return viewModel.CanClearReportInput();
+            return viewModel.CanSaveReportInput();
         }
 
         public override void Execute(object parameter)
         {
-            viewModel.ClearReportInput();
+            viewModel.SaveReportInput();
         }
 
         private readonly RequestForQuoteReportsViewModel viewModel;

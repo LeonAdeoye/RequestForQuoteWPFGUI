@@ -61,16 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ClearCriteriaCommand.cs" />
-    <Compile Include="Commands\CompileReportCommand.cs" />
-    <Compile Include="Commands\ClearReportInputCommand.cs" />
-    <Compile Include="Commands\SaveReportInputCommand.cs" />
     <Compile Include="Commands\DeleteSearchCommand.cs" />
     <Compile Include="Commands\UpdatePrivacyCommand.cs" />
     <Compile Include="Commands\FilterRequestsCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportsUserControl.xaml.cs">
-      <DependentUpon>ReportsUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="RequestForQuoteFunctions.xaml.cs">
       <DependentUpon>RequestForQuoteFunctions.xaml</DependentUpon>
     </Compile>
@@ -78,7 +72,6 @@
     <Compile Include="RequestForQuoteFunctionsViewModel.cs" />
     <Compile Include="Commands\SaveSearchCommand.cs" />
     <Compile Include="Commands\SearchRequestsCommand.cs" />
-    <Compile Include="RequestForQuoteReportsViewModel.cs" />
     <Compile Include="SaveSearchUserControl.xaml.cs">
       <DependentUpon>SaveSearchUserControl.xaml</DependentUpon>
     </Compile>
@@ -101,10 +94,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ReportsUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="RequestForQuoteFunctions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

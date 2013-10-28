@@ -1,6 +1,6 @@
 ﻿using RequestForQuoteInterfacesLibrary.Commands;
 
-namespace RequestForQuoteFunctionsModuleLibrary.Commands
+namespace RequestForQuoteReportsModuleLibrary.Commands
 {
     public class CompileReportCommand : AbstractRequestForQuoteCommand
     {

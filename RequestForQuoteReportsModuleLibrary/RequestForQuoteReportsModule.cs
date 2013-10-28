@@ -22,7 +22,10 @@ namespace RequestForQuoteReportsModuleLibrary
 
         public void Initialize()
         {
+            regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof(ReportsUserControl));
             regionManager.RegisterViewWithRegion(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, typeof(GeneratedReportUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof(BarChartUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof(PieChartUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");

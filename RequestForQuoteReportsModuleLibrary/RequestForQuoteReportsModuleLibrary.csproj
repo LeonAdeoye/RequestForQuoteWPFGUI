@@ -37,6 +37,7 @@
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\dlls\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\dlls\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -59,11 +60,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarChartUserControl.xaml.cs">
+      <DependentUpon>BarChartUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\ClearReportInputCommand.cs" />
+    <Compile Include="Commands\CompileReportCommand.cs" />
+    <Compile Include="Commands\SaveReportInputCommand.cs" />
     <Compile Include="GeneratedReportUserControl.xaml.cs">
       <DependentUpon>GeneratedReportUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PieChartUserControl.xaml.cs">
+      <DependentUpon>PieChartUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportsUserControl.xaml.cs">
+      <DependentUpon>ReportsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RequestForQuoteReportsModule.cs" />
+    <Compile Include="RequestForQuoteReportsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RequestForQuoteInterfacesLibrary\RequestForQuoteInterfacesLibrary.csproj">
@@ -72,9 +86,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BarChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GeneratedReportUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PieChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

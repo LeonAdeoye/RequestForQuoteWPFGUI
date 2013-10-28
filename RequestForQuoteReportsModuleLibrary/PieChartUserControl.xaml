@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="RequestForQuoteReportsModuleLibrary.PieChartUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit">
+    <Grid Height="500" Width="650">
+        <chartingToolkit:Chart Margin="30" Title="{Binding ReportTitle}">
+            <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ReportData}" />
+        </chartingToolkit:Chart>
+    </Grid>
+</UserControl>
