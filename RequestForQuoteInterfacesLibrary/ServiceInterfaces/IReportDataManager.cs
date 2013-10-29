@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
+namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
 {
     public interface IReportDataManager
     {

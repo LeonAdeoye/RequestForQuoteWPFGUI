@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.Modularity;
+﻿using System;
+using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using log4net;
 using Microsoft.Practices.Unity;
@@ -22,9 +23,12 @@ namespace RequestForQuoteReportsModuleLibrary
 
         public void Initialize()
         {
-            regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof(ReportsUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof(BarChartUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof(PieChartUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof(ReportsUserControl))
+                .RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof(BarChartUserControl))
+                .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof(PieChartUserControl));
+
+            container.RegisterType<Object, BarChartUserControl>(RegionNames.BAR_CHART_USER_CONTROL_REGION)
+                .RegisterType<Object, PieChartUserControl>(RegionNames.PIE_CHART_USER_CONTROL_REGION);
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");

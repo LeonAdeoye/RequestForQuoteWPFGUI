@@ -22,10 +22,10 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public void Initialize()
         {
-            regionManager.RegisterViewWithRegion(RegionNames.BOOK_MAINTENANCE_USER_CONTROL_REGION, typeof(BookMaintenanceUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.CLIENT_MAINTENANCE_USER_CONTROL_REGION, typeof(ClientMaintenanceUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.BANK_HOLIDAY_MAINTENANCE_USER_CONTROL_REGION, typeof(BankHolidayMaintenanceUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.UNDERLYING_MAINTENANCE_USER_CONTROL_REGION, typeof(UnderlyingMaintenanceUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.BOOK_MAINTENANCE_USER_CONTROL_REGION, typeof(BookMaintenanceUserControl))
+                .RegisterViewWithRegion(RegionNames.CLIENT_MAINTENANCE_USER_CONTROL_REGION, typeof(ClientMaintenanceUserControl))
+                .RegisterViewWithRegion(RegionNames.BANK_HOLIDAY_MAINTENANCE_USER_CONTROL_REGION, typeof(BankHolidayMaintenanceUserControl))
+                .RegisterViewWithRegion(RegionNames.UNDERLYING_MAINTENANCE_USER_CONTROL_REGION, typeof(UnderlyingMaintenanceUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteToolBarModule initialized successfully.");

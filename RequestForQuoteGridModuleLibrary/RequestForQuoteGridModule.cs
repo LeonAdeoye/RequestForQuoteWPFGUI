@@ -21,9 +21,9 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void Initialize()
         {
-            regionManager.RegisterViewWithRegion(RegionNames.REQUESTS_GRID_USER_CONTROL_REGION, typeof(RequestForQuoteGrid));
-            regionManager.RegisterViewWithRegion(RegionNames.REQUEST_DETAIL_USER_CONTROL_REGION, typeof(RequestForQuoteDetails));
-            regionManager.RegisterViewWithRegion(RegionNames.REQUEST_LEG_DETAIL_USER_CONTROL_REGION, typeof(RequestForQuoteLegDetails));
+            regionManager.RegisterViewWithRegion(RegionNames.REQUESTS_GRID_USER_CONTROL_REGION, typeof(RequestForQuoteGrid))
+                .RegisterViewWithRegion(RegionNames.REQUEST_DETAIL_USER_CONTROL_REGION, typeof(RequestForQuoteDetails))
+                .RegisterViewWithRegion(RegionNames.REQUEST_LEG_DETAIL_USER_CONTROL_REGION, typeof(RequestForQuoteLegDetails));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteGridModule initialized successfully.");

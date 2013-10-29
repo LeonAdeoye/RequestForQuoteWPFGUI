@@ -9,9 +9,9 @@ using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
+using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 using RequestForQuoteReportsModuleLibrary.Commands;
-using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
 using log4net;
 
 namespace RequestForQuoteReportsModuleLibrary
@@ -61,8 +61,7 @@ namespace RequestForQuoteReportsModuleLibrary
         private void InitializeEventSubscriptions()
         {
             eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>()
-                           .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
-            
+                           .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);            
         }
 
         private void InitializeReportCollections()
@@ -93,7 +92,8 @@ namespace RequestForQuoteReportsModuleLibrary
             ReportData.AddRange(eventPayLoad.CountByCategory);
             ReportTitle = "Request Count By " + eventPayLoad.Category + ":";
 
-            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, new Uri(eventPayLoad.ReportType, UriKind.Relative));
+            var reportUri = new Uri(eventPayLoad.ReportType, UriKind.Relative);
+            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri);
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(this);

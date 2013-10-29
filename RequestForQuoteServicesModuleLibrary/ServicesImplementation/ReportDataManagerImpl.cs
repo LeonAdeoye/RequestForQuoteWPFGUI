@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
@@ -43,7 +42,6 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 }
 
                 eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>().Publish(eventPayLoad);
-
             }
             catch (FaultException fe)
             {
@@ -60,8 +58,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             catch (NullReferenceException nre)
             {
                 if (log.IsErrorEnabled)
-                    log.Error("Exception thrown while compile report data for requests by category: " + categoryType +
-                              ": " + nre);                
+                    log.Error("Exception thrown while compile report data for requests by category: " + categoryType + ": " + nre);                
             }
         }
     }

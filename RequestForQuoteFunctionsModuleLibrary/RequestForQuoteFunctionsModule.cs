@@ -22,9 +22,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void Initialize()
         {
-            regionManager.RegisterViewWithRegion(RegionNames.FUNCTIONS_USER_CONTROL_REGION, typeof(RequestForQuoteFunctions));
-            regionManager.RegisterViewWithRegion(RegionNames.SAVE_SEARCH_USER_CONTROL_REGION, typeof(SaveSearchUserControl));
-            regionManager.RegisterViewWithRegion(RegionNames.TREE_BROWSER_USER_CONTROL_REGION, typeof (TreeBrowserUserControl));
+            regionManager.RegisterViewWithRegion(RegionNames.FUNCTIONS_USER_CONTROL_REGION, typeof(RequestForQuoteFunctions))
+                .RegisterViewWithRegion(RegionNames.SAVE_SEARCH_USER_CONTROL_REGION, typeof(SaveSearchUserControl))
+                .RegisterViewWithRegion(RegionNames.TREE_BROWSER_USER_CONTROL_REGION, typeof (TreeBrowserUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteFunctionsModule initialized successfully.");
