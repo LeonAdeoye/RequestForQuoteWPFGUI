@@ -24,31 +24,31 @@ namespace RFQ
 
         private void LaunchBookMaintenancePopupWindow()
         {
-            IWindowPopup bookMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.BOOK_MAINTENANCE_WINDOW_POPUP);
+            var bookMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.BOOK_MAINTENANCE_WINDOW_POPUP);
             bookMaintenanceWindow.ShowModalWindow();
         }
 
         private void LaunchClientMaintenancePopupWindow()
         {
-            IWindowPopup clientMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.CLIENT_MAINTENANCE_WINDOW_POPUP);
+            var clientMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.CLIENT_MAINTENANCE_WINDOW_POPUP);
             clientMaintenanceWindow.ShowModalWindow();
         }
 
         private void LaunchBankHolidayMaintenancePopupWindow()
         {
-            IWindowPopup bankHolidayMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP);
+            var bankHolidayMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP);
             bankHolidayMaintenanceWindow.ShowModalWindow();
         }
 
         private void LaunchUnderlyierMaintenancePopupWindow()
         {
-            IWindowPopup underlyingMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP);
+            var underlyingMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP);
             underlyingMaintenanceWindow.ShowModalWindow();
         }
 
         public void ShutdownServerCommunication()
         {
-            IServerCommunicator serverCommunicator = ServiceLocator.Current.GetInstance<IServerCommunicator>();
+            var serverCommunicator = ServiceLocator.Current.GetInstance<IServerCommunicator>();
             serverCommunicator.DisconnectFromServer();
         }
     }

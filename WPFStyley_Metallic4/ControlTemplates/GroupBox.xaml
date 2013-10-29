@@ -57,12 +57,12 @@
                                 <Grid x:Name="HeaderGrid"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch">
-                                    <Line X1="0"
+                                    <!--<Line X1="0"
                                       X2="{Binding ActualWidth}"
                                       Y1="{Binding ActualHeight}"
                                       Y2="{Binding ActualHeight}"
                                       Stroke="{StaticResource LightEdgeBrush}"
-                                      StrokeThickness="2"/>
+                                      StrokeThickness="2"/>-->
                                     <TextBlock Style="{StaticResource WpfsWPFStyley_MetallicBorderHeaderTextBlock}">
                                         <ContentPresenter x:Name="HeaderPresenter" 
                                                           VerticalAlignment="Center"

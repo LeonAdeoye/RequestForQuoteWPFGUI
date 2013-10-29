@@ -95,7 +95,7 @@ namespace RequestForQuoteReportsModuleLibrary
 
             regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, new Uri(eventPayLoad.ReportType, UriKind.Relative));
 
-            IWindowPopup reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(this);
         }
 
@@ -153,9 +153,7 @@ namespace RequestForQuoteReportsModuleLibrary
         public void CompileReport()
         {
             reportingManager.GetRequestCountPerCategory(ReportType, RequestsCountCategory, 
-                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount.GetValueOrDefault(0));
-            
-            ClearRequestsPerCategoryInputs();
+                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount.GetValueOrDefault(0));           
         }
 
         private void ClearRequestsPerCategoryInputs()
