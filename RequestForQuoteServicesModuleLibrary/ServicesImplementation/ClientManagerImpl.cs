@@ -67,6 +67,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void AddClient(string name, string tier, bool isValid)
         {
+            if (String.IsNullOrEmpty(name))
+                throw new ArgumentException("name");
+
+            if (String.IsNullOrEmpty(tier))
+                throw new ArgumentException("tier");
+
             var newClient = new ClientImpl() {Identifier = ++startingIdentifier, Name = name, IsValid = isValid, Tier = tier};
             
             // Add to collection

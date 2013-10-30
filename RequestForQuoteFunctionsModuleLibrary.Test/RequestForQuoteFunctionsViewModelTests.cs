@@ -43,7 +43,6 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
         private readonly IUnderlyier testUnderlyier = new UnderlyierImpl()
             {
-                BBG = "test BBG",
                 Description = "test description",
                 IsValid = true,
                 RIC = "test RIC"

@@ -29,6 +29,18 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public ISearch AddCriterionToRelatedSearch(string owner, string descriptionKey, string controlName, string controlValue, bool isPrivate, bool isFilter)
         {
+            if (String.IsNullOrEmpty(owner))
+                throw new ArgumentException("owner");
+
+            if (String.IsNullOrEmpty(descriptionKey))
+                throw new ArgumentException("descriptionKey");
+
+            if (String.IsNullOrEmpty(controlName))
+                throw new ArgumentException("controlName");
+
+            if (String.IsNullOrEmpty(controlValue))
+                throw new ArgumentException("controlValue");
+
             var criterion = new SearchCriterionImpl
             {
                 ControlName = controlName,
@@ -91,7 +103,19 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         }
         
         public void AddSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, string controlName, string controlValue)
-        {                                   
+        {
+            if (String.IsNullOrEmpty(owner))
+                throw new ArgumentException("owner");
+
+            if (String.IsNullOrEmpty(descriptionKey))
+                throw new ArgumentException("descriptionKey");
+
+            if (String.IsNullOrEmpty(controlName))
+                throw new ArgumentException("controlName");
+
+            if (String.IsNullOrEmpty(controlValue))
+                throw new ArgumentException("controlValue");
+                                   
             eventAggregator.GetEvent<NewSearchEvent>().Publish(new NewSearchEventPayload()
             {
                 NewSearch = AddCriterionToRelatedSearch(owner, descriptionKey, controlName, controlValue, isPrivate, isFilter)
@@ -100,11 +124,29 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public bool SaveSearchToDatabase(string owner, string descriptionKey, bool isPrivate, bool isFilter, string controlName, string controlValue)
         {
+            if (String.IsNullOrEmpty(owner))
+                throw new ArgumentException("owner");
+
+            if (String.IsNullOrEmpty(descriptionKey))
+                throw new ArgumentException("descriptionKey");
+
+            if (String.IsNullOrEmpty(controlName))
+                throw new ArgumentException("controlName");
+
+            if (String.IsNullOrEmpty(controlValue))
+                throw new ArgumentException("controlValue");
+
             return searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, controlName, controlValue, isPrivate, isFilter);    
         }
 
         public bool DeleteSearch(string owner, string descriptionKey)
         {
+            if (String.IsNullOrEmpty(owner))
+                throw new ArgumentException("owner");
+
+            if (String.IsNullOrEmpty(descriptionKey))
+                throw new ArgumentException("descriptionKey");
+
             if (searchContollerProxy.delete(owner, descriptionKey))
             {
                 Searches.RemoveAll((existingSearch) => existingSearch.Owner == owner && existingSearch.DescriptionKey == descriptionKey);
@@ -115,6 +157,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public bool UpdatePrivacy(string owner, string descriptionKey, bool isPrivate)
         {
+            if (String.IsNullOrEmpty(owner))
+                throw new ArgumentException("owner");
+
+            if (String.IsNullOrEmpty(descriptionKey))
+                throw new ArgumentException("descriptionKey");
+
             return searchContollerProxy.updatePrivacy(owner, descriptionKey, isPrivate);   
         }
     }

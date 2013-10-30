@@ -19,6 +19,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void SendChatMessage(int requestForQuoteId, string sender, string message)
         {
+            if (String.IsNullOrEmpty(sender))
+                throw new ArgumentException("sender");
+
+            if (String.IsNullOrEmpty(message))
+                throw new ArgumentException("message");
+
             try
             {
                 chatMediatorProxy.sendMessage(requestForQuoteId, sender, message);

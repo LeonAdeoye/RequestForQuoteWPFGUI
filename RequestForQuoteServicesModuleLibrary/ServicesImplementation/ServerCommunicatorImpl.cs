@@ -39,6 +39,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public ServerCommunicatorImpl(string remoteAddress, int remotePort, int sleepIntervalInMilliseconds)
         {
+            if (String.IsNullOrEmpty(remoteAddress))
+                throw new ArgumentException("remoteAddress");
+
             this.remoteAddress = remoteAddress;
             this.remotePort = remotePort;
             this.sleepIntervalInMilliseconds = sleepIntervalInMilliseconds;
@@ -131,9 +134,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        private  void ReceiveCallback(IAsyncResult ar)
+        private  void ReceiveCallback(IAsyncResult asyncResult)
         {
-            var state = (StateObject)ar.AsyncState;
+            if (asyncResult == null)
+                throw new ArgumentNullException("asyncResult");
+
+            var state = (StateObject)asyncResult.AsyncState;
             var clientSocket = state.workSocket;
             try
             {
@@ -143,7 +149,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     return;
                 }
 
-                var bytesRead = clientSocket.EndReceive(ar);
+                var bytesRead = clientSocket.EndReceive(asyncResult);
 
                 if (bytesRead > 0)
                 {                    
@@ -167,6 +173,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessMessage(StateObject state)
         {
+            if(state == null)
+                throw new ArgumentNullException("state");
+
             Debug.Print("Processing message => " + state.sb.ToString());
             int sizeOfMessage;
             if (Int32.TryParse(state.sb.ToString().Substring(0, RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH), out sizeOfMessage))
@@ -196,6 +205,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void PublishMessageToJSONParser(string message)
         {
+            if (String.IsNullOrEmpty(message))
+                throw new ArgumentException("message");
+
             eventAggregator.GetEvent<ServerUpdateEvent>().Publish(new ServerUpdateEventPayload()
             {
                 Content = message

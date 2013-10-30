@@ -23,6 +23,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ParseOptionStrikes(string delimitedStrikes, List<IOptionDetail> optionLegs)
         {
+            if (String.IsNullOrEmpty(delimitedStrikes))
+                throw new ArgumentException("delimitedStrikes");
+
+            if (optionLegs == null)
+                throw new ArgumentNullException("optionLegs");
+
             var strikes = delimitedStrikes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);            
             if (strikes.Length == 1)
             {
@@ -39,6 +45,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ParseOptionMaturityDates(string delimitedDates, List<IOptionDetail> optionLegs)
         {
+            if (String.IsNullOrEmpty(delimitedDates))
+                throw new ArgumentException("delimitedDates");
+
+            if (optionLegs == null)
+                throw new ArgumentNullException("optionLegs");
+
             var dates = delimitedDates.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (dates.Length == 1)
             {
@@ -63,6 +75,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public void ParseOptionUnderlyings(string delimitedUnderlyings, List<IOptionDetail> optionLegs)
         {
+            if (String.IsNullOrEmpty(delimitedUnderlyings))
+                throw new ArgumentException("delimitedUnderlyings");
+
+            if (optionLegs == null)
+                throw new ArgumentNullException("optionLegs");
+
             var count = 0;
             var underlyings = delimitedUnderlyings.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (underlyings.Length == 1)
@@ -96,6 +114,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public List<IOptionDetail> ParseRequest(string request, IRequestForQuote parent)
         {
+            if (String.IsNullOrEmpty(request))
+                throw new ArgumentException("request");
+
+            if (parent == null)
+                throw new ArgumentNullException("parent");
+
             var partsOfTheRequest  = request.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             var optionLegs = ParseOptionTypes(partsOfTheRequest[0], parent);
             ParseOptionStrikes(partsOfTheRequest[1], optionLegs);
@@ -106,6 +130,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public List<IOptionDetail> ParseOptionTypes(string request, IRequestForQuote parent)
         {
+            if (String.IsNullOrEmpty(request))
+                throw new ArgumentException("request");
+
+            if (parent == null)
+                throw new ArgumentNullException("parent");
+
             var optionTypes = new List<IOptionDetail>();
             var optionDetailReg = new Regex(@"^(?<side>[+-])?(?<quantity>[1-9])?(?<type>[CP]{1})+");
             var optionLegReg = new Regex(@"^(?<leg>[+-]?[1-9]?[CP]{1})+");

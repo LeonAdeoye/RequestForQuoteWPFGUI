@@ -32,7 +32,7 @@ namespace RequestForQuoteServicesModuleLibrary
 
             var underlyingManager = new UnderlyingManagerImpl();
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
-            tasks[0] = Task.Factory.StartNew(()=>underlyingManager.Initialize(true));
+            tasks[0] = Task.Factory.StartNew(()=>underlyingManager.Initialize());
 
             var clientManager = new ClientManagerImpl();
             container.RegisterInstance<IClientManager>(clientManager);

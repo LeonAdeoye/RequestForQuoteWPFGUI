@@ -11,8 +11,6 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         {
             var builder = new StringBuilder("RIC = ");
             builder.Append(NewUnderlyier.RIC);
-            builder.Append(", BBG = ");
-            builder.Append(NewUnderlyier.BBG);
             builder.Append(", Description = ");
             builder.Append(NewUnderlyier.Description);
             builder.Append(", IsValid = ");

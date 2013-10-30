@@ -25,6 +25,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         public bool CalculatePricing(IOptionDetail optionToPrice)
         {
+            if (optionToPrice == null)
+                throw new ArgumentNullException("optionToPrice");
+
             try
             {
                 if (CanCalculatePricing(optionToPrice.Strike, optionToPrice.Volatility, optionToPrice.UnderlyingPrice, optionToPrice.InterestRate, optionToPrice.DaysToExpiry, optionToPrice.DayCountConvention))

@@ -150,7 +150,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
                 IUnderlyier newUnderlyier = (UnderlyierImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                if (!underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.BBG, newUnderlyier.Description, newUnderlyier.IsValid, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
+                if (!underlyingManager.AddUnderlyier(newUnderlyier.RIC, newUnderlyier.Description, newUnderlyier.IsValid, RequestForQuoteConstants.DO_NOT_SAVE_TO_DATABASE))
                 {
                     log.Error("Failed to add underlying with RIC " + newUnderlyier.RIC + " from properly deserialized json.");
                 }                    
