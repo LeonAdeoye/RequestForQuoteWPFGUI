@@ -18,7 +18,6 @@ namespace RequestForQuoteReportsModuleLibrary
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule constructed successfully.");
-
         }
 
         public void Initialize()

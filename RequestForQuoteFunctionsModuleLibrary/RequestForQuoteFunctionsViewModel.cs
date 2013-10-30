@@ -57,8 +57,24 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public ICommand DeleteSearchCommand { get; set; }
         public ICommand UpdatePrivacyCommand { get; set; }
 
-        public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager, IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager)
+        public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager, 
+            IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager)
         {
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            if (clientManager == null)
+                throw new ArgumentNullException("clientManager");
+
+            if (underlyingManager == null)
+                throw new ArgumentNullException("underlyingManager");
+
+            if (bookManager == null)
+                throw new ArgumentNullException("bookManager");
+
+            if (searchManager == null)
+                throw new ArgumentNullException("searchManager");
+
             SearchRequestsCommand = new SearchRequestsCommand(this);
             FilterRequestsCommand = new FilterRequestsCommand(this);
             ClearCriteriaCommand = new ClearCriteriaCommand(this);
@@ -147,6 +163,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewBookEvent(NewBookEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new book: " + eventPayLoad);
 
@@ -155,6 +174,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewClientEvent(NewClientEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new client: " + eventPayLoad);
 
@@ -163,6 +185,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewSearchEvent(NewSearchEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new search: " + eventPayLoad);
 
@@ -171,6 +196,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private void AddToExistingSearchesOrCreateNew(ISearch searchToBeAdded)
         {
+            if (searchToBeAdded == null)
+                throw new ArgumentNullException("searchToBeAdded");
+
             lock (thisLock)
             {
                 var matchingSearch = Searches.FirstOrDefault((existingSearch) => existingSearch.Owner == searchToBeAdded.Owner
@@ -185,6 +213,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewUnderlyierEvent(NewUnderlyierEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new underlyier: " + eventPayLoad);
 
@@ -295,6 +326,12 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void AddFirstDateToCriteria(string criteriaKey, string firstDate)
         {
+            if (String.IsNullOrEmpty(criteriaKey))
+                throw new ArgumentException("criteriaKey");
+
+            if (String.IsNullOrEmpty(firstDate))
+                throw new ArgumentException("firstDate");
+
             // if the first date does not exist or the first date exists and has a hyphen suffix as the last char then write.
             if (!criteria.ContainsKey(criteriaKey) || (criteria[criteriaKey].IndexOf('-') == criteria[criteriaKey].Length - 1))
                 criteria[criteriaKey] = firstDate + "-";
@@ -308,6 +345,12 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private static void AddSecondDateToCriteria(string criteriaKey, string secondDate)
         {
+            if (String.IsNullOrEmpty(criteriaKey))
+                throw new ArgumentException("criteriaKey");
+
+            if (String.IsNullOrEmpty(secondDate))
+                throw new ArgumentException("secondDate");
+
             // if the second date does not exist or the second date exists and a hyphen prefix then write
             if (!criteria.ContainsKey(criteriaKey) || (criteria[criteriaKey].IndexOf('-') == 0))
                 criteria[criteriaKey] = "-" + secondDate;
@@ -444,34 +487,34 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         private void InitializeControlsWithCriteria(IEnumerable<ISearchCriterion> controlCriteria)
         {
-            if (controlCriteria != null)
+            if (controlCriteria == null)
+                return;
+            
+            foreach (var controlCriterion in controlCriteria)
             {
-                foreach (var controlCriterion in controlCriteria)
+                switch (controlCriterion.ControlName)
                 {
-                    switch (controlCriterion.ControlName)
-                    {
-                        case RequestForQuoteConstants.CLIENT_CRITERION:
-                            int clientIdentifier;
-                            if(int.TryParse(controlCriterion.ControlValue, out clientIdentifier))
-                                SelectedClient = Clients.FirstOrDefault((client) => client.Identifier == clientIdentifier);
-                            break;
-                        case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                            var dates = controlCriterion.ControlValue.Split('-').ToArray();
-                            StartTradeDate = Convert.ToDateTime(dates[0]);
-                            EndTradeDate = Convert.ToDateTime(dates[1]);
-                            break;
-                        case RequestForQuoteConstants.BOOK_CRITERION:
-                            SelectedBook = Books.FirstOrDefault((book) => book.BookCode == controlCriterion.ControlValue);
-                            break;
-                        case RequestForQuoteConstants.STATUS_CRITERION:
-                            SelectedStatus = Status.FirstOrDefault((status) => status == controlCriterion.ControlValue);
-                            break;
-                        case RequestForQuoteConstants.UNDERLYIER_CRITERION:
-                            SelectedUnderlyier = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
-                            break;
-                    }
-                }    
-            }
+                    case RequestForQuoteConstants.CLIENT_CRITERION:
+                        int clientIdentifier;
+                        if(int.TryParse(controlCriterion.ControlValue, out clientIdentifier))
+                            SelectedClient = Clients.FirstOrDefault((client) => client.Identifier == clientIdentifier);
+                        break;
+                    case RequestForQuoteConstants.TRADE_DATE_CRITERION:
+                        var dates = controlCriterion.ControlValue.Split('-').ToArray();
+                        StartTradeDate = Convert.ToDateTime(dates[0]);
+                        EndTradeDate = Convert.ToDateTime(dates[1]);
+                        break;
+                    case RequestForQuoteConstants.BOOK_CRITERION:
+                        SelectedBook = Books.FirstOrDefault((book) => book.BookCode == controlCriterion.ControlValue);
+                        break;
+                    case RequestForQuoteConstants.STATUS_CRITERION:
+                        SelectedStatus = Status.FirstOrDefault((status) => status == controlCriterion.ControlValue);
+                        break;
+                    case RequestForQuoteConstants.UNDERLYIER_CRITERION:
+                        SelectedUnderlyier = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
+                        break;
+                }
+            }                
         }
 
         private void InitializeAndPublishCriteria(bool isExistingCriteria, bool isFilter)    

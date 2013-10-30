@@ -103,6 +103,13 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void HandleNewClientEvent_NullParamter_ArgumentNullExceptionThrown()
+        {
+            viewModel.HandleNewClientEvent(null);
+        }
+
+        [Test]
         public void SelectedBook_PropertySet_BookCriteriaAdded()
         {
             viewModel.SelectedBook = testBook;
