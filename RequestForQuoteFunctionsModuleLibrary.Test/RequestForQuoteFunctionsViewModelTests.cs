@@ -107,7 +107,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             Action act = () => viewModel.HandleNewClientEvent(null);
 
-            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             Action act = () => viewModel.HandleNewBookEvent(null);
 
-            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             Action act = () => viewModel.HandleNewSearchEvent(null);
 
-            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
         }
 
         [Test]
@@ -131,15 +131,14 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             Action act = () => viewModel.HandleNewUnderlyierEvent(null);
 
-            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
         }
 
         [Test]
         public void SelectedBook_PropertySet_BookCriteriaAdded()
         {
             viewModel.SelectedBook = testBook;
-            Assert.IsNotEmpty(viewModel.Criteria,
-                              "After setting SelectedBook property the criteria collection should not be empty!");
+            Assert.IsNotEmpty(viewModel.Criteria, "After setting SelectedBook property the criteria collection should not be empty!");
         }
 
         [Test]
@@ -149,8 +148,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             searchRequestForQuoteEventMock.Setup(s => s.Publish(It.IsAny<CriteriaUsageEventPayload>()))
                                           .Callback(() => wasCalled = true);
             viewModel.ClearCriteria();
-            Assert.IsTrue(wasCalled,
-                          "After ClearCriteria method is called, SearchRequestForQuoteEvent event is NOT published!");
+            Assert.IsTrue(wasCalled, "After ClearCriteria method is called, SearchRequestForQuoteEvent event is NOT published!");
         }
 
         [Test]
@@ -172,7 +170,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         [Test]
         public void ctor_BooksCollectionShouldBePopulated()
         {
-            Assert.IsNotEmpty(viewModel.Books,
+            Assert.IsNotEmpty(viewModel.Books, 
                               "view model ctor did NOT populate Books property with IBookManager instances' books!");
         }
 

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit">
-    <Grid Height="500" Width="650">
+    <Grid MinHeight="500" Height="Auto"  MinWidth="650" Width="Auto">
         <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
         <chartingToolkit:Chart Margin="30" Title="{Binding ReportTitle}">
             <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ReportData}" />

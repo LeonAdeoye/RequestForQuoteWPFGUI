@@ -42,7 +42,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
-                        <Label Content="Minimum count:" HorizontalAlignment="Left" Margin="5"/>
+                        <Label Content="Minimum count to exclude:" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Text="{Binding MinimumCount}"/>
                     </StackPanel>
                 </TabItem>

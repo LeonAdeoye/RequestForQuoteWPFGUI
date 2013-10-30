@@ -67,6 +67,9 @@
     <Compile Include="Commands\ClearReportInputCommand.cs" />
     <Compile Include="Commands\CompileReportCommand.cs" />
     <Compile Include="Commands\SaveReportInputCommand.cs" />
+    <Compile Include="GeneratedReportPlaceholderUserControl.xaml.cs">
+      <DependentUpon>GeneratedReportPlaceholderUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PieChartUserControl.xaml.cs">
       <DependentUpon>PieChartUserControl.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="BarChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GeneratedReportPlaceholderUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
