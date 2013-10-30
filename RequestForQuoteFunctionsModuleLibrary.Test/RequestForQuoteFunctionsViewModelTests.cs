@@ -103,10 +103,35 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void HandleNewClientEvent_NullParamter_ArgumentNullExceptionThrown()
+        public void HandleNewClientEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            viewModel.HandleNewClientEvent(null);
+            Action act = () => viewModel.HandleNewClientEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewBookEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewBookEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewSearchEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewSearchEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewUnderlyierEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewUnderlyierEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>().WithMessage("eventPayLoad", ComparisonMode.Substring);
         }
 
         [Test]
