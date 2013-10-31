@@ -17,6 +17,16 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly IConfigurationManager configManager = ServiceLocator.Current.GetInstance<IConfigurationManager>();
         private readonly ReportingControllerClient reportingContollerProxy = new ReportingControllerClient();
 
+        /// <summary>
+        /// Requests the report data from the web services back-end and sends this data along with other parameter information
+        /// to the report generation viewmodel by publishing an RequestsCountByCategoryReportEvent through the event aggregator.
+        /// </summary>
+        /// <param name="reportType"> the type of report - bar chart, pie chart, etc</param>
+        /// <param name="categoryType"> the category by which the RFQs will be grouped - this is passed onto the web service</param>
+        /// <param name="fromDate"> the RFQs trade date</param>
+        /// <param name="minimumCount">the minimum count of RFQs that will be excluded from the report data</param>
+        /// <exception cref="ArgumentException"> thrown if reportType parameter is null or empty</exception>
+        /// <exception cref="ArgumentException"> thrown if categoryType parameter is null or empty</exception>
         public void GetRequestCountPerCategory(string reportType, string categoryType, DateTime fromDate, int minimumCount)
         {
             if (String.IsNullOrEmpty(reportType))

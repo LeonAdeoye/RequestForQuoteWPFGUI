@@ -95,14 +95,14 @@ namespace RequestForQuoteReportsModuleLibrary
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             var reportUri = new Uri(eventPayLoad.ReportType, UriKind.Relative);
-            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri,NavigationCallback);
+            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri, NavigationCallback);
 
             reportWindow.ShowWindow(this);
         }
 
         private void NavigationCallback(NavigationResult navigationResult)
         {
-            if (navigationResult.Result.HasValue && navigationResult.Result.Value == false)
+            if (navigationResult.Result == false)
             {
                 // TODO: Make sure error is ENABLED. It is not right now.            
                 if(log.IsErrorEnabled)

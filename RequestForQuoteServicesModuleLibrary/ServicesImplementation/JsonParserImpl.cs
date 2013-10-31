@@ -35,7 +35,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private const string NEW_CRITERION_UPDATE = "NewCriterionUpdate";
         private readonly Object lockObject = new Object();
 
-
+        /// <summary>
+        /// Constructor which subscribes to JSON messages coming server communicator.
+        /// And calls an initialization method for processing.
+        /// </summary>
         public JsonParserImpl()
         {
             eventAggregator.GetEvent<ServerUpdateEvent>()
@@ -44,6 +47,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             InitializeActions();
         }
 
+        /// <summary>
+        /// Initializes an action dictionary to prcoess each type of JSON message
+        /// </summary>
         private void InitializeActions()
         {
             actions = new Dictionary<string, Action<string>>
@@ -58,6 +64,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 };
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a search criterion object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewCriterionUpdate(string json)
         {
             if(String.IsNullOrEmpty(json))
@@ -76,6 +87,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             } 
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a RequestForQuote object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewRequestUpdate(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -92,6 +108,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             } 
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a BankHolidayImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewHolidayUpdate(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -109,6 +130,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             } 
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a ChatMessageImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewChatMessage(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -128,6 +154,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }               
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a BookImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewBookUpdate(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -145,6 +176,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }            
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a ClientImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewClientUpdate(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -162,6 +198,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }            
         }
 
+        /// <summary>
+        /// Parses the json message sent and converts it into a UnderlyierImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
         private void ProcessNewUnderlyierUpdate(string json)
         {
             if (String.IsNullOrEmpty(json))
@@ -182,6 +223,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
+        /// <summary>
+        /// Extracts the JSON part of the server updates, and dispatches them to the appropriate handler using the action dictionary.
+        /// </summary>
+        /// <param name="serverUpdate"> the server update to parsed in order to extract the JSON substring.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the serverUpdate is null.</exception>
         private void HandleServerUpdateEvent(ServerUpdateEventPayload serverUpdate)
         {
             if (serverUpdate == null)
