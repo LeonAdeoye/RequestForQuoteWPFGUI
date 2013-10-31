@@ -10,7 +10,7 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    public class ReportDataManagerImpl : IReportDataManager
+    public sealed class ReportDataManagerImpl : IReportDataManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly IEventAggregator eventAggregator     = ServiceLocator.Current.GetInstance<IEventAggregator>();

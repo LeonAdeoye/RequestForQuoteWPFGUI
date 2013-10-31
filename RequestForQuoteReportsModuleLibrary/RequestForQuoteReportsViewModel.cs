@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
@@ -35,6 +34,14 @@ namespace RequestForQuoteReportsModuleLibrary
         public List<KeyValuePair<string, string>> ListOfCategoryTypes { get; set; }
         public string ReportTitle { get; set; }
 
+        /// <summary>
+        /// Constructor of the view model that initializes various private services, creates instances of command properties, 
+        /// and calls collection and event initialization methods.
+        /// </summary>
+        /// <param name="eventAggregator"> the PRISM event aggregator used to publish and subscribe to report related events.</param>
+        /// <param name="reportingManager"> the report manager used to initiate report requests to the back-end.</param>
+        /// <param name="regionManager"> the PRISM region manager used to navigate to the various charting regions.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the eventAggregator/reportingManager/regionManager parameters are null.</exception>
         public RequestForQuoteReportsViewModel(IEventAggregator eventAggregator, IReportDataManager reportingManager, IRegionManager regionManager)
         {
             if (eventAggregator == null)
@@ -56,15 +63,22 @@ namespace RequestForQuoteReportsModuleLibrary
 
             InitializeEventSubscriptions();
             InitializeReportCollections();
-            ReportData = new List<KeyValuePair<string, int>>();
         }
 
+        /// <summary>
+        /// Subscribes to report events using the PRISM event aggregator.
+        /// </summary>
         private void InitializeEventSubscriptions()
         {
             eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>()
                            .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);            
         }
 
+        /// <summary>
+        /// Initializes the lists of categories that RFQs will be grouped by, 
+        /// and chart report types will be display the reported data.
+        /// These lists are properties accessible to the XAML comboboxes.
+        /// </summary>
         private void InitializeReportCollections()
         {
             ListOfReportTypes = new List<KeyValuePair<string, string>>()
@@ -84,6 +98,12 @@ namespace RequestForQuoteReportsModuleLibrary
             ReportData = new List<KeyValuePair<string, int>>();
         }
 
+        /// <summary>
+        /// Prcoess the incoming report data event message, and creates and shows an instance of the report popup window with the appropriate chart.
+        /// It uses the service locator to get an instance of the report popup window.
+        /// </summary>
+        /// <param name="eventPayLoad"> the RequestsCountByCategoryReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the eventpayload paramter is null.</exception>
         private void HandleRequestsCountByCategoryReportEvent(RequestsCountByCategoryReportEventPayLoad eventPayLoad)
         {
             if (eventPayLoad == null)
@@ -100,6 +120,10 @@ namespace RequestForQuoteReportsModuleLibrary
             reportWindow.ShowWindow(this);
         }
 
+        /// <summary>
+        /// Logs any errors that occur during navigation to the appropriate chart report.
+        /// </summary>
+        /// <param name="navigationResult"></param>
         private void NavigationCallback(NavigationResult navigationResult)
         {
             if (navigationResult.Result == false)
@@ -150,17 +174,29 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty MinimumCountProperty =
             DependencyProperty.Register("MinimumCount", typeof(int?), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(null));
 
+        /// <summary>
+        /// Returns true if the report input controls have valid contents needed to generate a report.
+        /// </summary>
+        /// <returns> true if ReportType property is not null or empty, and if the RequestsCountCategory is not null or empty </returns>
         public bool CanCompileResport()
         {
             return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
         }
 
+        /// <summary>
+        /// Sends a request for report data to the ReportDataManager.
+        /// Defaults the trade date of the RFQs partcipating in the reporting to Jan 1 2013.
+        /// Defaults the minimum count of RFQs that will be excluded to zero. All RFQ counts greater than zero will be returned.
+        /// </summary>
         public void CompileReport()
         {
             reportingManager.GetRequestCountPerCategory(ReportType, RequestsCountCategory, 
                 FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount.GetValueOrDefault(0));           
         }
 
+        /// <summary>
+        /// Clears the report input controls of their content.
+        /// </summary>
         private void ClearRequestsPerCategoryInputs()
         {
             ReportType = "";
@@ -168,6 +204,11 @@ namespace RequestForQuoteReportsModuleLibrary
             MinimumCount = null;
         }
 
+        /// <summary>
+        /// Returns true if the report input controls can be cleared of their contents.
+        /// </summary>
+        /// <returns>true if ReportType property is null or empty or if the RequestsCountCategory is null, 
+        /// or empty or if the MinimumCount has a non-null value.</returns>
         public bool CanClearReportInput()
         {
             return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount.HasValue;
@@ -183,6 +224,10 @@ namespace RequestForQuoteReportsModuleLibrary
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Returns true if the report input controls have valid contents needed to save a report.
+        /// </summary>
+        /// <returns> true if ReportType property is not null or empty, and if the RequestsCountCategory is not null or empty.</returns>
         public bool CanSaveReportInput()
         {
             return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
