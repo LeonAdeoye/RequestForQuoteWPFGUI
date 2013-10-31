@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
@@ -92,11 +93,21 @@ namespace RequestForQuoteReportsModuleLibrary
             ReportData.AddRange(eventPayLoad.CountByCategory);
             ReportTitle = "Request Count By " + eventPayLoad.Category + ":";
 
-            var reportUri = new Uri(eventPayLoad.ReportType, UriKind.Relative);
-            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri);
-
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            var reportUri = new Uri(eventPayLoad.ReportType, UriKind.Relative);
+            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri,NavigationCallback);
+
             reportWindow.ShowWindow(this);
+        }
+
+        private void NavigationCallback(NavigationResult navigationResult)
+        {
+            if (navigationResult.Result.HasValue && navigationResult.Result.Value == false)
+            {
+                // TODO: Make sure error is ENABLED. It is not right now.            
+                if(log.IsErrorEnabled)
+                    log.Error("Could not navigate to another region");
+            }
         }
 
         public DateTime? FromDate

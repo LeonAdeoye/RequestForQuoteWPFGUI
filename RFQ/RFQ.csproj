@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GeneratedReportPlaceholderUserControl.xaml.cs">
+      <DependentUpon>GeneratedReportPlaceholderUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Popups\BankHolidayMaintenanceWindow.xaml.cs">
       <DependentUpon>BankHolidayMaintenanceWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
     <Compile Include="Popups\UnderlyingMaintenanceWindow.xaml.cs">
       <DependentUpon>UnderlyingMaintenanceWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="GeneratedReportPlaceholderUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Popups\BankHolidayMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

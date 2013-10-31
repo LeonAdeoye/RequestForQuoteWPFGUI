@@ -24,12 +24,10 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof (ReportsUserControl))
                          .RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof (BarChartUserControl))
-                         .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof (PieChartUserControl))
-                         .RegisterViewWithRegion(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, typeof(GeneratedReportPlaceholderUserControl));
+                         .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof (PieChartUserControl));
 
             container.RegisterType<Object, BarChartUserControl>(RegionNames.BAR_CHART_USER_CONTROL_REGION)
-                .RegisterType<Object, PieChartUserControl>(RegionNames.PIE_CHART_USER_CONTROL_REGION)
-                .RegisterType<Object, GeneratedReportPlaceholderUserControl>(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION);
+                     .RegisterType<Object, PieChartUserControl>(RegionNames.PIE_CHART_USER_CONTROL_REGION);
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");

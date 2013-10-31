@@ -60,6 +60,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewCriterionUpdate(string json)
         {
+            if(String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(SearchCriterionImpl));
@@ -75,6 +78,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewRequestUpdate(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));
@@ -88,6 +94,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewHolidayUpdate(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(BankHolidayImpl));
@@ -102,6 +111,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewChatMessage(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(ChatMessageImpl));
@@ -118,6 +130,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewBookUpdate(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(BookImpl));
@@ -132,6 +147,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewClientUpdate(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(ClientImpl));
@@ -146,6 +164,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void ProcessNewUnderlyierUpdate(string json)
         {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
@@ -163,6 +184,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private void HandleServerUpdateEvent(ServerUpdateEventPayload serverUpdate)
         {
+            if (serverUpdate == null)
+                throw new ArgumentNullException("serverUpdate");
+
             if(log.IsDebugEnabled) 
                 log.Debug(String.Format("JSON parser recieved server update: [{0}]", serverUpdate.Content));
 
