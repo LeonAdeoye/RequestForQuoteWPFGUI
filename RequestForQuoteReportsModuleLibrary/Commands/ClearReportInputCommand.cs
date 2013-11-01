@@ -2,7 +2,10 @@
 
 namespace RequestForQuoteReportsModuleLibrary.Commands
 {
-    public class ClearReportInputCommand : AbstractRequestForQuoteCommand
+    /// <summary>
+    /// Command class used to execute the clearing of inputs used in report generation.
+    /// </summary>
+    public sealed class ClearReportInputCommand : AbstractRequestForQuoteCommand
     {
         public ClearReportInputCommand(RequestForQuoteReportsViewModel viewModel): base()
         {

@@ -2,7 +2,10 @@
 
 namespace RequestForQuoteReportsModuleLibrary.Commands
 {
-    public class CompileReportCommand : AbstractRequestForQuoteCommand
+    /// <summary>
+    /// Command class used to execute the compilation of a report.
+    /// </summary>
+    public sealed class CompileReportCommand : AbstractRequestForQuoteCommand
     {
         public CompileReportCommand(RequestForQuoteReportsViewModel viewModel)
             : base()

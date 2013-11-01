@@ -8,15 +8,6 @@
              xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
              xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
              mc:Ignorable="d" Background="Gray">
-    <UserControl.Resources>
-        <Style TargetType="Expander">
-            <Style.Triggers>
-                <Trigger Property="IsExpanded" Value="False">
-                    <Setter Property="Width" Value="23"/>                    
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -25,7 +16,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Expander IsExpanded="false">            
+        <Expander IsExpanded="false" Style="{StaticResource WpfsExpanderRight}">            
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TabControl TabStripPlacement="Bottom" MinWidth="265">
                     <TabItem Header="Search/Filter">

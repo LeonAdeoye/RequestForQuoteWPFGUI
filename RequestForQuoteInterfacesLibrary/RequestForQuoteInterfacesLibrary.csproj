@@ -118,6 +118,9 @@
     <Compile Include="ServiceInterfaces\IOptionRequestPersistanceManager.cs" />
     <Compile Include="ServiceInterfaces\IReportDataManager.cs" />
     <Compile Include="ServiceInterfaces\IServerCommunicator.cs" />
+    <Compile Include="ValidationRules\GreaterThanZeroNumberValidationRule.cs" />
+    <Compile Include="ValidationRules\MustBeNumberValidationRule.cs" />
+    <Compile Include="ValidationRules\ZeroMinimumNumberValidationRule.cs" />
     <Compile Include="ViewModelInterfaces\IClearInputViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IAddNewItemViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IUpdateValidityViewModel.cs" />

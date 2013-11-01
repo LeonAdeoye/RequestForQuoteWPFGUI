@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
@@ -16,7 +17,7 @@ using log4net;
 
 namespace RequestForQuoteReportsModuleLibrary
 {
-    public class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
+    public sealed class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -33,6 +34,8 @@ namespace RequestForQuoteReportsModuleLibrary
         public List<KeyValuePair<string, string>> ListOfReportTypes { get; set; }
         public List<KeyValuePair<string, string>> ListOfCategoryTypes { get; set; }
         public string ReportTitle { get; set; }
+
+        private static bool fred = false;
 
         /// <summary>
         /// Constructor of the view model that initializes various private services, creates instances of command properties, 
@@ -164,34 +167,35 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty RequestsCountCategoryProperty =
             DependencyProperty.Register("RequestsCountCategory", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
 
-        public int? MinimumCount
+        public int MinimumCount
         {
-            get { return (int?)GetValue(MinimumCountProperty); }
+            get { return (int)GetValue(MinimumCountProperty); }
             set { SetValue(MinimumCountProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MinimumCount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MinimumCountProperty =
-            DependencyProperty.Register("MinimumCount", typeof(int?), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("MinimumCount", typeof(int), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0));
 
         /// <summary>
         /// Returns true if the report input controls have valid contents needed to generate a report.
         /// </summary>
-        /// <returns> true if ReportType property is not null or empty, and if the RequestsCountCategory is not null or empty </returns>
+        /// <returns> true if ReportType property is not null or empty, and if the RequestsCountCategory is not null or empty, 
+        /// and if MinimumCount is greater than or equal zero </returns>
         public bool CanCompileResport()
         {
-            return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
+            return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory) && MinimumCount >= 0;
         }
 
         /// <summary>
         /// Sends a request for report data to the ReportDataManager.
         /// Defaults the trade date of the RFQs partcipating in the reporting to Jan 1 2013.
-        /// Defaults the minimum count of RFQs that will be excluded to zero. All RFQ counts greater than zero will be returned.
+        /// Only RFQs with a count greater than or equal to the MinimumCount will be returned.
         /// </summary>
         public void CompileReport()
         {
             reportingManager.GetRequestCountPerCategory(ReportType, RequestsCountCategory, 
-                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount.GetValueOrDefault(0));           
+                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount);           
         }
 
         /// <summary>
@@ -201,17 +205,17 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             ReportType = "";
             RequestsCountCategory = "";
-            MinimumCount = null;
+            MinimumCount = 0;
         }
 
         /// <summary>
         /// Returns true if the report input controls can be cleared of their contents.
         /// </summary>
-        /// <returns>true if ReportType property is null or empty or if the RequestsCountCategory is null, 
-        /// or empty or if the MinimumCount has a non-null value.</returns>
+        /// <returns>true if ReportType property is null or empty or if the RequestsCountCategory is null 
+        /// or empty, or if the MinimumCount has a value greater than zero.</returns>
         public bool CanClearReportInput()
         {
-            return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount.HasValue;
+            return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount > 0;
         }
 
         public void ClearReportInput()

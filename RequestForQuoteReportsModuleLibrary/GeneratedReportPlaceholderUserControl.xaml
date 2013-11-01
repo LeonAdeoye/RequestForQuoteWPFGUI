@@ -1,8 +1,0 @@
-﻿<UserControl x:Class="RequestForQuoteReportsModuleLibrary.GeneratedReportPlaceholderUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4">
-    <Grid MinHeight="500" Height="Auto"  MinWidth="650" Width="Auto">
-        <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
-    </Grid>
-</UserControl>

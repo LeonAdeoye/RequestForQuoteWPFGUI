@@ -2,10 +2,12 @@
 
 namespace RequestForQuoteReportsModuleLibrary.Commands
 {
-    public class SaveReportInputCommand : AbstractRequestForQuoteCommand
+    /// <summary>
+    /// Command class used to execute the saving of generated reports.
+    /// </summary>
+    public sealed class SaveReportInputCommand : AbstractRequestForQuoteCommand
     {
-        public SaveReportInputCommand(RequestForQuoteReportsViewModel viewModel)
-            : base()
+        public SaveReportInputCommand(RequestForQuoteReportsViewModel viewModel) : base()
         {
             this.viewModel = viewModel;
         }
