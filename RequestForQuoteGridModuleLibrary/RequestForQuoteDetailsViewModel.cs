@@ -100,7 +100,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
+            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
 
             if(SelectedRequestForQuote.Identifier == -1)
                 ChatMessages = new ObservableCollection<ChatMessageImpl>();

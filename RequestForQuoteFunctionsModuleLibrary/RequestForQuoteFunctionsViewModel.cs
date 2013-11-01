@@ -101,7 +101,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 Status.Add(status);
             
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
+            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Searches = new ObservableCollection<ISearch>(searchManager.Searches);
 

@@ -14,7 +14,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(", Description = ");
             builder.Append(NewUnderlyier.Description);
             builder.Append(", IsValid = ");
-            builder.Append(NewUnderlyier.IsValid ? "TRUE" : "FALSE");
+            builder.Append(NewUnderlyier.IsValid);
             return builder.ToString();
         }
     }

@@ -17,13 +17,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         private readonly IConfigurationManager configManager = ServiceLocator.Current.GetInstance<IConfigurationManager>();
-        public List<IUnderlyier> Underlyiers { get; set; }
+        public List<IUnderlyier> Underlyings { get; set; }
         
         // TODO:identifier
 
         public UnderlyingManagerImpl()
         {
-            Underlyiers = new List<IUnderlyier>();
+            Underlyings = new List<IUnderlyier>();
         }
 
         public void Initialize()
@@ -31,9 +31,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             // TODO remove !
             if (!configManager.IsStandAlone())
             {
-                Underlyiers.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" });
-                Underlyiers.Add(new UnderlyierImpl() { Description = "Bank Of China", RIC = "0001.HK" });
-                Underlyiers.Add(new UnderlyierImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" });                
+                Underlyings.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" });
+                Underlyings.Add(new UnderlyierImpl() { Description = "Bank Of China", RIC = "0001.HK" });
+                Underlyings.Add(new UnderlyierImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" });                
             }
             else
             {
@@ -48,36 +48,40 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }            
         }
 
-        public bool AddUnderlyier(string RIC, string description, bool isValid, bool saveToDatabase)
+        public bool UpdateValidity(string ric, bool isValid)
         {
-            if (String.IsNullOrEmpty(RIC))
-                throw new ArgumentException("RIC");
+            if (String.IsNullOrEmpty(ric))
+                throw new ArgumentException("ric");
+
+            return true;
+        }
+
+        public void AddUnderlying(string ric, string description, bool isValid)
+        {
+            if (String.IsNullOrEmpty(ric))
+                throw new ArgumentException("ric");
 
             if (String.IsNullOrEmpty(description))
                 throw new ArgumentException("description");
 
-            //var wasSavedToDatabse = false;
-            var newUnderlyier = new UnderlyierImpl() {Description = "Nomura Securities", RIC = "5678.T"};
+            var newUnderlyier = new UnderlyierImpl() {Description = description, RIC = ric, IsValid = isValid};
 
-            // Add to collection
-            Underlyiers.Add(newUnderlyier);
+            Underlyings.Add(newUnderlyier);
 
-            // TODO
-            // if (saveToDatabase)
-                // Save to database
-
-            // Publish event for other observer view models
             eventAggregator.GetEvent<NewUnderlyierEvent>().Publish(new NewUnderlyierEventPayload()
             {
                 NewUnderlyier = newUnderlyier
             });
-
-            // TODO return !saveToDatabase || wasSavedToDatabase
-            return true;
         }
 
-        public bool RemoveUnderlyier(string RIC)
+        public bool SaveToDatabase(string ric, string description)
         {
+            if (String.IsNullOrEmpty(ric))
+                throw new ArgumentException("ric");
+
+            if (String.IsNullOrEmpty(description))
+                throw new ArgumentException("description");
+
             return true;
         }
     }

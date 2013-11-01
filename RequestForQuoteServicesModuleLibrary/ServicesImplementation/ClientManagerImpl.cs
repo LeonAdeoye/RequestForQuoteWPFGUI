@@ -73,6 +73,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(tier))
                 throw new ArgumentException("tier");
 
+            //TODO remove ++startingIdentifier
             var newClient = new ClientImpl() {Identifier = ++startingIdentifier, Name = name, IsValid = isValid, Tier = tier};
             
             // Add to collection

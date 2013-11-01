@@ -73,7 +73,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() {testBook});
             clientManagerMock.Setup(cm => cm.Clients).Returns(new List<IClient>() {testClient});
-            underlyingManagerMock.Setup(um => um.Underlyiers).Returns(new List<IUnderlyier>() {testUnderlyier});
+            underlyingManagerMock.Setup(um => um.Underlyings).Returns(new List<IUnderlyier>() { testUnderlyier });
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
             viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer.Object, request.Object, clientManagerMock.Object,

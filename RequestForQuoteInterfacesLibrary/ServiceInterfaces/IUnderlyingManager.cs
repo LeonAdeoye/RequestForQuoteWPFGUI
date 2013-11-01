@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
 {
     public interface IUnderlyingManager
     {
-        List<IUnderlyier> Underlyiers { get; set; }
-        bool AddUnderlyier(string RIC, string description, bool isValid, bool saveToDatabase);
-        bool RemoveUnderlyier(string RIC);
+        List<IUnderlyier> Underlyings { get; set; }
+        void AddUnderlying(string ric, string description, bool isValid);
+        bool SaveToDatabase(string ric, string description);
+        bool UpdateValidity(string ric, bool isValid);
         void Initialize();
     }
 }

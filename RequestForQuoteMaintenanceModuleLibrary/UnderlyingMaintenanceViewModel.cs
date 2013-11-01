@@ -41,7 +41,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         private void InitializeCollections()
         {
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyiers);
+            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
             Tiers = new List<string>();
             foreach (var tier in Enum.GetNames(typeof(TierEnum)))
                 Tiers.Add(tier);
@@ -82,7 +82,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public void AddNewItem()
         {
             // TODO
-            if (!underlyingManager.Underlyiers.Exists((underlyier) => underlyier.RIC == "TODO"))
+            if (!underlyingManager.Underlyings.Exists((underlyier) => underlyier.RIC == "TODO"))
             {
             }
         }
