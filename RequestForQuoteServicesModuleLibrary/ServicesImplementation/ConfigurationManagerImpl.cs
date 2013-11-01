@@ -9,7 +9,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     public class ConfigurationManagerImpl : IConfigurationManager
     {
         private bool isStandAlone;
+        private readonly string currentUser = Environment.UserName;
         private readonly IDictionary<string, string> configs = new Dictionary<string, string>();
+
+        public string GetCurrentUser()
+        {
+            return currentUser;
+        }
 
         public void Initialize()
         {

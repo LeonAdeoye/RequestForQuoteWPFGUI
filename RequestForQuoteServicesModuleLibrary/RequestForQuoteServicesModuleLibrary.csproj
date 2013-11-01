@@ -103,6 +103,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\UnderlyingMaintenanceService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ServicesImplementation\BookManagerImpl.cs" />
     <Compile Include="ServicesImplementation\BankHolidayManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ChatServiceManagerImpl.cs" />
@@ -165,6 +170,10 @@
     </None>
     <None Include="Service References\SearchCriteriaService\SearchController.wsdl" />
     <None Include="Service References\HolidayMaintenanceService\HolidayControllerImplService.wsdl" />
+    <None Include="Service References\UnderlyingMaintenanceService\RequestForQuoteServicesModuleLibrary.UnderlyingMaintenanceService.underlyingDetailImpl.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UnderlyingMaintenanceService\UnderlyingController.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\BookMaintenanceService\" />
@@ -175,6 +184,7 @@
     <WCFMetadataStorage Include="Service References\RequestMaintenanceService\" />
     <WCFMetadataStorage Include="Service References\SearchCriteriaService\" />
     <WCFMetadataStorage Include="Service References\HolidayMaintenanceService\" />
+    <WCFMetadataStorage Include="Service References\UnderlyingMaintenanceService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ClientMaintenanceService\configuration91.svcinfo" />
@@ -268,6 +278,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ReportingService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnderlyingMaintenanceService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnderlyingMaintenanceService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UnderlyingMaintenanceService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

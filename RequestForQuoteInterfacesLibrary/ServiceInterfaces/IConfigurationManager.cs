@@ -8,5 +8,7 @@
         decimal? GetDecimalValue(string configKey);
         void Add(string configKey, string value);
         string this[string configKey] { get; set; }
+        string GetCurrentUser();
+        void Initialize();
     }
 }
