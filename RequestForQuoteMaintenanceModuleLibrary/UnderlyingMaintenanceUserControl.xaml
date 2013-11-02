@@ -3,9 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+             xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
+             mc:Ignorable="d" Background="Gray">
+
+    <StackPanel HorizontalAlignment="Left" >
+        <ListView Height="160" Margin="0,0,0,2" ItemsSource="{Binding Underlyings}"
+                    ItemContainerStyle="{StaticResource WpfsGridListViewItem}"
+                    SelectedItem="{Binding SelectedUnderlying, Mode=TwoWay}">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource WpfsGridViewColHeaderStyle}"
+						  ColumnHeaderTemplate="{StaticResource WpfsGridViewColHeaderTemplate}">
+                    <GridViewColumn Header="RIC" Width="60" DisplayMemberBinding="{Binding Path=RIC}"/>
+                    <GridViewColumn Header="Description" Width="150" DisplayMemberBinding="{Binding Path=Description}"/>
+                    <GridViewColumn Header="IsValid" Width="50" DisplayMemberBinding="{Binding Path=IsValid}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ToolTip>
+                <ToolTip>Right-click to (in)validate a underlying...</ToolTip>
+            </ListView.ToolTip>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Invalidate" Command="{Binding UpdateValidityCommand}" 
+                                  CommandParameter="{x:Static constants:RequestForQuoteConstants.INVALIDATE_BY_SETTING_ISVALID_TO_FALSE}"/>
+                    <MenuItem Header="Validate" Command="{Binding UpdateValidityCommand}" 
+                                  CommandParameter="{x:Static constants:RequestForQuoteConstants.VALIDATE_BY_SETTING_ISVALID_TO_TRUE}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+
+        <GroupBox>
+            <GroupBox.Header>
+                <TextBlock Text="Add New Underlying"/>
+            </GroupBox.Header>
+            <StackPanel>
+                <DockPanel>
+                    <TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=NewUnderlyingRIC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Label HorizontalAlignment="Left">Enter RIC</Label>
+                </DockPanel>
+                <DockPanel>
+                    <TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=NewUnderlyingDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <Label HorizontalAlignment="Left">Enter description</Label>
+                </DockPanel>                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,2,0,2">Clear</Button>
+                    <Button Command="{Binding AddNewItemCommand}" Width="60" Margin="0,2,0,2">Add</Button>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+
 </UserControl>

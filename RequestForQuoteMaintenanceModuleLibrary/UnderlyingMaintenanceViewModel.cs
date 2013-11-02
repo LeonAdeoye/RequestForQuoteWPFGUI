@@ -23,8 +23,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         private readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
 
-        public ObservableCollection<IUnderlyier> Underlyiers { get; set; }
-        public List<string> Tiers { get; set; }
+        public ObservableCollection<IUnderlyier> Underlyings { get; set; }
         public ICommand AddNewItemCommand { get; set; }
         public ICommand ClearInputCommand { get; set; }
         public ICommand UpdateValidityCommand { get; set; }
@@ -41,10 +40,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         private void InitializeCollections()
         {
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
-            Tiers = new List<string>();
-            foreach (var tier in Enum.GetNames(typeof(TierEnum)))
-                Tiers.Add(tier);
+            Underlyings = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
         }
 
         private void InitializeEventSubscriptions()
@@ -67,7 +63,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new underlyier event from UnderlyingManager: " + eventPayLoad);
 
-            Underlyiers.Add(eventPayLoad.NewUnderlyier);
+            Underlyings.Add(eventPayLoad.NewUnderlyier);
         }
      
         public void ClearInput()
@@ -89,7 +85,6 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public bool CanAddNewItem()
         {
-            // TODO the NewClientTier.HasValue part does not work when you select from the tier combobox.
             return false;
         }
 
@@ -102,12 +97,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public void UpdateValidity()
         {
-            // TODO
-            //if (underlyingManager.UpdateValidity(SelectedUnderlyier.Identifier, !SelectedUnderlyier.IsValid))
-            //    SelectedUnderlyier.IsValid = !SelectedUnderlyier.IsValid;
-            //else
-            //    MessageBox.Show("Failed to update validity of underlyier " + SelectedUnderlyier.RIC, "Underlyier Maintenance Error",
-            //                    MessageBoxButton.OK, MessageBoxImage.Error);
+            if (underlyingManager.UpdateValidity(SelectedUnderlyier.RIC, !SelectedUnderlyier.IsValid))
+                SelectedUnderlyier.IsValid = !SelectedUnderlyier.IsValid;
+            else
+                MessageBox.Show("Failed to update validity of underlying " + SelectedUnderlyier.RIC, "Underlying Maintenance Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

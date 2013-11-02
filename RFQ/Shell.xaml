@@ -15,7 +15,7 @@
                     <MenuItem Header="Book Maintenance" Command="{Binding BookMaintenanceCommand}"/>
                     <MenuItem Header="Client Maintenance" Command="{Binding ClientMaintenanceCommand}"/>
                     <MenuItem Header="Bank Holiday Maintenance" Command="{Binding BankHolidayMaintenanceCommand}"/>
-                <MenuItem Header="Underlyier Maintenance" Command="{Binding UnderlyierMaintenanceCommand}"/>                    
+                <MenuItem Header="Underlying Maintenance" Command="{Binding UnderlyierMaintenanceCommand}"/>                    
             </ContextMenu>
             </DockPanel.ContextMenu>
         <ContentControl DockPanel.Dock="Top" regions:RegionManager.RegionName ="{x:Static constants:RegionNames.TOOLBAR_USER_CONTROL_REGION}"/>
