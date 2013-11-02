@@ -20,7 +20,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private readonly IEventAggregator eventAggregator;
         private readonly IUnderlyingManager underlyingManager;
 
-        public ObservableCollection<IUnderlyier> Underlyings { get; set; }
+        public ObservableCollection<IUnderlying> Underlyings { get; set; }
         public ICommand AddNewItemCommand { get; set; }
         public ICommand ClearInputCommand { get; set; }
         public ICommand UpdateValidityCommand { get; set; }
@@ -46,7 +46,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         private void InitializeCollections()
         {
-            Underlyings = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
+            Underlyings = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);
         }
 
         private void InitializeEventSubscriptions()
@@ -54,15 +54,15 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             eventAggregator.GetEvent<NewUnderlyierEvent>().Subscribe(HandleNewUnderlyierEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
-        public IUnderlyier SelectedUnderlying
+        public IUnderlying SelectedUnderlying
         {
-            get { return (IUnderlyier)GetValue(SelectedUnderlyingProperty); }
+            get { return (IUnderlying)GetValue(SelectedUnderlyingProperty); }
             set { SetValue(SelectedUnderlyingProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedUnderlyier.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedUnderlyingProperty =
-            DependencyProperty.Register("SelectedUnderlying", typeof(IUnderlyier), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("SelectedUnderlying", typeof(IUnderlying), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(null));
 
         public string NewUnderlyingRIC
         {
@@ -89,7 +89,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new underlyier event from UnderlyingManager: " + eventPayLoad);
 
-            Underlyings.Add(eventPayLoad.NewUnderlyier);
+            Underlyings.Add(eventPayLoad.NewUnderlying);
         }
      
         public void ClearInput()
@@ -107,7 +107,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         {
             if (!underlyingManager.Underlyings.Exists((underlyier) => underlyier.RIC == NewUnderlyingRIC))
             {
-                if (!underlyingManager.SaveToDatabase(NewUnderlyingRIC, NewUnderlyingDescription))
+                if (underlyingManager.SaveToDatabase(NewUnderlyingRIC, NewUnderlyingDescription))
                 {
                     MessageBox.Show("Successfully saved new underlying " + NewUnderlyingRIC, "Underlying Maintenance",
                                     MessageBoxButton.OK, MessageBoxImage.Information);

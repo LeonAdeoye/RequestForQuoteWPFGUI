@@ -29,7 +29,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private const string NEW_CHAT_MESSAGE = "NewChatMessage";
         private const string NEW_BOOK_UPDATE = "NewBookUpdate";
         private const string NEW_CLIENT_UPDATE = "NewClientUpdate";
-        private const string NEW_UNDERLYIER_UPDATE = "NewUnderlyierUpdate";
+        private const string NEW_UNDERLYING_UPDATE = "NewUnderlyingUpdate";
         private const string NEW_REQUEST_UPDATE = "NewRequestUpdate";
         private const string NEW_HOLIDAY_UPDATE = "NewHolidayUpdate";
         private const string NEW_CRITERION_UPDATE = "NewCriterionUpdate";
@@ -57,7 +57,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     {NEW_CHAT_MESSAGE, ProcessNewChatMessage},
                     {NEW_BOOK_UPDATE, ProcessNewBookUpdate},
                     {NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
-                    {NEW_UNDERLYIER_UPDATE, ProcessNewUnderlyierUpdate},
+                    {NEW_UNDERLYING_UPDATE, ProcessNewUnderlyierUpdate},
                     {NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate},
                     {NEW_REQUEST_UPDATE, ProcessNewRequestUpdate},
                     {NEW_CRITERION_UPDATE, ProcessNewCriterionUpdate}
@@ -210,9 +210,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(UnderlyierImpl));
-                IUnderlyier newUnderlyier = (UnderlyierImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                underlyingManager.AddUnderlying(newUnderlyier.RIC, newUnderlyier.Description, newUnderlyier.IsValid);
+                var serializer = new DataContractJsonSerializer(typeof(UnderlyingImpl));
+                IUnderlying newUnderlying = (UnderlyingImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                underlyingManager.AddUnderlying(newUnderlying.RIC, newUnderlying.Description, newUnderlying.IsValid);
             }
             catch (Exception exc)
             {

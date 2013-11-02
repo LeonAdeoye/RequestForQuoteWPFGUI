@@ -49,7 +49,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     if (bookControllerProxy != null)
                     {
-                        foreach (var book in bookControllerProxy.getAll())
+                        var previouslySavedBooks = bookControllerProxy.getAll();
+                        if (previouslySavedBooks == null)
+                            return;
+
+                        foreach (var book in previouslySavedBooks)
                         {
                             Books.Add(new BookImpl() { BookCode = book.bookCode, Entity = book.entity, IsValid = book.isValid });
                         }                        

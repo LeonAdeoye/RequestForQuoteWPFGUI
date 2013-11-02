@@ -42,7 +42,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 Tier = TierEnum.Top.ToString()
             };
 
-        private readonly IUnderlyier testUnderlyier = new UnderlyierImpl()
+        private readonly IUnderlying testUnderlying = new UnderlyingImpl()
             {
                 Description = "test description",
                 IsValid = true,
@@ -76,7 +76,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() {testBook});
             clientManagerMock.Setup(cm => cm.Clients).Returns(new List<IClient>() {testClient});
-            underlyingManagerMock.Setup(um => um.Underlyings).Returns(new List<IUnderlyier>() {testUnderlyier});
+            underlyingManagerMock.Setup(um => um.Underlyings).Returns(new List<IUnderlying>() {testUnderlying});
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
             viewModel = new RequestForQuoteFunctionsViewModel(eventAggregaterMock.Object, clientManagerMock.Object,
@@ -325,7 +325,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Arrange
 
             // Act
-            viewModel.SelectedUnderlyier = null;
+            viewModel.SelectedUnderlying = null;
             // Assert
             viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.UNDERLYIER_CRITERION,"because the selected underlyier property value is invalid");
         }
@@ -336,9 +336,9 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Arrange
 
             // Act
-            viewModel.SelectedUnderlyier = testUnderlyier;
+            viewModel.SelectedUnderlying = testUnderlying;
             // Assert
-            viewModel.Criteria.Should().ContainValue(testUnderlyier.RIC, "because the selected underlyier property value is valid");
+            viewModel.Criteria.Should().ContainValue(testUnderlying.RIC, "because the selected underlyier property value is valid");
         }
 
         [Test]

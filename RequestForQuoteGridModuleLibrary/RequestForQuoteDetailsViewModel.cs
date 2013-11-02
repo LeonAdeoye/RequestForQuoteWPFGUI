@@ -58,7 +58,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
-        public ObservableCollection<IUnderlyier> Underlyiers { get; set; }
+        public ObservableCollection<IUnderlying> Underlyiers { get; set; }
         public ObservableCollection<ChatMessageImpl> ChatMessages { get; set; }
 
         public string MessageToBeSent
@@ -126,7 +126,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
+            Underlyiers = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);
 
             if(SelectedRequestForQuote.Identifier == -1)
                 ChatMessages = new ObservableCollection<ChatMessageImpl>();
@@ -174,7 +174,7 @@ namespace RequestForQuoteGridModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new underlyier: " + eventPayLoad);
 
-            Underlyiers.Add(eventPayLoad.NewUnderlyier);
+            Underlyiers.Add(eventPayLoad.NewUnderlying);
         }
 
         public void HandleNewChatMessageEvent(NewChatMessageEventPayload eventPayLoad)

@@ -33,7 +33,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         private readonly Object thisLock = new Object();
 
         public ObservableCollection<IClient> Clients { get; set; }
-        public ObservableCollection<IUnderlyier> Underlyiers { get; set; }
+        public ObservableCollection<IUnderlying> Underlyiers { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
         public ObservableCollection<ISearch> Searches { get; set; }        
 
@@ -107,7 +107,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 Status.Add(status);
             
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
-            Underlyiers = new ObservableCollection<IUnderlyier>(underlyingManager.Underlyings);
+            Underlyiers = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Searches = new ObservableCollection<ISearch>(searchManager.Searches);
 
@@ -225,7 +225,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new underlyier: " + eventPayLoad);
 
-            Underlyiers.Add(eventPayLoad.NewUnderlyier);
+            Underlyiers.Add(eventPayLoad.NewUnderlying);
         }
 
         public ISearch SelectedSearch
@@ -260,19 +260,19 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public static readonly DependencyProperty TypeOfCriteriaProperty =
             DependencyProperty.Register("TypeOfCriteria", typeof(CriteriaTypeEnum), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(CriteriaTypeEnum.FILTER));
         
-        public IUnderlyier SelectedUnderlyier
+        public IUnderlying SelectedUnderlying
         {
-            get { return (IUnderlyier)GetValue(SelectedUnderlyierProperty); }
+            get { return (IUnderlying)GetValue(SelectedUnderlyierProperty); }
             set { SetValue(SelectedUnderlyierProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedUnderlyier.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedUnderlyierProperty =
-            DependencyProperty.Register("SelectedUnderlyier", typeof(IUnderlyier), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, UnderlyierPropertyChangedCallback));
+            DependencyProperty.Register("SelectedUnderlyier", typeof(IUnderlying), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, UnderlyierPropertyChangedCallback));
 
         private static void UnderlyierPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var underlyier = dependencyPropertyChangedEventArgs.NewValue as IUnderlyier;
+            var underlyier = dependencyPropertyChangedEventArgs.NewValue as IUnderlying;
             if (underlyier != null)
                 criteria[RequestForQuoteConstants.UNDERLYIER_CRITERION] = underlyier.RIC; 
         }
@@ -517,7 +517,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                         SelectedStatus = Status.FirstOrDefault((status) => status == controlCriterion.ControlValue);
                         break;
                     case RequestForQuoteConstants.UNDERLYIER_CRITERION:
-                        SelectedUnderlyier = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
+                        SelectedUnderlying = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
                         break;
                 }
             }                
@@ -545,7 +545,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             criteria.Clear();
 
             SelectedClient = null;
-            SelectedUnderlyier = null;
+            SelectedUnderlying = null;
             SelectedStatus = null;
             StartTradeDate = null;
             SelectedBook = null;

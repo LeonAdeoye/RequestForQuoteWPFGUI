@@ -93,12 +93,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var searches = searchContollerProxy.getAll();
-                if (searches != null)
-                {
-                    foreach (var search in searches)
-                        AddCriterionToRelatedSearch(search.owner, search.key, search.controlName, search.controlValue, search.isPrivate, search.isFilter);                   
-                }
+                var previouslySavedSearches = searchContollerProxy.getAll();
+                if (previouslySavedSearches == null)
+                    return;
+              
+                foreach (var search in previouslySavedSearches)
+                    AddCriterionToRelatedSearch(search.owner, search.key, search.controlName, search.controlValue, search.isPrivate, search.isFilter);               
             }
             catch (EndpointNotFoundException exception)
             {

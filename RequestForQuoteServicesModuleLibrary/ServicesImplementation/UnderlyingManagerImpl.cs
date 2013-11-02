@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -19,7 +18,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
         private readonly UnderlyingControllerClient underlyingControllerProxy = new UnderlyingControllerClient();
-        public List<IUnderlyier> Underlyings { get; set; }
+        public List<IUnderlying> Underlyings { get; set; }
         
         // TODO:identifier
 
@@ -34,7 +33,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             this.configManager = configManager;
             this.eventAggregator = eventAggregator;
 
-            Underlyings = new List<IUnderlyier>();
+            Underlyings = new List<IUnderlying>();
         }
 
         /// <summary>
@@ -42,20 +41,23 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         public void Initialize()
         {
-            // TODO remove !
-            if (!configManager.IsStandAlone)
+            if (configManager.IsStandAlone)
             {
-                Underlyings.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" , IsValid = true});
-                Underlyings.Add(new UnderlyierImpl() { Description = "Bank Of China", RIC = "0001.HK" });
-                Underlyings.Add(new UnderlyierImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" , IsValid = true});                
+                Underlyings.Add(new UnderlyingImpl() { Description = "HSBC Ltd", RIC = "0005.HK" , IsValid = true});
+                Underlyings.Add(new UnderlyingImpl() { Description = "Bank Of China", RIC = "0001.HK" });
+                Underlyings.Add(new UnderlyingImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" , IsValid = true});                
             }
             else
             {
                 try
                 {
-                    foreach(var underlying in underlyingControllerProxy.getAll())
+                    var previouslySavedUnderlyings = underlyingControllerProxy.getAll();
+                    if (previouslySavedUnderlyings == null)
+                        return;
+
+                    foreach (var underlying in previouslySavedUnderlyings)
                     {
-                        Underlyings.Add(new UnderlyierImpl()
+                        Underlyings.Add(new UnderlyingImpl()
                             {
                                 RIC = underlying.ric,
                                 Description = underlying.description,
@@ -102,13 +104,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(description))
                 throw new ArgumentException("description");
 
-            var newUnderlyier = new UnderlyierImpl() {Description = description, RIC = ric, IsValid = isValid};
+            var newUnderlyier = new UnderlyingImpl() {Description = description, RIC = ric, IsValid = isValid};
 
             Underlyings.Add(newUnderlyier);
 
             eventAggregator.GetEvent<NewUnderlyierEvent>().Publish(new NewUnderlyierEventPayload()
             {
-                NewUnderlyier = newUnderlyier
+                NewUnderlying = newUnderlyier
             });
         }
 

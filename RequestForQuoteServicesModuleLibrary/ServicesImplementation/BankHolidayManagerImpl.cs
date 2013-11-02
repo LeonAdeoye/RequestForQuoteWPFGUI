@@ -128,6 +128,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 if (holidayControllerProxy != null && holidayControllerProxy.State == CommunicationState.Created)
                 {
                     var allHolidays = holidayControllerProxy.getAll();
+                    if (allHolidays == null)
+                        return;
+
                     foreach (var bankHoliday in allHolidays)
                     {
                         LocationEnum locationEnumValue;
