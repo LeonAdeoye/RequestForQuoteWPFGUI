@@ -19,20 +19,30 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly ClientControllerClient clientControllerProxy = new ClientControllerClient();
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         public List<IClient> Clients { get; set; }
 
         //TODO - calculate identifier
         private int startingIdentifier = 20;
 
-        public ClientManagerImpl()
+        public ClientManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;
+
             Clients = new List<IClient>();
         }
 
-        public void Initialize(bool isStandAlone)
+        public void Initialize()
         {
-            if (isStandAlone)
+            if (configManager.IsStandAlone)
             {
                 Clients.Add(new ClientImpl() { Identifier = 1, Name = "Nomura Securities", Tier = TierEnum.Top.ToString(), IsValid = true });
                 Clients.Add(new ClientImpl() { Identifier = 1, Name = "Goldman Sachs", Tier = TierEnum.Top.ToString(), IsValid = true });
@@ -94,17 +104,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(tier))
                 throw new ArgumentException("tier");
 
-            return clientControllerProxy.save(name, tier, RequestForQuoteConstants.MY_USER_NAME);    
+            return clientControllerProxy.save(name, tier, configManager.CurrentUser);    
         }
 
         public bool UpdateTier(int identifier, string tier)
         {
-            return clientControllerProxy.updateTier(identifier, tier, RequestForQuoteConstants.MY_USER_NAME);
+            return clientControllerProxy.updateTier(identifier, tier, configManager.CurrentUser);
         }
 
         public bool UpdateValidity(int identifier, bool isValid)
         {
-            return clientControllerProxy.updateValidity(identifier, isValid, RequestForQuoteConstants.MY_USER_NAME);
+            return clientControllerProxy.updateValidity(identifier, isValid, configManager.CurrentUser);
         }
 
         public IClient GetClientWithMatchingIdentifier(int clientId)

@@ -11,6 +11,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         bool SaveToDatabase(string bookCode, string entity, bool isValid);
         bool RemoveBook(string bookCode);
         bool UpdateValidity(string bookCode, bool isValid);
-        void Initialize(bool isStandAlone);
+        void Initialize();
     }
 }

@@ -13,9 +13,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     public sealed class ReportDataManagerImpl : IReportDataManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly IEventAggregator eventAggregator     = ServiceLocator.Current.GetInstance<IEventAggregator>();
-        private static readonly IConfigurationManager configManager = ServiceLocator.Current.GetInstance<IConfigurationManager>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         private readonly ReportingControllerClient reportingContollerProxy = new ReportingControllerClient();
+
+        public ReportDataManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
+        {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;            
+        }
 
         /// <summary>
         /// Requests the report data from the web services back-end and sends this data along with other parameter information
@@ -45,7 +57,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                         MinimumCount = minimumCount,                       
                     };
 
-                if (!configManager.IsStandAlone())
+                if (!configManager.IsStandAlone)
                 {
                     foreach (var categoryCount in reportingContollerProxy.getRequestsByCategory(categoryType, fromDate, minimumCount))
                         eventPayLoad.CountByCategory.Add(categoryCount.categoryValue, categoryCount.requestCount);

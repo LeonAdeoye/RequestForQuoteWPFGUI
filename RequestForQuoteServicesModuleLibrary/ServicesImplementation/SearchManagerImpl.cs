@@ -18,12 +18,22 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     sealed class SearchManagerImpl : ISearchManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         private readonly SearchControllerClient searchContollerProxy = new SearchControllerClient();
         public List<ISearch> Searches { get; set; }
 
-        public SearchManagerImpl()
+        public SearchManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
+            if(configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;
+
             Searches = new List<ISearch>();
         }
 
@@ -76,9 +86,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return searchToBeUpdated;
         }
 
-        public void Initialize(bool isStandAlone)
+        public void Initialize()
         {
-            if (isStandAlone)
+            if (configManager.IsStandAlone)
                 return;
 
             try
@@ -136,7 +146,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(controlValue))
                 throw new ArgumentException("controlValue");
 
-            return searchContollerProxy.save(RequestForQuoteConstants.MY_USER_NAME, descriptionKey, controlName, controlValue, isPrivate, isFilter);    
+            return searchContollerProxy.save(configManager.CurrentUser, descriptionKey, controlName, controlValue, isPrivate, isFilter);    
         }
 
         public bool DeleteSearch(string owner, string descriptionKey)

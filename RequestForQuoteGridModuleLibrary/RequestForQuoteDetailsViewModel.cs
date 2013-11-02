@@ -49,7 +49,8 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
         private readonly IUnderlyingManager underlyingManager;
-        private readonly IChatServiceManager chatServiceManager;        
+        private readonly IChatServiceManager chatServiceManager;
+        private readonly IConfigurationManager configManager;
 
         public IClient SelectedSearchClient { get; set; }
         public ICommand SaveRequestCommand { get; private set; }
@@ -73,8 +74,32 @@ namespace RequestForQuoteGridModuleLibrary
         public RequestForQuoteDetailsViewModel(IOptionRequestPricer optionRequestPricer, IRequestForQuote requestForQuote,
                                                 IClientManager clientManager, IBookManager bookManager, IEventAggregator eventAggregator,
                                                 IUnderlyingManager underlyingManager, IChatServiceManager chatServiceManager,
-                                                IOptionRequestPersistanceManager optionRequestPersistanceManager)
+                                                IOptionRequestPersistanceManager optionRequestPersistanceManager, IConfigurationManager configManager)
         {
+            if (optionRequestPricer == null)
+                throw new ArgumentNullException("optionRequestPricer");
+
+            if (clientManager == null)
+                throw new ArgumentNullException("clientManager");
+
+            if (bookManager == null)
+                throw new ArgumentNullException("bookManager");
+
+            if (underlyingManager == null)
+                throw new ArgumentNullException("underlyingManager");
+
+            if (chatServiceManager == null)
+                throw new ArgumentNullException("chatServiceManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            if (optionRequestPersistanceManager == null)
+                throw new ArgumentNullException("optionRequestPersistanceManager");
+
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
             this.bookManager = bookManager;
@@ -82,6 +107,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.chatServiceManager = chatServiceManager;
             this.eventAggregator = eventAggregator;
             this.optionRequestPersistanceManager = optionRequestPersistanceManager;
+            this.configManager = configManager;
 
             SelectedRequestForQuote = requestForQuote;
 
@@ -169,7 +195,7 @@ namespace RequestForQuoteGridModuleLibrary
                 if (log.IsDebugEnabled)
                     log.Debug(String.Format("Sending chat message to server for storage [{0}]", MessageToBeSent));
 
-                chatServiceManager.SendChatMessage(SelectedRequestForQuote.Identifier, RequestForQuoteConstants.MY_USER_NAME, MessageToBeSent);
+                chatServiceManager.SendChatMessage(SelectedRequestForQuote.Identifier, configManager.CurrentUser, MessageToBeSent);
                 MessageToBeSent = String.Empty;
             }
         }

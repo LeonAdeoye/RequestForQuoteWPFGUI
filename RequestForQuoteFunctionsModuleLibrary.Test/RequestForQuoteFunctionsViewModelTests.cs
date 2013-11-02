@@ -22,6 +22,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         private readonly Mock<ISearchManager> searchManagerMock = new Mock<ISearchManager>();
         private readonly Mock<IUnderlyingManager> underlyingManagerMock = new Mock<IUnderlyingManager>();
         private readonly Mock<IEventAggregator> eventAggregaterMock = new Mock<IEventAggregator>();
+        private readonly Mock<IConfigurationManager> configManagerMock = new Mock<IConfigurationManager>();
 
         private readonly Mock<NewBookEvent> newBookEventMock = new Mock<NewBookEvent>();
         private readonly Mock<NewClientEvent> newClientEventMock = new Mock<NewClientEvent>();
@@ -80,7 +81,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
 
             viewModel = new RequestForQuoteFunctionsViewModel(eventAggregaterMock.Object, clientManagerMock.Object,
                                                               underlyingManagerMock.Object, bookManagerMock.Object,
-                                                              searchManagerMock.Object);
+                                                              searchManagerMock.Object, configManagerMock.Object);
         }
 
         [SetUp]

@@ -8,25 +8,18 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
     public class ConfigurationManagerImpl : IConfigurationManager
     {
-        private bool isStandAlone;
-        private readonly string currentUser = Environment.UserName;
         private readonly IDictionary<string, string> configs = new Dictionary<string, string>();
-
-        public string GetCurrentUser()
-        {
-            return currentUser;
-        }
 
         public void Initialize()
         {
-            isStandAlone =  (Environment.GetCommandLineArgs().Length > 1 
+            CurrentUser = Environment.UserName;
+
+            IsStandAlone =  (Environment.GetCommandLineArgs().Length > 1 
                 && Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE);
         }
 
-        public bool IsStandAlone()
-        {
-            return isStandAlone;
-        }
+        public string CurrentUser { get; set; }
+        public bool IsStandAlone { get; set; }
 
         public bool? IsTrue(string configKey)
         {

@@ -18,12 +18,22 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     public sealed class BankHolidayManagerImpl : IBankHolidayManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         private readonly HolidayControllerClient holidayControllerProxy = new HolidayControllerClient();
         public Dictionary<LocationEnum, SortedDictionary<DateTime, DateTime>> BankHolidays { get; set; }
 
-        public BankHolidayManagerImpl()
+        public BankHolidayManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;
+
             BankHolidays = new Dictionary<LocationEnum, SortedDictionary<DateTime, DateTime>>();
         }
 
@@ -94,7 +104,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (holidayDate == null)
                 throw new ArgumentException("holidayDate");
 
-            return holidayControllerProxy.save(location.ToString(), holidayDate.ToShortDateString(), RequestForQuoteConstants.MY_USER_NAME);
+            return holidayControllerProxy.save(location.ToString(), holidayDate.ToShortDateString(), configManager.CurrentUser);
         }
 
         public List<IBankHoliday> GetHolidaysInLocation(LocationEnum location)
@@ -108,9 +118,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return holidaysInLocation;
         }
 
-        public void Initialize(bool isStandAlone)
+        public void Initialize()
         {
-            if (isStandAlone)
+            if (configManager.IsStandAlone)
                 return;
 
             try

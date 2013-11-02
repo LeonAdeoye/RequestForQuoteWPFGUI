@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
@@ -17,10 +16,18 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
 		private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
 		private readonly IClientManager clientManager;
+	    private readonly IConfigurationManager configManager;
 
-		public OptionRequestPersistanceManagerImpl(IClientManager clientManager)
+		public OptionRequestPersistanceManagerImpl(IClientManager clientManager, IConfigurationManager configManager)
 		{
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (clientManager == null)
+                throw new ArgumentNullException("clientManager");
+
 			this.clientManager = clientManager;
+		    this.configManager = configManager;
 		}
 
 		public int SaveRequest(IRequestForQuote requestToSave)
@@ -30,8 +37,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			try
 			{
-				return requestControllerProxy.save(CreateServiceRequestFromRequestForQuote(requestToSave), 
-					RequestForQuoteConstants.MY_USER_NAME);
+				return requestControllerProxy.save(CreateServiceRequestFromRequestForQuote(requestToSave),
+                    configManager.CurrentUser);
 			}
 			catch (FaultException fe)
 			{
@@ -52,7 +59,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			try
 			{
 				return requestControllerProxy.update(CreateServiceRequestFromRequestForQuote(requestToUpdate),
-					RequestForQuoteConstants.MY_USER_NAME);
+                    configManager.CurrentUser);
 			}
 			catch (FaultException fe)
 			{

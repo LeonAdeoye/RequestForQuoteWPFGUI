@@ -29,6 +29,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
         private readonly IUnderlyingManager underlyingManager;
         private readonly IBookManager bookManager;
         private readonly ISearchManager searchManager;
+        private readonly IConfigurationManager configManager;
         private readonly Object thisLock = new Object();
 
         public ObservableCollection<IClient> Clients { get; set; }
@@ -57,8 +58,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public ICommand DeleteSearchCommand { get; set; }
         public ICommand UpdatePrivacyCommand { get; set; }
 
-        public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager, 
-            IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager)
+        public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager,
+            IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager, 
+            IConfigurationManager configManager)
         {
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
@@ -75,6 +77,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
             if (searchManager == null)
                 throw new ArgumentNullException("searchManager");
 
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
             SearchRequestsCommand = new SearchRequestsCommand(this);
             FilterRequestsCommand = new FilterRequestsCommand(this);
             ClearCriteriaCommand = new ClearCriteriaCommand(this);
@@ -87,6 +92,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             this.bookManager = bookManager;
             this.searchManager = searchManager;
             this.eventAggregator = eventAggregator;
+            this.configManager = configManager;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -110,7 +116,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                 {
                     var search = e.Item as ISearch;
                     if (search != null)
-                        e.Accepted = search.Owner == RequestForQuoteConstants.MY_USER_NAME;
+                        e.Accepted = search.Owner == configManager.CurrentUser;
                 };
 
             PublicSearches = new CollectionViewSource { Source = Searches };
@@ -559,7 +565,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             {
                 foreach (var criterion in criteria)
                 {
-                    if (!searchManager.SaveSearchToDatabase(RequestForQuoteConstants.MY_USER_NAME, CriteriaDescriptionKey,
+                    if (!searchManager.SaveSearchToDatabase(configManager.CurrentUser, CriteriaDescriptionKey,
                         PrivacyOfCriteria == PrivacyEnum.PRIVATE, TypeOfCriteria == CriteriaTypeEnum.FILTER, criterion.Key, criterion.Value))
                     {
                         MessageBox.Show("Failed to save search " + CriteriaDescriptionKey, "Search Management Error",

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
-using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -18,19 +17,29 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly BookControllerClient bookControllerProxy = new BookControllerClient();
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         public List<IBook> Books { get; set; }
 
-        public BookManagerImpl()
+        public BookManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;
+
             Books = new List<IBook>();
         }
         
-        public void Initialize(bool isStandAlone)
+        public void Initialize()
         {
             try
             {
-                if (isStandAlone)
+                if (configManager.IsStandAlone)
                 {
                     Books.Add(new BookImpl() { BookCode = "AB01", Entity = "AB01", IsValid = true });
                     Books.Add(new BookImpl() { BookCode = "AB02", Entity = "AB02", IsValid = true });
@@ -87,7 +96,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(entity))
                 throw new ArgumentException("entity");
 
-            return bookControllerProxy.save(bookCode, entity, RequestForQuoteConstants.MY_USER_NAME);
+            return bookControllerProxy.save(bookCode, entity, configManager.CurrentUser);
         }
 
         public bool UpdateValidity(string bookCode, bool isValid)

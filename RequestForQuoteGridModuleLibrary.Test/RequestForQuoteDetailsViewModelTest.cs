@@ -15,6 +15,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
     internal class RequestForQuoteDetailsViewModelTest
     {
         private readonly Mock<IBookManager> bookManagerMock = new Mock<IBookManager>();
+        private readonly Mock<IConfigurationManager> configManagerMock = new Mock<IConfigurationManager>();
         private readonly Mock<IClientManager> clientManagerMock = new Mock<IClientManager>();
         private readonly Mock<ISearchManager> searchManagerMock = new Mock<ISearchManager>();
         private readonly Mock<IUnderlyingManager> underlyingManagerMock = new Mock<IUnderlyingManager>();
@@ -77,7 +78,8 @@ namespace RequestForQuoteGridModuleLibrary.Test
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
             viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer.Object, request.Object, clientManagerMock.Object,
-                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManager.Object, optionRequestPersistanceManager.Object);
+                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManager.Object, 
+                optionRequestPersistanceManager.Object, configManagerMock.Object);
         }
 
         [SetUp]

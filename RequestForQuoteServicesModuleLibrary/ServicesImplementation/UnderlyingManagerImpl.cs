@@ -16,15 +16,24 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     sealed class UnderlyingManagerImpl : IUnderlyingManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-        private readonly IConfigurationManager configManager = ServiceLocator.Current.GetInstance<IConfigurationManager>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
         private readonly UnderlyingControllerClient underlyingControllerProxy = new UnderlyingControllerClient();
         public List<IUnderlyier> Underlyings { get; set; }
         
         // TODO:identifier
 
-        public UnderlyingManagerImpl()
+        public UnderlyingManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.configManager = configManager;
+            this.eventAggregator = eventAggregator;
+
             Underlyings = new List<IUnderlyier>();
         }
 
@@ -34,7 +43,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         public void Initialize()
         {
             // TODO remove !
-            if (!configManager.IsStandAlone())
+            if (!configManager.IsStandAlone)
             {
                 Underlyings.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" });
                 Underlyings.Add(new UnderlyierImpl() { Description = "Bank Of China", RIC = "0001.HK" });
@@ -74,7 +83,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(ric))
                 throw new ArgumentException("ric");
 
-            return underlyingControllerProxy.updateValidity(ric, isValid, configManager.GetCurrentUser());
+            return underlyingControllerProxy.updateValidity(ric, isValid, configManager.CurrentUser);
         }
 
         /// <summary>
@@ -118,7 +127,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(description))
                 throw new ArgumentException("description");
 
-            return underlyingControllerProxy.save(ric, description, configManager.GetCurrentUser());
+            return underlyingControllerProxy.save(ric, description, configManager.CurrentUser);
         }
     }
 }

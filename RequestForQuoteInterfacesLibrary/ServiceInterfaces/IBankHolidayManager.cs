@@ -17,6 +17,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         void AddHoliday(DateTime holidayDate, LocationEnum location);
         bool SaveToDatabase(DateTime holidayDate, LocationEnum location);
         List<IBankHoliday> GetHolidaysInLocation(LocationEnum location);
-        void Initialize(bool isStandAlone);
+        void Initialize();
     }
 }

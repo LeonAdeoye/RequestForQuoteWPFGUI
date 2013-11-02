@@ -11,7 +11,7 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         bool SaveToDatabase(string name, string tier);
         bool UpdateTier(int identifier, string tier);
         bool UpdateValidity(int identifier, bool isValid);
-        void Initialize(bool isStandAlone);
+        void Initialize();
         IClient GetClientWithMatchingIdentifier(int clientId);
     }
 }

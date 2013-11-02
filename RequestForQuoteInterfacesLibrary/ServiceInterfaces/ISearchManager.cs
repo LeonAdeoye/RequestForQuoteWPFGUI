@@ -10,6 +10,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
         void AddSearch(string owner, string descriptionKey, bool isPrivate, bool isFilter, string controlName, string controlValue);
         bool DeleteSearch(string owner, string descriptionKey);
         bool UpdatePrivacy(string owner, string descriptionKey, bool isPrivate);
-        void Initialize(bool isStandAlone);
+        void Initialize();
     }
 }

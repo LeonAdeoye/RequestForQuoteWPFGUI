@@ -35,6 +35,7 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IChatServiceManager chatServiceManager;
         private readonly IUnderlyingManager underlyingManager;
         private readonly IEventAggregator eventAggregator;
+        private readonly IConfigurationManager configManager;
   
         public ObservableCollection<IRequestForQuote> Requests { get; set; }
         public ObservableCollection<IRequestForQuote> SearchedRequests { get; set; }
@@ -60,8 +61,35 @@ namespace RequestForQuoteGridModuleLibrary
 
         public RequestForQuoteGridViewModel(IBookManager bookManager, IClientManager clientManager, IOptionRequestParser optionRequestParser,
             IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager, IUnderlyingManager underlyingManager,
-            IOptionRequestPersistanceManager optionRequestPersistanceManager, IEventAggregator eventAggregator)
+            IOptionRequestPersistanceManager optionRequestPersistanceManager, IEventAggregator eventAggregator, IConfigurationManager configManager)
         {
+            if (optionRequestPricer == null)
+                throw new ArgumentNullException("optionRequestPricer");
+
+            if (optionRequestParser == null)
+                throw new ArgumentNullException("optionRequestParser");
+
+            if (clientManager == null)
+                throw new ArgumentNullException("clientManager");
+
+            if (bookManager == null)
+                throw new ArgumentNullException("bookManager");
+
+            if (underlyingManager == null)
+                throw new ArgumentNullException("underlyingManager");
+
+            if (chatServiceManager == null)
+                throw new ArgumentNullException("chatServiceManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            if (optionRequestPersistanceManager == null)
+                throw new ArgumentNullException("optionRequestPersistanceManager");
+
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
             Requests = new ObservableCollection<IRequestForQuote>();
             SearchedRequests = new ObservableCollection<IRequestForQuote>();
             TodaysRequests = new ObservableCollection<IRequestForQuote>();
@@ -83,6 +111,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.underlyingManager = underlyingManager;
             this.eventAggregator = eventAggregator;
             this.optionRequestPersistanceManager = optionRequestPersistanceManager;
+            this.configManager = configManager;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -98,7 +127,7 @@ namespace RequestForQuoteGridModuleLibrary
             foreach (var status in Enum.GetNames(typeof(StatusEnum)))
                 Status.Add(status);
 
-            if((Environment.GetCommandLineArgs().Length > 1 && Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE))
+            if(configManager.IsStandAlone)
             {
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "C 100 23Dec2013 0001.HK", Status = StatusEnum.PENDING, Identifier = 1, Client = Clients[0], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01", HedgeType = HedgeTypeEnum.SHARES });
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "P 110 23Dec2013 0002.HK", Status = StatusEnum.FILLED, Identifier = 2, Client = Clients[1], TradeDate = DateTime.Today, NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB02", HedgeType = HedgeTypeEnum.SHARES });
@@ -154,7 +183,7 @@ namespace RequestForQuoteGridModuleLibrary
                 var viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest,
                                                                     clientManager, bookManager, eventAggregator,
                                                                     underlyingManager, chatServiceManager,
-                                                                    optionRequestPersistanceManager);
+                                                                    optionRequestPersistanceManager, configManager);
 
                 SelectedRequest.EditableViewModel = viewModel;
                 SelectedRequest.EditableViewModel.BeginEdit();
@@ -446,7 +475,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             if (!IsSelectRequestNull())
             {
-                SelectedRequest.PickedUpBy = RequestForQuoteConstants.MY_USER_NAME;
+                SelectedRequest.PickedUpBy = configManager.CurrentUser;
                 SelectedRequest.Status = StatusEnum.PICKEDUP;
 
                 if (log.IsDebugEnabled)

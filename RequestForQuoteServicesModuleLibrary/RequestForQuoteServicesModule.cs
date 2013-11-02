@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -13,10 +14,19 @@ namespace RequestForQuoteServicesModuleLibrary
     class RequestForQuoteServicesModule : IModule
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IUnityContainer container;
+        private readonly IEventAggregator eventAggregator;
 
-        public RequestForQuoteServicesModule(IUnityContainer container)
+        public RequestForQuoteServicesModule(IUnityContainer container, IEventAggregator eventAggregator)
         {
+            if (container == null)
+                throw new ArgumentNullException("container");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
             this.container = container;
+            this.eventAggregator = eventAggregator;
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteServicesModule constructed successfully.");
@@ -30,27 +40,27 @@ namespace RequestForQuoteServicesModuleLibrary
             
             var tasks = new Task[5];
 
-            var underlyingManager = new UnderlyingManagerImpl();
+            var underlyingManager = new UnderlyingManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
-            tasks[0] = Task.Factory.StartNew(()=>underlyingManager.Initialize());
+            tasks[0] = Task.Factory.StartNew(() => underlyingManager.Initialize());
 
-            var clientManager = new ClientManagerImpl();
+            var clientManager = new ClientManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<IClientManager>(clientManager);
-            tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize(configManager.IsStandAlone()));
+            tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize());
 
-            var bookManager = new BookManagerImpl();
+            var bookManager = new BookManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<IBookManager>(bookManager);
-            tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize(configManager.IsStandAlone()));
+            tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize());
 
-            var bankHolidayManager = new BankHolidayManagerImpl();
+            var bankHolidayManager = new BankHolidayManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<IBankHolidayManager>(bankHolidayManager);
-            tasks[3] = Task.Factory.StartNew(() => bankHolidayManager.Initialize(configManager.IsStandAlone()));
+            tasks[3] = Task.Factory.StartNew(() => bankHolidayManager.Initialize());
 
-            var searchManager = new SearchManagerImpl();
+            var searchManager = new SearchManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<ISearchManager>(searchManager);
-            tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize(configManager.IsStandAlone()));
+            tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize());
 
-            var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager);
+            var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager, configManager);
             container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);
 
             container.RegisterType<IOptionRequestParser, OptionRequestParserImpl>(new ContainerControlledLifetimeManager())
@@ -59,7 +69,7 @@ namespace RequestForQuoteServicesModuleLibrary
                 .RegisterType<IReportDataManager, ReportDataManagerImpl>(new ContainerControlledLifetimeManager())
                 .RegisterInstance(new JsonParserImpl());
 
-            InitializeServerCommunicator(configManager.IsStandAlone());
+            InitializeServerCommunicator(configManager.IsStandAlone);
 
             // Exceptions thrown by tasks will be propagated to the main thread 
             // while it waits for the tasks. The actual exceptions will be wrapped in AggregateException. 
@@ -104,7 +114,5 @@ namespace RequestForQuoteServicesModuleLibrary
             else
                 log.Error("Could not initialize and start socket communication with back-end service. This client is not connected.");
         }
-
-        private readonly IUnityContainer container;
     }
 }

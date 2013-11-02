@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.ChatService;
@@ -13,9 +12,15 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private readonly ChatMediatorClient chatMediatorProxy = new ChatMediatorClient();
+        private readonly IConfigurationManager configManager;
 
-        private static readonly bool isStandAlone = Environment.GetCommandLineArgs().Length > 1 &&
-                                                    Environment.GetCommandLineArgs()[1] == RequestForQuoteConstants.STANDALONE_MODE_WITHOUT_WEB_SERVICE;
+        public ChatServiceManagerImpl(IConfigurationManager configManager)
+        {
+            if (configManager == null)
+                throw new ArgumentNullException("configManager");
+
+            this.configManager = configManager;
+        }
 
         public void SendChatMessage(int requestForQuoteId, string sender, string message)
         {
@@ -31,10 +36,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (EndpointNotFoundException exception)
             {
-                if (isStandAlone)
+                if(log.IsErrorEnabled)
                     log.Error("Failed to send chat message via web service. Exception thrown: ", exception);
-                else
-                    throw;
             }            
         }
 
@@ -51,10 +54,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (EndpointNotFoundException exception)
             {
-                if (isStandAlone)
+                if (log.IsErrorEnabled)
                     log.Error("Failed to get chat messages via web service. Exception thrown: ", exception);
-                else
-                    throw;
             }
             
 
@@ -73,7 +74,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             try
             {
                 var messages = chatMediatorProxy.registerParticipant(requestForQuoteId,
-                                                                     RequestForQuoteConstants.MY_USER_NAME);
+                                                                     configManager.CurrentUser);
 
                 if (messages.chatMessageList != null)
                     foreach (var message in messages.chatMessageList)
@@ -82,14 +83,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
             catch (FormatException feException)
             {
-                log.Error("Failed to convert chat message timeStamp to datetime. Exception thrown: ", feException);
+                if (log.IsErrorEnabled)
+                    log.Error("Failed to convert chat message timeStamp to datetime. Exception thrown: ", feException);
             }
             catch (EndpointNotFoundException exception)
             {
-                if (isStandAlone)
+                if (log.IsErrorEnabled)
                     log.Error("Failed to register participant via web service. Exception thrown: ", exception);
-                else
-                    throw;
             }
             return result;
         }
@@ -98,14 +98,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             try
             {
-                chatMediatorProxy.unregisterParticipant(requestForQuoteId, RequestForQuoteConstants.MY_USER_NAME);
+                chatMediatorProxy.unregisterParticipant(requestForQuoteId, configManager.CurrentUser);
             }
             catch (EndpointNotFoundException exception)
             {
-                if (isStandAlone)
+                if (log.IsErrorEnabled)
                     log.Error("Failed to unregister participant via web service. Exception thrown: ", exception);
-                else
-                    throw;
             }
         }
     }
