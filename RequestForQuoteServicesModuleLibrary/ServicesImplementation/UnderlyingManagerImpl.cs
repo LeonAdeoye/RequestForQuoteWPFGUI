@@ -45,9 +45,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             // TODO remove !
             if (!configManager.IsStandAlone)
             {
-                Underlyings.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" });
+                Underlyings.Add(new UnderlyierImpl() { Description = "HSBC Ltd", RIC = "0005.HK" , IsValid = true});
                 Underlyings.Add(new UnderlyierImpl() { Description = "Bank Of China", RIC = "0001.HK" });
-                Underlyings.Add(new UnderlyierImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" });                
+                Underlyings.Add(new UnderlyierImpl() { Description = "Nomura High Yield ETF", RIC = "1577.OS" , IsValid = true});                
             }
             else
             {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
-using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -20,16 +17,25 @@ namespace RequestForQuoteMaintenanceModuleLibrary
     public sealed class UnderlyingMaintenanceViewModel : DependencyObject, IUpdateValidityViewModel, IClearInputViewModel, IAddNewItemViewModel
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-        private readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
+        private readonly IEventAggregator eventAggregator;
+        private readonly IUnderlyingManager underlyingManager;
 
         public ObservableCollection<IUnderlyier> Underlyings { get; set; }
         public ICommand AddNewItemCommand { get; set; }
         public ICommand ClearInputCommand { get; set; }
         public ICommand UpdateValidityCommand { get; set; }
 
-        public UnderlyingMaintenanceViewModel()
+        public UnderlyingMaintenanceViewModel(IUnderlyingManager underlyingManager, IEventAggregator eventAggregator)
         {
+            if (underlyingManager == null)
+                throw new ArgumentNullException("underlyingManager");
+
+            if (eventAggregator == null)
+                throw new ArgumentNullException("eventAggregator");
+
+            this.underlyingManager = underlyingManager;
+            this.eventAggregator = eventAggregator;
+
             AddNewItemCommand = new AddNewItemCommand(this);
             ClearInputCommand = new ClearInputCommand(this);
             UpdateValidityCommand = new UpdateValidityCommand(this);
@@ -48,16 +54,36 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             eventAggregator.GetEvent<NewUnderlyierEvent>().Subscribe(HandleNewUnderlyierEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
-        public IUnderlyier SelectedUnderlyier
+        public IUnderlyier SelectedUnderlying
         {
-            get { return (IUnderlyier)GetValue(SelectedUnderlyierProperty); }
-            set { SetValue(SelectedUnderlyierProperty, value); }
+            get { return (IUnderlyier)GetValue(SelectedUnderlyingProperty); }
+            set { SetValue(SelectedUnderlyingProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedUnderlyier.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedUnderlyierProperty =
-            DependencyProperty.Register("SelectedUnderlyier", typeof(IUnderlyier), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(null));
-                      
+        public static readonly DependencyProperty SelectedUnderlyingProperty =
+            DependencyProperty.Register("SelectedUnderlying", typeof(IUnderlyier), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(null));
+
+        public string NewUnderlyingRIC
+        {
+            get { return (string)GetValue(NewUnderlyingRICProperty); }
+            set { SetValue(NewUnderlyingRICProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for NewUnderlyingRIC.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NewUnderlyingRICProperty =
+            DependencyProperty.Register("NewUnderlyingRIC", typeof(string), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
+
+        public string NewUnderlyingDescription
+        {
+            get { return (string)GetValue(NewUnderlyingDescriptionProperty); }
+            set { SetValue(NewUnderlyingDescriptionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for NewUnderlyingDescription.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NewUnderlyingDescriptionProperty =
+            DependencyProperty.Register("NewUnderlyingDescription", typeof(string), typeof(UnderlyingMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
+            
         public void HandleNewUnderlyierEvent(NewUnderlyierEventPayload eventPayLoad)
         {
             if (log.IsDebugEnabled)
@@ -68,39 +94,53 @@ namespace RequestForQuoteMaintenanceModuleLibrary
      
         public void ClearInput()
         {
+            NewUnderlyingRIC = "";
+            NewUnderlyingDescription = "";
         }
 
         public bool CanClearInput()
         {
-            return !string.IsNullOrEmpty(String.Empty);
+            return !string.IsNullOrEmpty(NewUnderlyingRIC) || !string.IsNullOrEmpty(NewUnderlyingDescription);
         }
 
         public void AddNewItem()
         {
-            // TODO
-            if (!underlyingManager.Underlyings.Exists((underlyier) => underlyier.RIC == "TODO"))
+            if (!underlyingManager.Underlyings.Exists((underlyier) => underlyier.RIC == NewUnderlyingRIC))
             {
+                if (!underlyingManager.SaveToDatabase(NewUnderlyingRIC, NewUnderlyingDescription))
+                {
+                    MessageBox.Show("Successfully saved new underlying " + NewUnderlyingRIC, "Underlying Maintenance",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    ClearInput();
+                }
+                else
+                    MessageBox.Show("Failed to save underlying " + NewUnderlyingRIC, "Underlying Maintenance Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            else
+                MessageBox.Show("Cannot Save! Underlying " + NewUnderlyingRIC + " already exists!", "Underlying Maintenance Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public bool CanAddNewItem()
         {
-            return false;
+            return !String.IsNullOrEmpty(NewUnderlyingRIC) && !String.IsNullOrEmpty(NewUnderlyingDescription);
         }
 
         public bool CanUpdateValidity(bool isRequestToMakeValid)
         {
-            if (SelectedUnderlyier == null)
+            if (SelectedUnderlying == null)
                 return false;
-            return (SelectedUnderlyier.IsValid != isRequestToMakeValid);
+
+            return (SelectedUnderlying.IsValid != isRequestToMakeValid);
         }
 
         public void UpdateValidity()
         {
-            if (underlyingManager.UpdateValidity(SelectedUnderlyier.RIC, !SelectedUnderlyier.IsValid))
-                SelectedUnderlyier.IsValid = !SelectedUnderlyier.IsValid;
+            if (underlyingManager.UpdateValidity(SelectedUnderlying.RIC, !SelectedUnderlying.IsValid))
+                SelectedUnderlying.IsValid = !SelectedUnderlying.IsValid;
             else
-                MessageBox.Show("Failed to update validity of underlying " + SelectedUnderlyier.RIC, "Underlying Maintenance Error",
+                MessageBox.Show("Failed to update validity of underlying " + SelectedUnderlying.RIC, "Underlying Maintenance Error",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
