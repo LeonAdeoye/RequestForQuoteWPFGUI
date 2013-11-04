@@ -82,6 +82,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>(RegionNames.BAR_CHART_USER_CONTROL_REGION, "Bar Chart"),
                 new KeyValuePair<string, string>(RegionNames.LINE_GRAPH_USER_CONTROL_REGION, "Line Graph"),
                 new KeyValuePair<string, string>(RegionNames.TABULATION_USER_CONTROL_REGION, "Tabulated Data"),
+                new KeyValuePair<string, string>(RegionNames.AREA_SERIES_USER_CONTROL_REGION, "Area Series"),
             };
             ListOfCategoryTypes = new List<KeyValuePair<string, string>>()
             {

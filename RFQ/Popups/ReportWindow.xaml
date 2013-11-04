@@ -29,5 +29,29 @@
                 </Style>
             </ContentControl.Style>           
         </ContentControl>
+        <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.LINE_GRAPH_USER_CONTROL_REGION}">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ReportType}" Value="LineGraphUserControl">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.AREA_SERIES_USER_CONTROL_REGION}">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ReportType}" Value="AreaSeriesUserControl">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </StackPanel>
 </Window>

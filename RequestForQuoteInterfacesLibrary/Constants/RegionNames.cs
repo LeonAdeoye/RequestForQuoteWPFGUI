@@ -1,13 +1,12 @@
 ﻿namespace RequestForQuoteInterfacesLibrary.Constants
 {
     public static class RegionNames
-    {        
+    {
+        public const string AREA_SERIES_USER_CONTROL_REGION = "AreaSeriesUserControl";
         public const string LINE_GRAPH_USER_CONTROL_REGION = "LineGraphUserControl";
         public const string TABULATION_USER_CONTROL_REGION = "TabulatedDataUserControl";
         public const string BAR_CHART_USER_CONTROL_REGION = "BarChartUserControl";
         public const string PIE_CHART_USER_CONTROL_REGION = "PieChartUserControl";
-        public const string GENERATED_REPORT_USER_CONTROL_REGION = "GeneratedReportUserControl";
-        public const string REPORT_PLACEHOLDER_USER_CONTROL_REGION = "ReportPlaceholderUserControl";
 
         public const string TREE_BROWSER_USER_CONTROL_REGION = "TreeBrowserUserControl";
         public const string REPORTS_USER_CONTROL_REGION = "ReportsUserControl";

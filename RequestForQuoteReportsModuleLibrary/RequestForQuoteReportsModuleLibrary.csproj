@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaSeriesUserControl.xaml.cs">
+      <DependentUpon>AreaSeriesUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BarChartUserControl.xaml.cs">
       <DependentUpon>BarChartUserControl.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,9 @@
     <Compile Include="Commands\CompileReportCommand.cs" />
     <Compile Include="Commands\SaveReportInputCommand.cs" />
     <Compile Include="GeneratedReportViewModel.cs" />
+    <Compile Include="LineGraphUserControl.xaml.cs">
+      <DependentUpon>LineGraphUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PieChartUserControl.xaml.cs">
       <DependentUpon>PieChartUserControl.xaml</DependentUpon>
     </Compile>
@@ -85,7 +91,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AreaSeriesUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BarChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LineGraphUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

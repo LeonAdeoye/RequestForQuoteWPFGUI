@@ -27,7 +27,9 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             regionManager.RegisterViewWithRegion(RegionNames.REPORTS_USER_CONTROL_REGION, typeof (ReportsUserControl))
                          .RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof (BarChartUserControl))
-                         .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof (PieChartUserControl));
+                         .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof (PieChartUserControl))
+                         .RegisterViewWithRegion(RegionNames.AREA_SERIES_USER_CONTROL_REGION, typeof (AreaSeriesUserControl))
+                         .RegisterViewWithRegion(RegionNames.LINE_GRAPH_USER_CONTROL_REGION, typeof (LineGraphUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");
