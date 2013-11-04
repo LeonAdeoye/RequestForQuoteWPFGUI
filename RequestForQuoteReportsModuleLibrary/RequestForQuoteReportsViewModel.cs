@@ -7,6 +7,7 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -104,6 +105,13 @@ namespace RequestForQuoteReportsModuleLibrary
             if (eventPayLoad == null)
                 throw new ArgumentNullException("eventPayLoad");
 
+            if (eventPayLoad.CountByCategory.Count == 0)
+            {
+                MessageBox.Show("No RFQ data returned for the selected criteria!", "No Report Data", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                return;
+            }
+
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(new GeneratedReportViewModel()
             {
@@ -167,6 +175,16 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty MinimumCountProperty =
             DependencyProperty.Register("MinimumCount", typeof(int), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0));
 
+        public RequestCountFromDateEnum FromDateType
+        {
+            get { return (RequestCountFromDateEnum)GetValue(FromDateTypeProperty); }
+            set { SetValue(FromDateTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FromDateType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FromDateTypeProperty =
+            DependencyProperty.Register("FromDateType", typeof(RequestCountFromDateEnum), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(RequestCountFromDateEnum.ALL));
+        
         /// <summary>
         /// Returns true if the report input controls have valid contents needed to generate a report.
         /// </summary>
@@ -184,6 +202,11 @@ namespace RequestForQuoteReportsModuleLibrary
         /// </summary>
         public void CompileReport()
         {
+            if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
+                FromDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            else if (FromDateType == RequestCountFromDateEnum.ALL)
+                FromDate = new DateTime(2013, 1, 1);
+
             reportingManager.GetRequestCountPerCategory(ReportType, RequestsCountCategory, 
                 FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount);           
         }
@@ -206,6 +229,8 @@ namespace RequestForQuoteReportsModuleLibrary
             ReportType = "";
             RequestsCountCategory = "";
             MinimumCount = 0;
+            FromDate = null;
+            FromDateType = RequestCountFromDateEnum.ALL;
         }
 
         public void SaveReportInput()

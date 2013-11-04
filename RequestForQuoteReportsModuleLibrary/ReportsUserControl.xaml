@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="RequestForQuoteReportsModuleLibrary.ReportsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:validation="clr-namespace:RequestForQuoteInterfacesLibrary.ValidationRules;assembly=RequestForQuoteInterfacesLibrary">
+             xmlns:validation="clr-namespace:RequestForQuoteInterfacesLibrary.ValidationRules;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary">
     <UserControl.Resources>
         <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MetallicTabItemStyle}">
             <Setter Property="HeaderTemplate">
@@ -44,12 +45,15 @@
                                   DisplayMemberPath="Value" SelectedValue="{Binding RequestsCountCategory}" SelectedValuePath="Key"/>
                         <GroupBox Header="Select date range:">
                             <StackPanel>
-                                <RadioButton Content="All" GroupName="Range" Margin="5"/>
-                                <RadioButton Content="Today" GroupName="Range" Margin="5"/>
+                                <RadioButton Content="All" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.ALL}}"/>
+                                <RadioButton Content="Today" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.TODAY_ONLY}}"/>
                                 <StackPanel Orientation="Horizontal" Margin="5">
-                                    <RadioButton Content="From" GroupName="Range" VerticalAlignment="Center"/>
+                                    <RadioButton Content="From" GroupName="Range" VerticalAlignment="Center" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.FROM_DATE}}"/>
                                     <DatePicker Margin="5,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                SelectedDateFormat="Short"/>
+                                                SelectedDateFormat="Short" SelectedDate="{Binding FromDate}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>

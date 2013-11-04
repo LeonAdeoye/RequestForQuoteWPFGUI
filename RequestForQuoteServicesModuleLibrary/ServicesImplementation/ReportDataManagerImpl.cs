@@ -17,6 +17,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private readonly IConfigurationManager configManager;
         private readonly ReportingControllerClient reportingContollerProxy = new ReportingControllerClient();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configManager"> for determining whether in application is in standalone mode.</param>
+        /// <param name="eventAggregator"> for publishing report data messages to listeners.</param>
+        /// <exception cref="ArgumentNullException"> thrown if configManager or eventAggregator parameters are null.</exception>
         public ReportDataManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
             if (configManager == null)
@@ -59,8 +65,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
                 if (!configManager.IsStandAlone)
                 {
-                    foreach (var categoryCount in reportingContollerProxy.getRequestsByCategory(categoryType, fromDate, minimumCount))
-                        eventPayLoad.CountByCategory.Add(categoryCount.categoryValue, categoryCount.requestCount);
+                    var result = reportingContollerProxy.getRequestsByCategory(categoryType, fromDate, minimumCount);
+                    if(result != null)
+                        foreach (var categoryCount in result)
+                            eventPayLoad.CountByCategory.Add(categoryCount.categoryValue, categoryCount.requestCount);
                 }
 
                 eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>().Publish(eventPayLoad);

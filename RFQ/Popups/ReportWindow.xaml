@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
         xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
-        Title="Request For Quote Generated Report" ResizeMode="CanResize"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
-    <StackPanel>
+        Title="Request For Quote Generated Report" ResizeMode="CanResize" MinHeight="538" MaxHeight="538" MinWidth="683"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <StackPanel VerticalAlignment="Stretch">
         <ContentControl regions:RegionManager.RegionName="{x:Static constants:RegionNames.BAR_CHART_USER_CONTROL_REGION}">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
