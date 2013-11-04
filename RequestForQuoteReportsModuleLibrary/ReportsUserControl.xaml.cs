@@ -8,10 +8,17 @@ namespace RequestForQuoteReportsModuleLibrary
     /// </summary>
     public partial class ReportsUserControl : UserControl
     {
+        private readonly RequestForQuoteReportsViewModel viewModel;
+
         public ReportsUserControl(IUnityContainer container)
         {
             InitializeComponent();
-            DataContext = container.Resolve<RequestForQuoteReportsViewModel>();
+            viewModel = container.Resolve<RequestForQuoteReportsViewModel>();
+            DataContext = viewModel;
+        }
+
+        private void TabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }

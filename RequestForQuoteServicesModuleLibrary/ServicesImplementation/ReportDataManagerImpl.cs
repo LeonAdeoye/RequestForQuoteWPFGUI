@@ -45,7 +45,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <param name="minimumCount">the minimum count of RFQs that will be excluded from the report data</param>
         /// <exception cref="ArgumentException"> thrown if reportType parameter is null or empty</exception>
         /// <exception cref="ArgumentException"> thrown if categoryType parameter is null or empty</exception>
-        public void GetRequestCountPerCategory(string reportType, string categoryType, DateTime fromDate, int minimumCount)
+        public void CompileRequestCountPerCategoryReport(string reportType, string categoryType, DateTime fromDate, int minimumCount)
         {
             if (String.IsNullOrEmpty(reportType))
                 throw new ArgumentException("reportType");

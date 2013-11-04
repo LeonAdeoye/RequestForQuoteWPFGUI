@@ -4,6 +4,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
 {
     public interface IReportDataManager
     {
-        void GetRequestCountPerCategory(string reportType, string categoryType, DateTime fromDate, int minimumCount);
+        void CompileRequestCountPerCategoryReport(string reportType, string categoryType, DateTime fromDate, int minimumCount);
     }
 }

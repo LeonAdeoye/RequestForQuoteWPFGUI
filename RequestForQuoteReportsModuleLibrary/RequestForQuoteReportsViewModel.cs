@@ -91,6 +91,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>("BookCode", "By Book Code"),
                 new KeyValuePair<string, string>("Underlying", "By Underlying"),
                 new KeyValuePair<string, string>("Initiator", "By Initiator"),
+                new KeyValuePair<string, string>("TradeDate", "By Trade Date"),
             };
         }
 
@@ -192,7 +193,13 @@ namespace RequestForQuoteReportsModuleLibrary
         /// and if MinimumCount is greater than or equal zero </returns>
         public bool CanCompileResport()
         {
-            return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory) && MinimumCount >= 0;
+            return !String.IsNullOrEmpty(ReportType) && MinimumCount >= 0;
+        }
+
+        public string SelectedReportTab
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -202,13 +209,33 @@ namespace RequestForQuoteReportsModuleLibrary
         /// </summary>
         public void CompileReport()
         {
+            // TODO SelectedReportTab - code behind event also fires when combo boxes are changed. should only fire when tab control changes. probably bubbling of event
+            SelectedReportTab = "RFQs/Catgeory"; // Remove
+            switch (SelectedReportTab)
+            {
+                case "RFQs/Catgeory":
+                    CompileRequestCountPerCategoryReport();
+                    break;
+                case "Greek/Category":
+                    CompileGreeksPerCategoryReport();
+                    break;
+            }          
+        }
+
+        private void CompileGreeksPerCategoryReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CompileRequestCountPerCategoryReport()
+        {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
                 FromDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             else if (FromDateType == RequestCountFromDateEnum.ALL)
                 FromDate = new DateTime(2013, 1, 1);
 
-            reportingManager.GetRequestCountPerCategory(ReportType, RequestsCountCategory, 
-                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount);           
+            reportingManager.CompileRequestCountPerCategoryReport(ReportType, RequestsCountCategory,
+                FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount);              
         }
 
         /// <summary>
@@ -218,7 +245,7 @@ namespace RequestForQuoteReportsModuleLibrary
         /// or empty, or if the MinimumCount has a value greater than zero.</returns>
         public bool CanClearReportInput()
         {
-            return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount > 0;
+            return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount > 0 || FromDate != null;
         }
 
         /// <summary>
@@ -246,5 +273,7 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
         }
+
+
     }
 }
