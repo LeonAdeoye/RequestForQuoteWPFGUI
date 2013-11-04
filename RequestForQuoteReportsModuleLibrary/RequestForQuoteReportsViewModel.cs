@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
@@ -17,25 +16,19 @@ using log4net;
 
 namespace RequestForQuoteReportsModuleLibrary
 {
-    public sealed class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
+    public sealed class RequestForQuoteReportsViewModel : DependencyObject
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventAggregator eventAggregator;
         private readonly IReportDataManager reportingManager;
-        private readonly IRegionManager regionManager;
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public ICommand CompileReportCommand { get; set; }
         public ICommand ClearReportInputCommand { get; set; }
         public ICommand SaveReportInputCommand { get; set; }
 
-        public List<KeyValuePair<string, int>> ReportData { get; set; }
         public List<KeyValuePair<string, string>> ListOfReportTypes { get; set; }
         public List<KeyValuePair<string, string>> ListOfCategoryTypes { get; set; }
-        public string ReportTitle { get; set; }
-
-        private static bool fred = false;
 
         /// <summary>
         /// Constructor of the view model that initializes various private services, creates instances of command properties, 
@@ -58,7 +51,6 @@ namespace RequestForQuoteReportsModuleLibrary
 
             this.eventAggregator = eventAggregator;
             this.reportingManager = reportingManager;
-            this.regionManager = regionManager;
 
             CompileReportCommand = new CompileReportCommand(this);
             ClearReportInputCommand = new ClearReportInputCommand(this);
@@ -85,20 +77,19 @@ namespace RequestForQuoteReportsModuleLibrary
         private void InitializeReportCollections()
         {
             ListOfReportTypes = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>(RegionNames.PIE_CHART_USER_CONTROL_REGION, "Pie Chart"),
-                    new KeyValuePair<string, string>(RegionNames.BAR_CHART_USER_CONTROL_REGION, "Bar Chart"),
-                    new KeyValuePair<string, string>(RegionNames.LINE_GRAPH_USER_CONTROL_REGION, "Line Graph"),
-                    new KeyValuePair<string, string>(RegionNames.TABULATION_USER_CONTROL_REGION, "Tabulated Data"),
-                };
+            {
+                new KeyValuePair<string, string>(RegionNames.PIE_CHART_USER_CONTROL_REGION, "Pie Chart"),
+                new KeyValuePair<string, string>(RegionNames.BAR_CHART_USER_CONTROL_REGION, "Bar Chart"),
+                new KeyValuePair<string, string>(RegionNames.LINE_GRAPH_USER_CONTROL_REGION, "Line Graph"),
+                new KeyValuePair<string, string>(RegionNames.TABULATION_USER_CONTROL_REGION, "Tabulated Data"),
+            };
             ListOfCategoryTypes = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("Client", "By Client"),
-                    new KeyValuePair<string, string>("BookCode", "By Book Code"),
-                    new KeyValuePair<string, string>("Underlying", "By Underlying"),
-                    new KeyValuePair<string, string>("Initiator", "By Initiator"),
-                };
-            ReportData = new List<KeyValuePair<string, int>>();
+            {
+                new KeyValuePair<string, string>("Client", "By Client"),
+                new KeyValuePair<string, string>("BookCode", "By Book Code"),
+                new KeyValuePair<string, string>("Underlying", "By Underlying"),
+                new KeyValuePair<string, string>("Initiator", "By Initiator"),
+            };
         }
 
         /// <summary>
@@ -112,15 +103,13 @@ namespace RequestForQuoteReportsModuleLibrary
             if (eventPayLoad == null)
                 throw new ArgumentNullException("eventPayLoad");
 
-            ReportData.Clear();
-            ReportData.AddRange(eventPayLoad.CountByCategory);
-            ReportTitle = "Request Count By " + eventPayLoad.Category + ":";
-
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
-            var reportUri = new Uri(eventPayLoad.ReportType, UriKind.Relative);
-            regionManager.RequestNavigate(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, reportUri, NavigationCallback);
-
-            reportWindow.ShowWindow(this);
+            reportWindow.ShowWindow(new GeneratedReportViewModel()
+            {
+                ReportTitle = "Request Count By " + eventPayLoad.Category + ":",
+                ReportType = eventPayLoad.ReportType,
+                ReportData = eventPayLoad.CountByCategory.ToList(),                    
+            });
         }
 
         /// <summary>
@@ -199,16 +188,6 @@ namespace RequestForQuoteReportsModuleLibrary
         }
 
         /// <summary>
-        /// Clears the report input controls of their content.
-        /// </summary>
-        private void ClearRequestsPerCategoryInputs()
-        {
-            ReportType = "";
-            RequestsCountCategory = "";
-            MinimumCount = 0;
-        }
-
-        /// <summary>
         /// Returns true if the report input controls can be cleared of their contents.
         /// </summary>
         /// <returns>true if ReportType property is null or empty or if the RequestsCountCategory is null 
@@ -218,9 +197,14 @@ namespace RequestForQuoteReportsModuleLibrary
             return !String.IsNullOrEmpty(ReportType) || !String.IsNullOrEmpty(RequestsCountCategory) || MinimumCount > 0;
         }
 
+        /// <summary>
+        /// Clears the report input controls of their content.
+        /// </summary>
         public void ClearReportInput()
         {
-            ClearRequestsPerCategoryInputs();
+            ReportType = "";
+            RequestsCountCategory = "";
+            MinimumCount = 0;
         }
 
         public void SaveReportInput()

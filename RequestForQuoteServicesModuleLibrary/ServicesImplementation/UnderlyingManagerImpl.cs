@@ -19,9 +19,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private readonly IConfigurationManager configManager;
         private readonly UnderlyingControllerClient underlyingControllerProxy = new UnderlyingControllerClient();
         public List<IUnderlying> Underlyings { get; set; }
-        
-        // TODO:identifier
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configManager"> to get standalone flag and current user</param>
+        /// <param name="eventAggregator"> for publishing new underlying to other listeners</param>
+        /// <exception cref="ArgumentNullException"> if configManager/eventAggregator is null</exception>
         public UnderlyingManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
         {
             if (configManager == null)

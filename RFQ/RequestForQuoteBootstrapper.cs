@@ -50,9 +50,6 @@ namespace RFQ
                 .RegisterType<IWindowPopup, UnderlyingMaintenanceWindow>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, ReportWindow>(WindowPopupNames.REPORT_WINDOW_POPUP);
-
-            IRegionManager regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
-            regionManager.RegisterViewWithRegion(RegionNames.GENERATED_REPORT_USER_CONTROL_REGION, typeof(GeneratedReportPlaceholderUserControl));
         }
     }
 }

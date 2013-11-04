@@ -8,10 +8,9 @@ namespace RequestForQuoteReportsModuleLibrary
     /// </summary>
     public partial class BarChartUserControl : UserControl
     {
-        public BarChartUserControl(IUnityContainer container)
+        public BarChartUserControl()
         {
             InitializeComponent();
-            DataContext = container.Resolve<RequestForQuoteReportsViewModel>();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Prism.Regions;
@@ -11,10 +13,11 @@ namespace RequestForQuoteReportsModuleLibrary
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public RequestForQuoteReportsModule(IUnityContainer container, IRegionManager regionManager)
+        public RequestForQuoteReportsModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             this.container = container;
             this.regionManager = regionManager;
+            this.eventAggregator = eventAggregator;
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule constructed successfully.");
@@ -26,15 +29,12 @@ namespace RequestForQuoteReportsModuleLibrary
                          .RegisterViewWithRegion(RegionNames.BAR_CHART_USER_CONTROL_REGION, typeof (BarChartUserControl))
                          .RegisterViewWithRegion(RegionNames.PIE_CHART_USER_CONTROL_REGION, typeof (PieChartUserControl));
 
-            container.RegisterType<Object, BarChartUserControl>(RegionNames.BAR_CHART_USER_CONTROL_REGION)
-                     .RegisterType<Object, PieChartUserControl>(RegionNames.PIE_CHART_USER_CONTROL_REGION);
-
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");
         }
 
         private readonly IUnityContainer container;
         private readonly IRegionManager regionManager;
-
+        private readonly IEventAggregator eventAggregator;
     }
 }

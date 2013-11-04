@@ -67,6 +67,7 @@
     <Compile Include="Commands\ClearReportInputCommand.cs" />
     <Compile Include="Commands\CompileReportCommand.cs" />
     <Compile Include="Commands\SaveReportInputCommand.cs" />
+    <Compile Include="GeneratedReportViewModel.cs" />
     <Compile Include="PieChartUserControl.xaml.cs">
       <DependentUpon>PieChartUserControl.xaml</DependentUpon>
     </Compile>

@@ -7,6 +7,7 @@
         public const string BAR_CHART_USER_CONTROL_REGION = "BarChartUserControl";
         public const string PIE_CHART_USER_CONTROL_REGION = "PieChartUserControl";
         public const string GENERATED_REPORT_USER_CONTROL_REGION = "GeneratedReportUserControl";
+        public const string REPORT_PLACEHOLDER_USER_CONTROL_REGION = "ReportPlaceholderUserControl";
 
         public const string TREE_BROWSER_USER_CONTROL_REGION = "TreeBrowserUserControl";
         public const string REPORTS_USER_CONTROL_REGION = "ReportsUserControl";
