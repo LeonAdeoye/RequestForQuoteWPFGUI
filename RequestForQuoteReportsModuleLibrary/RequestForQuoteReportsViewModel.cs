@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -17,12 +18,14 @@ using log4net;
 
 namespace RequestForQuoteReportsModuleLibrary
 {
-    public sealed class RequestForQuoteReportsViewModel : DependencyObject
+    public sealed class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventAggregator eventAggregator;
         private readonly IReportDataManager reportingManager;
+        
+        private string requestsCountCategory;
 
         public ICommand CompileReportCommand { get; set; }
         public ICommand ClearReportInputCommand { get; set; }
@@ -59,6 +62,8 @@ namespace RequestForQuoteReportsModuleLibrary
 
             InitializeEventSubscriptions();
             InitializeReportCollections();
+
+            FromDateType = RequestCountFromDateEnum.FROM_DATE;
         }
 
         /// <summary>
@@ -122,18 +127,26 @@ namespace RequestForQuoteReportsModuleLibrary
             });
         }
 
-        /// <summary>
-        /// Logs any errors that occur during navigation to the appropriate chart report.
-        /// </summary>
-        /// <param name="navigationResult"></param>
-        private void NavigationCallback(NavigationResult navigationResult)
+        public bool CanReportOnlyFromSpecificDate
         {
-            if (navigationResult.Result == false)
-            {
-                // TODO: Make sure error is ENABLED. It is not right now.            
-                if(log.IsErrorEnabled)
-                    log.Error("Could not navigate to another region");
+            get { return RequestsCountCategory != "TradeDate"; }
+        }
+
+        public string RequestsCountCategory
+        {
+            get { return requestsCountCategory; }
+            set 
+            { 
+                requestsCountCategory = value;
+                NotifyPropertyChanged("RequestsCountCategory");
+                NotifyPropertyChanged("CanReportOnlyFromSpecificDate");
             }
+        }
+
+        public string SelectedReportTab
+        {
+            get;
+            set;
         }
 
         public DateTime? FromDate
@@ -156,16 +169,6 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty ReportTypeProperty =
             DependencyProperty.Register("ReportType", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
         
-        public String RequestsCountCategory
-        {
-            get { return (String)GetValue(RequestsCountCategoryProperty); }
-            set { SetValue(RequestsCountCategoryProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for RequestsCountCategory.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RequestsCountCategoryProperty =
-            DependencyProperty.Register("RequestsCountCategory", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
-
         public int MinimumCount
         {
             get { return (int)GetValue(MinimumCountProperty); }
@@ -196,12 +199,6 @@ namespace RequestForQuoteReportsModuleLibrary
             return !String.IsNullOrEmpty(ReportType) && MinimumCount >= 0;
         }
 
-        public string SelectedReportTab
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         /// Sends a request for report data to the ReportDataManager.
         /// Defaults the trade date of the RFQs partcipating in the reporting to Jan 1 2013.
@@ -209,11 +206,9 @@ namespace RequestForQuoteReportsModuleLibrary
         /// </summary>
         public void CompileReport()
         {
-            // TODO SelectedReportTab - code behind event also fires when combo boxes are changed. should only fire when tab control changes. probably bubbling of event
-            SelectedReportTab = "RFQs/Catgeory"; // Remove
             switch (SelectedReportTab)
             {
-                case "RFQs/Catgeory":
+                case "RFQs/Category":
                     CompileRequestCountPerCategoryReport();
                     break;
                 case "Greek/Category":
@@ -257,7 +252,7 @@ namespace RequestForQuoteReportsModuleLibrary
             RequestsCountCategory = "";
             MinimumCount = 0;
             FromDate = null;
-            FromDateType = RequestCountFromDateEnum.ALL;
+            FromDateType = RequestCountFromDateEnum.FROM_DATE;
         }
 
         public void SaveReportInput()
@@ -271,9 +266,15 @@ namespace RequestForQuoteReportsModuleLibrary
         /// <returns> true if ReportType property is not null or empty, and if the RequestsCountCategory is not null or empty.</returns>
         public bool CanSaveReportInput()
         {
-            return !String.IsNullOrEmpty(ReportType) && !String.IsNullOrEmpty(RequestsCountCategory);
+            return !String.IsNullOrEmpty(ReportType);
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

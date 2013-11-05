@@ -20,7 +20,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private int lotSize;
         [DataMember] private double notionalMillions;
         [DataMember] private CurrencyEnum notionalCurrency;
-        // TODO need an FX manager - which mocks FX rates using random numbers.
         [DataMember] private double notionalFXRate;
         [DataMember] private CurrencyEnum premiumSettlementCurrency;
         [DataMember] private int premiumSettlementDaysOverride;

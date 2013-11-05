@@ -30,13 +30,13 @@
     </UserControl.Resources>    
     <Grid>
         <StackPanel>
-            <Label Content="Select report type:" HorizontalAlignment="Left" Margin="0,5,5,5"/>
-            <ComboBox SelectedValue="{Binding ReportType}" SelectedValuePath="Key" ItemsSource="{Binding ListOfReportTypes}" DisplayMemberPath="Value"/>
-            <StackPanel Orientation="Horizontal" Margin="0,5,5,5">
+            <StackPanel Orientation="Horizontal" Margin="0,5,5,20">
                 <Button Content="Compile report" Command="{Binding CompileReportCommand}"/>
                 <Button Content="Save" Command="{Binding SaveReportInputCommand}"/>
                 <Button Content="Clear" Command="{Binding ClearReportInputCommand}"/>
-            </StackPanel>
+            </StackPanel>            
+            <Label Content="Select report type:" HorizontalAlignment="Left" Margin="0,5,5,5"/>
+            <ComboBox SelectedValue="{Binding ReportType}" SelectedValuePath="Key" ItemsSource="{Binding ListOfReportTypes}" DisplayMemberPath="Value"/>
             <TabControl TabStripPlacement="Right" SelectionChanged="TabControl_OnSelectionChanged">
                 <TabItem Header="RFQs/Category">
                     <StackPanel>
@@ -45,16 +45,18 @@
                                   DisplayMemberPath="Value" SelectedValue="{Binding RequestsCountCategory}" SelectedValuePath="Key"/>
                         <GroupBox Header="Select date range:">
                             <StackPanel>
-                                <RadioButton Content="All" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
-                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.ALL}}"/>
-                                <RadioButton Content="Today" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
-                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.TODAY_ONLY}}"/>
                                 <StackPanel Orientation="Horizontal" Margin="5">
-                                    <RadioButton Content="From" GroupName="Range" VerticalAlignment="Center" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
-                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.FROM_DATE}}"/>
+                                    <RadioButton Name="FromOnlyRadioButton" Content="From" GroupName="Range" VerticalAlignment="Center" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                    Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.FROM_DATE}}"/>
                                     <DatePicker Margin="5,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                SelectedDateFormat="Short" SelectedDate="{Binding FromDate}"/>
-                                </StackPanel>
+                                                SelectedDateFormat="Short" SelectedDate="{Binding FromDate}" IsEnabled="{Binding ElementName=FromOnlyRadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>                                
+                                <RadioButton Content="All" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.ALL}}" 
+                                             IsEnabled="{Binding CanReportOnlyFromSpecificDate}"/>
+                                <RadioButton Content="Today" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.TODAY_ONLY}}"
+                                             IsEnabled="{Binding CanReportOnlyFromSpecificDate}"/>
                             </StackPanel>
                         </GroupBox>
                         <Label Content="Minimum count to exclude:" HorizontalAlignment="Left" Margin="5"/>
