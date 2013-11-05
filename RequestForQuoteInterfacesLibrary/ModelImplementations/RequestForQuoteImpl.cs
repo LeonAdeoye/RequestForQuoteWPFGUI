@@ -23,7 +23,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private double notionalFXRate;
         [DataMember] private string premiumSettlementCurrency;
         [DataMember] private int premiumSettlementDaysOverride;
-        [DataMember] private DateTime premiumSettlementDate;
+        [DataMember] private string premiumSettlementDate;
         [DataMember] private double premiumSettlementFXRate;
         
         [DataMember] private double salesCreditAmount;
@@ -52,8 +52,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private double askFinalAmount;
         [DataMember] private double askFinalPercentage;
 
-        [DataMember] private DateTime tradeDate;
-        [DataMember] private DateTime expiryDate;
+        [DataMember] private string tradeDate;
+        [DataMember] private string expiryDate;
         [DataMember] private IClient client;  //TODO
         [DataMember] private string status;
         [DataMember] private string bookCode;
@@ -153,8 +153,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             IRequestForQuote clone = new RequestForQuoteImpl();
             clone.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), status);
             clone.Client = client;
-            clone.TradeDate = tradeDate;
-            clone.ExpiryDate = expiryDate;
+            clone.TradeDate = DateTime.Parse(tradeDate);
+            clone.ExpiryDate = DateTime.Parse(expiryDate);
             clone.Request = request;
             clone.IsOTC = isOTC;
 
@@ -173,7 +173,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.BookCode = bookCode;
                        
             clone.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
-            clone.PremiumSettlementDate = premiumSettlementDate;
+            clone.PremiumSettlementDate = DateTime.Parse(premiumSettlementDate);
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
             clone.PremiumSettlementFXRate = premiumSettlementFXRate;
 
@@ -461,13 +461,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return tradeDate;
+                return DateTime.Parse(tradeDate);
             }
             set
             {
-                if (tradeDate != value)
+                if (tradeDate != value.ToShortDateString())
                 {
-                    tradeDate = value;
+                    tradeDate = value.ToShortDateString();
                     NotifyPropertyChanged("TradeDate");
                 }
             }
@@ -477,13 +477,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return expiryDate;
+                return DateTime.Parse(expiryDate);
             }
             set
             {
-                if (expiryDate != value)
+                if (expiryDate != value.ToShortDateString())
                 {
-                    expiryDate = value;
+                    expiryDate = value.ToShortDateString();
                     NotifyPropertyChanged("ExpiryDate");
                 }
             }
@@ -525,13 +525,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return premiumSettlementDate;
+                return DateTime.Parse(premiumSettlementDate);
             }
             set
             {
-                if (premiumSettlementDate != value)
+                if (premiumSettlementDate != value.ToShortDateString())
                 {
-                    premiumSettlementDate = value;
+                    premiumSettlementDate = value.ToShortDateString();
                     NotifyPropertyChanged("PremiumSettlementDate");                    
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -101,6 +102,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));
                 IRequestForQuote newRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                Debug.WriteLine(newRequest); //TODO gamma shares does not match, IClient not fixed.
             }
             catch (Exception exc)
             {
