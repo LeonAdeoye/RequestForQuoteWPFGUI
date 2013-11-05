@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -16,20 +15,32 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
 		private readonly RequestControllerClient requestControllerProxy  = new RequestControllerClient();
 		private readonly IClientManager clientManager;
-	    private readonly IConfigurationManager configManager;
+		private readonly IConfigurationManager configManager;
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="clientManager"> used to get client details for RFQs retrieved from the web service.</param>
+		/// <param name="configManager"> used to obtain the current user in save/update operations.</param>
+		/// <exception cref="ArgumentNullException"> thrown if either clientManager or configManager is null.</exception>
 		public OptionRequestPersistanceManagerImpl(IClientManager clientManager, IConfigurationManager configManager)
 		{
-            if (configManager == null)
-                throw new ArgumentNullException("configManager");
+			if (configManager == null)
+				throw new ArgumentNullException("configManager");
 
-            if (clientManager == null)
-                throw new ArgumentNullException("clientManager");
+			if (clientManager == null)
+				throw new ArgumentNullException("clientManager");
 
 			this.clientManager = clientManager;
-		    this.configManager = configManager;
+			this.configManager = configManager;
 		}
 
+		/// <summary>
+		/// Saves an RFQ via the web service.
+		/// </summary>
+		/// <param name="requestToSave"> the rfq to save.</param>
+		/// <returns> the request for quote ID if the RFQ is saved successfully, -1 otherwise.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if requestToSave is null.</exception>
 		public int SaveRequest(IRequestForQuote requestToSave)
 		{
 			if (requestToSave == null)
@@ -38,7 +49,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			try
 			{
 				return requestControllerProxy.save(CreateServiceRequestFromRequestForQuote(requestToSave),
-                    configManager.CurrentUser);
+					configManager.CurrentUser);
 			}
 			catch (FaultException fe)
 			{
@@ -51,6 +62,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return -1;  
 		}
 
+		/// <summary>
+		/// Updates an RFQ via the web service.
+		/// </summary>
+		/// <param name="requestToUpdate"> the rfq to update.</param>
+		/// <returns> true if the RFQ is updated successfully, false otherwise.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if requestToSave is null.</exception>
 		public bool UpdateRequest(IRequestForQuote requestToUpdate)
 		{
 			if (requestToUpdate == null)
@@ -59,7 +76,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			try
 			{
 				return requestControllerProxy.update(CreateServiceRequestFromRequestForQuote(requestToUpdate),
-                    configManager.CurrentUser);
+					configManager.CurrentUser);
 			}
 			catch (FaultException fe)
 			{
@@ -72,6 +89,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return false;
 		}
 
+		/// <summary>
+		/// Gets today's RFQs via the web service.
+		/// </summary>
+		/// <param name="rePrice"> flag used to indicate whether the pricing should be recalculated based on current market prices.</param>
+		/// <returns> the list of RFQs.</returns>
 		public List<IRequestForQuote> GetRequestsForToday(bool rePrice)
 		{
 			var listOfRequests = new List<IRequestForQuote>();
@@ -91,6 +113,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return listOfRequests;
 		}
 
+		/// <summary>
+		/// Get the RFQ matching the identifier.
+		/// </summary>
+		/// <param name="identifier"> the identifier of the RFQ.</param>
+		/// <param name="rePrice"> flag used to indicate whether the pricing should be recalculated based on current market prices. </param>
+		/// <returns></returns>
 		public IRequestForQuote GetRequest(int identifier, bool rePrice)
 		{
 			return CreateRequestForQuoteFromServiceRequest(requestControllerProxy.getRequest(identifier, rePrice));
@@ -106,6 +134,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			throw new System.NotImplementedException();
 		}
 
+        /// <summary>
+        /// Converts web service format of the option leg of the RFQ into the GUI format.
+        /// </summary>
+        /// <param name="serviceOptionLeg"> the web service formatted RFQ's option leg to be converted.</param>
+        /// <returns> the GUI formatted of the RFQ's option leg.</returns>
+        /// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ's option leg is null.</exception>
 		private IOptionDetail CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
 		{
 			if (serviceOptionLeg == null)
@@ -133,6 +167,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				};
 		}
 
+        /// <summary>
+        /// Converts GUI formatted option leg of the RFQ into the web service format.
+        /// </summary>
+        /// <param name="requestForQuoteOptionLeg"> the GUI formatted RFQ's option leg to be converted.</param>
+        /// <returns> the web service formatted RFQ's option leg.</returns>
+        /// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ's option leg is null.</exception>
 		private optionDetailImpl CreateServiceOptionLegFromRequestForQuoteLeg(IOptionDetail requestForQuoteOptionLeg)
 		{
 			if (requestForQuoteOptionLeg == null)
@@ -160,6 +200,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				};
 		}
 
+        /// <summary>
+        /// Converts web service formatted RFQ into the GUI format.
+        /// </summary>
+        /// <param name="serviceRequest"> the web service formatted RFQ to be converted.</param>
+        /// <returns> the GUI formatted RFQ.</returns>
+        /// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ is null.</exception>
 		private IRequestForQuote CreateRequestForQuoteFromServiceRequest(requestDetailImpl serviceRequest)
 		{
 			if (serviceRequest == null)
@@ -234,6 +280,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return requestForQuoteToCreate;
 		}
 
+        /// <summary>
+        /// Converts GUI formatted RFQ into the web service format.
+        /// </summary>
+        /// <param name="sourceRequestForQuote"> the GUI formatted RFQ to be converted.</param>
+        /// <returns> the web service formatted RFQ.</returns>
+        /// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ is null.</exception>
 		private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)
 		{
 			if(sourceRequestForQuote == null)

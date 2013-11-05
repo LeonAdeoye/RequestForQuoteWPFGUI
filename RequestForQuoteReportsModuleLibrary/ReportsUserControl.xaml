@@ -30,7 +30,7 @@
     </UserControl.Resources>    
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5,5,20">
+            <StackPanel Orientation="Horizontal" Margin="0,5,5,15">
                 <Button Content="Compile report" Command="{Binding CompileReportCommand}"/>
                 <Button Content="Save" Command="{Binding SaveReportInputCommand}"/>
                 <Button Content="Clear" Command="{Binding ClearReportInputCommand}"/>
