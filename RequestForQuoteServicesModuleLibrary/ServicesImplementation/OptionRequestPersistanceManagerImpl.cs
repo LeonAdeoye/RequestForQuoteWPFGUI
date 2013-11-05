@@ -134,12 +134,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			throw new System.NotImplementedException();
 		}
 
-        /// <summary>
-        /// Converts web service format of the option leg of the RFQ into the GUI format.
-        /// </summary>
-        /// <param name="serviceOptionLeg"> the web service formatted RFQ's option leg to be converted.</param>
-        /// <returns> the GUI formatted of the RFQ's option leg.</returns>
-        /// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ's option leg is null.</exception>
+		/// <summary>
+		/// Converts web service format of the option leg of the RFQ into the GUI format.
+		/// </summary>
+		/// <param name="serviceOptionLeg"> the web service formatted RFQ's option leg to be converted.</param>
+		/// <returns> the GUI formatted of the RFQ's option leg.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ's option leg is null.</exception>
 		private IOptionDetail CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
 		{
 			if (serviceOptionLeg == null)
@@ -167,12 +167,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				};
 		}
 
-        /// <summary>
-        /// Converts GUI formatted option leg of the RFQ into the web service format.
-        /// </summary>
-        /// <param name="requestForQuoteOptionLeg"> the GUI formatted RFQ's option leg to be converted.</param>
-        /// <returns> the web service formatted RFQ's option leg.</returns>
-        /// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ's option leg is null.</exception>
+		/// <summary>
+		/// Converts GUI formatted option leg of the RFQ into the web service format.
+		/// </summary>
+		/// <param name="requestForQuoteOptionLeg"> the GUI formatted RFQ's option leg to be converted.</param>
+		/// <returns> the web service formatted RFQ's option leg.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ's option leg is null.</exception>
 		private optionDetailImpl CreateServiceOptionLegFromRequestForQuoteLeg(IOptionDetail requestForQuoteOptionLeg)
 		{
 			if (requestForQuoteOptionLeg == null)
@@ -200,12 +200,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				};
 		}
 
-        /// <summary>
-        /// Converts web service formatted RFQ into the GUI format.
-        /// </summary>
-        /// <param name="serviceRequest"> the web service formatted RFQ to be converted.</param>
-        /// <returns> the GUI formatted RFQ.</returns>
-        /// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ is null.</exception>
+		/// <summary>
+		/// Converts web service formatted RFQ into the GUI format.
+		/// </summary>
+		/// <param name="serviceRequest"> the web service formatted RFQ to be converted.</param>
+		/// <returns> the GUI formatted RFQ.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ is null.</exception>
 		private IRequestForQuote CreateRequestForQuoteFromServiceRequest(requestDetailImpl serviceRequest)
 		{
 			if (serviceRequest == null)
@@ -280,12 +280,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return requestForQuoteToCreate;
 		}
 
-        /// <summary>
-        /// Converts GUI formatted RFQ into the web service format.
-        /// </summary>
-        /// <param name="sourceRequestForQuote"> the GUI formatted RFQ to be converted.</param>
-        /// <returns> the web service formatted RFQ.</returns>
-        /// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ is null.</exception>
+		/// <summary>
+		/// Converts GUI formatted RFQ into the web service format.
+		/// </summary>
+		/// <param name="sourceRequestForQuote"> the GUI formatted RFQ to be converted.</param>
+		/// <returns> the web service formatted RFQ.</returns>
+		/// <exception cref="ArgumentNullException"> thrown if the GUI formatted RFQ is null.</exception>
 		private requestDetailImpl CreateServiceRequestFromRequestForQuote(IRequestForQuote sourceRequestForQuote)
 		{
 			if(sourceRequestForQuote == null)

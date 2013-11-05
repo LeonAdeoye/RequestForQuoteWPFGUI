@@ -19,21 +19,21 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private int contracts;
         [DataMember] private int lotSize;
         [DataMember] private double notionalMillions;
-        [DataMember] private CurrencyEnum notionalCurrency;
+        [DataMember] private string notionalCurrency;
         [DataMember] private double notionalFXRate;
-        [DataMember] private CurrencyEnum premiumSettlementCurrency;
+        [DataMember] private string premiumSettlementCurrency;
         [DataMember] private int premiumSettlementDaysOverride;
         [DataMember] private DateTime premiumSettlementDate;
         [DataMember] private double premiumSettlementFXRate;
         
-        private double salesCreditAmount;
-        private double salesCreditPercentage;
-        private CurrencyEnum salesCreditCurrency;
-        private double salesCreditFXRate;
+        [DataMember] private double salesCreditAmount;
+        [DataMember] private double salesCreditPercentage;
+        [DataMember] private string salesCreditCurrency;
+        [DataMember] private double salesCreditFXRate;
 
-        private double impliedVol;
-        private double premiumAmount;
-        private double premiumPercentage;
+        [DataMember] private double impliedVol;
+        [DataMember] private double premiumAmount;
+        [DataMember] private double premiumPercentage;
 
         [DataMember] private string request;
         [DataMember] private int identifier;
@@ -44,33 +44,33 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private double theta;
         [DataMember] private double rho;
 
-        private double hedgePrice;
-        private HedgeTypeEnum hedgeType;
+        [DataMember] private double hedgePrice;
+        [DataMember] private string hedgeType;
         
-        private double bidFinalAmount;
-        private double bidFinalPercentage;
-        private double askFinalAmount;
-        private double askFinalPercentage;
+        [DataMember] private double bidFinalAmount;
+        [DataMember] private double bidFinalPercentage;
+        [DataMember] private double askFinalAmount;
+        [DataMember] private double askFinalPercentage;
 
-        private DateTime tradeDate;
-        private DateTime expiryDate;
-        private IClient client;
-        private StatusEnum status;
-        private string bookCode;
+        [DataMember] private DateTime tradeDate;
+        [DataMember] private DateTime expiryDate;
+        [DataMember] private IClient client;  //TODO
+        [DataMember] private string status;
+        [DataMember] private string bookCode;
 
-        private double bidImpliedVol;
-        private double bidPremiumPercentage;
-        private double bidPremiumAmount;
+        [DataMember] private double bidImpliedVol;
+        [DataMember] private double bidPremiumPercentage;
+        [DataMember] private double bidPremiumAmount;
         
-        private double askImpliedVol;
-        private double askPremiumPercentage;
-        private double askPremiumAmount;
+        [DataMember] private double askImpliedVol;
+        [DataMember] private double askPremiumPercentage;
+        [DataMember] private double askPremiumAmount;
 
-        private string salesComment;
-        private string traderComment;
-        private string clientComment;
+        [DataMember] private string salesComment;
+        [DataMember] private string traderComment;
+        [DataMember] private string clientComment;
 
-        private string pickedUpBy;
+        [DataMember] private string pickedUpBy;
 
         public List<IOptionDetail> Legs { get; set; }
         public List<ChatMessageImpl> Messages { get; set; }
@@ -151,7 +151,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public IRequestForQuote Clone(int nextIdentifier)
         {
             IRequestForQuote clone = new RequestForQuoteImpl();
-            clone.Status = status;
+            clone.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), status);
             clone.Client = client;
             clone.TradeDate = tradeDate;
             clone.ExpiryDate = expiryDate;
@@ -172,14 +172,14 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.PickedUpBy = pickedUpBy;
             clone.BookCode = bookCode;
                        
-            clone.PremiumSettlementCurrency = premiumSettlementCurrency;
+            clone.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
             clone.PremiumSettlementDate = premiumSettlementDate;
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
             clone.PremiumSettlementFXRate = premiumSettlementFXRate;
 
             clone.SalesCreditAmount = salesCreditAmount;
             clone.SalesCreditPercentage = salesCreditPercentage;
-            clone.SalesCreditCurrency = salesCreditCurrency;
+            clone.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
             clone.SalesCreditFXRate = salesCreditFXRate;
             
             clone.Multiplier = multiplier;
@@ -187,7 +187,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.LotSize = lotSize;
             
             clone.NotionalMillions = notionalMillions;
-            clone.NotionalCurrency = notionalCurrency;
+            clone.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
             clone.NotionalFXRate = notionalFXRate;
             
             clone.BidImpliedVol = bidImpliedVol;
@@ -207,7 +207,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.ClientComment = clientComment;
 
             clone.HedgePrice = hedgePrice;
-            clone.HedgeType = hedgeType;
+            clone.HedgeType = (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
 
             if (Legs != null)
             {
@@ -429,15 +429,12 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public StatusEnum Status
         {
-            get
-            {
-                return status;
-            }
+            get { return (StatusEnum)Enum.Parse(typeof(StatusEnum), status); }
             set
             {
-                if (status != value)
+                if (status != value.ToString())
                 {
-                    status = value;
+                    status = value.ToString();
                     NotifyPropertyChanged("Status");
                 }
             }
@@ -512,13 +509,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return premiumSettlementCurrency;
+                return (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
             }
             set
             {
-                if (premiumSettlementCurrency != value)
+                if (premiumSettlementCurrency != value.ToString())
                 {
-                    premiumSettlementCurrency = value;
+                    premiumSettlementCurrency = value.ToString();
                     NotifyPropertyChanged("PremiumSettlementCurrency");                    
                 }
             }
@@ -608,13 +605,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return salesCreditCurrency;
+                return (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
             }
             set
             {
-                if (salesCreditCurrency != value)
+                if (salesCreditCurrency != value.ToString())
                 {
-                    salesCreditCurrency = value; 
+                    salesCreditCurrency = value.ToString(); 
                     NotifyPropertyChanged("SalesCreditCurrency");                    
                 }
             }
@@ -759,13 +756,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return notionalCurrency;
+                return (CurrencyEnum) Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
             }
             set
             {
-                if (notionalCurrency != value)
+                if (notionalCurrency != value.ToString())
                 {
-                    notionalCurrency = value;
+                    notionalCurrency = value.ToString();
                     NotifyPropertyChanged("NotionalCurrency");
                 }
             }
@@ -1240,13 +1237,13 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return hedgeType;
+                return (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
             }
             set
             {
-                if (hedgeType != value)
+                if (hedgeType != value.ToString())
                 {
-                    hedgeType = value;
+                    hedgeType = value.ToString();
                     NotifyPropertyChanged("HedgeType");
                 }
             }
