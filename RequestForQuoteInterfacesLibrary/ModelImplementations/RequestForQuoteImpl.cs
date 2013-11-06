@@ -171,15 +171,18 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.Identifier = nextIdentifier;
             clone.PickedUpBy = pickedUpBy;
             clone.BookCode = bookCode;
-                       
-            clone.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
-            clone.PremiumSettlementDate = DateTime.Parse(premiumSettlementDate);
+
+            if(premiumSettlementCurrency != null)
+                clone.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
+            if (premiumSettlementDate != null)
+                clone.PremiumSettlementDate = DateTime.Parse(premiumSettlementDate);
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
             clone.PremiumSettlementFXRate = premiumSettlementFXRate;
 
             clone.SalesCreditAmount = salesCreditAmount;
             clone.SalesCreditPercentage = salesCreditPercentage;
-            clone.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
+            if (salesCreditCurrency != null)
+                clone.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
             clone.SalesCreditFXRate = salesCreditFXRate;
             
             clone.Multiplier = multiplier;
@@ -187,6 +190,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.LotSize = lotSize;
             
             clone.NotionalMillions = notionalMillions;
+            if (notionalCurrency != null)
             clone.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
             clone.NotionalFXRate = notionalFXRate;
             
@@ -207,7 +211,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.ClientComment = clientComment;
 
             clone.HedgePrice = hedgePrice;
-            clone.HedgeType = (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
+            if (hedgeType != null)
+                clone.HedgeType = (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
 
             if (Legs != null)
             {
@@ -509,7 +514,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
+                return premiumSettlementCurrency != null 
+                    ? (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency) 
+                    : CurrencyEnum.USD;
             }
             set
             {
@@ -523,9 +530,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         public DateTime PremiumSettlementDate
         {
-            get
+            get 
             {
-                return DateTime.Parse(premiumSettlementDate);
+                return premiumSettlementDate != null 
+                ? DateTime.Parse(premiumSettlementDate) 
+                : new DateTime(); 
             }
             set
             {
@@ -605,7 +614,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
+                return salesCreditCurrency != null 
+                    ? (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency) 
+                    : CurrencyEnum.USD;
             }
             set
             {
@@ -756,7 +767,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return (CurrencyEnum) Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
+                return notionalCurrency != null
+                           ? (CurrencyEnum) Enum.Parse(typeof (CurrencyEnum), notionalCurrency)
+                           : CurrencyEnum.USD;
             }
             set
             {
@@ -1237,7 +1250,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
+                return hedgeType != null
+                           ? (HedgeTypeEnum) Enum.Parse(typeof (HedgeTypeEnum), hedgeType)
+                           : HedgeTypeEnum.FUTURES;
             }
             set
             {
