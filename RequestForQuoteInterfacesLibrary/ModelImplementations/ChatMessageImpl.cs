@@ -23,7 +23,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             this.owner = owner;
             this.requestForQuoteId = requestForQuoteId;
             this.sequenceId = sequenceId;
-            this.timeStamp = timeStamp.ToShortDateString();
+            this.timeStamp = timeStamp.ToLongTimeString();
         }
 
         public String Owner

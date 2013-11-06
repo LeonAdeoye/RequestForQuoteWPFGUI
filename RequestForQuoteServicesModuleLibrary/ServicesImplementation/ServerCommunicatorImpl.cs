@@ -184,8 +184,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     PublishMessageToJSONParser(state.sb.ToString().Substring(RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH, sizeOfMessage));
                     state.sb.Remove(0, sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH);
-                    MessageBox.Show("Process larger message via recursion: " + state.sb.ToString());
-                    ProcessMessage(state);
+                    ProcessMessage(state); // Recursive call
                 }
                 else if (state.sb.Length == sizeOfMessage + RequestForQuoteConstants.JSON_MESSAGE_SIZE_PREFIX_LENGTH)
                 {
