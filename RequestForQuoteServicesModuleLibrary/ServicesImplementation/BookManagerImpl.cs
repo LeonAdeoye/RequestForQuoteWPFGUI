@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.ServiceLocation;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -13,15 +12,22 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    sealed class BookManagerImpl : IBookManager
+    public sealed class BookManagerImpl : IBookManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly BookControllerClient bookControllerProxy = new BookControllerClient();
+        private readonly BookControllerClient bookControllerProxy;
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
         public List<IBook> Books { get; set; }
 
-        public BookManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="configManager"> used to pass current user to web service save and update operations.</param>
+        /// <param name="eventAggregator"> used to publish new book updates to listening components.</param>
+        /// <param name="bookControllerProxy"> proxy for web service operations.</param>
+        /// <exception cref="ArgumentNullException"> if configManager or eventAggregator or bookControllerProxy is null.</exception>
+        public BookManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator, BookControllerClient bookControllerProxy)
         {
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
@@ -29,12 +35,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
 
+            if (bookControllerProxy == null)
+                throw new ArgumentNullException("bookControllerProxy");
+
             this.configManager = configManager;
             this.eventAggregator = eventAggregator;
+            this.bookControllerProxy = bookControllerProxy;
 
             Books = new List<IBook>();
         }
-        
+
+        /// <summary>
+        /// Initializes the Books collection.
+        /// In STANDALONE mode the Books collection is populated with dummy data.
+        /// in WEB SERVICE mode the Books collection is populated with books returned by the web service getAll method.
+        /// </summary>
         public void Initialize()
         {
             try
@@ -72,6 +87,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
+        /// <summary>
+        /// Adds a book to the Books collection referenced by components in the GUI,
+        /// and publishes the details of the book to all listener components.
+        /// </summary>
+        /// <param name="bookCode"> the book code of the book to be published.</param>
+        /// <param name="entity"> the entity of the book to to be published.</param>
+        /// <param name="isValid"> the validity state of the book to be published.</param>
         public void AddBook(string bookCode, string entity, bool isValid)
         {
             if (String.IsNullOrEmpty(bookCode))
@@ -92,6 +114,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             });
         }
 
+        /// <summary>
+        /// Saves the new book to the database via a web service call.
+        /// </summary>
+        /// <param name="bookCode"> the bookCode of the book to be saved.</param>
+        /// <param name="entity"> the entity of the book to be saved.</param>
+        /// <param name="isValid"> the validity state of the book to be saved.</param>
+        /// <returns> true if the save operation is successful; false otherwise.</returns>
+        /// <exception cref="ArgumentException"> thrown if the bookCode or the entity is null or empty.</exception>
         public bool SaveToDatabase(string bookCode, string entity, bool isValid)
         {
             if (String.IsNullOrEmpty(bookCode))
@@ -103,13 +133,32 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return bookControllerProxy.save(bookCode, entity, configManager.CurrentUser);
         }
 
+        /// <summary>
+        /// Updates the validity of a book via a web service call.
+        /// </summary>
+        /// <param name="bookCode"> the book code of the book that the update will be applied to.</param>
+        /// <param name="isValid"> the valid/invalid flag.</param>
+        /// <returns> true if the update is successful; false otherwise</returns>
+        /// <exception cref="ArgumentException"> thrown if the bookCode is null or empty.</exception>
         public bool UpdateValidity(string bookCode, bool isValid)
         {
+            if (String.IsNullOrEmpty(bookCode))
+                throw new ArgumentException("bookCode");
+
             return bookControllerProxy.updateValidity(bookCode, isValid);
         }
 
+        /// <summary>
+        /// Deletes a book via a web service call.
+        /// </summary>
+        /// <param name="bookCode"> the book to be deleted.</param>
+        /// <returns> return true if the book is deleted; false otherwise.</returns>
+        /// <exception cref="ArgumentException"> thrown if the bookCode is null or empty.</exception>
         bool IBookManager.RemoveBook(string bookCode)
         {
+            if (String.IsNullOrEmpty(bookCode))
+                throw new ArgumentException("bookCode");
+
             return bookControllerProxy.delete(bookCode);
         }
     }

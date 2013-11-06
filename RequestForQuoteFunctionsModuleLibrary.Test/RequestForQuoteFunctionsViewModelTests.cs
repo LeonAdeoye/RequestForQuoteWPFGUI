@@ -21,7 +21,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         private readonly Mock<IClientManager> clientManagerMock = new Mock<IClientManager>();
         private readonly Mock<ISearchManager> searchManagerMock = new Mock<ISearchManager>();
         private readonly Mock<IUnderlyingManager> underlyingManagerMock = new Mock<IUnderlyingManager>();
-        private readonly Mock<IEventAggregator> eventAggregaterMock = new Mock<IEventAggregator>();
+        private readonly Mock<IEventAggregator> eventAggregatorMock = new Mock<IEventAggregator>();
         private readonly Mock<IConfigurationManager> configManagerMock = new Mock<IConfigurationManager>();
 
         private readonly Mock<NewBookEvent> newBookEventMock = new Mock<NewBookEvent>();
@@ -67,11 +67,11 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
-            eventAggregaterMock.Setup(p => p.GetEvent<NewBookEvent>()).Returns(newBookEventMock.Object);
-            eventAggregaterMock.Setup(p => p.GetEvent<NewClientEvent>()).Returns(newClientEventMock.Object);
-            eventAggregaterMock.Setup(p => p.GetEvent<NewSearchEvent>()).Returns(newSearchEventMock.Object);
-            eventAggregaterMock.Setup(p => p.GetEvent<NewUnderlyierEvent>()).Returns(newUnderlyierEventMock.Object);
-            eventAggregaterMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>())
+            eventAggregatorMock.Setup(p => p.GetEvent<NewBookEvent>()).Returns(newBookEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<NewClientEvent>()).Returns(newClientEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<NewSearchEvent>()).Returns(newSearchEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<NewUnderlyierEvent>()).Returns(newUnderlyierEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>())
                                .Returns(searchRequestForQuoteEventMock.Object);
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() {testBook});
@@ -79,7 +79,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             underlyingManagerMock.Setup(um => um.Underlyings).Returns(new List<IUnderlying>() {testUnderlying});
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
-            viewModel = new RequestForQuoteFunctionsViewModel(eventAggregaterMock.Object, clientManagerMock.Object,
+            viewModel = new RequestForQuoteFunctionsViewModel(eventAggregatorMock.Object, clientManagerMock.Object,
                                                               underlyingManagerMock.Object, bookManagerMock.Object,
                                                               searchManagerMock.Object, configManagerMock.Object);
         }

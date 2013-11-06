@@ -5,6 +5,7 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
+using RequestForQuoteServicesModuleLibrary.BookMaintenanceService;
 using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
 using log4net;
 using Microsoft.Practices.Unity;
@@ -48,7 +49,7 @@ namespace RequestForQuoteServicesModuleLibrary
             container.RegisterInstance<IClientManager>(clientManager);
             tasks[1] = Task.Factory.StartNew(() => clientManager.Initialize());
 
-            var bookManager = new BookManagerImpl(configManager, eventAggregator);
+            var bookManager = new BookManagerImpl(configManager, eventAggregator, new BookControllerClient());
             container.RegisterInstance<IBookManager>(bookManager);
             tasks[2] = Task.Factory.StartNew(() => bookManager.Initialize());
 
