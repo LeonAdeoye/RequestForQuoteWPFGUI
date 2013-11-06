@@ -265,6 +265,7 @@ namespace RequestForQuoteGridModuleLibrary
             request.Contracts = 100;
             request.NotionalFXRate = 1;
             request.NotionalMillions = 1;
+            request.BookCode = eventPayload.NewRequestBookCode;
 
             Requests.Add(request);
             // TODO
