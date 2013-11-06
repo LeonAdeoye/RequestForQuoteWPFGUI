@@ -1235,6 +1235,183 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
+    public partial class searchCriterionImpl : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string controlNameField;
+        
+        private string controlValueField;
+        
+        private bool isFilterField;
+        
+        private bool isFilterFieldSpecified;
+        
+        private bool isPrivateField;
+        
+        private bool isPrivateFieldSpecified;
+        
+        private string keyField;
+        
+        private string ownerField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string controlName {
+            get {
+                return this.controlNameField;
+            }
+            set {
+                this.controlNameField = value;
+                this.RaisePropertyChanged("controlName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string controlValue {
+            get {
+                return this.controlValueField;
+            }
+            set {
+                this.controlValueField = value;
+                this.RaisePropertyChanged("controlValue");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public bool isFilter {
+            get {
+                return this.isFilterField;
+            }
+            set {
+                this.isFilterField = value;
+                this.RaisePropertyChanged("isFilter");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isFilterSpecified {
+            get {
+                return this.isFilterFieldSpecified;
+            }
+            set {
+                this.isFilterFieldSpecified = value;
+                this.RaisePropertyChanged("isFilterSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public bool isPrivate {
+            get {
+                return this.isPrivateField;
+            }
+            set {
+                this.isPrivateField = value;
+                this.RaisePropertyChanged("isPrivate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isPrivateSpecified {
+            get {
+                return this.isPrivateFieldSpecified;
+            }
+            set {
+                this.isPrivateFieldSpecified = value;
+                this.RaisePropertyChanged("isPrivateSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public string key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+                this.RaisePropertyChanged("key");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public string owner {
+            get {
+                return this.ownerField;
+            }
+            set {
+                this.ownerField = value;
+                this.RaisePropertyChanged("owner");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
+    public partial class criteriaImpl : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private searchCriterionImpl[] searchCriteriaImplField;
+        
+        private searchCriterionImpl[] criteriaField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("SearchCriterionImpl", IsNullable=false)]
+        public searchCriterionImpl[] SearchCriteriaImpl {
+            get {
+                return this.searchCriteriaImplField;
+            }
+            set {
+                this.searchCriteriaImplField = value;
+                this.RaisePropertyChanged("SearchCriteriaImpl");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("criteria", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public searchCriterionImpl[] criteria {
+            get {
+                return this.criteriaField;
+            }
+            set {
+                this.criteriaField = value;
+                this.RaisePropertyChanged("criteria");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
     public partial class requestDetailListImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
         private requestDetailImpl[] requestDetailListImplField;
@@ -1453,12 +1630,17 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public bool rePrice;
         
         public getRequestsMatchingAdhocCriteria() {
         }
         
-        public getRequestsMatchingAdhocCriteria(bool rePrice) {
+        public getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
+            this.criteria = criteria;
             this.rePrice = rePrice;
         }
     }
@@ -2015,8 +2197,9 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.getRequestsMatchingAdhocCriteria(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailListImpl getRequestsMatchingAdhocCriteria(bool rePrice) {
+        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailListImpl getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria();
+            inValue.criteria = criteria;
             inValue.rePrice = rePrice;
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteriaResponse retVal = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).getRequestsMatchingAdhocCriteria(inValue);
             return retVal.@return;
@@ -2028,8 +2211,9 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegingetRequestsMatchingAdhocCriteria(bool rePrice, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BegingetRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria();
+            inValue.criteria = criteria;
             inValue.rePrice = rePrice;
             return ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.RequestController)(this)).BegingetRequestsMatchingAdhocCriteria(inValue, callback, asyncState);
         }
@@ -2046,8 +2230,9 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         private System.IAsyncResult OnBegingetRequestsMatchingAdhocCriteria(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            bool rePrice = ((bool)(inValues[0]));
-            return this.BegingetRequestsMatchingAdhocCriteria(rePrice, callback, asyncState);
+            RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl)(inValues[0]));
+            bool rePrice = ((bool)(inValues[1]));
+            return this.BegingetRequestsMatchingAdhocCriteria(criteria, rePrice, callback, asyncState);
         }
         
         private object[] OnEndgetRequestsMatchingAdhocCriteria(System.IAsyncResult result) {
@@ -2063,11 +2248,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void getRequestsMatchingAdhocCriteriaAsync(bool rePrice) {
-            this.getRequestsMatchingAdhocCriteriaAsync(rePrice, null);
+        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
+            this.getRequestsMatchingAdhocCriteriaAsync(criteria, rePrice, null);
         }
         
-        public void getRequestsMatchingAdhocCriteriaAsync(bool rePrice, object userState) {
+        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice, object userState) {
             if ((this.onBegingetRequestsMatchingAdhocCriteriaDelegate == null)) {
                 this.onBegingetRequestsMatchingAdhocCriteriaDelegate = new BeginOperationDelegate(this.OnBegingetRequestsMatchingAdhocCriteria);
             }
@@ -2078,6 +2263,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
                 this.ongetRequestsMatchingAdhocCriteriaCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetRequestsMatchingAdhocCriteriaCompleted);
             }
             base.InvokeAsync(this.onBegingetRequestsMatchingAdhocCriteriaDelegate, new object[] {
+                        criteria,
                         rePrice}, this.onEndgetRequestsMatchingAdhocCriteriaDelegate, this.ongetRequestsMatchingAdhocCriteriaCompletedDelegate, userState);
         }
         

@@ -400,9 +400,13 @@ namespace RequestForQuoteGridModuleLibrary
 
             SearchedRequests.Clear();
 
-            // TODO
-            // Load from the database...
-            SearchedRequests.Add(new RequestForQuoteImpl() { Request = "C+3P 100 23Dec2013 1001.T", Status = StatusEnum.PENDING, Identifier = 1, Client = Clients[0], TradeDate = Convert.ToDateTime("1 Jan 2013"), NotionalCurrency = CurrencyEnum.EUR, BookCode = "AB01" });
+            ISearch search = new SearchImpl();
+
+            if (eventPayload.Criteria != null)
+                foreach (var criterion in eventPayload.Criteria)                
+                    search.Criteria.Add(new SearchCriterionImpl {ControlName = criterion.Key, ControlValue = criterion.Value});
+                
+            optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false);            
 
             Requests = SearchedRequests;
             NotifyPropertyChanged("Requests");

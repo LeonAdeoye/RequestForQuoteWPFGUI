@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.RequestMaintenanceService;
+using RequestForQuoteServicesModuleLibrary.SearchCriteriaService;
 using log4net;
+using searchCriterionImpl = RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriterionImpl;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
@@ -114,19 +117,58 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		}
 
 		/// <summary>
-		/// Get the RFQ matching the identifier.
+		/// Gets the RFQ matching the identifier.
 		/// </summary>
 		/// <param name="identifier"> the identifier of the RFQ.</param>
 		/// <param name="rePrice"> flag used to indicate whether the pricing should be recalculated based on current market prices. </param>
-		/// <returns></returns>
+		/// <returns> the RFQ returned by the web service call.</returns>
 		public IRequestForQuote GetRequest(int identifier, bool rePrice)
 		{
 			return CreateRequestForQuoteFromServiceRequest(requestControllerProxy.getRequest(identifier, rePrice));
 		}
 
-		public List<IRequestForQuote> GetRequestMatchingAdhocCriteria(ISearchCriterion search, bool rePrice)
+		/// <summary>
+		/// Gets the RFQs matching the adhoc search criteria via a web service call.
+		/// </summary>
+		/// <param name="search"> the search criteria</param>
+		/// <param name="rePrice"> flag indicating whether the RFQs should be repriced using the latest market data.</param>
+		/// <returns> the list of RFQs matching the criteria.</returns>
+		public List<IRequestForQuote> GetRequestMatchingAdhocCriteria(ISearch search, bool rePrice)
 		{
-			throw new System.NotImplementedException();
+			var listOfRequests = new List<IRequestForQuote>();
+
+		    try
+		    {
+                criteriaImpl serviceCriteria = new criteriaImpl { criteria = new searchCriterionImpl[search.Criteria.Count] };
+
+                var index = 0;
+                foreach (var criterion in search.Criteria)
+                {
+                    var serviceCriterion = new RequestMaintenanceService.searchCriterionImpl
+                    {
+                        controlName = criterion.ControlName,
+                        controlValue = criterion.ControlValue
+                    };
+
+                    serviceCriteria.criteria[index++] = serviceCriterion;
+                }
+
+                // TODO: http://stackoverflow.com/questions/298733/java-util-list-is-an-interface-and-jaxb-cant-handle-interfaces
+                //var requests = requestControllerProxy.getRequestsMatchingAdhocCriteria(serviceCriteria, false);
+                //if (requests != null)
+                //    foreach (var request in requests.requestDetailList)
+                //        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
+		    }
+            catch (FaultException fe)
+            {
+                log.Error("Failed to adhoc search request. Exception thrown: ", fe);
+            }
+            catch (EndpointNotFoundException enfe)
+            {
+                log.Error("Failed to adhoc search request. Exception thrown: ", enfe);
+            }
+
+			return listOfRequests;
 		}
 
 		public List<IRequestForQuote> GetRequestMatchingExistingCriteria(string criteriaOwner, string criteriaDescriptionKey, bool rePrice)
