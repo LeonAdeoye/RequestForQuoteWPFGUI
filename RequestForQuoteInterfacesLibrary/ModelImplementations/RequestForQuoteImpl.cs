@@ -514,8 +514,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
-                return premiumSettlementCurrency != null 
-                    ? (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency) 
+                return premiumSettlementCurrency != null
+                    ? (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency)
                     : CurrencyEnum.USD;
             }
             set

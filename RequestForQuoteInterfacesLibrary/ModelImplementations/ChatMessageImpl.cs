@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
+    [DebuggerDisplay("Chat message with content {Content} sent by {Owner} for RFQ ID {RequestForQuoteId} with sequence ID {SequenceId} at time {TimeStamp}")]
     public class ChatMessageImpl : INotifyPropertyChanged
     {
         [DataMember] private string content;

@@ -137,36 +137,36 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		{
 			var listOfRequests = new List<IRequestForQuote>();
 
-		    try
-		    {
-                criteriaImpl serviceCriteria = new criteriaImpl { criteria = new searchCriterionImpl[search.Criteria.Count] };
+			try
+			{
+				criteriaImpl serviceCriteria = new criteriaImpl { criteria = new searchCriterionImpl[search.Criteria.Count] };
 
-                var index = 0;
-                foreach (var criterion in search.Criteria)
-                {
-                    var serviceCriterion = new RequestMaintenanceService.searchCriterionImpl
-                    {
-                        controlName = criterion.ControlName,
-                        controlValue = criterion.ControlValue
-                    };
+				var index = 0;
+				foreach (var criterion in search.Criteria)
+				{
+					var serviceCriterion = new RequestMaintenanceService.searchCriterionImpl
+					{
+						controlName = criterion.ControlName,
+						controlValue = criterion.ControlValue
+					};
 
-                    serviceCriteria.criteria[index++] = serviceCriterion;
-                }
+					serviceCriteria.criteria[index++] = serviceCriterion;
+				}
 
-                // TODO: http://stackoverflow.com/questions/298733/java-util-list-is-an-interface-and-jaxb-cant-handle-interfaces
-                //var requests = requestControllerProxy.getRequestsMatchingAdhocCriteria(serviceCriteria, false);
-                //if (requests != null)
-                //    foreach (var request in requests.requestDetailList)
-                //        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
-		    }
-            catch (FaultException fe)
-            {
-                log.Error("Failed to adhoc search request. Exception thrown: ", fe);
-            }
-            catch (EndpointNotFoundException enfe)
-            {
-                log.Error("Failed to adhoc search request. Exception thrown: ", enfe);
-            }
+				// TODO: http://stackoverflow.com/questions/298733/java-util-list-is-an-interface-and-jaxb-cant-handle-interfaces
+				//var requests = requestControllerProxy.getRequestsMatchingAdhocCriteria(serviceCriteria, false);
+				//if (requests != null)
+				//    foreach (var request in requests.requestDetailList)
+				//        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
+			}
+			catch (FaultException fe)
+			{
+				log.Error("Failed to adhoc search request. Exception thrown: ", fe);
+			}
+			catch (EndpointNotFoundException enfe)
+			{
+				log.Error("Failed to adhoc search request. Exception thrown: ", enfe);
+			}
 
 			return listOfRequests;
 		}
@@ -307,7 +307,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			requestForQuoteToCreate.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
 
 			requestForQuoteToCreate.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
-			requestForQuoteToCreate.PremiumSettlementDate = System.Convert.ToDateTime(serviceRequest.premiumSettlementDate);
+			requestForQuoteToCreate.PremiumSettlementDate = Convert.ToDateTime(serviceRequest.premiumSettlementDate);
 			requestForQuoteToCreate.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
 			requestForQuoteToCreate.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
 
