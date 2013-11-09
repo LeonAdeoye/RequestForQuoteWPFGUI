@@ -189,13 +189,13 @@
       </xs:complexType>
       <xs:complexType name="getRequestsMatchingAdhocCriteria">
         <xs:sequence>
-          <xs:element minOccurs="0" name="criteria" type="tns:criteriaImpl" />
+          <xs:element minOccurs="0" name="criteria" type="tns:searchCriteriaImpl" />
           <xs:element name="rePrice" type="xs:boolean" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="criteriaImpl" final="extension restriction">
+      <xs:complexType name="searchCriteriaImpl" final="extension restriction">
         <xs:sequence>
-          <xs:element minOccurs="0" name="SearchCriteriaImpl">
+          <xs:element minOccurs="0" name="CriteriaImpl">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:SearchCriterionImpl" />
@@ -233,7 +233,7 @@
     </xs:schema>
     <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.search" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />
-      <xs:element name="SearchCriteriaImpl" type="ns1:criteriaImpl" />
+      <xs:element name="CriteriaImpl" type="ns1:searchCriteriaImpl" />
     </xs:schema>
     <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.request" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />

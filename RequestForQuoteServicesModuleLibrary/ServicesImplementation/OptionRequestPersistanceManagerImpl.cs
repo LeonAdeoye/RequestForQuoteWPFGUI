@@ -139,7 +139,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			try
 			{
-				criteriaImpl serviceCriteria = new criteriaImpl { criteria = new searchCriterionImpl[search.Criteria.Count] };
+				searchCriteriaImpl serviceCriteria = new searchCriteriaImpl
+					{
+						criteria = new searchCriterionImpl[search.Criteria.Count]
+					};
 
 				var index = 0;
 				foreach (var criterion in search.Criteria)
@@ -153,11 +156,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					serviceCriteria.criteria[index++] = serviceCriterion;
 				}
 
-				// TODO: http://stackoverflow.com/questions/298733/java-util-list-is-an-interface-and-jaxb-cant-handle-interfaces
-				//var requests = requestControllerProxy.getRequestsMatchingAdhocCriteria(serviceCriteria, false);
-				//if (requests != null)
-				//    foreach (var request in requests.requestDetailList)
-				//        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
+				var requests = requestControllerProxy.getRequestsMatchingAdhocCriteria(serviceCriteria, false);
+
+				if (requests != null && requests.requestDetailList != null)
+					foreach (var request in requests.requestDetailList)
+						listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
 			}
 			catch (FaultException fe)
 			{

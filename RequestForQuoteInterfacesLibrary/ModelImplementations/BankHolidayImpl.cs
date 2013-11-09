@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -7,6 +8,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
+    [DebuggerDisplay("Bank holiday on date {HolidayDate} at location {Location}.")]
     public sealed class BankHolidayImpl : IBankHoliday, INotifyPropertyChanged
     {
         [DataMember] private string location;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -6,6 +7,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
+    [DebuggerDisplay("Book with book code {BookCode}, entity {Entity}, and validity of {IsValid}.")]
     public sealed class BookImpl : IBook, INotifyPropertyChanged
     {
         [DataMember] private bool isValid;

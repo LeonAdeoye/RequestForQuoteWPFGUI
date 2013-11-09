@@ -1365,22 +1365,22 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
-    public partial class criteriaImpl : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class searchCriteriaImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private searchCriterionImpl[] searchCriteriaImplField;
+        private searchCriterionImpl[] criteriaImplField;
         
         private searchCriterionImpl[] criteriaField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         [System.Xml.Serialization.XmlArrayItemAttribute("SearchCriterionImpl", IsNullable=false)]
-        public searchCriterionImpl[] SearchCriteriaImpl {
+        public searchCriterionImpl[] CriteriaImpl {
             get {
-                return this.searchCriteriaImplField;
+                return this.criteriaImplField;
             }
             set {
-                this.searchCriteriaImplField = value;
-                this.RaisePropertyChanged("SearchCriteriaImpl");
+                this.criteriaImplField = value;
+                this.RaisePropertyChanged("CriteriaImpl");
             }
         }
         
@@ -1630,7 +1630,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria;
+        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://request.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -1639,7 +1639,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         public getRequestsMatchingAdhocCriteria() {
         }
         
-        public getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
+        public getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria, bool rePrice) {
             this.criteria = criteria;
             this.rePrice = rePrice;
         }
@@ -2197,7 +2197,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             return base.Channel.getRequestsMatchingAdhocCriteria(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailListImpl getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
+        public RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.requestDetailListImpl getRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria, bool rePrice) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria();
             inValue.criteria = criteria;
             inValue.rePrice = rePrice;
@@ -2211,7 +2211,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegingetRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BegingetRequestsMatchingAdhocCriteria(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria, bool rePrice, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria inValue = new RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.getRequestsMatchingAdhocCriteria();
             inValue.criteria = criteria;
             inValue.rePrice = rePrice;
@@ -2230,7 +2230,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         private System.IAsyncResult OnBegingetRequestsMatchingAdhocCriteria(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl)(inValues[0]));
+            RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria = ((RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl)(inValues[0]));
             bool rePrice = ((bool)(inValues[1]));
             return this.BegingetRequestsMatchingAdhocCriteria(criteria, rePrice, callback, asyncState);
         }
@@ -2248,11 +2248,11 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             }
         }
         
-        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice) {
+        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria, bool rePrice) {
             this.getRequestsMatchingAdhocCriteriaAsync(criteria, rePrice, null);
         }
         
-        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.criteriaImpl criteria, bool rePrice, object userState) {
+        public void getRequestsMatchingAdhocCriteriaAsync(RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriteriaImpl criteria, bool rePrice, object userState) {
             if ((this.onBegingetRequestsMatchingAdhocCriteriaDelegate == null)) {
                 this.onBegingetRequestsMatchingAdhocCriteriaDelegate = new BeginOperationDelegate(this.OnBegingetRequestsMatchingAdhocCriteria);
             }

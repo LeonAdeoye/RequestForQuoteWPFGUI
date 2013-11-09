@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
@@ -7,6 +8,7 @@ using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
+    [DebuggerDisplay("Client with name {Name}, tier {Tier}, and identifier {Identifier}.")]
     public sealed class ClientImpl : IClient, INotifyPropertyChanged
     {
         [DataMember] private bool isValid;

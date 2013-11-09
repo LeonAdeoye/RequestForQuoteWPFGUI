@@ -398,17 +398,17 @@ namespace RequestForQuoteGridModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received published search requests event => " + eventPayload);
 
-            SearchedRequests.Clear();
+            Requests.Clear();
 
             ISearch search = new SearchImpl();
 
             if (eventPayload.Criteria != null)
                 foreach (var criterion in eventPayload.Criteria)                
                     search.Criteria.Add(new SearchCriterionImpl {ControlName = criterion.Key, ControlValue = criterion.Value});
-                
-            optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false);            
 
-            Requests = SearchedRequests;
+            foreach (var request in optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false))
+                Requests.Add(request);
+
             NotifyPropertyChanged("Requests");
         }
 

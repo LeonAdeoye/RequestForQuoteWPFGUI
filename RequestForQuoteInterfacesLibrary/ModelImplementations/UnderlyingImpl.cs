@@ -1,9 +1,11 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Diagnostics;
+using System.Runtime.Serialization;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     [DataContract]
+    [DebuggerDisplay("Underlying with RIC {RIC}, description {Description}, and validity {IsValid}.")]
     public sealed class UnderlyingImpl : IUnderlying
     {
         [DataMember] private string ric;
