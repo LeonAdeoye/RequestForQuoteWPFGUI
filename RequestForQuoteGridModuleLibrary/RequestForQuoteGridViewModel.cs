@@ -17,6 +17,7 @@ using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
+using RequestForQuoteInterfacesLibrary.Utilities;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 using log4net;
 
@@ -36,10 +37,10 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IUnderlyingManager underlyingManager;
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
-  
-        public ObservableCollection<IRequestForQuote> Requests { get; set; }
-        public ObservableCollection<IRequestForQuote> SearchedRequests { get; set; }
-        public ObservableCollection<IRequestForQuote> TodaysRequests { get; set; }
+
+        public RangeObservableCollection<IRequestForQuote> Requests { get; set; }
+        public RangeObservableCollection<IRequestForQuote> SearchedRequests { get; set; }
+        public RangeObservableCollection<IRequestForQuote> TodaysRequests { get; set; }
         
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
@@ -90,9 +91,10 @@ namespace RequestForQuoteGridModuleLibrary
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
 
-            Requests = new ObservableCollection<IRequestForQuote>();
-            SearchedRequests = new ObservableCollection<IRequestForQuote>();
-            TodaysRequests = new ObservableCollection<IRequestForQuote>();
+            //Requests = new ObservableCollection<IRequestForQuote>();
+            SearchedRequests = new RangeObservableCollection<IRequestForQuote>();
+            TodaysRequests = new RangeObservableCollection<IRequestForQuote>();
+            Requests = new RangeObservableCollection<IRequestForQuote>();
 
             CloneRequestCommand = new CloneRequestCommand(this);
             DeleteRequestCommand = new DeleteRequestCommand(this);
@@ -141,8 +143,8 @@ namespace RequestForQuoteGridModuleLibrary
                 foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(true))
                     TodaysRequests.Add(request);                
             }
-          
-            Requests = TodaysRequests;
+
+            Requests.AddRange(TodaysRequests);
             NotifyPropertyChanged("Requests");
         }
 
@@ -282,7 +284,8 @@ namespace RequestForQuoteGridModuleLibrary
             var view = CollectionViewSource.GetDefaultView(Requests);
             view.Filter = null;
 
-            Requests = TodaysRequests;
+            Requests.Clear();
+            Requests.AddRange(TodaysRequests);
             NotifyPropertyChanged("Requests");            
         }
 
@@ -312,7 +315,8 @@ namespace RequestForQuoteGridModuleLibrary
             }
             else
             {
-                Requests = TodaysRequests;
+                Requests.Clear();
+                Requests.AddRange(TodaysRequests);
                 NotifyPropertyChanged("Requests");
                 var view = CollectionViewSource.GetDefaultView(Requests);
                 view.Filter = null;    
@@ -406,8 +410,8 @@ namespace RequestForQuoteGridModuleLibrary
                 foreach (var criterion in eventPayload.Criteria)                
                     search.Criteria.Add(new SearchCriterionImpl {ControlName = criterion.Key, ControlValue = criterion.Value});
 
-            foreach (var request in optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false))
-                Requests.Add(request);
+            //foreach (var request in optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false))
+                Requests.AddRange(optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false));
 
             NotifyPropertyChanged("Requests");
         }

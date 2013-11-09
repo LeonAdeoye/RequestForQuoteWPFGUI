@@ -125,12 +125,16 @@ namespace RequestForQuoteToolBarModuleLibrary
         {
             if (optionRequestParser.IsValidOptionRequest(NewRequest))
             {
-                eventAggregator.GetEvent<NewRequestForQuoteEvent>().Publish(new NewRequestForQuoteEventPayload()
+                var payLoad = new NewRequestForQuoteEventPayload()
                     {
                         NewRequestText = this.NewRequest,
                         NewRequestClient = this.NewRequestClient,
-                        NewRequestBookCode = this.NewRequestBook.BookCode
-                    });
+                    };
+
+                if (this.NewRequestBook != null && this.NewRequestBook.BookCode != null)
+                    payLoad.NewRequestBookCode = this.NewRequestBook.BookCode;
+
+                eventAggregator.GetEvent<NewRequestForQuoteEvent>().Publish(payLoad);
     
                 if(log.IsDebugEnabled)
                     log.Debug("Published new request for quote => " + this.NewRequest);

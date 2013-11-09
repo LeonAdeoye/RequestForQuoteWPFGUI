@@ -120,6 +120,7 @@
     <Compile Include="ServiceInterfaces\IOptionRequestPersistanceManager.cs" />
     <Compile Include="ServiceInterfaces\IReportDataManager.cs" />
     <Compile Include="ServiceInterfaces\IServerCommunicator.cs" />
+    <Compile Include="Utilities\RangeObservableCollection.cs" />
     <Compile Include="ValidationRules\GreaterThanZeroNumberValidationRule.cs" />
     <Compile Include="ValidationRules\MustBeNumberValidationRule.cs" />
     <Compile Include="ValidationRules\ZeroMinimumNumberValidationRule.cs" />
