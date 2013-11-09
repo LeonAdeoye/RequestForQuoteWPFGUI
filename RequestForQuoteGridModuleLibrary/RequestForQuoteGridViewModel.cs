@@ -408,6 +408,10 @@ namespace RequestForQuoteGridModuleLibrary
             Requests.Clear();
             Requests.AddRange(optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false));
             NotifyPropertyChanged("Requests");
+
+            if (!Requests.Any())
+                MessageBox.Show("No RFQs matching the search criteria were found!\nPlease broaden your search criteria.",
+                                "No Search Results Returned.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         public string NewRequest

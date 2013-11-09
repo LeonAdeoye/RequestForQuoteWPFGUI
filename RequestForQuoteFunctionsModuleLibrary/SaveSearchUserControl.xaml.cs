@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RequestForQuoteFunctionsModuleLibrary
@@ -10,6 +11,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
     {
         public SaveSearchUserControl()
         {
+            this.Resources = Application.LoadComponent(new Uri("WPFStyley_Metallic4;Component/Themes/StandardTheme.xaml", UriKind.Relative)) as ResourceDictionary;
             InitializeComponent();
         }
 
