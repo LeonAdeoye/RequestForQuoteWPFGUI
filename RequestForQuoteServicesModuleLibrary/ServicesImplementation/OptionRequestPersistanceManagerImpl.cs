@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.RequestMaintenanceService;
-using RequestForQuoteServicesModuleLibrary.SearchCriteriaService;
 using log4net;
-using searchCriterionImpl = RequestForQuoteServicesModuleLibrary.RequestMaintenanceService.searchCriterionImpl;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
@@ -164,19 +161,51 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			}
 			catch (FaultException fe)
 			{
-				log.Error("Failed to adhoc search request. Exception thrown: ", fe);
+				log.Error("Failed to complete adhoc search request. Exception thrown: ", fe);
 			}
 			catch (EndpointNotFoundException enfe)
 			{
-				log.Error("Failed to adhoc search request. Exception thrown: ", enfe);
+				log.Error("Failed to complete adhoc search request. Exception thrown: ", enfe);
 			}
 
 			return listOfRequests;
 		}
 
+        /// <summary>
+        /// Retrieves the RFQs matching the previously saved criteria with the specified description key and belonging to the specified owner.
+        /// Retrieves the RFQs from the database.
+        /// </summary>
+        /// <param name="criteriaOwner"> the owner of the previously saved set of criteria.</param>
+        /// <param name="criteriaDescriptionKey"> the description key of the previously saved set of criteria.</param>
+        /// <param name="rePrice"> used to indicate if the RFQs should be repriced with new market data.</param>
+        /// <returns> returns the list of RFQs matching the previously saved criteria.</returns>
+        /// <exception cref="ArgumentException"> thrown if either criteriaOwner or criteriaDescriptionKey is null or empty.</exception>
 		public List<IRequestForQuote> GetRequestMatchingExistingCriteria(string criteriaOwner, string criteriaDescriptionKey, bool rePrice)
 		{
-			throw new System.NotImplementedException();
+            if(String.IsNullOrEmpty(criteriaOwner))
+                throw new ArgumentException("criteriaOwner");
+
+            if (String.IsNullOrEmpty(criteriaDescriptionKey))
+                throw new ArgumentException("criteriaDescriptionKey");
+
+            var listOfRequests = new List<IRequestForQuote>();
+            try
+            {
+                var requests = requestControllerProxy.getRequestsMatchingExistingCriteria(criteriaOwner, criteriaDescriptionKey, rePrice);
+
+                if (requests != null && requests.requestDetailList != null)
+                    foreach (var request in requests.requestDetailList)
+                        listOfRequests.Add(CreateRequestForQuoteFromServiceRequest(request));
+            }
+            catch (FaultException fe)
+            {
+                log.Error("Failed to complete existing search request. Exception thrown: ", fe);
+            }
+            catch (EndpointNotFoundException enfe)
+            {
+                log.Error("Failed to complete existing search request. Exception thrown: ", enfe);
+            }
+            return listOfRequests;
 		}
 
 		/// <summary>

@@ -138,11 +138,8 @@ namespace RequestForQuoteGridModuleLibrary
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "2C 120 23Dec2013 0005.HK", Status = StatusEnum.PENDING, Identifier = 5, Client = Clients[1], TradeDate = new DateTime(2013, 6, 21), NotionalCurrency = CurrencyEnum.GBP, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });
                 TodaysRequests.Add(new RequestForQuoteImpl() { Request = "-2C 100 23Dec2013 0006.HK", Status = StatusEnum.TRADEDAWAY, Identifier = 6, Client = Clients[2], TradeDate = new DateTime(2013, 6, 23), NotionalCurrency = CurrencyEnum.SGD, BookCode = "AB03", HedgeType = HedgeTypeEnum.SHARES });                
             }
-            else
-            {
-                foreach (var request in optionRequestPersistanceManager.GetRequestsForToday(true))
-                    TodaysRequests.Add(request);                
-            }
+            else       
+                TodaysRequests.AddRange(optionRequestPersistanceManager.GetRequestsForToday(true));                            
 
             Requests.AddRange(TodaysRequests);
             NotifyPropertyChanged("Requests");
@@ -402,17 +399,14 @@ namespace RequestForQuoteGridModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received published search requests event => " + eventPayload);
 
-            Requests.Clear();
-
             ISearch search = new SearchImpl();
 
             if (eventPayload.Criteria != null)
                 foreach (var criterion in eventPayload.Criteria)                
                     search.Criteria.Add(new SearchCriterionImpl {ControlName = criterion.Key, ControlValue = criterion.Value});
 
-            //foreach (var request in optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false))
-                Requests.AddRange(optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false));
-
+            Requests.Clear();
+            Requests.AddRange(optionRequestPersistanceManager.GetRequestMatchingAdhocCriteria(search, false));
             NotifyPropertyChanged("Requests");
         }
 
