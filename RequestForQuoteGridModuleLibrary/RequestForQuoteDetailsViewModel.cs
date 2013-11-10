@@ -100,6 +100,9 @@ namespace RequestForQuoteGridModuleLibrary
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
 
+            if (requestForQuote == null)
+                throw new ArgumentNullException("requestForQuote");
+
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
             this.bookManager = bookManager;
