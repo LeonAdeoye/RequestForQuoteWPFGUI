@@ -27,12 +27,6 @@
         <TreeView attached:CommandBehavior.Event="MouseDoubleClick"
                   attached:CommandBehavior.Command="{Binding SearchRequestsCommand}" 
                   attached:CommandBehavior.CommandParameter="{x:Static constants:RequestForQuoteConstants.EXISTING_CRITERIA}">
-
-            <!--<TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem">
-                    <Setter Property="IsSelected" Value="{Binding SelectedTreeViewItem, Mode=TwoWay}"/>
-                </Style>
-            </TreeView.ItemContainerStyle>-->
             
             <TreeViewItem IsExpanded="True" Header="Searches">
                 <TreeViewItem Header="Public" ItemsSource="{Binding PublicSearches.View}" DisplayMemberPath="DescriptionKey"></TreeViewItem>

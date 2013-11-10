@@ -257,20 +257,24 @@ namespace RequestForQuoteGridModuleLibrary
             request.Identifier = -1;
             request.Client = eventPayload.NewRequestClient;
             request.TradeDate = DateTime.Today;
-            request.ExpiryDate = request.Legs[0].MaturityDate;
-            request.CalculatePricing(optionRequestPricer);
+            request.ExpiryDate = request.Legs[0].MaturityDate;            
             request.LotSize = 100;
             request.Multiplier = 10;
             request.Contracts = 100;
             request.NotionalFXRate = 1;
             request.NotionalMillions = 1;
             request.BookCode = eventPayload.NewRequestBookCode;
+            request.CalculatePricing(optionRequestPricer);
 
-            Requests.Add(request);
-            // TODO
+            TodaysRequests.Add(request);
+            Requests.Clear();
+            Requests.AddRange(TodaysRequests);
+            NotifyPropertyChanged("Requests"); 
+
+            // TODO - add all fields with their defaults.
 
             if (log.IsDebugEnabled)
-                log.Debug("Received published new request for quote => " + request);
+                log.Debug("Received and prcoessed published new request for quote => " + request);
         }
 
         public void HandleGetTodaysRequestsEvent(EmptyEventPayload emptyPayload)
