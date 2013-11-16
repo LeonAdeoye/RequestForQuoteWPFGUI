@@ -215,18 +215,19 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		/// <param name="serviceOptionLeg"> the web service formatted RFQ's option leg to be converted.</param>
 		/// <returns> the GUI formatted of the RFQ's option leg.</returns>
 		/// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ's option leg is null.</exception>
+		/// <exception cref="InvalidDataException"> thrown if maturity date or side are invalid and cannot be converted.</exception>
 		private IOptionDetail CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
 		{
 			if (serviceOptionLeg == null)
 				throw new ArgumentNullException("serviceOptionLeg");
 
-		    DateTime maturityDateResult;
-		    if(!DateTime.TryParse(serviceOptionLeg.maturityDate, out maturityDateResult))
-                throw new InvalidDataException("maturityDate");
+			DateTime maturityDateResult;
+			if(!DateTime.TryParse(serviceOptionLeg.maturityDate, out maturityDateResult))
+				throw new InvalidDataException("maturityDate");
 
-		    SideEnum sideResult;
-            if(!Enum.TryParse(serviceOptionLeg.side, true, out sideResult))
-                throw new InvalidDataException("side");
+			SideEnum sideResult;
+			if(!Enum.TryParse(serviceOptionLeg.side, true, out sideResult))
+				throw new InvalidDataException("side");
 
 			return new OptionDetailImpl()
 				{
@@ -240,10 +241,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					Rho = serviceOptionLeg.rho,
 					PremiumAmount = serviceOptionLeg.premium,
 
-                    MaturityDate = maturityDateResult,
-                    YearsToExpiry = serviceOptionLeg.yearsToExpiry,
-                    Description = serviceOptionLeg.description,
-                    Quantity = serviceOptionLeg.quantity,
+					MaturityDate = maturityDateResult,
+					YearsToExpiry = serviceOptionLeg.yearsToExpiry,
+					Description = serviceOptionLeg.description,
+					Quantity = serviceOptionLeg.quantity,
 
 					DayCountConvention = serviceOptionLeg.dayCountConvention,
 					DaysToExpiry = serviceOptionLeg.daysToExpiry,
@@ -272,12 +273,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					isCall = requestForQuoteOptionLeg.IsCall,
 					isEuropean = requestForQuoteOptionLeg.IsEuropean,                    
 					legId = requestForQuoteOptionLeg.LegId,
-                    quantity = requestForQuoteOptionLeg.Quantity,
-                    description = requestForQuoteOptionLeg.Description,
-                    strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
-                    maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
-                    yearsToExpiry = requestForQuoteOptionLeg.YearsToExpiry,
-                    premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
+					quantity = requestForQuoteOptionLeg.Quantity,
+					description = requestForQuoteOptionLeg.Description,
+					strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
+					maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
+					yearsToExpiry = requestForQuoteOptionLeg.YearsToExpiry,
+					premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
 					delta = requestForQuoteOptionLeg.Delta,
 					gamma = requestForQuoteOptionLeg.Gamma,
 					vega = requestForQuoteOptionLeg.Vega,
@@ -301,17 +302,51 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		/// <param name="serviceRequest"> the web service formatted RFQ to be converted.</param>
 		/// <returns> the GUI formatted RFQ.</returns>
 		/// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ is null.</exception>
+		/// <exception cref="InvalidDataException"> thrown if status or notionalCurrency or salesCreditCurrency or premiumSettlementCurrency or
+		/// hedgeType or tradeDate or expiryDate or premiumSettlementDate is invalid and cannot be converted from the string representation.</exception>
 		private IRequestForQuote CreateRequestForQuoteFromServiceRequest(requestDetailImpl serviceRequest)
 		{
 			if (serviceRequest == null)
 				throw new ArgumentNullException("serviceRequest");
+
+			StatusEnum convertedStatus;
+			if (!Enum.TryParse(serviceRequest.status, true, out convertedStatus))
+				throw new InvalidDataException("status");
+
+			CurrencyEnum convertedNotionalCurrency;
+			if (!Enum.TryParse(serviceRequest.notionalCurrency, true, out convertedNotionalCurrency))
+				throw new InvalidDataException("notionalCurrency");
+
+			CurrencyEnum convertedSalesCreditCurrency;
+			if (!Enum.TryParse(serviceRequest.salesCreditCurrency, true, out convertedSalesCreditCurrency))
+				throw new InvalidDataException("salesCreditCurrency");
+
+			CurrencyEnum convertedPremiumSettlementCurrency;
+			if (!Enum.TryParse(serviceRequest.premiumSettlementCurrency, true, out convertedPremiumSettlementCurrency))
+				throw new InvalidDataException("premiumSettlementCurrency");
+
+			HedgeTypeEnum convertedHedgeType;
+			if (!Enum.TryParse(serviceRequest.hedgeType, true, out convertedHedgeType))
+				throw new InvalidDataException("hedgeType");
+
+			DateTime convertedTradeDate;
+			if (!DateTime.TryParse(serviceRequest.tradeDate, out convertedTradeDate))
+				throw new InvalidDataException("tradeDate");
+
+			DateTime convertedExpiryDate;
+			if (!DateTime.TryParse(serviceRequest.expiryDate, out convertedExpiryDate))
+				throw new InvalidDataException("expiryDate");
+
+			DateTime convertedPremiumSettlementDate;
+			if (!DateTime.TryParse(serviceRequest.premiumSettlementDate, out convertedPremiumSettlementDate))
+				throw new InvalidDataException("premiumSettlementDate");
 
 			var requestForQuoteToCreate = new RequestForQuoteImpl();
 
 			if (serviceRequest.legs.optionDetailList != null)
 			{
 				foreach (var leg in serviceRequest.legs.optionDetailList)
-					requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));                
+					requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
 			}
 
 			requestForQuoteToCreate.BookCode = serviceRequest.bookCode;
@@ -319,10 +354,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			requestForQuoteToCreate.Identifier = serviceRequest.identifier;
 			requestForQuoteToCreate.Client = clientManager.GetClientWithMatchingIdentifier(serviceRequest.clientId);
 			requestForQuoteToCreate.IsOTC = serviceRequest.isOTC;
-			requestForQuoteToCreate.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), serviceRequest.status); //6
+			requestForQuoteToCreate.Status = convertedStatus; //6
 
-			requestForQuoteToCreate.TradeDate = System.Convert.ToDateTime(serviceRequest.tradeDate);
-			requestForQuoteToCreate.ExpiryDate  = System.Convert.ToDateTime(serviceRequest.expiryDate); //8
+			requestForQuoteToCreate.TradeDate = convertedTradeDate;
+			requestForQuoteToCreate.ExpiryDate  = convertedExpiryDate; //8
 
 			requestForQuoteToCreate.LotSize = serviceRequest.lotSize;
 			requestForQuoteToCreate.Multiplier = serviceRequest.multiplier;
@@ -330,7 +365,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			requestForQuoteToCreate.NotionalMillions = serviceRequest.notionalMillions;
 			requestForQuoteToCreate.NotionalFXRate = serviceRequest.notionalFXRate;
-			requestForQuoteToCreate.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.notionalCurrency); //15
+			requestForQuoteToCreate.NotionalCurrency =  convertedNotionalCurrency; //15
 
 			requestForQuoteToCreate.Delta = serviceRequest.delta;
 			requestForQuoteToCreate.Gamma = serviceRequest.gamma;
@@ -356,11 +391,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			requestForQuoteToCreate.SalesCreditAmount = serviceRequest.salesCreditAmount;
 			requestForQuoteToCreate.SalesCreditPercentage = serviceRequest.salesCreditPercentage;
-			requestForQuoteToCreate.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.salesCreditCurrency);
+			requestForQuoteToCreate.SalesCreditCurrency = convertedSalesCreditCurrency;
 			requestForQuoteToCreate.SalesCreditFXRate = serviceRequest.salesCreditFXRate; //47
 
-			requestForQuoteToCreate.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), serviceRequest.premiumSettlementCurrency);
-			requestForQuoteToCreate.PremiumSettlementDate = Convert.ToDateTime(serviceRequest.premiumSettlementDate);
+			requestForQuoteToCreate.PremiumSettlementCurrency = convertedPremiumSettlementCurrency;
+			requestForQuoteToCreate.PremiumSettlementDate = convertedPremiumSettlementDate;
 			requestForQuoteToCreate.PremiumSettlementDaysOverride = serviceRequest.premiumSettlementDaysOverride;
 			requestForQuoteToCreate.PremiumSettlementFXRate = serviceRequest.premiumSettlementFXRate; //51
 
@@ -369,7 +404,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			requestForQuoteToCreate.ClientComment = serviceRequest.clientComment; //54
 
 			requestForQuoteToCreate.HedgePrice = serviceRequest.hedgePrice;
-			requestForQuoteToCreate.HedgeType = (HedgeTypeEnum) Enum.Parse(typeof(HedgeTypeEnum), serviceRequest.hedgeType);
+			requestForQuoteToCreate.HedgeType = convertedHedgeType;
 			requestForQuoteToCreate.PickedUpBy = serviceRequest.pickedUpBy; //58
 
 			return requestForQuoteToCreate;
