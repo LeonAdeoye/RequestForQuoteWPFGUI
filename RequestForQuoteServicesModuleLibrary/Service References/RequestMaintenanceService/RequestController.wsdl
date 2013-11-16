@@ -108,20 +108,26 @@
           <xs:element name="dayCountConvention" type="xs:double" />
           <xs:element name="daysToExpiry" type="xs:double" />
           <xs:element name="delta" type="xs:double" />
+          <xs:element minOccurs="0" name="description" type="xs:string" />
           <xs:element name="gamma" type="xs:double" />
           <xs:element name="interestRate" type="xs:double" />
           <xs:element name="isCall" type="xs:boolean" />
           <xs:element name="isEuropean" type="xs:boolean" />
           <xs:element name="legId" type="xs:int" />
+          <xs:element minOccurs="0" name="maturityDate" type="xs:string" />
           <xs:element name="premium" type="xs:double" />
+          <xs:element name="premiumPercentage" type="xs:double" />
+          <xs:element name="quantity" type="xs:int" />
           <xs:element name="rho" type="xs:double" />
           <xs:element minOccurs="0" name="side" type="xs:string" />
           <xs:element name="strike" type="xs:double" />
+          <xs:element name="strikePercentage" type="xs:double" />
           <xs:element name="theta" type="xs:double" />
           <xs:element name="underlyingPrice" type="xs:double" />
           <xs:element minOccurs="0" name="underlyingRIC" type="xs:string" />
           <xs:element name="vega" type="xs:double" />
           <xs:element name="volatility" type="xs:double" />
+          <xs:element name="yearsToExpiry" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="arrayList">
@@ -195,7 +201,7 @@
       </xs:complexType>
       <xs:complexType name="searchCriteriaImpl" final="extension restriction">
         <xs:sequence>
-          <xs:element minOccurs="0" name="CriteriaImpl">
+          <xs:element minOccurs="0" name="SearchCriteriaImpl">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:SearchCriterionImpl" />
@@ -233,7 +239,7 @@
     </xs:schema>
     <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.search" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />
-      <xs:element name="CriteriaImpl" type="ns1:searchCriteriaImpl" />
+      <xs:element name="SearchCriteriaImpl" type="ns1:searchCriteriaImpl" />
     </xs:schema>
     <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.request" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />

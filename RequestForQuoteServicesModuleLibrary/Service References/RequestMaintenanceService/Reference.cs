@@ -987,6 +987,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private double deltaField;
         
+        private string descriptionField;
+        
         private double gammaField;
         
         private double interestRateField;
@@ -997,13 +999,21 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         private int legIdField;
         
+        private string maturityDateField;
+        
         private double premiumField;
+        
+        private double premiumPercentageField;
+        
+        private int quantityField;
         
         private double rhoField;
         
         private string sideField;
         
         private double strikeField;
+        
+        private double strikePercentageField;
         
         private double thetaField;
         
@@ -1014,6 +1024,8 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         private double vegaField;
         
         private double volatilityField;
+        
+        private double yearsToExpiryField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -1053,6 +1065,18 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+                this.RaisePropertyChanged("description");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
         public double gamma {
             get {
                 return this.gammaField;
@@ -1064,7 +1088,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
         public double interestRate {
             get {
                 return this.interestRateField;
@@ -1076,7 +1100,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
         public bool isCall {
             get {
                 return this.isCallField;
@@ -1088,7 +1112,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
         public bool isEuropean {
             get {
                 return this.isEuropeanField;
@@ -1100,7 +1124,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
         public int legId {
             get {
                 return this.legIdField;
@@ -1112,7 +1136,19 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        public string maturityDate {
+            get {
+                return this.maturityDateField;
+            }
+            set {
+                this.maturityDateField = value;
+                this.RaisePropertyChanged("maturityDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
         public double premium {
             get {
                 return this.premiumField;
@@ -1124,7 +1160,31 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=9)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
+        public double premiumPercentage {
+            get {
+                return this.premiumPercentageField;
+            }
+            set {
+                this.premiumPercentageField = value;
+                this.RaisePropertyChanged("premiumPercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=12)]
+        public int quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+                this.RaisePropertyChanged("quantity");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=13)]
         public double rho {
             get {
                 return this.rhoField;
@@ -1136,7 +1196,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=10)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=14)]
         public string side {
             get {
                 return this.sideField;
@@ -1148,7 +1208,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=11)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=15)]
         public double strike {
             get {
                 return this.strikeField;
@@ -1160,7 +1220,19 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=12)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=16)]
+        public double strikePercentage {
+            get {
+                return this.strikePercentageField;
+            }
+            set {
+                this.strikePercentageField = value;
+                this.RaisePropertyChanged("strikePercentage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=17)]
         public double theta {
             get {
                 return this.thetaField;
@@ -1172,7 +1244,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=13)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=18)]
         public double underlyingPrice {
             get {
                 return this.underlyingPriceField;
@@ -1184,7 +1256,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=14)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=19)]
         public string underlyingRIC {
             get {
                 return this.underlyingRICField;
@@ -1196,7 +1268,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=15)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=20)]
         public double vega {
             get {
                 return this.vegaField;
@@ -1208,7 +1280,7 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=16)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=21)]
         public double volatility {
             get {
                 return this.volatilityField;
@@ -1216,6 +1288,18 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
             set {
                 this.volatilityField = value;
                 this.RaisePropertyChanged("volatility");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=22)]
+        public double yearsToExpiry {
+            get {
+                return this.yearsToExpiryField;
+            }
+            set {
+                this.yearsToExpiryField = value;
+                this.RaisePropertyChanged("yearsToExpiry");
             }
         }
         
@@ -1367,20 +1451,20 @@ namespace RequestForQuoteServicesModuleLibrary.RequestMaintenanceService {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://request.rfq.ws.leon.com/")]
     public partial class searchCriteriaImpl : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private searchCriterionImpl[] criteriaImplField;
+        private searchCriterionImpl[] searchCriteriaImplField;
         
         private searchCriterionImpl[] criteriaField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         [System.Xml.Serialization.XmlArrayItemAttribute("SearchCriterionImpl", IsNullable=false)]
-        public searchCriterionImpl[] CriteriaImpl {
+        public searchCriterionImpl[] SearchCriteriaImpl {
             get {
-                return this.criteriaImplField;
+                return this.searchCriteriaImplField;
             }
             set {
-                this.criteriaImplField = value;
-                this.RaisePropertyChanged("CriteriaImpl");
+                this.searchCriteriaImplField = value;
+                this.RaisePropertyChanged("SearchCriteriaImpl");
             }
         }
         

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -219,6 +220,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (serviceOptionLeg == null)
 				throw new ArgumentNullException("serviceOptionLeg");
 
+		    DateTime maturityDateResult;
+		    if(!DateTime.TryParse(serviceOptionLeg.maturityDate, out maturityDateResult))
+                throw new InvalidDataException("maturityDate");
+
+		    SideEnum sideResult;
+            if(!Enum.TryParse(serviceOptionLeg.side, true, out sideResult))
+                throw new InvalidDataException("side");
+
 			return new OptionDetailImpl()
 				{
 					IsCall = serviceOptionLeg.isCall,
@@ -230,6 +239,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					Theta = serviceOptionLeg.theta,
 					Rho = serviceOptionLeg.rho,
 					PremiumAmount = serviceOptionLeg.premium,
+
+                    MaturityDate = maturityDateResult,
+                    YearsToExpiry = serviceOptionLeg.yearsToExpiry,
+                    Description = serviceOptionLeg.description,
+                    Quantity = serviceOptionLeg.quantity,
+
 					DayCountConvention = serviceOptionLeg.dayCountConvention,
 					DaysToExpiry = serviceOptionLeg.daysToExpiry,
 					UnderlyingPrice = serviceOptionLeg.underlyingPrice,
@@ -237,7 +252,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					InterestRate = serviceOptionLeg.interestRate,
 					RIC = serviceOptionLeg.underlyingRIC,
 					Strike = serviceOptionLeg.strike,
-					Side = (SideEnum)Enum.Parse(typeof(SideEnum), serviceOptionLeg.side)
+					Side = sideResult
 				};
 		}
 
@@ -255,8 +270,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			return new optionDetailImpl()
 				{
 					isCall = requestForQuoteOptionLeg.IsCall,
-					isEuropean = requestForQuoteOptionLeg.IsEuropean,
+					isEuropean = requestForQuoteOptionLeg.IsEuropean,                    
 					legId = requestForQuoteOptionLeg.LegId,
+                    quantity = requestForQuoteOptionLeg.Quantity,
+                    description = requestForQuoteOptionLeg.Description,
+                    strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
+                    maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
+                    yearsToExpiry = requestForQuoteOptionLeg.YearsToExpiry,
+                    premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
 					delta = requestForQuoteOptionLeg.Delta,
 					gamma = requestForQuoteOptionLeg.Gamma,
 					vega = requestForQuoteOptionLeg.Vega,
@@ -266,11 +287,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					volatility = requestForQuoteOptionLeg.Volatility,
 					underlyingPrice = requestForQuoteOptionLeg.UnderlyingPrice,
 					dayCountConvention = requestForQuoteOptionLeg.DayCountConvention,
-					daysToExpiry = requestForQuoteOptionLeg.DayCountConvention,
+					daysToExpiry = requestForQuoteOptionLeg.DaysToExpiry,
 					premium = requestForQuoteOptionLeg.PremiumAmount,
 					underlyingRIC = requestForQuoteOptionLeg.RIC,
 					strike = requestForQuoteOptionLeg.Strike,
-					side = requestForQuoteOptionLeg.Side.ToString()
+					side = requestForQuoteOptionLeg.Side.ToString(),                    
 				};
 		}
 
