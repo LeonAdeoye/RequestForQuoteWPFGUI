@@ -260,12 +260,13 @@ namespace RequestForQuoteGridModuleLibrary
             else
                 success = optionRequestPersistanceManager.UpdateRequest(SelectedRequestForQuote);
 
-            if (!success && log.IsErrorEnabled)
+            if (!success)
             {
                 MessageBox.Show("Failed to save/update request: " + SelectedRequestForQuote.Request,
                     "Request For Quote Persistance Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-                log.Error("Request for quote was not saved/update => " + SelectedRequestForQuote);
+                if(log.IsErrorEnabled)
+                    log.Error("Request for quote was not saved/update => " + SelectedRequestForQuote);
             }
         }
 

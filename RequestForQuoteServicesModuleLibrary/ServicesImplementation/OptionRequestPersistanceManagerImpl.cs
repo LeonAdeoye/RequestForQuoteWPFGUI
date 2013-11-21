@@ -345,6 +345,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			if (serviceRequest.legs.optionDetailList != null)
 			{
+				if(serviceRequest.legs.optionDetailList.Length > 0)
+					requestForQuoteToCreate.Legs = new List<IOptionDetail>();
+
 				foreach (var leg in serviceRequest.legs.optionDetailList)
 					requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
 			}
