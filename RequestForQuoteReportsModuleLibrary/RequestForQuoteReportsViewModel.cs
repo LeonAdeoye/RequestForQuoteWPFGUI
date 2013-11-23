@@ -170,7 +170,17 @@ namespace RequestForQuoteReportsModuleLibrary
         // Using a DependencyProperty as the backing store for ReportType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ReportTypeProperty =
             DependencyProperty.Register("ReportType", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
-        
+
+        public Decimal MinimumGreek
+        {
+            get { return (Decimal)GetValue(MinimumGreekProperty); }
+            set { SetValue(MinimumGreekProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinimumGreek.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinimumGreekProperty =
+            DependencyProperty.Register("MinimumGreek", typeof(Decimal), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+   
         public int MinimumCount
         {
             get { return (int)GetValue(MinimumCountProperty); }
