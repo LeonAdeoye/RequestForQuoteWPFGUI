@@ -4,6 +4,7 @@
     {
         ALL,
         TODAY_ONLY,
-        FROM_DATE
+        FROM_DATE,
+        DATE_RANGE
     }
 }

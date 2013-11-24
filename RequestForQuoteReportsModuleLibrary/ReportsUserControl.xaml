@@ -46,10 +46,10 @@
                         <GroupBox Header="Trade date:">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5">
-                                    <RadioButton Name="RFQsPerCategoryFromOnlyRadioButton" Content="From" GroupName="Range" VerticalAlignment="Center" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                    <RadioButton Name="RFQsPerCategory_FromOnly_RadioButton" Content="From" GroupName="Range" VerticalAlignment="Center" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
                                     Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.FROM_DATE}}"/>
                                     <DatePicker Margin="5,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                SelectedDateFormat="Short" SelectedDate="{Binding FromDate}" IsEnabled="{Binding ElementName=FromOnlyRadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                                SelectedDateFormat="Short" SelectedDate="{Binding FromDate}" IsEnabled="{Binding ElementName=RFQsPerCategory_FromOnly_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>                                
                                 <RadioButton Content="All" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
                                 Converter={StaticResource RadioButtonConverter}, ConverterParameter={x:Static enums:RequestCountFromDateEnum.ALL}}" 
@@ -77,13 +77,13 @@
                         <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" ItemsSource="{Binding ListOfCategoryTypes}" 
                                   DisplayMemberPath="Value" SelectedValue="{Binding RequestsCountCategory}" SelectedValuePath="Key"/>
                         <GroupBox Header="Greek:">
-                            <StackPanel>
+                            <WrapPanel Orientation="Vertical" Height="60">
                                 <CheckBox Content="Delta" Margin="3"/>
                                 <CheckBox Content="Gamma" Margin="3"/>
                                 <CheckBox Content ="Theta" Margin="3"/>
                                 <CheckBox Content ="Vega" Margin="3"/>
                                 <CheckBox Content ="Rho" Margin="3"/>
-                            </StackPanel>
+                            </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Maturity date:">
 
@@ -94,17 +94,17 @@
                                         IsEnabled="{Binding CanReportOnlyFromSpecificDate}"/>
                                     
                                     <StackPanel>
-                                        <RadioButton Content="Range" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                    <RadioButton Name="GreeksPerCategory_MaturityDateRange_RadioButton" Content="Range" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
                                             Converter={StaticResource RadioButtonConverter}, 
-                                            ConverterParameter={x:Static enums:RequestCountFromDateEnum.FROM_DATE}}"/>
+                                            ConverterParameter={x:Static enums:RequestCountFromDateEnum.DATE_RANGE}}"/>
                                         <StackPanel>
                                         <Label Margin="15,0,0,0" Content="From" HorizontalAlignment="Left"></Label>
                                             <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                    SelectedDateFormat="Short" SelectedDate="{Binding FromDate}" IsEnabled="{Binding ElementName=FromOnlyRadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateFrom}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
 
                                         <Label Margin="15,0,0,0" Content="To" HorizontalAlignment="Left"></Label>
                                             <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                    SelectedDateFormat="Short" SelectedDate="{Binding ToDate}" IsEnabled="{Binding ElementName=FromOnlyRadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateTo}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
