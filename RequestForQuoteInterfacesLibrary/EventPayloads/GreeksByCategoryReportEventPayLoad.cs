@@ -10,14 +10,16 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public string Category { get; set; }
         public DateTime MaturityDateFrom { get; set; }
         public DateTime MaturityDateTo { get; set; }
-        public decimal MinimumGreek { get; set; }
-        public IDictionary<String, int> CountByCategory { get; set; }
+        public double MinimumGreek { get; set; }
+        public IDictionary<String, IDictionary<string, double>> GreeksByCategory { get; set; }
         public String ReportDescription { get; set; }
         public string CategoryDescription { get; set; }
+        public ISet<string> GreeksToBeIncluded { get; set; } 
 
         public GreeksByCategoryReportEventPayLoad() 
         {
-            CountByCategory = new Dictionary<string, int>();    
+            GreeksByCategory = new Dictionary<string, IDictionary<string, double>>();
+            GreeksToBeIncluded = new HashSet<string>();
         }
 
         public override string ToString()
@@ -36,8 +38,10 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(MaturityDateTo);
             builder.Append(", Minimum greek = ");
             builder.Append(MinimumGreek);
-            builder.Append(", CountByCategory = ");
-            builder.Append(CountByCategory);
+            builder.Append(", GreeksByCategory = ");
+            builder.Append(GreeksByCategory);
+            builder.Append(", Greeks to be included in report = ");
+            builder.Append(GreeksToBeIncluded);
             return builder.ToString();
         }
     }

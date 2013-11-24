@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
@@ -107,8 +108,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <exception cref="ArgumentException"> thrown if categoryType parameter is null or empty.</exception>
         /// <exception cref="ArgumentException"> thrown if maturityDateFrom or maturityDateTo parameter is null.</exception>
         /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null.</exception>
-        public void CompileGreeksPerCategoryReport(string reportType, string categoryType, ISet<string> greeksTobeIncluded, 
-            DateTime maturityDateFrom, DateTime maturityDateTo, decimal minimumGreek)
+        public void CompileGreeksPerCategoryReport(string reportType, string categoryType, ISet<string> greeksToBeIncluded, 
+            DateTime maturityDateFrom, DateTime maturityDateTo, double minimumGreek)
         {
             if (String.IsNullOrEmpty(reportType))
                 throw new ArgumentException("reportType");
@@ -122,8 +123,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (maturityDateTo == null)
                 throw new ArgumentException("maturityDateTo");
 
-            if (greeksTobeIncluded == null)
-                throw new ArgumentException("greeksTobeIncluded");
+            if (greeksToBeIncluded == null)
+                throw new ArgumentException("greeksToBeIncluded");
 
             try
             {
@@ -133,15 +134,16 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     Category = categoryType,
                     MaturityDateFrom = maturityDateFrom,
                     MaturityDateTo = maturityDateTo,
-                    MinimumGreek = minimumGreek
+                    MinimumGreek = minimumGreek,
+                    GreeksToBeIncluded = greeksToBeIncluded                    
                 };
 
                 if (!configManager.IsStandAlone)
                 {
-                    var result = reportingContollerProxy.getGreeksByCategory(categoryType, maturityDateFrom, maturityDateTo, minimumGreek);
-                    if (result != null)
-                        foreach (var categoryCount in result)
-                            eventPayLoad.CountByCategory.Add(categoryCount.categoryValue, categoryCount.requestCount);
+                    var result = reportingContollerProxy.getGreeksByCategory(categoryType, greeksToBeIncluded.ToArray(), maturityDateFrom, maturityDateTo, minimumGreek);
+                    //if (result != null)
+                        //foreach (var greekTotal in result)
+                            //eventPayLoad.CountByCategory.Add(greekTotal.categoryValue, greekTotal.greekTotal);
                 }
 
                 eventAggregator.GetEvent<GreeksByCategoryReportEvent>().Publish(eventPayLoad);

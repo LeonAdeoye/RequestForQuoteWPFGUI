@@ -193,17 +193,16 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty ReportTypeProperty =
             DependencyProperty.Register("ReportType", typeof(String), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(""));
 
-
-        public decimal MinimumGreek
+        public double MinimumGreek
         {
-            get { return (decimal)GetValue(MinimumGreekProperty); }
+            get { return (double)GetValue(MinimumGreekProperty); }
             set { SetValue(MinimumGreekProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MinimumGreek.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MinimumGreekProperty =
-            DependencyProperty.Register("MinimumGreek", typeof(decimal), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0M));
-                       
+            DependencyProperty.Register("MinimumGreek", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+                               
         public int MinimumCount
         {
             get { return (int)GetValue(MinimumCountProperty); }
@@ -262,6 +261,7 @@ namespace RequestForQuoteReportsModuleLibrary
             }
 
             reportingManager.CompileGreeksPerCategoryReport(ReportType, RequestsCountCategory,
+                                                            new HashSet<string>() {"Delta"}, // TODO
                                                             MaturityDateFrom.GetValueOrDefault(new DateTime(2013, 1, 1)),
                                                             MaturityDateTo.GetValueOrDefault(DateTime.Parse(DateTime.Now.ToShortDateString())),
                                                             MinimumGreek);

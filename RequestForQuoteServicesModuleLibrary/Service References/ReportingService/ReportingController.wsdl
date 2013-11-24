@@ -2,6 +2,8 @@
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://reporting.rfq.ws.leon.com/" name="ReportingController" targetNamespace="http://reporting.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getGreeksByCategory" type="tns:getGreeksByCategory" />
+      <xs:element name="getGreeksByCategoryResponse" type="tns:getGreeksByCategoryResponse" />
       <xs:element name="getRequestsByCategory" type="tns:getRequestsByCategory" />
       <xs:element name="getRequestsByCategoryResponse" type="tns:getRequestsByCategoryResponse" />
       <xs:complexType name="getRequestsByCategory">
@@ -22,18 +24,49 @@
           <xs:element name="requestCount" type="xs:int" />
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="getGreeksByCategory">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="categoryType" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="greeksToBeIncluded" type="xs:string" />
+          <xs:element minOccurs="0" name="MaturityDatefrom" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="MaturityDateTo" type="xs:dateTime" />
+          <xs:element name="minimumGreek" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getGreeksByCategoryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:greeksPerCategoryReportDataImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="greeksPerCategoryReportDataImpl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="categoryValue" type="xs:string" />
+          <xs:element name="greekTotal" type="xs:double" />
+          <xs:element minOccurs="0" name="greekType" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="getRequestsByCategoryResponse">
     <wsdl:part name="parameters" element="tns:getRequestsByCategoryResponse" />
   </wsdl:message>
+  <wsdl:message name="getGreeksByCategory">
+    <wsdl:part name="parameters" element="tns:getGreeksByCategory" />
+  </wsdl:message>
   <wsdl:message name="getRequestsByCategory">
     <wsdl:part name="parameters" element="tns:getRequestsByCategory" />
+  </wsdl:message>
+  <wsdl:message name="getGreeksByCategoryResponse">
+    <wsdl:part name="parameters" element="tns:getGreeksByCategoryResponse" />
   </wsdl:message>
   <wsdl:portType name="ReportingController">
     <wsdl:operation name="getRequestsByCategory">
       <wsdl:input name="getRequestsByCategory" message="tns:getRequestsByCategory" />
       <wsdl:output name="getRequestsByCategoryResponse" message="tns:getRequestsByCategoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getGreeksByCategory">
+      <wsdl:input name="getGreeksByCategory" message="tns:getGreeksByCategory" />
+      <wsdl:output name="getGreeksByCategoryResponse" message="tns:getGreeksByCategoryResponse" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ReportingControllerSoapBinding" type="tns:ReportingController">
@@ -44,6 +77,15 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="getRequestsByCategoryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGreeksByCategory">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getGreeksByCategory">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getGreeksByCategoryResponse">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
