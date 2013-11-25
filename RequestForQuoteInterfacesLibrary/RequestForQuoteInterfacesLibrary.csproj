@@ -69,6 +69,7 @@
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\RadioButtonConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
+    <Compile Include="Enums\GreeksEnum.cs" />
     <Compile Include="Enums\RequestCountFromDateEnum.cs" />
     <Compile Include="Enums\EnumerationExtension.cs" />
     <Compile Include="Enums\ProductTypeEnum.cs" />

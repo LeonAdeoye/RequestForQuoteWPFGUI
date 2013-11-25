@@ -78,11 +78,11 @@
                                   DisplayMemberPath="Value" SelectedValue="{Binding RequestsCountCategory}" SelectedValuePath="Key"/>
                         <GroupBox Header="Greek:">
                             <WrapPanel Orientation="Vertical" Height="60">
-                                <CheckBox Content="Delta" Margin="3"/>
-                                <CheckBox Content="Gamma" Margin="3"/>
-                                <CheckBox Content ="Theta" Margin="3"/>
-                                <CheckBox Content ="Vega" Margin="3"/>
-                                <CheckBox Content ="Rho" Margin="3"/>
+                                <CheckBox Content="Delta" IsChecked="{Binding ShowDelta}" Margin="3"/>
+                                <CheckBox Content="Gamma" IsChecked="{Binding ShowGamma}" Margin="3"/>
+                                <CheckBox Content ="Theta" IsChecked="{Binding ShowTheta}" Margin="3"/>
+                                <CheckBox Content ="Vega" IsChecked="{Binding ShowVega}" Margin="3"/>
+                                <CheckBox Content ="Rho" IsChecked="{Binding ShowRho}" Margin="3"/>
                             </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Maturity date:">

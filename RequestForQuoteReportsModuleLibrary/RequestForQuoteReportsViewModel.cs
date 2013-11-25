@@ -151,6 +151,57 @@ namespace RequestForQuoteReportsModuleLibrary
             set;
         }
 
+        public bool ShowDelta
+        {
+            get { return (bool)GetValue(ShowDeltaProperty); }
+            set { SetValue(ShowDeltaProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowDelta.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowDeltaProperty =
+            DependencyProperty.Register("ShowDelta", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(true));
+
+
+        public bool ShowGamma
+        {
+            get { return (bool)GetValue(ShowGammaProperty); }
+            set { SetValue(ShowGammaProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowGamma.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowGammaProperty =
+            DependencyProperty.Register("ShowGamma", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
+
+        public bool ShowTheta
+        {
+            get { return (bool)GetValue(ShowThetaProperty); }
+            set { SetValue(ShowThetaProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowTheta.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowThetaProperty =
+            DependencyProperty.Register("ShowTheta", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
+
+        public bool ShowVega
+        {
+            get { return (bool)GetValue(ShowVegaProperty); }
+            set { SetValue(ShowVegaProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowVega.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowVegaProperty =
+            DependencyProperty.Register("ShowVega", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
+
+        public bool ShowRho
+        {
+            get { return (bool)GetValue(ShowRhoProperty); }
+            set { SetValue(ShowRhoProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowRho.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowRhoProperty =
+            DependencyProperty.Register("ShowRho", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
+       
         public DateTime? FromDate
         {
             get { return (DateTime?)GetValue(FromDateProperty); }
@@ -251,6 +302,35 @@ namespace RequestForQuoteReportsModuleLibrary
             }          
         }
 
+        /// <summary>
+        /// Compiles the set of greeks that need to be displayed in a report.
+        /// </summary>
+        /// <returns> the set of greeks</returns>
+        ISet<string> GetSetofGreeksToDisplayInReport()
+        {
+            ISet<string> setOfGreeks = new HashSet<string>();
+            
+            if (ShowDelta)
+                setOfGreeks.Add(GreeksEnum.DELTA.ToString());
+
+            if (ShowGamma)
+                setOfGreeks.Add(GreeksEnum.GAMMA.ToString());
+
+            if (ShowVega)
+                setOfGreeks.Add(GreeksEnum.VEGA.ToString());
+
+            if (ShowTheta)
+                setOfGreeks.Add(GreeksEnum.THETA.ToString());
+
+            if (ShowRho)
+                setOfGreeks.Add(GreeksEnum.RHO.ToString());
+
+            return setOfGreeks;
+        }
+
+        /// <summary>
+        /// Compiles the greeks by catgeory by delegating this request to the webservice
+        /// </summary>
         private void CompileGreeksPerCategoryReport()
         {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
@@ -259,14 +339,18 @@ namespace RequestForQuoteReportsModuleLibrary
             {
 
             }
-
-            reportingManager.CompileGreeksPerCategoryReport(ReportType, RequestsCountCategory,
-                                                            new HashSet<string>() {"Delta"}, // TODO
+            
+            reportingManager.CompileGreeksPerCategoryReport(ReportType, 
+                                                            RequestsCountCategory,
+                                                            GetSetofGreeksToDisplayInReport(),
                                                             MaturityDateFrom.GetValueOrDefault(new DateTime(2013, 1, 1)),
                                                             MaturityDateTo.GetValueOrDefault(DateTime.Parse(DateTime.Now.ToShortDateString())),
                                                             MinimumGreek);
         }
 
+        /// <summary>
+        /// Compiles the RFQ count by category report by delegating this request to the web service.
+        /// </summary>
         private void CompileRequestCountPerCategoryReport()
         {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
@@ -295,9 +379,18 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             ReportType = "";
             RequestsCountCategory = "";
+            
             MinimumCount = 0;
+            MinimumGreek = 0.0;
+            
             FromDate = null;
             FromDateType = RequestCountFromDateEnum.FROM_DATE;
+            
+            ShowDelta = true;
+            ShowGamma = false;
+            ShowVega = false;
+            ShowTheta = false;
+            ShowRho = false;
         }
 
         public void SaveReportInput()

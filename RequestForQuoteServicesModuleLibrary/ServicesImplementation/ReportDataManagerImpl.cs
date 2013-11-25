@@ -100,7 +100,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         /// <param name="reportType"> the type of report - bar chart, pie chart, etc.</param>
         /// <param name="categoryType"> the category by which the RFQs will be grouped - this is passed onto the web service.</param>
-        /// <param name="greeksTobeIncluded"> the set of greeks to be included in the report</param>
+        /// <param name="greeksToBeIncluded"> the set of greeks to be included in the report</param>
         /// <param name="maturityDateFrom"> the maturity date from which the RFQ's greeks will be included.</param>
         /// <param name="maturityDateTo"> the maturity date up until which the RFQ's greeks will be included.</param>
         /// <param name="minimumGreek">the minimum greek value that will be excluded from the report data.</param>
