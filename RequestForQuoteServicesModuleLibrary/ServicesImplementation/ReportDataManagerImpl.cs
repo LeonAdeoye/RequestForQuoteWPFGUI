@@ -107,7 +107,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <exception cref="ArgumentException"> thrown if reportType parameter is null or empty.</exception>
         /// <exception cref="ArgumentException"> thrown if categoryType parameter is null or empty.</exception>
         /// <exception cref="ArgumentException"> thrown if maturityDateFrom or maturityDateTo parameter is null.</exception>
-        /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null.</exception>
+        /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null or empty</exception>
         public void CompileGreeksPerCategoryReport(string reportType, string categoryType, ISet<string> greeksToBeIncluded, 
             DateTime maturityDateFrom, DateTime maturityDateTo, double minimumGreek)
         {
@@ -124,6 +124,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 throw new ArgumentException("maturityDateTo");
 
             if (greeksToBeIncluded == null)
+                throw new ArgumentException("greeksToBeIncluded");
+
+            if (greeksToBeIncluded.Count == 0)
                 throw new ArgumentException("greeksToBeIncluded");
 
             try
