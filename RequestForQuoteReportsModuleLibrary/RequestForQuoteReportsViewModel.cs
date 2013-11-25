@@ -72,7 +72,11 @@ namespace RequestForQuoteReportsModuleLibrary
         private void InitializeEventSubscriptions()
         {
             eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>()
-                           .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);            
+                           .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<GreeksByCategoryReportEvent>()
+                           .Subscribe(HandleGreeksByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);            
+
         }
 
         /// <summary>
@@ -126,6 +130,34 @@ namespace RequestForQuoteReportsModuleLibrary
                 ReportTitle = "Request Count By " + eventPayLoad.Category + ":",
                 ReportType = eventPayLoad.ReportType,
                 ReportData = eventPayLoad.CountByCategory.ToList(),                    
+            });
+        }
+
+        /// <summary>
+        /// Prcoess the incoming report data event message, and creates and shows an instance of the report popup window with the appropriate chart.
+        /// It uses the service locator to get an instance of the report popup window.
+        /// </summary>
+        /// <param name="eventPayLoad"> the GreeksByCategoryReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the eventpayload paramter is null.</exception>
+        private void HandleGreeksByCategoryReportEvent(GreeksByCategoryReportEventPayLoad eventPayLoad)
+        {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
+            if (eventPayLoad.GreeksByCategory.Count == 0)
+            {
+                MessageBox.Show("No greek data returned for the selected criteria!", "No Report Data", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                return;
+            }
+
+            var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            reportWindow.ShowWindow(new GeneratedReportViewModel()
+            {
+                ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
+                ReportType = eventPayLoad.ReportType,
+                // TODO
+                //ReportData = eventPayLoad.GreeksByCategory 
             });
         }
 
