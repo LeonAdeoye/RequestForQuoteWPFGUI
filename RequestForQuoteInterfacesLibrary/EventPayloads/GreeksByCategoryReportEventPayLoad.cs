@@ -17,6 +17,9 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public string CategoryDescription { get; set; }
         public ISet<string> GreeksToBeIncluded { get; set; } 
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public GreeksByCategoryReportEventPayLoad() 
         {
             GreeksByCategory = new Dictionary<string, IDictionary<string, double>>();
@@ -40,21 +43,37 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(", Minimum greek = ");
             builder.Append(MinimumGreek);
             builder.Append(", GreeksByCategory = ");
-            builder.Append(GreeksByCategory);
-            builder.Append(", Greeks to be included in report = ");
-            builder.Append(GreeksToBeIncluded);
+            builder.Append(GreeksByCategory); //TODO
+            builder.Append(", Greeks to be included in report = { ");
+            foreach (var greekToBeIncluded in GreeksToBeIncluded)
+            {
+                builder.Append(greekToBeIncluded);
+                builder.Append(" ");
+            }
+            builder.Append("}");
+
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Adds the greek value to the map of greek values by category value.
+        /// </summary>
+        /// <param name="categoryValue"> the category value used in the aggregation.</param>
+        /// <param name="greek"> the greek type like delta, gamma, vega, theta.</param>
+        /// <param name="greekValue"> the aggregated total greek value for the specified category value.</param>
+        /// <exception cref="ArgumentException"> if the category value is null or empty.</exception>
         public void AddGreek(string categoryValue, GreeksEnum greek, double greekValue)
         {
+            if (String.IsNullOrEmpty(categoryValue))
+                throw new ArgumentException("categoryValue");
+
             if (GreeksByCategory.ContainsKey(categoryValue))
             {
                 var greekEntry = GreeksByCategory[categoryValue];
                 greekEntry[greek.ToString()] = greekValue;
             }
             else
-                GreeksByCategory.Add(categoryValue, new Dictionary<string, double>() { { greek.ToString(), greekValue}});               
+                GreeksByCategory.Add(categoryValue, new Dictionary<string, double>() {{ greek.ToString(), greekValue}});               
         }
     }
 }
