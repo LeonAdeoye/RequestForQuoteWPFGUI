@@ -94,9 +94,15 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         private string categoryValueField;
         
-        private double greekTotalField;
+        private double deltaField;
         
-        private string greekTypeField;
+        private double gammaField;
+        
+        private double rhoField;
+        
+        private double thetaField;
+        
+        private double vegaField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -112,25 +118,61 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public double greekTotal {
+        public double delta {
             get {
-                return this.greekTotalField;
+                return this.deltaField;
             }
             set {
-                this.greekTotalField = value;
-                this.RaisePropertyChanged("greekTotal");
+                this.deltaField = value;
+                this.RaisePropertyChanged("delta");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string greekType {
+        public double gamma {
             get {
-                return this.greekTypeField;
+                return this.gammaField;
             }
             set {
-                this.greekTypeField = value;
-                this.RaisePropertyChanged("greekType");
+                this.gammaField = value;
+                this.RaisePropertyChanged("gamma");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public double rho {
+            get {
+                return this.rhoField;
+            }
+            set {
+                this.rhoField = value;
+                this.RaisePropertyChanged("rho");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public double theta {
+            get {
+                return this.thetaField;
+            }
+            set {
+                this.thetaField = value;
+                this.RaisePropertyChanged("theta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public double vega {
+            get {
+                return this.vegaField;
+            }
+            set {
+                this.vegaField = value;
+                this.RaisePropertyChanged("vega");
             }
         }
         
@@ -201,27 +243,22 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         public string categoryType;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute("greeksToBeIncluded", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] greeksToBeIncluded;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public System.DateTime MaturityDatefrom;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=3)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public System.DateTime MaturityDateTo;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=4)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public double minimumGreek;
         
         public getGreeksByCategory() {
         }
         
-        public getGreeksByCategory(string categoryType, string[] greeksToBeIncluded, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
+        public getGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
             this.categoryType = categoryType;
-            this.greeksToBeIncluded = greeksToBeIncluded;
             this.MaturityDatefrom = MaturityDatefrom;
             this.MaturityDateTo = MaturityDateTo;
             this.minimumGreek = minimumGreek;
@@ -411,10 +448,9 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             return base.Channel.getGreeksByCategory(request);
         }
         
-        public greeksPerCategoryReportDataImpl[] getGreeksByCategory(string categoryType, string[] greeksToBeIncluded, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
+        public greeksPerCategoryReportDataImpl[] getGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory();
             inValue.categoryType = categoryType;
-            inValue.greeksToBeIncluded = greeksToBeIncluded;
             inValue.MaturityDatefrom = MaturityDatefrom;
             inValue.MaturityDateTo = MaturityDateTo;
             inValue.minimumGreek = minimumGreek;
@@ -428,10 +464,9 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegingetGreeksByCategory(string categoryType, string[] greeksToBeIncluded, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BegingetGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory();
             inValue.categoryType = categoryType;
-            inValue.greeksToBeIncluded = greeksToBeIncluded;
             inValue.MaturityDatefrom = MaturityDatefrom;
             inValue.MaturityDateTo = MaturityDateTo;
             inValue.minimumGreek = minimumGreek;
@@ -451,11 +486,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         private System.IAsyncResult OnBegingetGreeksByCategory(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string categoryType = ((string)(inValues[0]));
-            string[] greeksToBeIncluded = ((string[])(inValues[1]));
-            System.DateTime MaturityDatefrom = ((System.DateTime)(inValues[2]));
-            System.DateTime MaturityDateTo = ((System.DateTime)(inValues[3]));
-            double minimumGreek = ((double)(inValues[4]));
-            return this.BegingetGreeksByCategory(categoryType, greeksToBeIncluded, MaturityDatefrom, MaturityDateTo, minimumGreek, callback, asyncState);
+            System.DateTime MaturityDatefrom = ((System.DateTime)(inValues[1]));
+            System.DateTime MaturityDateTo = ((System.DateTime)(inValues[2]));
+            double minimumGreek = ((double)(inValues[3]));
+            return this.BegingetGreeksByCategory(categoryType, MaturityDatefrom, MaturityDateTo, minimumGreek, callback, asyncState);
         }
         
         private object[] OnEndgetGreeksByCategory(System.IAsyncResult result) {
@@ -471,11 +505,11 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             }
         }
         
-        public void getGreeksByCategoryAsync(string categoryType, string[] greeksToBeIncluded, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
-            this.getGreeksByCategoryAsync(categoryType, greeksToBeIncluded, MaturityDatefrom, MaturityDateTo, minimumGreek, null);
+        public void getGreeksByCategoryAsync(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
+            this.getGreeksByCategoryAsync(categoryType, MaturityDatefrom, MaturityDateTo, minimumGreek, null);
         }
         
-        public void getGreeksByCategoryAsync(string categoryType, string[] greeksToBeIncluded, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, object userState) {
+        public void getGreeksByCategoryAsync(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, object userState) {
             if ((this.onBegingetGreeksByCategoryDelegate == null)) {
                 this.onBegingetGreeksByCategoryDelegate = new BeginOperationDelegate(this.OnBegingetGreeksByCategory);
             }
@@ -487,7 +521,6 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             }
             base.InvokeAsync(this.onBegingetGreeksByCategoryDelegate, new object[] {
                         categoryType,
-                        greeksToBeIncluded,
                         MaturityDatefrom,
                         MaturityDateTo,
                         minimumGreek}, this.onEndgetGreeksByCategoryDelegate, this.ongetGreeksByCategoryCompletedDelegate, userState);

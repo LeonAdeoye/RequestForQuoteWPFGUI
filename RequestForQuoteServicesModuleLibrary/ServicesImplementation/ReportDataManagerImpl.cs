@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -143,10 +144,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
                 if (!configManager.IsStandAlone)
                 {
-                    var result = reportingContollerProxy.getGreeksByCategory(categoryType, greeksToBeIncluded.ToArray(), maturityDateFrom, maturityDateTo, minimumGreek);
-                    //if (result != null)
-                        //foreach (var greekTotal in result)
-                            //eventPayLoad.CountByCategory.Add(greekTotal.categoryValue, greekTotal.greekTotal);
+                    var result = reportingContollerProxy.getGreeksByCategory(categoryType, maturityDateFrom, maturityDateTo, minimumGreek);
+                    if (result != null)
+                        foreach (var greekTotal in result)
+                        {
+                            if(greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.GAMMA, greekTotal.gamma);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.THETA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.VEGA, greekTotal.vega);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.VEGA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);
+                        }
                 }
 
                 eventAggregator.GetEvent<GreeksByCategoryReportEvent>().Publish(eventPayLoad);

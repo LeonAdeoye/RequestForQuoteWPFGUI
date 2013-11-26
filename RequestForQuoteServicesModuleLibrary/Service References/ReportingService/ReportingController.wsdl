@@ -27,7 +27,6 @@
       <xs:complexType name="getGreeksByCategory">
         <xs:sequence>
           <xs:element minOccurs="0" name="categoryType" type="xs:string" />
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="greeksToBeIncluded" type="xs:string" />
           <xs:element minOccurs="0" name="MaturityDatefrom" type="xs:dateTime" />
           <xs:element minOccurs="0" name="MaturityDateTo" type="xs:dateTime" />
           <xs:element name="minimumGreek" type="xs:double" />
@@ -41,8 +40,11 @@
       <xs:complexType name="greeksPerCategoryReportDataImpl">
         <xs:sequence>
           <xs:element minOccurs="0" name="categoryValue" type="xs:string" />
-          <xs:element name="greekTotal" type="xs:double" />
-          <xs:element minOccurs="0" name="greekType" type="xs:string" />
+          <xs:element name="delta" type="xs:double" />
+          <xs:element name="gamma" type="xs:double" />
+          <xs:element name="rho" type="xs:double" />
+          <xs:element name="theta" type="xs:double" />
+          <xs:element name="vega" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
     </xs:schema>

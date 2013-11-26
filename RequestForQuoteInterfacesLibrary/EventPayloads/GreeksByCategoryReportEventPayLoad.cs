@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RequestForQuoteInterfacesLibrary.Enums;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
@@ -43,6 +44,17 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(", Greeks to be included in report = ");
             builder.Append(GreeksToBeIncluded);
             return builder.ToString();
+        }
+
+        public void AddGreek(string categoryValue, GreeksEnum greek, double greekValue)
+        {
+            if (GreeksByCategory.ContainsKey(categoryValue))
+            {
+                var greekEntry = GreeksByCategory[categoryValue];
+                greekEntry[greek.ToString()] = greekValue;
+            }
+            else
+                GreeksByCategory.Add(categoryValue, new Dictionary<string, double>() { { greek.ToString(), greekValue}});               
         }
     }
 }
