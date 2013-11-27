@@ -152,13 +152,18 @@ namespace RequestForQuoteReportsModuleLibrary
             }
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
-            reportWindow.ShowWindow(new GeneratedReportViewModel()
+            var reportViewModel = new GeneratedReportViewModel
+                {
+                    ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
+                    ReportType = eventPayLoad.ReportType
+                };
+
+            foreach (var categoryValue in eventPayLoad.GreeksByCategory)
             {
-                ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
-                ReportType = eventPayLoad.ReportType,
-                // TODO
-                //ReportData = eventPayLoad.GreeksByCategory 
-            });
+
+            }
+
+            reportWindow.ShowWindow(reportViewModel);
         }
 
         public bool CanReportOnlyFromSpecificDate
