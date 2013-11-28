@@ -43,7 +43,21 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(", Minimum greek = ");
             builder.Append(MinimumGreek);
             builder.Append(", GreeksByCategory = ");
-            builder.Append(GreeksByCategory); //TODO
+            foreach (var categoryValue in GreeksByCategory)
+            {
+                builder.Append("{");
+                builder.Append(categoryValue.Key); //TODO    
+                builder.Append(" = ");
+                foreach (var valuePair in categoryValue.Value)
+                {
+                    builder.Append("{");
+                    builder.Append(valuePair.Key);
+                    builder.Append(" = ");
+                    builder.Append(valuePair.Value);
+                    builder.Append("} ");
+                }
+                builder.Append("} ");
+            }
             builder.Append(", Greeks to be included in report = { ");
             foreach (var greekToBeIncluded in GreeksToBeIncluded)
             {
