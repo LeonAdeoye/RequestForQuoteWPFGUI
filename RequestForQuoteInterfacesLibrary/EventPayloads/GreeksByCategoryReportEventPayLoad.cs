@@ -12,7 +12,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public DateTime MaturityDateFrom { get; set; }
         public DateTime MaturityDateTo { get; set; }
         public double MinimumGreek { get; set; }
-        public IDictionary<String, IDictionary<string, double>> GreeksByCategory { get; set; }
+        public IDictionary<String, IDictionary<string, decimal>> GreeksByCategory { get; set; }
         public String ReportDescription { get; set; }
         public string CategoryDescription { get; set; }
         public ISet<string> GreeksToBeIncluded { get; set; } 
@@ -22,7 +22,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         /// </summary>
         public GreeksByCategoryReportEventPayLoad() 
         {
-            GreeksByCategory = new Dictionary<string, IDictionary<string, double>>();
+            GreeksByCategory = new Dictionary<string, IDictionary<string, decimal>>();
             GreeksToBeIncluded = new HashSet<string>();
         }
 
@@ -46,7 +46,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             foreach (var categoryValue in GreeksByCategory)
             {
                 builder.Append("{");
-                builder.Append(categoryValue.Key); //TODO    
+                builder.Append(categoryValue.Key);   
                 builder.Append(" = ");
                 foreach (var valuePair in categoryValue.Value)
                 {
@@ -73,21 +73,21 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         /// Adds the greek value to the map of greek values by category value.
         /// </summary>
         /// <param name="categoryValue"> the category value used in the aggregation.</param>
-        /// <param name="greek"> the greek type like delta, gamma, vega, theta.</param>
+        /// <param name="typeOfGreek"> the greek type like delta, gamma, vega, theta.</param>
         /// <param name="greekValue"> the aggregated total greek value for the specified category value.</param>
         /// <exception cref="ArgumentException"> if the category value is null or empty.</exception>
-        public void AddGreek(string categoryValue, GreeksEnum greek, double greekValue)
+        public void AddGreek(string categoryValue, GreeksEnum typeOfGreek, double greekValue)
         {
             if (String.IsNullOrEmpty(categoryValue))
                 throw new ArgumentException("categoryValue");
 
-            if (GreeksByCategory.ContainsKey(categoryValue))
+            if (GreeksByCategory.ContainsKey(typeOfGreek.ToString()))
             {
-                var greekEntry = GreeksByCategory[categoryValue];
-                greekEntry[greek.ToString()] = greekValue;
+                var greekEntry = GreeksByCategory[typeOfGreek.ToString()];
+                greekEntry[categoryValue] = Convert.ToDecimal(greekValue);
             }
             else
-                GreeksByCategory.Add(categoryValue, new Dictionary<string, double>() {{ greek.ToString(), greekValue}});               
+                GreeksByCategory.Add(typeOfGreek.ToString(), new Dictionary<string, decimal>() { { categoryValue, Convert.ToDecimal(greekValue) } });
         }
     }
 }

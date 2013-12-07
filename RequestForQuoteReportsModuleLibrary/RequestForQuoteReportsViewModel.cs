@@ -119,8 +119,9 @@ namespace RequestForQuoteReportsModuleLibrary
 
             if (eventPayLoad.CountByCategory.Count == 0)
             {
-                MessageBox.Show("No RFQ data returned for the selected criteria!", "No Report Data", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                MessageBox.Show("No RFQ data returned for the selected criteria!", "No Report Data To Display", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
                 return;
             }
 
@@ -146,23 +147,23 @@ namespace RequestForQuoteReportsModuleLibrary
 
             if (eventPayLoad.GreeksByCategory.Count == 0)
             {
-                MessageBox.Show("No greek data returned for the selected criteria!", "No Report Data", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                MessageBox.Show("No greek data returned for the selected criteria!", "No Report Data To Display", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                
                 return;
             }
-
-            var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            
             var reportViewModel = new GeneratedReportViewModel
                 {
                     ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
-                    ReportType = eventPayLoad.ReportType
+                    ReportType = eventPayLoad.ReportType,
+                    ReportData = new List<KeyValuePair<string, decimal>>()
                 };
 
-            foreach (var categoryValue in eventPayLoad.GreeksByCategory)
-            {
+            foreach (var greeksBelongingToACatgeory in eventPayLoad.GreeksByCategory)
+                reportViewModel.ReportData.AddRange(greeksBelongingToACatgeory.Value.ToList());
 
-            }
-
+            var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);
         }
 

@@ -144,9 +144,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     var result = reportingContollerProxy.getGreeksByCategory(categoryType, maturityDateFrom, maturityDateTo, minimumGreek);
                     if (result != null)
+                    {
                         foreach (var greekTotal in result)
                         {
-                            if(greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
+                            if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.GAMMA, greekTotal.gamma);
@@ -156,7 +157,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);
-                        }
+                        }                        
+                    }
                 }
 
                 eventAggregator.GetEvent<GreeksByCategoryReportEvent>().Publish(eventPayLoad);

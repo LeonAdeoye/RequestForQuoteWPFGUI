@@ -10,13 +10,13 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public string Category { get; set; }
         public DateTime FromDate { get; set; }
         public int MinimumCount { get; set; }
-        public IDictionary<String, int> CountByCategory { get; set; }
+        public IDictionary<String, decimal> CountByCategory { get; set; }
         public String ReportDescription { get; set; }
         public string CategoryDescription { get; set; }
 
         public RequestsCountByCategoryReportEventPayLoad() 
         {
-            CountByCategory = new Dictionary<string, int>();    
+            CountByCategory = new Dictionary<string, decimal>();    
         }
 
         public override string ToString()

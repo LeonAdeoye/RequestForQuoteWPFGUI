@@ -6,7 +6,7 @@ namespace RequestForQuoteReportsModuleLibrary
 {
     public class GeneratedReportViewModel :  DependencyObject
     {
-        public List<KeyValuePair<string, int>> ReportData { get; set; }
+        public List<KeyValuePair<string, decimal>> ReportData { get; set; }
         public string ReportType { get; set; }
         public string ReportTitle { get; set; }
 
@@ -18,7 +18,7 @@ namespace RequestForQuoteReportsModuleLibrary
         /// <param name="reportData"> to be used for the charting.</param>
         /// <exception cref="ArgumentException"> thrown if reportType or reporTitle parameters are null or empty.</exception>
         /// /// <exception cref="ArgumentNullException"> thrown if reportData is null.</exception>
-        public GeneratedReportViewModel(string reportType, string reportTitle,  List<KeyValuePair<string, int>> reportData)
+        public GeneratedReportViewModel(string reportType, string reportTitle,  List<KeyValuePair<string, decimal>> reportData)
         {
             if (String.IsNullOrEmpty(reportType))
                 throw new ArgumentException("reportType");
