@@ -101,6 +101,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>("Underlying", "By Underlying"),
                 new KeyValuePair<string, string>("Initiator", "By Initiator"),
                 new KeyValuePair<string, string>("TradeDate", "By Trade Date"),
+                new KeyValuePair<string, string>("MaturityDate", "By Maturity Date"),
                 new KeyValuePair<string, string>("Status", "By Status"),
                 new KeyValuePair<string, string>("Picker", "By Picker"),
             };

@@ -9,6 +9,7 @@ namespace RequestForQuoteReportsModuleLibrary
         public List<KeyValuePair<string, decimal>> ReportData { get; set; }
         public string ReportType { get; set; }
         public string ReportTitle { get; set; }
+        public int SeriesCount { get; set; }
 
         /// <summary>
         /// Constructor
