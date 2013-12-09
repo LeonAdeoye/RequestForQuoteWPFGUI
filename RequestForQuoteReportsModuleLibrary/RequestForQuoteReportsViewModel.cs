@@ -130,8 +130,7 @@ namespace RequestForQuoteReportsModuleLibrary
             var reportViewModel = new GeneratedReportViewModel()
                 {
                     ReportTitle = "Request Count By " + eventPayLoad.Category + ":",
-                    ReportType = eventPayLoad.ReportType,
-                    SeriesKey = GeneratedReportViewModel.ONLY_ONE_SERIES
+                    ReportType = eventPayLoad.ReportType
                 };
             reportViewModel.AddSeries(GeneratedReportViewModel.ONLY_ONE_SERIES, eventPayLoad.CountByCategory.ToList());
 

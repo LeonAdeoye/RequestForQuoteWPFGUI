@@ -6,7 +6,7 @@
     <Grid Height="500" MinWidth="668" Width="Auto">
         <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
         <chartingToolkit:Chart Margin="30" Title="{Binding ReportTitle}">
-            <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding SingleSeriesData}" />
+            <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding SingleSeriesData}"/>
         </chartingToolkit:Chart>
     </Grid>
 </UserControl>

@@ -9,7 +9,6 @@ namespace RequestForQuoteReportsModuleLibrary
         private readonly Dictionary<string, List<KeyValuePair<string, decimal>>> seriesData = new Dictionary<string, List<KeyValuePair<string, decimal>>>();
         public string ReportType { get; set; }
         public string ReportTitle { get; set; }
-        public string SeriesKey { get; set; }
         public static string ONLY_ONE_SERIES = "OnlyOneSeries";
 
         public List<KeyValuePair<string, decimal>> SingleSeriesData
