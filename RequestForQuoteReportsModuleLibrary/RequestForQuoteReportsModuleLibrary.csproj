@@ -71,6 +71,9 @@
     <Compile Include="Commands\CompileReportCommand.cs" />
     <Compile Include="Commands\SaveReportInputCommand.cs" />
     <Compile Include="GeneratedReportViewModel.cs" />
+    <Compile Include="GreekSeriesUserControl.xaml.cs">
+      <DependentUpon>GreekSeriesUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LineGraphUserControl.xaml.cs">
       <DependentUpon>LineGraphUserControl.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BarChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GreekSeriesUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

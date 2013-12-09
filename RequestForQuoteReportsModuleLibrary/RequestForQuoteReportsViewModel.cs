@@ -93,6 +93,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>(RegionNames.LINE_GRAPH_USER_CONTROL_REGION, "Line Graph"),
                 new KeyValuePair<string, string>(RegionNames.TABULATION_USER_CONTROL_REGION, "Tabulated Data"),
                 new KeyValuePair<string, string>(RegionNames.AREA_SERIES_USER_CONTROL_REGION, "Area Series"),
+                new KeyValuePair<string, string>(RegionNames.GREEK_SERIES_USER_CONTROL_REGION, "Greek Series"),
             };
             ListOfCategoryTypes = new List<KeyValuePair<string, string>>()
             {
@@ -125,14 +126,17 @@ namespace RequestForQuoteReportsModuleLibrary
 
                 return;
             }
+            
+            var reportViewModel = new GeneratedReportViewModel()
+                {
+                    ReportTitle = "Request Count By " + eventPayLoad.Category + ":",
+                    ReportType = eventPayLoad.ReportType,
+                    SeriesKey = GeneratedReportViewModel.ONLY_ONE_SERIES
+                };
+            reportViewModel.AddSeries(GeneratedReportViewModel.ONLY_ONE_SERIES, eventPayLoad.CountByCategory.ToList());
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
-            reportWindow.ShowWindow(new GeneratedReportViewModel()
-            {
-                ReportTitle = "Request Count By " + eventPayLoad.Category + ":",
-                ReportType = eventPayLoad.ReportType,
-                ReportData = eventPayLoad.CountByCategory.ToList(),                    
-            });
+            reportWindow.ShowWindow(reportViewModel);
         }
 
         /// <summary>
@@ -158,11 +162,10 @@ namespace RequestForQuoteReportsModuleLibrary
                 {
                     ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
                     ReportType = eventPayLoad.ReportType,
-                    ReportData = new List<KeyValuePair<string, decimal>>()
                 };
 
             foreach (var greeksBelongingToACatgeory in eventPayLoad.GreeksByCategory)
-                reportViewModel.ReportData.AddRange(greeksBelongingToACatgeory.Value.ToList());
+                reportViewModel.AddSeries(greeksBelongingToACatgeory.Key, greeksBelongingToACatgeory.Value.ToList());
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);

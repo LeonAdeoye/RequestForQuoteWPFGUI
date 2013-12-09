@@ -41,6 +41,7 @@
                     <converters:RadioButtonConverter  x:Key="RadioButtonConverter" />
                     <converters:ChatMsgBkgdColourConverter  x:Key="ChatMsgBkgdColourConverter" />
                     <converters:EnumDescriptionConverter  x:Key="EnumDescriptionConverter" />
+                    <converters:SeriesDataConverter  x:Key="SeriesDataConverter" />
                     
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

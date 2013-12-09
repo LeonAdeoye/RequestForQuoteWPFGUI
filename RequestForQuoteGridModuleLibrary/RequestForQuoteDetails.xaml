@@ -8,6 +8,7 @@
              xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedProps;assembly=RequestForQuoteInterfacesLibrary"             
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
              xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
              mc:Ignorable="d" Background="Gray">
     <UserControl.Resources>
         <Style TargetType="Expander">
@@ -118,7 +119,7 @@
                             </DockPanel>
                             <DockPanel >
                                 <ComboBox DockPanel.Dock="Right" Width="250"
-                                    ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}" 
+                                    ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:StatusEnum}}}" 
                                     DisplayMemberPath="Description" 
                                     SelectedValue="{Binding SelectedRequestForQuote.Status}"  
                                     SelectedValuePath="Value"  />

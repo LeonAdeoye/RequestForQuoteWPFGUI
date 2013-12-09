@@ -7,6 +7,7 @@
         public const string TABULATION_USER_CONTROL_REGION = "TabulatedDataUserControl";
         public const string BAR_CHART_USER_CONTROL_REGION = "BarChartUserControl";
         public const string PIE_CHART_USER_CONTROL_REGION = "PieChartUserControl";
+        public const string GREEK_SERIES_USER_CONTROL_REGION = "GreekSeriesUserControl";
 
         public const string TREE_BROWSER_USER_CONTROL_REGION = "TreeBrowserUserControl";
         public const string REPORTS_USER_CONTROL_REGION = "ReportsUserControl";

@@ -7,6 +7,7 @@
              xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
+             xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
              PresentationTraceSources.TraceLevel="High">
     <Grid>
         <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
@@ -35,7 +36,7 @@
                             <ComboBox  SelectedValue="{Binding Status}"
                                 DisplayMemberPath="Description"
                                 SelectedValuePath="Value"                                              
-                                ItemsSource="{Binding Source={enums:Enumeration {x:Type enums:StatusEnum}}}"/>
+                                ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type enums:StatusEnum}}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

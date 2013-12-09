@@ -5,8 +5,8 @@
              xmlns:customCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4">
     <Grid Height="500" MinWidth="668" Width="Auto">
         <customCntls:MetallicBorder WpfsCornerRadius="4" />
-        <chartingToolkit:Chart Margin="30" Title="{Binding ReportTitle}" LegendTitle="Reporting Legend">
-            <chartingToolkit:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ReportData}" />
+        <chartingToolkit:Chart Margin="30" Title="{Binding ReportTitle}" LegendTitle="Reporting Legend" Name="LineSeriesChart">
+            <chartingToolkit:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding SingleSeriesData}"/>
         </chartingToolkit:Chart>
     </Grid>
 </UserControl>

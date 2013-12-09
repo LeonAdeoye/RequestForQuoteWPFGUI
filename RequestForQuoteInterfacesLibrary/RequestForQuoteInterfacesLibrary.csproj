@@ -66,12 +66,13 @@
     <Compile Include="Constants\WindowPopupNames.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Converters\ChatMsgBkgdColourConverter.cs" />
+    <Compile Include="Converters\SeriesDataConverter.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\RadioButtonConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Enums\GreeksEnum.cs" />
     <Compile Include="Enums\RequestCountFromDateEnum.cs" />
-    <Compile Include="Enums\EnumerationExtension.cs" />
+    <Compile Include="MarkupExtensions\EnumerationExtension.cs" />
     <Compile Include="Enums\ProductTypeEnum.cs" />
     <Compile Include="Enums\CriteriaTypeEnum.cs" />
     <Compile Include="Enums\PrivacyEnum.cs" />

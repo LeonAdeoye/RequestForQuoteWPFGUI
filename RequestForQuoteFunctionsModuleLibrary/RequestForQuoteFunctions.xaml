@@ -7,6 +7,7 @@
 			 xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
 			 xmlns:regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
 			 xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
+			 xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
 			 mc:Ignorable="d" Background="Gray">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -61,7 +62,7 @@
 										SelectedValue="{Binding SelectedStatus}"
 										DisplayMemberPath="Description"
 										SelectedValuePath="Value"                                              
-										ItemsSource="{Binding Source={Enums:Enumeration {x:Type Enums:StatusEnum}}}">
+										ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:StatusEnum}}}">
 										<ComboBox.ToolTip>
 											<ToolTip Content="Select status...">
 											</ToolTip>
