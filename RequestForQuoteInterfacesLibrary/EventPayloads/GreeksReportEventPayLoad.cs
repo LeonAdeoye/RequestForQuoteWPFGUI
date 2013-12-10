@@ -5,13 +5,15 @@ using RequestForQuoteInterfacesLibrary.Enums;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
-    public class GreeksByCategoryReportEventPayLoad 
+    public class GreeksReportEventPayLoad 
     {
         public string ReportType { get; set; }
         public string Category { get; set; }
         public DateTime MaturityDateFrom { get; set; }
         public DateTime MaturityDateTo { get; set; }
         public double MinimumGreek { get; set; }
+        public double MinimumInput { get; set; }
+        public double MaximumInput { get; set; }
         public IDictionary<String, IDictionary<string, decimal>> GreeksByCategory { get; set; }
         public String ReportDescription { get; set; }
         public string CategoryDescription { get; set; }
@@ -20,7 +22,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GreeksByCategoryReportEventPayLoad() 
+        public GreeksReportEventPayLoad() 
         {
             GreeksByCategory = new Dictionary<string, IDictionary<string, decimal>>();
             GreeksToBeIncluded = new HashSet<string>();
@@ -42,6 +44,10 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(MaturityDateTo);
             builder.Append(", Minimum greek = ");
             builder.Append(MinimumGreek);
+            builder.Append(", Minimum input = ");
+            builder.Append(MinimumInput);
+            builder.Append(", Maximum output = ");
+            builder.Append(MaximumInput);
             builder.Append(", GreeksByCategory = ");
             foreach (var categoryValue in GreeksByCategory)
             {

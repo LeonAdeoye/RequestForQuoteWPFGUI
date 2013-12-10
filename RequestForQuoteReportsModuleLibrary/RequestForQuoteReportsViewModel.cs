@@ -26,6 +26,7 @@ namespace RequestForQuoteReportsModuleLibrary
         private readonly IReportDataManager reportingManager;
         
         private string requestsCountCategory;
+        private string greeksInputType;
 
         public ICommand CompileReportCommand { get; set; }
         public ICommand ClearReportInputCommand { get; set; }
@@ -33,6 +34,7 @@ namespace RequestForQuoteReportsModuleLibrary
 
         public List<KeyValuePair<string, string>> ListOfReportTypes { get; set; }
         public List<KeyValuePair<string, string>> ListOfCategoryTypes { get; set; }
+        public List<KeyValuePair<string, string>> ListOfInputTypes { get; set; }
 
         /// <summary>
         /// Constructor of the view model that initializes various private services, creates instances of command properties, 
@@ -106,6 +108,13 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>("Status", "By Status"),
                 new KeyValuePair<string, string>("Picker", "By Picker"),
             };
+            ListOfInputTypes = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("UnderlyingPrice", "By underlying Price"),
+                new KeyValuePair<string, string>("Volatility", "By Volatility"),
+                new KeyValuePair<string, string>("InterestRate", "By Interest Rate"),
+                new KeyValuePair<string, string>("TimeToExpiry", "By Time To Expiry"),
+            };
         }
 
         /// <summary>
@@ -142,9 +151,9 @@ namespace RequestForQuoteReportsModuleLibrary
         /// Prcoess the incoming report data event message, and creates and shows an instance of the report popup window with the appropriate chart.
         /// It uses the service locator to get an instance of the report popup window.
         /// </summary>
-        /// <param name="eventPayLoad"> the GreeksByCategoryReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
+        /// <param name="eventPayLoad"> the GreeksReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
         /// <exception cref="ArgumentNullException"> thrown if the eventpayload paramter is null.</exception>
-        private void HandleGreeksByCategoryReportEvent(GreeksByCategoryReportEventPayLoad eventPayLoad)
+        private void HandleGreeksByCategoryReportEvent(GreeksReportEventPayLoad eventPayLoad)
         {
             if (eventPayLoad == null)
                 throw new ArgumentNullException("eventPayLoad");
@@ -175,11 +184,21 @@ namespace RequestForQuoteReportsModuleLibrary
             get { return RequestsCountCategory != "TradeDate"; }
         }
 
+        public string GreeksInputType
+        {
+            get { return greeksInputType; }
+            set 
+            {
+                greeksInputType = value;
+                NotifyPropertyChanged("GreeksInputType");
+            }
+        }
+
         public string RequestsCountCategory
         {
             get { return requestsCountCategory; }
-            set 
-            { 
+            set
+            {
                 requestsCountCategory = value;
                 NotifyPropertyChanged("RequestsCountCategory");
                 NotifyPropertyChanged("CanReportOnlyFromSpecificDate");
@@ -222,6 +241,16 @@ namespace RequestForQuoteReportsModuleLibrary
         // Using a DependencyProperty as the backing store for ShowTheta.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowThetaProperty =
             DependencyProperty.Register("ShowTheta", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
+
+        public bool ShowPremium
+        {
+            get { return (bool)GetValue(ShowPremiumProperty); }
+            set { SetValue(ShowPremiumProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowPremium.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowPremiumProperty =
+            DependencyProperty.Register("ShowPremium", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(false));
 
         public bool ShowVega
         {
@@ -294,7 +323,27 @@ namespace RequestForQuoteReportsModuleLibrary
         // Using a DependencyProperty as the backing store for MinimumGreek.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MinimumGreekProperty =
             DependencyProperty.Register("MinimumGreek", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
-                               
+
+        public double MinimumInput
+        {
+            get { return (double)GetValue(MinimumInputProperty); }
+            set { SetValue(MinimumInputProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinimumInput.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinimumInputProperty =
+            DependencyProperty.Register("MinimumInput", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+
+        public double MaximumInput
+        {
+            get { return (double)GetValue(MaximumInputProperty); }
+            set { SetValue(MaximumInputProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaximumInput.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaximumInputProperty =
+            DependencyProperty.Register("MaximumInput", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+               
         public int MinimumCount
         {
             get { return (int)GetValue(MinimumCountProperty); }
@@ -335,10 +384,13 @@ namespace RequestForQuoteReportsModuleLibrary
             switch (SelectedReportTab)
             {
                 case "RFQs/Category":
-                    CompileRequestCountPerCategoryReport();
+                    CompileRequestCountByCategoryReport();
                     break;
                 case "Greek/Category":
-                    CompileGreeksPerCategoryReport();
+                    CompileGreeksByCategoryReport();
+                    break;
+                case "Greek/Input":
+                    CompileGreeksByInputReport();
                     break;
             }          
         }
@@ -372,16 +424,12 @@ namespace RequestForQuoteReportsModuleLibrary
         /// <summary>
         /// Compiles the greeks by catgeory by delegating this request to the webservice
         /// </summary>
-        private void CompileGreeksPerCategoryReport()
+        private void CompileGreeksByCategoryReport()
         {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
                 MaturityDateFrom = DateTime.Parse(DateTime.Now.ToShortDateString());
-            else if (FromDateType == RequestCountFromDateEnum.DATE_RANGE)
-            {
-
-            }
             
-            reportingManager.CompileGreeksPerCategoryReport(ReportType, 
+            reportingManager.CompileGreeksByCategoryReport(ReportType, 
                                                             RequestsCountCategory,
                                                             GetSetofGreeksToDisplayInReport(),
                                                             MaturityDateFrom.GetValueOrDefault(new DateTime(2013, 1, 1)),
@@ -389,17 +437,35 @@ namespace RequestForQuoteReportsModuleLibrary
                                                             MinimumGreek);
         }
 
+
+        /// <summary>
+        /// Compiles the greeks by input by delegating this request to the webservice
+        /// </summary>
+        private void CompileGreeksByInputReport()
+        {
+            if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
+                MaturityDateFrom = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+            reportingManager.CompileGreeksByInputReport(ReportType,
+                                                            RequestsCountCategory,
+                                                            GetSetofGreeksToDisplayInReport(),
+                                                            MaturityDateFrom.GetValueOrDefault(new DateTime(2013, 1, 1)),
+                                                            MaturityDateTo.GetValueOrDefault(DateTime.Parse(DateTime.Now.ToShortDateString())),
+                                                            MinimumInput,
+                                                            MaximumInput);
+        }
+
         /// <summary>
         /// Compiles the RFQ count by category report by delegating this request to the web service.
         /// </summary>
-        private void CompileRequestCountPerCategoryReport()
+        private void CompileRequestCountByCategoryReport()
         {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
                 FromDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             else if (FromDateType == RequestCountFromDateEnum.ALL)
                 FromDate = new DateTime(2013, 1, 1);
 
-            reportingManager.CompileRequestCountPerCategoryReport(ReportType, RequestsCountCategory,
+            reportingManager.CompileRequestCountByCategoryReport(ReportType, RequestsCountCategory,
                 FromDate.GetValueOrDefault(new DateTime(2013, 1, 1)), MinimumCount);              
         }
 

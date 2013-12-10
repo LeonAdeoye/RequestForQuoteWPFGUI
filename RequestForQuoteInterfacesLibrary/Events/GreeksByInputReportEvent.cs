@@ -3,5 +3,5 @@ using RequestForQuoteInterfacesLibrary.EventPayloads;
 
 namespace RequestForQuoteInterfacesLibrary.Events
 {
-    public class GreeksByCategoryReportEvent : CompositePresentationEvent<GreeksReportEventPayLoad> { }
+    public class GreeksByInputReportEvent : CompositePresentationEvent<GreeksReportEventPayLoad> { }
 }

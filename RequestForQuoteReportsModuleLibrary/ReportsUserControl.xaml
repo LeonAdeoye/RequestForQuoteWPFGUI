@@ -122,7 +122,66 @@
                         </TextBox>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Greek/Input"></TabItem>
+                <TabItem Header="Greek/Input">
+                    <StackPanel>
+                        <Label Content="Select input type:" HorizontalAlignment="Left" Margin="5"/>
+                        <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" ItemsSource="{Binding ListOfInputTypes}" 
+                                  DisplayMemberPath="Value" SelectedValue="{Binding GreeksInputType}" SelectedValuePath="Key"/>
+                        <GroupBox Header="Greek:">
+                            <WrapPanel Orientation="Vertical" Height="60">
+                                <CheckBox Content="Delta" IsChecked="{Binding ShowDelta}" Margin="3"/>
+                                <CheckBox Content="Gamma" IsChecked="{Binding ShowGamma}" Margin="3"/>
+                                <CheckBox Content ="Theta" IsChecked="{Binding ShowTheta}" Margin="3"/>
+                                <CheckBox Content ="Vega" IsChecked="{Binding ShowVega}" Margin="3"/>
+                                <CheckBox Content ="Rho" IsChecked="{Binding ShowRho}" Margin="3"/>
+                                <CheckBox Content ="Premium" IsChecked="{Binding ShowPremium}" Margin="3"/>
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Maturity date:">
+                            <StackPanel Margin="5">
+                                <RadioButton Content="Today only" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                        Converter={StaticResource RadioButtonConverter}, 
+                                        ConverterParameter={x:Static enums:RequestCountFromDateEnum.TODAY_ONLY}}"
+                                        IsEnabled="{Binding CanReportOnlyFromSpecificDate}"/>
+
+                                <StackPanel>
+                                    <RadioButton Name="GreeksPerInput_MaturityDateRange_RadioButton" Content="Range" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
+                                            Converter={StaticResource RadioButtonConverter}, 
+                                            ConverterParameter={x:Static enums:RequestCountFromDateEnum.DATE_RANGE}}"/>
+                                    <StackPanel>
+                                        <Label Margin="15,0,0,0" Content="From" HorizontalAlignment="Left"></Label>
+                                        <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
+                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateFrom}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        <Label Margin="15,0,0,0" Content="To" HorizontalAlignment="Left"></Label>
+                                        <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
+                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateTo}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <Label Content="Minimum input to exclude:" HorizontalAlignment="Left" Margin="5"/>
+                        <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
+                            <TextBox.Text>
+                                <Binding Path="MinimumInput" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules >
+                                        <validation:ZeroMinimumNumberValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Label Content="Maximum input to exclude:" HorizontalAlignment="Left" Margin="5"/>
+                        <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
+                            <TextBox.Text>
+                                <Binding Path="MaximumInput" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules >
+                                        <validation:ZeroMinimumNumberValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>                        
+                    </StackPanel>
+                </TabItem>                
             </TabControl>
         </StackPanel>        
     </Grid>

@@ -6,6 +6,7 @@
         GAMMA,
         THETA,
         VEGA,
-        RHO        
+        RHO,
+        PREMIUM
     }
 }

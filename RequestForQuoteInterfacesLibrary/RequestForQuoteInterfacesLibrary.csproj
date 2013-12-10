@@ -72,6 +72,7 @@
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Enums\GreeksEnum.cs" />
     <Compile Include="Enums\RequestCountFromDateEnum.cs" />
+    <Compile Include="Events\GreeksByInputReportEvent.cs" />
     <Compile Include="MarkupExtensions\EnumerationExtension.cs" />
     <Compile Include="Enums\ProductTypeEnum.cs" />
     <Compile Include="Enums\CriteriaTypeEnum.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Enums\StatusEnum.cs" />
     <Compile Include="Enums\LocationEnum.cs" />
     <Compile Include="Enums\SideEnum.cs" />
-    <Compile Include="EventPayloads\GreeksByCategoryReportEventPayLoad.cs" />
+    <Compile Include="EventPayloads\GreeksReportEventPayLoad.cs" />
     <Compile Include="EventPayloads\RequestsCountByCategoryReportEventPayLoad.cs" />
     <Compile Include="EventPayloads\NewBankHolidayEventPayload.cs" />
     <Compile Include="EventPayloads\NewChatMessageEventPayload.cs" />
