@@ -4,6 +4,8 @@
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="getGreeksByCategory" type="tns:getGreeksByCategory" />
       <xs:element name="getGreeksByCategoryResponse" type="tns:getGreeksByCategoryResponse" />
+      <xs:element name="getGreeksByInput" type="tns:getGreeksByInput" />
+      <xs:element name="getGreeksByInputResponse" type="tns:getGreeksByInputResponse" />
       <xs:element name="getRequestsByCategory" type="tns:getRequestsByCategory" />
       <xs:element name="getRequestsByCategoryResponse" type="tns:getRequestsByCategoryResponse" />
       <xs:complexType name="getRequestsByCategory">
@@ -24,11 +26,31 @@
           <xs:element name="requestCount" type="xs:int" />
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="getGreeksByInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="inputType" type="xs:string" />
+          <xs:element minOccurs="0" name="maturityDateFrom" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="maturityDateTo" type="xs:dateTime" />
+          <xs:element name="minimumInput" type="xs:double" />
+          <xs:element name="maximumInput" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getGreeksByInputResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:greeksPerInputReportDataImpl" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="greeksPerInputReportDataImpl">
+        <xs:sequence>
+          <xs:element name="input" type="xs:double" />
+          <xs:element name="output" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="getGreeksByCategory">
         <xs:sequence>
           <xs:element minOccurs="0" name="categoryType" type="xs:string" />
-          <xs:element minOccurs="0" name="MaturityDatefrom" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="MaturityDateTo" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="maturityDateFrom" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="maturityDateTo" type="xs:dateTime" />
           <xs:element name="minimumGreek" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
@@ -49,11 +71,17 @@
       </xs:complexType>
     </xs:schema>
   </wsdl:types>
+  <wsdl:message name="getGreeksByInputResponse">
+    <wsdl:part name="parameters" element="tns:getGreeksByInputResponse" />
+  </wsdl:message>
   <wsdl:message name="getRequestsByCategoryResponse">
     <wsdl:part name="parameters" element="tns:getRequestsByCategoryResponse" />
   </wsdl:message>
   <wsdl:message name="getGreeksByCategory">
     <wsdl:part name="parameters" element="tns:getGreeksByCategory" />
+  </wsdl:message>
+  <wsdl:message name="getGreeksByInput">
+    <wsdl:part name="parameters" element="tns:getGreeksByInput" />
   </wsdl:message>
   <wsdl:message name="getRequestsByCategory">
     <wsdl:part name="parameters" element="tns:getRequestsByCategory" />
@@ -65,6 +93,10 @@
     <wsdl:operation name="getRequestsByCategory">
       <wsdl:input name="getRequestsByCategory" message="tns:getRequestsByCategory" />
       <wsdl:output name="getRequestsByCategoryResponse" message="tns:getRequestsByCategoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getGreeksByInput">
+      <wsdl:input name="getGreeksByInput" message="tns:getGreeksByInput" />
+      <wsdl:output name="getGreeksByInputResponse" message="tns:getGreeksByInputResponse" />
     </wsdl:operation>
     <wsdl:operation name="getGreeksByCategory">
       <wsdl:input name="getGreeksByCategory" message="tns:getGreeksByCategory" />
@@ -79,6 +111,15 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="getRequestsByCategoryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGreeksByInput">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getGreeksByInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getGreeksByInputResponse">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

@@ -158,6 +158,9 @@
     <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.greeksPerCategoryReportDataImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.greeksPerInputReportDataImpl.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataImpl.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

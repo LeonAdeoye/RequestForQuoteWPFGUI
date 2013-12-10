@@ -30,6 +30,17 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse getGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
+        System.IAsyncResult BegingetGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request, System.AsyncCallback callback, object asyncState);
+        
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse EndgetGreeksByInput(System.IAsyncResult result);
+        
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategoryResponse getGreeksByCategory(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
@@ -186,6 +197,52 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
+    public partial class greeksPerInputReportDataImpl : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private double inputField;
+        
+        private double outputField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public double input {
+            get {
+                return this.inputField;
+            }
+            set {
+                this.inputField = value;
+                this.RaisePropertyChanged("input");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public double output {
+            get {
+                return this.outputField;
+            }
+            set {
+                this.outputField = value;
+                this.RaisePropertyChanged("output");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -235,6 +292,62 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksByInput", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class getGreeksByInput {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string inputType;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public System.DateTime maturityDateFrom;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public System.DateTime maturityDateTo;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public double minimumInput;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public double maximumInput;
+        
+        public getGreeksByInput() {
+        }
+        
+        public getGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
+            this.inputType = inputType;
+            this.maturityDateFrom = maturityDateFrom;
+            this.maturityDateTo = maturityDateTo;
+            this.minimumInput = minimumInput;
+            this.maximumInput = maximumInput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksByInputResponse", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class getGreeksByInputResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public greeksPerInputReportDataImpl[] @return;
+        
+        public getGreeksByInputResponse() {
+        }
+        
+        public getGreeksByInputResponse(greeksPerInputReportDataImpl[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksByCategory", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
     public partial class getGreeksByCategory {
         
@@ -244,11 +357,11 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime MaturityDatefrom;
+        public System.DateTime maturityDateFrom;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime MaturityDateTo;
+        public System.DateTime maturityDateTo;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -257,10 +370,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         public getGreeksByCategory() {
         }
         
-        public getGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
+        public getGreeksByCategory(string categoryType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumGreek) {
             this.categoryType = categoryType;
-            this.MaturityDatefrom = MaturityDatefrom;
-            this.MaturityDateTo = MaturityDateTo;
+            this.maturityDateFrom = maturityDateFrom;
+            this.maturityDateTo = maturityDateTo;
             this.minimumGreek = minimumGreek;
         }
     }
@@ -308,6 +421,25 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class getGreeksByInputCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public getGreeksByInputCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public greeksPerInputReportDataImpl[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((greeksPerInputReportDataImpl[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class getGreeksByCategoryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -335,6 +467,12 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         private System.Threading.SendOrPostCallback ongetRequestsByCategoryCompletedDelegate;
         
+        private BeginOperationDelegate onBegingetGreeksByInputDelegate;
+        
+        private EndOperationDelegate onEndgetGreeksByInputDelegate;
+        
+        private System.Threading.SendOrPostCallback ongetGreeksByInputCompletedDelegate;
+        
         private BeginOperationDelegate onBegingetGreeksByCategoryDelegate;
         
         private EndOperationDelegate onEndgetGreeksByCategoryDelegate;
@@ -361,6 +499,8 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         public event System.EventHandler<getRequestsByCategoryCompletedEventArgs> getRequestsByCategoryCompleted;
+        
+        public event System.EventHandler<getGreeksByInputCompletedEventArgs> getGreeksByInputCompleted;
         
         public event System.EventHandler<getGreeksByCategoryCompletedEventArgs> getGreeksByCategoryCompleted;
         
@@ -444,15 +584,102 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.getGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request) {
+            return base.Channel.getGreeksByInput(request);
+        }
+        
+        public greeksPerInputReportDataImpl[] getGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput();
+            inValue.inputType = inputType;
+            inValue.maturityDateFrom = maturityDateFrom;
+            inValue.maturityDateTo = maturityDateTo;
+            inValue.minimumInput = minimumInput;
+            inValue.maximumInput = maximumInput;
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).getGreeksByInput(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.BegingetGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BegingetGreeksByInput(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BegingetGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput, System.AsyncCallback callback, object asyncState) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput();
+            inValue.inputType = inputType;
+            inValue.maturityDateFrom = maturityDateFrom;
+            inValue.maturityDateTo = maturityDateTo;
+            inValue.minimumInput = minimumInput;
+            inValue.maximumInput = maximumInput;
+            return ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).BegingetGreeksByInput(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.EndgetGreeksByInput(System.IAsyncResult result) {
+            return base.Channel.EndgetGreeksByInput(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public greeksPerInputReportDataImpl[] EndgetGreeksByInput(System.IAsyncResult result) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetGreeksByInput(result);
+            return retVal.@return;
+        }
+        
+        private System.IAsyncResult OnBegingetGreeksByInput(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string inputType = ((string)(inValues[0]));
+            System.DateTime maturityDateFrom = ((System.DateTime)(inValues[1]));
+            System.DateTime maturityDateTo = ((System.DateTime)(inValues[2]));
+            double minimumInput = ((double)(inValues[3]));
+            double maximumInput = ((double)(inValues[4]));
+            return this.BegingetGreeksByInput(inputType, maturityDateFrom, maturityDateTo, minimumInput, maximumInput, callback, asyncState);
+        }
+        
+        private object[] OnEndgetGreeksByInput(System.IAsyncResult result) {
+            greeksPerInputReportDataImpl[] retVal = this.EndgetGreeksByInput(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OngetGreeksByInputCompleted(object state) {
+            if ((this.getGreeksByInputCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.getGreeksByInputCompleted(this, new getGreeksByInputCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void getGreeksByInputAsync(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
+            this.getGreeksByInputAsync(inputType, maturityDateFrom, maturityDateTo, minimumInput, maximumInput, null);
+        }
+        
+        public void getGreeksByInputAsync(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput, object userState) {
+            if ((this.onBegingetGreeksByInputDelegate == null)) {
+                this.onBegingetGreeksByInputDelegate = new BeginOperationDelegate(this.OnBegingetGreeksByInput);
+            }
+            if ((this.onEndgetGreeksByInputDelegate == null)) {
+                this.onEndgetGreeksByInputDelegate = new EndOperationDelegate(this.OnEndgetGreeksByInput);
+            }
+            if ((this.ongetGreeksByInputCompletedDelegate == null)) {
+                this.ongetGreeksByInputCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetGreeksByInputCompleted);
+            }
+            base.InvokeAsync(this.onBegingetGreeksByInputDelegate, new object[] {
+                        inputType,
+                        maturityDateFrom,
+                        maturityDateTo,
+                        minimumInput,
+                        maximumInput}, this.onEndgetGreeksByInputDelegate, this.ongetGreeksByInputCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategoryResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.getGreeksByCategory(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory request) {
             return base.Channel.getGreeksByCategory(request);
         }
         
-        public greeksPerCategoryReportDataImpl[] getGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
+        public greeksPerCategoryReportDataImpl[] getGreeksByCategory(string categoryType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumGreek) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory();
             inValue.categoryType = categoryType;
-            inValue.MaturityDatefrom = MaturityDatefrom;
-            inValue.MaturityDateTo = MaturityDateTo;
+            inValue.maturityDateFrom = maturityDateFrom;
+            inValue.maturityDateTo = maturityDateTo;
             inValue.minimumGreek = minimumGreek;
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategoryResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).getGreeksByCategory(inValue);
             return retVal.@return;
@@ -464,11 +691,11 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegingetGreeksByCategory(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BegingetGreeksByCategory(string categoryType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumGreek, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByCategory();
             inValue.categoryType = categoryType;
-            inValue.MaturityDatefrom = MaturityDatefrom;
-            inValue.MaturityDateTo = MaturityDateTo;
+            inValue.maturityDateFrom = maturityDateFrom;
+            inValue.maturityDateTo = maturityDateTo;
             inValue.minimumGreek = minimumGreek;
             return ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).BegingetGreeksByCategory(inValue, callback, asyncState);
         }
@@ -486,10 +713,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         private System.IAsyncResult OnBegingetGreeksByCategory(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string categoryType = ((string)(inValues[0]));
-            System.DateTime MaturityDatefrom = ((System.DateTime)(inValues[1]));
-            System.DateTime MaturityDateTo = ((System.DateTime)(inValues[2]));
+            System.DateTime maturityDateFrom = ((System.DateTime)(inValues[1]));
+            System.DateTime maturityDateTo = ((System.DateTime)(inValues[2]));
             double minimumGreek = ((double)(inValues[3]));
-            return this.BegingetGreeksByCategory(categoryType, MaturityDatefrom, MaturityDateTo, minimumGreek, callback, asyncState);
+            return this.BegingetGreeksByCategory(categoryType, maturityDateFrom, maturityDateTo, minimumGreek, callback, asyncState);
         }
         
         private object[] OnEndgetGreeksByCategory(System.IAsyncResult result) {
@@ -505,11 +732,11 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             }
         }
         
-        public void getGreeksByCategoryAsync(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek) {
-            this.getGreeksByCategoryAsync(categoryType, MaturityDatefrom, MaturityDateTo, minimumGreek, null);
+        public void getGreeksByCategoryAsync(string categoryType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumGreek) {
+            this.getGreeksByCategoryAsync(categoryType, maturityDateFrom, maturityDateTo, minimumGreek, null);
         }
         
-        public void getGreeksByCategoryAsync(string categoryType, System.DateTime MaturityDatefrom, System.DateTime MaturityDateTo, double minimumGreek, object userState) {
+        public void getGreeksByCategoryAsync(string categoryType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumGreek, object userState) {
             if ((this.onBegingetGreeksByCategoryDelegate == null)) {
                 this.onBegingetGreeksByCategoryDelegate = new BeginOperationDelegate(this.OnBegingetGreeksByCategory);
             }
@@ -521,8 +748,8 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             }
             base.InvokeAsync(this.onBegingetGreeksByCategoryDelegate, new object[] {
                         categoryType,
-                        MaturityDatefrom,
-                        MaturityDateTo,
+                        maturityDateFrom,
+                        maturityDateTo,
                         minimumGreek}, this.onEndgetGreeksByCategoryDelegate, this.ongetGreeksByCategoryCompletedDelegate, userState);
         }
     }

@@ -151,9 +151,9 @@ namespace RequestForQuoteReportsModuleLibrary
         /// Prcoess the incoming report data event message, and creates and shows an instance of the report popup window with the appropriate chart.
         /// It uses the service locator to get an instance of the report popup window.
         /// </summary>
-        /// <param name="eventPayLoad"> the GreeksReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
-        /// <exception cref="ArgumentNullException"> thrown if the eventpayload paramter is null.</exception>
-        private void HandleGreeksByCategoryReportEvent(GreeksReportEventPayLoad eventPayLoad)
+        /// <param name="eventPayLoad"> the GreeksByCategoryReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the eventpayload parameter is null.</exception>
+        private void HandleGreeksByCategoryReportEvent(GreeksByCategoryReportEventPayLoad eventPayLoad)
         {
             if (eventPayLoad == null)
                 throw new ArgumentNullException("eventPayLoad");
