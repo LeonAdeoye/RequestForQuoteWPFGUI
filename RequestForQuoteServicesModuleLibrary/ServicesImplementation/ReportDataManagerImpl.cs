@@ -7,6 +7,7 @@ using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.ReportingService;
+using RequestForQuoteServicesModuleLibrary.OptionPricerService;
 using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
@@ -16,6 +17,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
+        private readonly IOptionRequestPricer requestPricer;
         private readonly ReportingControllerClient reportingContollerProxy = new ReportingControllerClient();
 
         /// <summary>
@@ -23,8 +25,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         /// <param name="configManager"> for determining whether in application is in standalone mode.</param>
         /// <param name="eventAggregator"> for publishing report data messages to listeners.</param>
+        /// <param name="requestPricer"> for range pricing of a request.</param>
         /// <exception cref="ArgumentNullException"> thrown if configManager or eventAggregator parameters are null.</exception>
-        public ReportDataManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
+        public ReportDataManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator, IOptionRequestPricer requestPricer)
         {
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
@@ -32,8 +35,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
 
+            if (requestPricer == null)
+                throw new ArgumentNullException("requestPricer");
+
             this.configManager = configManager;
-            this.eventAggregator = eventAggregator;            
+            this.eventAggregator = eventAggregator;
+            this.requestPricer = requestPricer;
         }
 
         /// <summary>
@@ -189,8 +196,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <param name="reportType"> the type of report - bar chart, pie chart, etc.</param>
         /// <param name="inputType"> the input to be used for the extrapolation - this is passed onto the web service.</param>
         /// <param name="greeksToBeIncluded"> the set of greeks to be included in the report</param>
-        /// <param name="maturityDateFrom"> the maturity date from which the RFQ's greeks will be included.</param>
-        /// <param name="maturityDateTo"> the maturity date up until which the RFQ's greeks will be included.</param>
+        /// <param name="requestId"> the request id of the request to be priced</param>
         /// <param name="minimumInput">the minimum input value that will be excluded from the report data.</param>
         /// <param name="maximumInput">the maximum input value that will be excluded from the report data.</param>
         /// <exception cref="ArgumentException"> thrown if reportType parameter is null or empty.</exception>
@@ -198,19 +204,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <exception cref="ArgumentException"> thrown if maturityDateFrom or maturityDateTo parameter is null.</exception>
         /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null or empty</exception>
         public void CompileGreeksByInputReport(string reportType, string inputType, ISet<string> greeksToBeIncluded, 
-            DateTime maturityDateFrom, DateTime maturityDateTo, double minimumInput, double maximumInput)
+            int requestId, double minimumInput, double maximumInput)
         {
             if (String.IsNullOrEmpty(reportType))
                 throw new ArgumentException("reportType");
 
             if (String.IsNullOrEmpty(inputType))
                 throw new ArgumentException("inputType");
-
-            if (maturityDateFrom == null)
-                throw new ArgumentException("maturityDateFrom");
-
-            if (maturityDateTo == null)
-                throw new ArgumentException("maturityDateTo");
 
             if (greeksToBeIncluded == null)
                 throw new ArgumentException("greeksToBeIncluded");
@@ -223,9 +223,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 var eventPayLoad = new GreeksByInputReportEventPayLoad
                 {
                     ReportType = reportType,
+                    RequestId = requestId,
                     InputType = inputType,
-                    MaturityDateFrom = maturityDateFrom,
-                    MaturityDateTo = maturityDateTo,
                     MinimumInput = minimumInput,
                     MaximumInput = maximumInput,
                     GreeksToBeIncluded = greeksToBeIncluded
@@ -233,21 +232,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
                 if (!configManager.IsStandAlone)
                 {
-                    var result = reportingContollerProxy.getGreeksByInput(inputType, maturityDateFrom, maturityDateTo, minimumInput, maximumInput);
+                    var result = requestPricer.CalculatePricingRange(requestId, inputType, minimumInput, maximumInput);
                     if (result != null)
                     {
                         foreach (var output in result)
                         {
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.GAMMA, greekTotal.gamma);
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.THETA.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.VEGA, greekTotal.vega);
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.VEGA.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);
                         }
                     }
                 }

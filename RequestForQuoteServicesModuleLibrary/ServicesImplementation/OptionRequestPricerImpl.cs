@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -49,6 +50,11 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 log.Error(asyncException.Message, asyncException);
                 return false;
             }
+        }
+
+        public IEnumerable CalculatePricingRange(int requestId, string inputType, double minimumInput, double maximumInput)
+        {
+            throw new NotImplementedException();
         }
 
         private void ProcessCalculatedResult(optionPriceResult pricings, IOptionDetail optionToPrice)

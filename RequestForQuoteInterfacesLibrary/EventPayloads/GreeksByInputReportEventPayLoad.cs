@@ -8,10 +8,9 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
     {
         public string ReportType { get; set; }
         public string InputType { get; set; }
-        public DateTime MaturityDateFrom { get; set; }
-        public DateTime MaturityDateTo { get; set; }
         public double MinimumInput { get; set; }
         public double MaximumInput { get; set; }
+        public int RequestId { get; set; }
         public IDictionary<String, IDictionary<decimal, decimal>> OutputExtrapolation { get; set; }
         public String ReportDescription { get; set; }
         public string InputTypeDescription { get; set; }
@@ -36,10 +35,8 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             builder.Append(ReportDescription);
             builder.Append(", Report type = ");
             builder.Append(ReportType);
-            builder.Append(", Maturity date from = ");
-            builder.Append(MaturityDateFrom);
-            builder.Append(", Maturity date to = ");
-            builder.Append(MaturityDateTo);
+            builder.Append(", Request id = ");
+            builder.Append(RequestId);
             builder.Append(", Minimum input = ");
             builder.Append(MinimumInput);
             builder.Append(", Maximum output = ");

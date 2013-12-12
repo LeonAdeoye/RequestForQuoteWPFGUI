@@ -60,7 +60,7 @@ namespace RequestForQuoteServicesModuleLibrary
             var searchManager = new SearchManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<ISearchManager>(searchManager);
             tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize());
-
+            
             var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager, configManager);
             container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);
 

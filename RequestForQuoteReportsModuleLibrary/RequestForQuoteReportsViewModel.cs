@@ -221,6 +221,7 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty ShowDeltaProperty =
             DependencyProperty.Register("ShowDelta", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(true));
 
+        public int RequestId { get; set; }
 
         public bool ShowGamma
         {
@@ -449,8 +450,7 @@ namespace RequestForQuoteReportsModuleLibrary
             reportingManager.CompileGreeksByInputReport(ReportType,
                                                             RequestsCountCategory,
                                                             GetSetofGreeksToDisplayInReport(),
-                                                            MaturityDateFrom.GetValueOrDefault(new DateTime(2013, 1, 1)),
-                                                            MaturityDateTo.GetValueOrDefault(DateTime.Parse(DateTime.Now.ToShortDateString())),
+                                                            RequestId,
                                                             MinimumInput,
                                                             MaximumInput);
         }
