@@ -137,29 +137,6 @@
                                 <CheckBox Content ="Premium" IsChecked="{Binding ShowPremium}" Margin="3"/>
                             </WrapPanel>
                         </GroupBox>
-                        <GroupBox Header="Maturity date:">
-                            <StackPanel Margin="5">
-                                <RadioButton Content="Today only" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
-                                        Converter={StaticResource RadioButtonConverter}, 
-                                        ConverterParameter={x:Static enums:RequestCountFromDateEnum.TODAY_ONLY}}"
-                                        IsEnabled="{Binding CanReportOnlyFromSpecificDate}"/>
-
-                                <StackPanel>
-                                    <RadioButton Name="GreeksPerInput_MaturityDateRange_RadioButton" Content="Range" GroupName="Range" Margin="5" IsChecked="{Binding Path=FromDateType, Mode=TwoWay, 
-                                            Converter={StaticResource RadioButtonConverter}, 
-                                            ConverterParameter={x:Static enums:RequestCountFromDateEnum.DATE_RANGE}}"/>
-                                    <StackPanel>
-                                        <Label Margin="15,0,0,0" Content="From" HorizontalAlignment="Left"></Label>
-                                        <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateFrom}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-
-                                        <Label Margin="15,0,0,0" Content="To" HorizontalAlignment="Left"></Label>
-                                        <DatePicker Margin="15,0,0,0" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" 
-                                                    SelectedDateFormat="Short" SelectedDate="{Binding MaturityDateTo}" IsEnabled="{Binding ElementName=GreeksPerCategory_MaturityDateRange_RadioButton, Path=IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-                        </GroupBox>
                         <Label Content="Minimum input to exclude:" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
                             <TextBox.Text>
