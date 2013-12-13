@@ -6,6 +6,6 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
     public interface IOptionRequestPricer
     {
         bool CalculatePricing(IOptionDetail optionToPrice);
-        IEnumerable CalculatePricingRange(int requestId, string inputType, double minimumInput, double maximumInput);
+        IEnumerable CalculatePricingRange(int requestId, string inputType, double rangeMinimum, double rangeMaximum, double rangeIncrement);
     }
 }

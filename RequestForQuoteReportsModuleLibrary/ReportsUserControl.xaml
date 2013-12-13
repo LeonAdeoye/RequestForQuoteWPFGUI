@@ -122,11 +122,11 @@
                         </TextBox>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Greek/Input">
+                <TabItem Header="Extrapolation">
                     <StackPanel>
                         <Label Content="Select input type:" HorizontalAlignment="Left" Margin="5"/>
-                        <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" ItemsSource="{Binding ListOfInputTypes}" 
-                                  DisplayMemberPath="Value" SelectedValue="{Binding GreeksInputType}" SelectedValuePath="Key"/>
+                        <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" ItemsSource="{Binding ListOfRangeVariables}" 
+                                  DisplayMemberPath="Value" SelectedValue="{Binding RangeVariable}" SelectedValuePath="Key"/>
                         <GroupBox Header="Greek:">
                             <WrapPanel Orientation="Vertical" Height="60">
                                 <CheckBox Content="Delta" IsChecked="{Binding ShowDelta}" Margin="3"/>
@@ -137,20 +137,30 @@
                                 <CheckBox Content ="Premium" IsChecked="{Binding ShowPremium}" Margin="3"/>
                             </WrapPanel>
                         </GroupBox>
-                        <Label Content="Minimum input to exclude:" HorizontalAlignment="Left" Margin="5"/>
+                        <Label Content="Range Minimum:" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
                             <TextBox.Text>
-                                <Binding Path="MinimumInput" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="RangeMinimum" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules >
                                         <validation:ZeroMinimumNumberValidationRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <Label Content="Maximum input to exclude:" HorizontalAlignment="Left" Margin="5"/>
+                        <Label Content="Range Maximum:" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
                             <TextBox.Text>
-                                <Binding Path="MaximumInput" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="RangeMaximum" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules >
+                                        <validation:ZeroMinimumNumberValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Label Content="Range increment:" HorizontalAlignment="Left" Margin="5"/>
+                        <TextBox HorizontalAlignment="Left" Width="60" Margin="5,0,5,5" Style="{StaticResource NumberValidationStyle}">
+                            <TextBox.Text>
+                                <Binding Path="RangeIncrement" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules >
                                         <validation:ZeroMinimumNumberValidationRule/>
                                     </Binding.ValidationRules>

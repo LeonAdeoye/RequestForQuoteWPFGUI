@@ -72,19 +72,29 @@
       </xs:complexType>
       <xs:complexType name="calculateRangeResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" name="return" type="tns:optionPriceResultSet" />
+          <xs:element minOccurs="0" name="return" type="tns:extrapolationSet" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="optionPriceResultSet" final="extension restriction">
+      <xs:complexType name="extrapolationSet" final="extension restriction">
         <xs:sequence>
-          <xs:element minOccurs="0" name="optionPriceResults">
+          <xs:element name="extrapolationPoints">
             <xs:complexType>
               <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:OptionPriceResult" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="entry">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element minOccurs="0" name="key" type="xs:double" />
+                      <xs:element minOccurs="0" name="value" type="tns:extrapolationPoint" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="extrapolationPoint" final="extension restriction">
+        <xs:sequence />
       </xs:complexType>
       <xs:complexType name="arrayList">
         <xs:complexContent mixed="false">
@@ -106,7 +116,7 @@
     </xs:schema>
     <xs:schema xmlns:ns1="http://model.option.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.option.model" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://model.option.rfq.ws.leon.com/" />
-      <xs:element name="optionPriceResultSet" type="ns1:optionPriceResultSet" />
+      <xs:element name="extrapolationSet" type="ns1:extrapolationSet" />
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="calculateRangeResponse">

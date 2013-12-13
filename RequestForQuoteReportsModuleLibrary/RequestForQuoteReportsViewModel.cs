@@ -26,7 +26,7 @@ namespace RequestForQuoteReportsModuleLibrary
         private readonly IReportDataManager reportingManager;
         
         private string requestsCountCategory;
-        private string greeksInputType;
+        private string rangeVariable;
 
         public ICommand CompileReportCommand { get; set; }
         public ICommand ClearReportInputCommand { get; set; }
@@ -34,7 +34,7 @@ namespace RequestForQuoteReportsModuleLibrary
 
         public List<KeyValuePair<string, string>> ListOfReportTypes { get; set; }
         public List<KeyValuePair<string, string>> ListOfCategoryTypes { get; set; }
-        public List<KeyValuePair<string, string>> ListOfInputTypes { get; set; }
+        public List<KeyValuePair<string, string>> ListOfRangeVariables { get; set; }
 
         /// <summary>
         /// Constructor of the view model that initializes various private services, creates instances of command properties, 
@@ -108,12 +108,13 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>("Status", "By Status"),
                 new KeyValuePair<string, string>("Picker", "By Picker"),
             };
-            ListOfInputTypes = new List<KeyValuePair<string, string>>()
+            ListOfRangeVariables = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("UnderlyingPrice", "By underlying Price"),
-                new KeyValuePair<string, string>("Volatility", "By Volatility"),
-                new KeyValuePair<string, string>("InterestRate", "By Interest Rate"),
-                new KeyValuePair<string, string>("TimeToExpiry", "By Time To Expiry"),
+                new KeyValuePair<string, string>("UnderlyingPrice", "By underlying price"),
+                new KeyValuePair<string, string>("Volatility", "By volatility"),
+                new KeyValuePair<string, string>("InterestRate", "By interest rate"),
+                new KeyValuePair<string, string>("TimeToExpiry", "By time to expiry"),
+                new KeyValuePair<string, string>("Strike", "By strike"),
             };
         }
 
@@ -184,13 +185,13 @@ namespace RequestForQuoteReportsModuleLibrary
             get { return RequestsCountCategory != "TradeDate"; }
         }
 
-        public string GreeksInputType
+        public string RangeVariable
         {
-            get { return greeksInputType; }
+            get { return rangeVariable; }
             set 
             {
-                greeksInputType = value;
-                NotifyPropertyChanged("GreeksInputType");
+                rangeVariable = value;
+                NotifyPropertyChanged("RangeVariable");
             }
         }
 
@@ -303,7 +304,6 @@ namespace RequestForQuoteReportsModuleLibrary
         // Using a DependencyProperty as the backing store for MaturityDateTo.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaturityDateToProperty =
             DependencyProperty.Register("MaturityDateTo", typeof(DateTime?), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(null));
-
                 
         public String ReportType
         {
@@ -325,26 +325,39 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty MinimumGreekProperty =
             DependencyProperty.Register("MinimumGreek", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
 
-        public double MinimumInput
+        public double RangeMinimum
         {
-            get { return (double)GetValue(MinimumInputProperty); }
-            set { SetValue(MinimumInputProperty, value); }
+            get { return (double)GetValue(RangeMinimumProperty); }
+            set { SetValue(RangeMinimumProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MinimumInput.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MinimumInputProperty =
-            DependencyProperty.Register("MinimumInput", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+        // Using a DependencyProperty as the backing store for RangeMinimum.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RangeMinimumProperty =
+            DependencyProperty.Register("RangeMinimum", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
 
-        public double MaximumInput
+        public double RangeMaximum
         {
-            get { return (double)GetValue(MaximumInputProperty); }
-            set { SetValue(MaximumInputProperty, value); }
+            get { return (double)GetValue(RangeMaximumProperty); }
+            set { SetValue(RangeMaximumProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MaximumInput.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaximumInputProperty =
-            DependencyProperty.Register("MaximumInput", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
-               
+        // Using a DependencyProperty as the backing store for RangeMaximum.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RangeMaximumProperty =
+            DependencyProperty.Register("RangeMaximum", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+
+
+
+        public double RangeIncrement
+        {
+            get { return (double)GetValue(RangeIncrementProperty); }
+            set { SetValue(RangeIncrementProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RangeIncrement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RangeIncrementProperty =
+            DependencyProperty.Register("RangeIncrement", typeof(double), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0.0));
+
+        
         public int MinimumCount
         {
             get { return (int)GetValue(MinimumCountProperty); }
@@ -390,8 +403,8 @@ namespace RequestForQuoteReportsModuleLibrary
                 case "Greek/Category":
                     CompileGreeksByCategoryReport();
                     break;
-                case "Greek/Input":
-                    CompileGreeksByInputReport();
+                case "Extrapolation":
+                    CompileGreeksExtrapolation();
                     break;
             }          
         }
@@ -442,17 +455,18 @@ namespace RequestForQuoteReportsModuleLibrary
         /// <summary>
         /// Compiles the greeks by input by delegating this request to the webservice
         /// </summary>
-        private void CompileGreeksByInputReport()
+        private void CompileGreeksExtrapolation()
         {
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
                 MaturityDateFrom = DateTime.Parse(DateTime.Now.ToShortDateString());
 
-            reportingManager.CompileGreeksByInputReport(ReportType,
-                                                            RequestsCountCategory,
+            reportingManager.CompileGreeksExtrapolationReport(ReportType,
+                                                            RangeVariable,
                                                             GetSetofGreeksToDisplayInReport(),
                                                             RequestId,
-                                                            MinimumInput,
-                                                            MaximumInput);
+                                                            RangeMinimum,
+                                                            RangeMaximum, 
+                                                            RangeIncrement);
         }
 
         /// <summary>

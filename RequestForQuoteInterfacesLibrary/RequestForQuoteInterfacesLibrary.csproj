@@ -72,8 +72,8 @@
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Enums\GreeksEnum.cs" />
     <Compile Include="Enums\RequestCountFromDateEnum.cs" />
-    <Compile Include="EventPayloads\GreeksByInputReportEventPayLoad.cs" />
-    <Compile Include="Events\GreeksByInputReportEvent.cs" />
+    <Compile Include="EventPayloads\GreeksExtrapolationReportEventPayLoad.cs" />
+    <Compile Include="Events\GreeksExtrapolationReportEvent.cs" />
     <Compile Include="MarkupExtensions\EnumerationExtension.cs" />
     <Compile Include="Enums\ProductTypeEnum.cs" />
     <Compile Include="Enums\CriteriaTypeEnum.cs" />

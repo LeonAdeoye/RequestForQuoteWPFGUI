@@ -52,7 +52,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public IEnumerable CalculatePricingRange(int requestId, string inputType, double minimumInput, double maximumInput)
+        public IEnumerable CalculatePricingRange(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement)
         {
             throw new NotImplementedException();
         }

@@ -4,22 +4,22 @@ using System.Text;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
-    public class GreeksByInputReportEventPayLoad 
+    public class GreeksExtrapolationReportEventPayLoad 
     {
         public string ReportType { get; set; }
-        public string InputType { get; set; }
-        public double MinimumInput { get; set; }
-        public double MaximumInput { get; set; }
+        public string RangeVariable { get; set; }
+        public double RangeMinimum { get; set; }
+        public double RangeMaximum { get; set; }
+        public double RangeIncrement { get; set; }
         public int RequestId { get; set; }
         public IDictionary<String, IDictionary<decimal, decimal>> OutputExtrapolation { get; set; }
         public String ReportDescription { get; set; }
-        public string InputTypeDescription { get; set; }
         public ISet<string> GreeksToBeIncluded { get; set; }
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GreeksByInputReportEventPayLoad() 
+        public GreeksExtrapolationReportEventPayLoad() 
         {
             OutputExtrapolation = new Dictionary<string, IDictionary<decimal, decimal>>();
             GreeksToBeIncluded = new HashSet<string>();
@@ -27,20 +27,20 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
 
         public override string ToString()
         {
-            var builder = new StringBuilder("Input type = ");
-            builder.Append(InputType);
-            builder.Append(", Input type description = ");
-            builder.Append(InputTypeDescription);
+            var builder = new StringBuilder("Range variable = ");
+            builder.Append(RangeVariable);
             builder.Append(", Report description = ");
             builder.Append(ReportDescription);
             builder.Append(", Report type = ");
             builder.Append(ReportType);
             builder.Append(", Request id = ");
             builder.Append(RequestId);
-            builder.Append(", Minimum input = ");
-            builder.Append(MinimumInput);
-            builder.Append(", Maximum output = ");
-            builder.Append(MaximumInput);
+            builder.Append(", Range minimum = ");
+            builder.Append(RangeMinimum);
+            builder.Append(", Range maximum = ");
+            builder.Append(RangeMaximum);
+            builder.Append(", Range increment = ");
+            builder.Append(RangeIncrement);
             builder.Append(", Output extrapolation = ");
             foreach (var output in OutputExtrapolation)
             {

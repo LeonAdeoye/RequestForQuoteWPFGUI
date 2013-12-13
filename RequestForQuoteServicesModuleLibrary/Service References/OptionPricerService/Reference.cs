@@ -210,20 +210,98 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://model.option.rfq.ws.leon.com/")]
-    public partial class optionPriceResultSet : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class extrapolationPoint : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private optionPriceResult[] optionPriceResultsField;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://model.option.rfq.ws.leon.com/")]
+    public partial class extrapolationSet : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private extrapolationSetEntry[] extrapolationPointsField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("OptionPriceResult", IsNullable=false)]
-        public optionPriceResult[] optionPriceResults {
+        [System.Xml.Serialization.XmlArrayItemAttribute("entry", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public extrapolationSetEntry[] extrapolationPoints {
             get {
-                return this.optionPriceResultsField;
+                return this.extrapolationPointsField;
             }
             set {
-                this.optionPriceResultsField = value;
-                this.RaisePropertyChanged("optionPriceResults");
+                this.extrapolationPointsField = value;
+                this.RaisePropertyChanged("extrapolationPoints");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://model.option.rfq.ws.leon.com/")]
+    public partial class extrapolationSetEntry : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private double keyField;
+        
+        private bool keyFieldSpecified;
+        
+        private extrapolationPoint valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public double key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+                this.RaisePropertyChanged("key");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool keySpecified {
+            get {
+                return this.keyFieldSpecified;
+            }
+            set {
+                this.keyFieldSpecified = value;
+                this.RaisePropertyChanged("keySpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public extrapolationPoint value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+                this.RaisePropertyChanged("value");
             }
         }
         
@@ -377,12 +455,12 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://model.option.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet @return;
+        public RequestForQuoteServicesModuleLibrary.OptionPricerService.extrapolationSet @return;
         
         public calculateRangeResponse() {
         }
         
-        public calculateRangeResponse(RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet @return) {
+        public calculateRangeResponse(RequestForQuoteServicesModuleLibrary.OptionPricerService.extrapolationSet @return) {
             this.@return = @return;
         }
     }
@@ -467,7 +545,7 @@ namespace RequestForQuoteServicesModuleLibrary.OptionPricerService {
             return base.Channel.calculateRange(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet calculateRange(string rangeKey, double startValue, double endValue, double increment) {
+        public RequestForQuoteServicesModuleLibrary.OptionPricerService.extrapolationSet calculateRange(string rangeKey, double startValue, double endValue, double increment) {
             RequestForQuoteServicesModuleLibrary.OptionPricerService.calculateRange inValue = new RequestForQuoteServicesModuleLibrary.OptionPricerService.calculateRange();
             inValue.rangeKey = rangeKey;
             inValue.startValue = startValue;

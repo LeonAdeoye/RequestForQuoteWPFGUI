@@ -30,12 +30,12 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse getGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request);
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse getGreeksExtrapolation(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="", ReplyAction="*")]
-        System.IAsyncResult BegingetGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BegingetGreeksExtrapolation(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation request, System.AsyncCallback callback, object asyncState);
         
-        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse EndgetGreeksByInput(System.IAsyncResult result);
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse EndgetGreeksExtrapolation(System.IAsyncResult result);
         
         // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
@@ -203,33 +203,98 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class greeksPerInputReportDataImpl : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class extrapolationPoint : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private double inputField;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
-        private double outputField;
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
+    public partial class extrapolationSet : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private extrapolationSetEntry[] extrapolationPointsField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("entry", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public extrapolationSetEntry[] extrapolationPoints {
+            get {
+                return this.extrapolationPointsField;
+            }
+            set {
+                this.extrapolationPointsField = value;
+                this.RaisePropertyChanged("extrapolationPoints");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://reporting.rfq.ws.leon.com/")]
+    public partial class extrapolationSetEntry : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private double keyField;
+        
+        private bool keyFieldSpecified;
+        
+        private extrapolationPoint valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public double input {
+        public double key {
             get {
-                return this.inputField;
+                return this.keyField;
             }
             set {
-                this.inputField = value;
-                this.RaisePropertyChanged("input");
+                this.keyField = value;
+                this.RaisePropertyChanged("key");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool keySpecified {
+            get {
+                return this.keyFieldSpecified;
+            }
+            set {
+                this.keyFieldSpecified = value;
+                this.RaisePropertyChanged("keySpecified");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public double output {
+        public extrapolationPoint value {
             get {
-                return this.outputField;
+                return this.valueField;
             }
             set {
-                this.outputField = value;
-                this.RaisePropertyChanged("output");
+                this.valueField = value;
+                this.RaisePropertyChanged("value");
             }
         }
         
@@ -292,55 +357,55 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksByInput", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class getGreeksByInput {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksExtrapolation", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class getGreeksExtrapolation {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string inputType;
+        public int requestId;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime maturityDateFrom;
+        public string rangeVariable;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public System.DateTime maturityDateTo;
+        public double rangeMinimum;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=3)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public double minimumInput;
+        public double rangeMaximum;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=4)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public double maximumInput;
+        public double rangeIncrement;
         
-        public getGreeksByInput() {
+        public getGreeksExtrapolation() {
         }
         
-        public getGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
-            this.inputType = inputType;
-            this.maturityDateFrom = maturityDateFrom;
-            this.maturityDateTo = maturityDateTo;
-            this.minimumInput = minimumInput;
-            this.maximumInput = maximumInput;
+        public getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
+            this.requestId = requestId;
+            this.rangeVariable = rangeVariable;
+            this.rangeMinimum = rangeMinimum;
+            this.rangeMaximum = rangeMaximum;
+            this.rangeIncrement = rangeIncrement;
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksByInputResponse", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
-    public partial class getGreeksByInputResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getGreeksExtrapolationResponse", WrapperNamespace="http://reporting.rfq.ws.leon.com/", IsWrapped=true)]
+    public partial class getGreeksExtrapolationResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public greeksPerInputReportDataImpl[] @return;
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet @return;
         
-        public getGreeksByInputResponse() {
+        public getGreeksExtrapolationResponse() {
         }
         
-        public getGreeksByInputResponse(greeksPerInputReportDataImpl[] @return) {
+        public getGreeksExtrapolationResponse(RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet @return) {
             this.@return = @return;
         }
     }
@@ -421,19 +486,19 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class getGreeksByInputCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class getGreeksExtrapolationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public getGreeksByInputCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public getGreeksExtrapolationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public greeksPerInputReportDataImpl[] Result {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((greeksPerInputReportDataImpl[])(this.results[0]));
+                return ((RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet)(this.results[0]));
             }
         }
     }
@@ -467,11 +532,11 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         private System.Threading.SendOrPostCallback ongetRequestsByCategoryCompletedDelegate;
         
-        private BeginOperationDelegate onBegingetGreeksByInputDelegate;
+        private BeginOperationDelegate onBegingetGreeksExtrapolationDelegate;
         
-        private EndOperationDelegate onEndgetGreeksByInputDelegate;
+        private EndOperationDelegate onEndgetGreeksExtrapolationDelegate;
         
-        private System.Threading.SendOrPostCallback ongetGreeksByInputCompletedDelegate;
+        private System.Threading.SendOrPostCallback ongetGreeksExtrapolationCompletedDelegate;
         
         private BeginOperationDelegate onBegingetGreeksByCategoryDelegate;
         
@@ -500,7 +565,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         public event System.EventHandler<getRequestsByCategoryCompletedEventArgs> getRequestsByCategoryCompleted;
         
-        public event System.EventHandler<getGreeksByInputCompletedEventArgs> getGreeksByInputCompleted;
+        public event System.EventHandler<getGreeksExtrapolationCompletedEventArgs> getGreeksExtrapolationCompleted;
         
         public event System.EventHandler<getGreeksByCategoryCompletedEventArgs> getGreeksByCategoryCompleted;
         
@@ -584,90 +649,90 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.getGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request) {
-            return base.Channel.getGreeksByInput(request);
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.getGreeksExtrapolation(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation request) {
+            return base.Channel.getGreeksExtrapolation(request);
         }
         
-        public greeksPerInputReportDataImpl[] getGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput();
-            inValue.inputType = inputType;
-            inValue.maturityDateFrom = maturityDateFrom;
-            inValue.maturityDateTo = maturityDateTo;
-            inValue.minimumInput = minimumInput;
-            inValue.maximumInput = maximumInput;
-            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).getGreeksByInput(inValue);
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation();
+            inValue.requestId = requestId;
+            inValue.rangeVariable = rangeVariable;
+            inValue.rangeMinimum = rangeMinimum;
+            inValue.rangeMaximum = rangeMaximum;
+            inValue.rangeIncrement = rangeIncrement;
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).getGreeksExtrapolation(inValue);
             return retVal.@return;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.BegingetGreeksByInput(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BegingetGreeksByInput(request, callback, asyncState);
+        System.IAsyncResult RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.BegingetGreeksExtrapolation(RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BegingetGreeksExtrapolation(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BegingetGreeksByInput(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput, System.AsyncCallback callback, object asyncState) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInput();
-            inValue.inputType = inputType;
-            inValue.maturityDateFrom = maturityDateFrom;
-            inValue.maturityDateTo = maturityDateTo;
-            inValue.minimumInput = minimumInput;
-            inValue.maximumInput = maximumInput;
-            return ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).BegingetGreeksByInput(inValue, callback, asyncState);
+        public System.IAsyncResult BegingetGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement, System.AsyncCallback callback, object asyncState) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation();
+            inValue.requestId = requestId;
+            inValue.rangeVariable = rangeVariable;
+            inValue.rangeMinimum = rangeMinimum;
+            inValue.rangeMaximum = rangeMaximum;
+            inValue.rangeIncrement = rangeIncrement;
+            return ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).BegingetGreeksExtrapolation(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.EndgetGreeksByInput(System.IAsyncResult result) {
-            return base.Channel.EndgetGreeksByInput(result);
+        RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController.EndgetGreeksExtrapolation(System.IAsyncResult result) {
+            return base.Channel.EndgetGreeksExtrapolation(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public greeksPerInputReportDataImpl[] EndgetGreeksByInput(System.IAsyncResult result) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksByInputResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetGreeksByInput(result);
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet EndgetGreeksExtrapolation(System.IAsyncResult result) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetGreeksExtrapolation(result);
             return retVal.@return;
         }
         
-        private System.IAsyncResult OnBegingetGreeksByInput(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string inputType = ((string)(inValues[0]));
-            System.DateTime maturityDateFrom = ((System.DateTime)(inValues[1]));
-            System.DateTime maturityDateTo = ((System.DateTime)(inValues[2]));
-            double minimumInput = ((double)(inValues[3]));
-            double maximumInput = ((double)(inValues[4]));
-            return this.BegingetGreeksByInput(inputType, maturityDateFrom, maturityDateTo, minimumInput, maximumInput, callback, asyncState);
+        private System.IAsyncResult OnBegingetGreeksExtrapolation(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int requestId = ((int)(inValues[0]));
+            string rangeVariable = ((string)(inValues[1]));
+            double rangeMinimum = ((double)(inValues[2]));
+            double rangeMaximum = ((double)(inValues[3]));
+            double rangeIncrement = ((double)(inValues[4]));
+            return this.BegingetGreeksExtrapolation(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement, callback, asyncState);
         }
         
-        private object[] OnEndgetGreeksByInput(System.IAsyncResult result) {
-            greeksPerInputReportDataImpl[] retVal = this.EndgetGreeksByInput(result);
+        private object[] OnEndgetGreeksExtrapolation(System.IAsyncResult result) {
+            RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet retVal = this.EndgetGreeksExtrapolation(result);
             return new object[] {
                     retVal};
         }
         
-        private void OngetGreeksByInputCompleted(object state) {
-            if ((this.getGreeksByInputCompleted != null)) {
+        private void OngetGreeksExtrapolationCompleted(object state) {
+            if ((this.getGreeksExtrapolationCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.getGreeksByInputCompleted(this, new getGreeksByInputCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.getGreeksExtrapolationCompleted(this, new getGreeksExtrapolationCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void getGreeksByInputAsync(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput) {
-            this.getGreeksByInputAsync(inputType, maturityDateFrom, maturityDateTo, minimumInput, maximumInput, null);
+        public void getGreeksExtrapolationAsync(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
+            this.getGreeksExtrapolationAsync(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement, null);
         }
         
-        public void getGreeksByInputAsync(string inputType, System.DateTime maturityDateFrom, System.DateTime maturityDateTo, double minimumInput, double maximumInput, object userState) {
-            if ((this.onBegingetGreeksByInputDelegate == null)) {
-                this.onBegingetGreeksByInputDelegate = new BeginOperationDelegate(this.OnBegingetGreeksByInput);
+        public void getGreeksExtrapolationAsync(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement, object userState) {
+            if ((this.onBegingetGreeksExtrapolationDelegate == null)) {
+                this.onBegingetGreeksExtrapolationDelegate = new BeginOperationDelegate(this.OnBegingetGreeksExtrapolation);
             }
-            if ((this.onEndgetGreeksByInputDelegate == null)) {
-                this.onEndgetGreeksByInputDelegate = new EndOperationDelegate(this.OnEndgetGreeksByInput);
+            if ((this.onEndgetGreeksExtrapolationDelegate == null)) {
+                this.onEndgetGreeksExtrapolationDelegate = new EndOperationDelegate(this.OnEndgetGreeksExtrapolation);
             }
-            if ((this.ongetGreeksByInputCompletedDelegate == null)) {
-                this.ongetGreeksByInputCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetGreeksByInputCompleted);
+            if ((this.ongetGreeksExtrapolationCompletedDelegate == null)) {
+                this.ongetGreeksExtrapolationCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetGreeksExtrapolationCompleted);
             }
-            base.InvokeAsync(this.onBegingetGreeksByInputDelegate, new object[] {
-                        inputType,
-                        maturityDateFrom,
-                        maturityDateTo,
-                        minimumInput,
-                        maximumInput}, this.onEndgetGreeksByInputDelegate, this.ongetGreeksByInputCompletedDelegate, userState);
+            base.InvokeAsync(this.onBegingetGreeksExtrapolationDelegate, new object[] {
+                        requestId,
+                        rangeVariable,
+                        rangeMinimum,
+                        rangeMaximum,
+                        rangeIncrement}, this.onEndgetGreeksExtrapolationDelegate, this.ongetGreeksExtrapolationCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

@@ -190,27 +190,29 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         }
 
         /// <summary>
-        /// Requests the greeks per category report data from the web services back-end and sends this data along with other parameter information
-        /// to the report generation viewmodel by publishing an GreeksByCategoryReportEvent through the event aggregator.
+        /// Requests the greeks extrapolation report data from the web services back-end and sends this data along with other parameter information
+        /// to the report generation viewmodel by publishing an GreeksExtrapolationReportEvent through the event aggregator.
         /// </summary>
         /// <param name="reportType"> the type of report - bar chart, pie chart, etc.</param>
-        /// <param name="inputType"> the input to be used for the extrapolation - this is passed onto the web service.</param>
-        /// <param name="greeksToBeIncluded"> the set of greeks to be included in the report</param>
-        /// <param name="requestId"> the request id of the request to be priced</param>
-        /// <param name="minimumInput">the minimum input value that will be excluded from the report data.</param>
-        /// <param name="maximumInput">the maximum input value that will be excluded from the report data.</param>
+        /// <param name="rangeVariable"> the range variable to be used for the extrapolation.</param>
+        /// <param name="greeksToBeIncluded"> the set of greeks to be included in the report.</param>
+        /// <param name="requestId"> the request id of the request to be priced.</param>
+        /// <param name="rangeMinimum">the inclusive minimum range input value that will be used to extrapolate the report data.</param>
+        /// <param name="rangeMaximum">the inclusive maximum range input value that will be used to extrapolate the report data.</param>
+        /// <param name="rangeIncrement">the range increment that will be used for the extrapolatrion of the report data.</param>
         /// <exception cref="ArgumentException"> thrown if reportType parameter is null or empty.</exception>
-        /// <exception cref="ArgumentException"> thrown if inputType parameter is null or empty.</exception>
-        /// <exception cref="ArgumentException"> thrown if maturityDateFrom or maturityDateTo parameter is null.</exception>
-        /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null or empty</exception>
-        public void CompileGreeksByInputReport(string reportType, string inputType, ISet<string> greeksToBeIncluded, 
-            int requestId, double minimumInput, double maximumInput)
+        /// <exception cref="ArgumentException"> thrown if rangeVariable parameter is null or empty.</exception>
+        /// <exception cref="ArgumentException"> thrown if rangeMinimum is greater than or equal to the rangeMaximum parameter.</exception>
+        /// <exception cref="ArgumentException"> thrown if greeksTobeIncluded parameter is null or empty.</exception>
+        /// <exception cref="ArgumentException"> thrown if rangeIncrement parameter is less than or equal to zero.</exception>
+        public void CompileGreeksExtrapolationReport(string reportType, string rangeVariable, ISet<string> greeksToBeIncluded, 
+            int requestId, double rangeMinimum, double rangeMaximum, double rangeIncrement)
         {
             if (String.IsNullOrEmpty(reportType))
                 throw new ArgumentException("reportType");
 
-            if (String.IsNullOrEmpty(inputType))
-                throw new ArgumentException("inputType");
+            if (String.IsNullOrEmpty(rangeVariable))
+                throw new ArgumentException("rangeVariable");
 
             if (greeksToBeIncluded == null)
                 throw new ArgumentException("greeksToBeIncluded");
@@ -218,21 +220,27 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (greeksToBeIncluded.Count == 0)
                 throw new ArgumentException("greeksToBeIncluded");
 
+            if (rangeMinimum >= rangeMaximum)
+                throw new ArgumentException("rangeMinimum");
+
+            if (rangeIncrement <= 0)
+                throw new ArgumentException("rangeIncrement");
+
             try
             {
-                var eventPayLoad = new GreeksByInputReportEventPayLoad
+                var eventPayLoad = new GreeksExtrapolationReportEventPayLoad
                 {
                     ReportType = reportType,
                     RequestId = requestId,
-                    InputType = inputType,
-                    MinimumInput = minimumInput,
-                    MaximumInput = maximumInput,
+                    RangeVariable = rangeVariable,
+                    RangeMinimum = rangeMinimum,
+                    RangeMaximum = rangeMaximum,
                     GreeksToBeIncluded = greeksToBeIncluded
                 };
 
                 if (!configManager.IsStandAlone)
                 {
-                    var result = requestPricer.CalculatePricingRange(requestId, inputType, minimumInput, maximumInput);
+                    var result = requestPricer.CalculatePricingRange(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement);
                     if (result != null)
                     {
                         foreach (var output in result)
@@ -241,22 +249,22 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     }
                 }
 
-                eventAggregator.GetEvent<GreeksByInputReportEvent>().Publish(eventPayLoad);
+                eventAggregator.GetEvent<GreeksExtrapolationReportEvent>().Publish(eventPayLoad);
             }
             catch (FaultException fe)
             {
                 if (log.IsErrorEnabled)
-                    log.Error("Exception thrown while compile report data for greeks by input type: " + inputType + ": " + fe);
+                    log.Error("Exception thrown while compiling extrapolation report data for greeks using the range variable: " + rangeVariable + ": " + fe);
             }
             catch (EndpointNotFoundException epnfe)
             {
                 if (log.IsErrorEnabled)
-                    log.Error("Exception thrown while compile report data for greeks by input type: " + inputType + ": " + epnfe);
+                    log.Error("Exception thrown while compiling extrapolation report data for greeks using the range variable: " + rangeVariable + ": " + epnfe);
             }
             catch (NullReferenceException nre)
             {
                 if (log.IsErrorEnabled)
-                    log.Error("Exception thrown while compile report data for greeks by input type: " + inputType + ": " + nre);
+                    log.Error("Exception thrown while compiling extrapolation report data for greeks using the range variable: " + rangeVariable + ": " + nre);
             }
         }
     }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://reporting.rfq.ws.leon.com/" name="ReportingController" targetNamespace="http://reporting.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <xs:schema elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.option.model" elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="com.leon.ws.rfq.option.model" />
       <xs:element name="getGreeksByCategory" type="tns:getGreeksByCategory" />
       <xs:element name="getGreeksByCategoryResponse" type="tns:getGreeksByCategoryResponse" />
-      <xs:element name="getGreeksByInput" type="tns:getGreeksByInput" />
-      <xs:element name="getGreeksByInputResponse" type="tns:getGreeksByInputResponse" />
+      <xs:element name="getGreeksExtrapolation" type="tns:getGreeksExtrapolation" />
+      <xs:element name="getGreeksExtrapolationResponse" type="tns:getGreeksExtrapolationResponse" />
       <xs:element name="getRequestsByCategory" type="tns:getRequestsByCategory" />
       <xs:element name="getRequestsByCategoryResponse" type="tns:getRequestsByCategoryResponse" />
       <xs:complexType name="getRequestsByCategory">
@@ -26,25 +27,57 @@
           <xs:element name="requestCount" type="xs:int" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="getGreeksByInput">
+      <xs:complexType name="getGreeksExtrapolation">
         <xs:sequence>
-          <xs:element minOccurs="0" name="inputType" type="xs:string" />
-          <xs:element minOccurs="0" name="maturityDateFrom" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="maturityDateTo" type="xs:dateTime" />
-          <xs:element name="minimumInput" type="xs:double" />
-          <xs:element name="maximumInput" type="xs:double" />
+          <xs:element name="requestId" type="xs:int" />
+          <xs:element minOccurs="0" name="rangeVariable" type="xs:string" />
+          <xs:element name="rangeMinimum" type="xs:double" />
+          <xs:element name="rangeMaximum" type="xs:double" />
+          <xs:element name="rangeIncrement" type="xs:double" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="getGreeksByInputResponse">
+      <xs:complexType name="getGreeksExtrapolationResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:greeksPerInputReportDataImpl" />
+          <xs:element minOccurs="0" name="return" type="tns:extrapolationSet" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="greeksPerInputReportDataImpl">
+      <xs:complexType name="extrapolationSet" final="extension restriction">
         <xs:sequence>
-          <xs:element name="input" type="xs:double" />
-          <xs:element name="output" type="xs:double" />
+          <xs:element name="extrapolationPoints">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="entry">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element minOccurs="0" name="key" type="xs:double" />
+                      <xs:element minOccurs="0" name="value" type="tns:extrapolationPoint" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
         </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="extrapolationPoint" final="extension restriction">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="arrayList">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractList">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractList" abstract="true">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:abstractCollection">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="abstractCollection" abstract="true">
+        <xs:sequence />
       </xs:complexType>
       <xs:complexType name="getGreeksByCategory">
         <xs:sequence>
@@ -70,18 +103,19 @@
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
+    <xs:schema xmlns:ns1="http://reporting.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.option.model" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://reporting.rfq.ws.leon.com/" />
+      <xs:element name="extrapolationSet" type="ns1:extrapolationSet" />
+    </xs:schema>
   </wsdl:types>
-  <wsdl:message name="getGreeksByInputResponse">
-    <wsdl:part name="parameters" element="tns:getGreeksByInputResponse" />
-  </wsdl:message>
   <wsdl:message name="getRequestsByCategoryResponse">
     <wsdl:part name="parameters" element="tns:getRequestsByCategoryResponse" />
   </wsdl:message>
   <wsdl:message name="getGreeksByCategory">
     <wsdl:part name="parameters" element="tns:getGreeksByCategory" />
   </wsdl:message>
-  <wsdl:message name="getGreeksByInput">
-    <wsdl:part name="parameters" element="tns:getGreeksByInput" />
+  <wsdl:message name="getGreeksExtrapolationResponse">
+    <wsdl:part name="parameters" element="tns:getGreeksExtrapolationResponse" />
   </wsdl:message>
   <wsdl:message name="getRequestsByCategory">
     <wsdl:part name="parameters" element="tns:getRequestsByCategory" />
@@ -89,14 +123,17 @@
   <wsdl:message name="getGreeksByCategoryResponse">
     <wsdl:part name="parameters" element="tns:getGreeksByCategoryResponse" />
   </wsdl:message>
+  <wsdl:message name="getGreeksExtrapolation">
+    <wsdl:part name="parameters" element="tns:getGreeksExtrapolation" />
+  </wsdl:message>
   <wsdl:portType name="ReportingController">
     <wsdl:operation name="getRequestsByCategory">
       <wsdl:input name="getRequestsByCategory" message="tns:getRequestsByCategory" />
       <wsdl:output name="getRequestsByCategoryResponse" message="tns:getRequestsByCategoryResponse" />
     </wsdl:operation>
-    <wsdl:operation name="getGreeksByInput">
-      <wsdl:input name="getGreeksByInput" message="tns:getGreeksByInput" />
-      <wsdl:output name="getGreeksByInputResponse" message="tns:getGreeksByInputResponse" />
+    <wsdl:operation name="getGreeksExtrapolation">
+      <wsdl:input name="getGreeksExtrapolation" message="tns:getGreeksExtrapolation" />
+      <wsdl:output name="getGreeksExtrapolationResponse" message="tns:getGreeksExtrapolationResponse" />
     </wsdl:operation>
     <wsdl:operation name="getGreeksByCategory">
       <wsdl:input name="getGreeksByCategory" message="tns:getGreeksByCategory" />
@@ -114,12 +151,12 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getGreeksByInput">
+    <wsdl:operation name="getGreeksExtrapolation">
       <soap:operation soapAction="" style="document" />
-      <wsdl:input name="getGreeksByInput">
+      <wsdl:input name="getGreeksExtrapolation">
         <soap:body use="literal" />
       </wsdl:input>
-      <wsdl:output name="getGreeksByInputResponse">
+      <wsdl:output name="getGreeksExtrapolationResponse">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
