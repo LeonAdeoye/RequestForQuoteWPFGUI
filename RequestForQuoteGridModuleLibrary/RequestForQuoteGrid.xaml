@@ -6,6 +6,7 @@
              mc:Ignorable="d"             
              xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:attached2="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
              xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
              PresentationTraceSources.TraceLevel="High">
@@ -17,6 +18,8 @@
                   CellEditEnding="HandleDataGridCellEditEnding"
                   attached:CommandBehavior.Event="MouseDoubleClick"
                   attached:CommandBehavior.Command="{Binding ShowRequestDetailsWindowCommand}" 
+                  attached2:CommandBehavior.Event="MouseClick"
+                  attached2:CommandBehavior.Command="{Binding RequestSelectionCommand}"                   
                   VerticalAlignment="Stretch"
                   RowHeaderWidth="0"
                   Background="Transparent">            

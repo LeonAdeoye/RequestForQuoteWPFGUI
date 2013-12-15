@@ -77,8 +77,10 @@ namespace RequestForQuoteReportsModuleLibrary
                            .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
             eventAggregator.GetEvent<GreeksByCategoryReportEvent>()
-                           .Subscribe(HandleGreeksByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);            
+                           .Subscribe(HandleGreeksByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
+            eventAggregator.GetEvent<RequestSelectionEvent>()
+                           .Subscribe(HandleRequestSelectionEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
         /// <summary>
@@ -116,6 +118,11 @@ namespace RequestForQuoteReportsModuleLibrary
                 new KeyValuePair<string, string>("TimeToExpiry", "By time to expiry"),
                 new KeyValuePair<string, string>("Strike", "By strike"),
             };
+        }
+
+        private void HandleRequestSelectionEvent(RequestSelectionEventPayload eventPayload)
+        {
+            RequestId = eventPayload.RequestId;
         }
 
         /// <summary>
@@ -222,8 +229,16 @@ namespace RequestForQuoteReportsModuleLibrary
         public static readonly DependencyProperty ShowDeltaProperty =
             DependencyProperty.Register("ShowDelta", typeof(bool), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(true));
 
-        public int RequestId { get; set; }
+        public int RequestId
+        {
+            get { return (int)GetValue(RequestIdProperty); }
+            set { SetValue(RequestIdProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for RequestId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RequestIdProperty =
+            DependencyProperty.Register("RequestId", typeof(int), typeof(RequestForQuoteReportsViewModel), new UIPropertyMetadata(0));
+      
         public bool ShowGamma
         {
             get { return (bool)GetValue(ShowGammaProperty); }

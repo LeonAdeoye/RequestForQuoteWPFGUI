@@ -53,6 +53,7 @@ namespace RequestForQuoteGridModuleLibrary
         public ICommand GroupByCommand { get; set; }
         public ICommand CalculateRequestCommand { get; set; }
         public ICommand ShowRequestDetailsWindowCommand { get; set; }
+        public ICommand RequestSelectionCommand { get; set; }
         public ICommand PickUpRequestCommand { get; set; }
 
         public IClient NewRequestClient { get; set; }
@@ -104,6 +105,7 @@ namespace RequestForQuoteGridModuleLibrary
             GroupByCommand = new GroupByCommand(this);
             ShowRequestDetailsWindowCommand = new ShowRequestDetailsWindowCommand(this);
             PickUpRequestCommand = new DelegateCommand(PickUpRequest);
+            RequestSelectionCommand = new DelegateCommand(RequestSelected);
 
             this.optionRequestParser = optionRequestParser;
             this.optionRequestPricer = optionRequestPricer;
@@ -492,6 +494,12 @@ namespace RequestForQuoteGridModuleLibrary
                 if (log.IsDebugEnabled)
                     log.Debug("Request => " + SelectedRequest.Request + " picked up by => " + SelectedRequest.PickedUpBy);
             }
+        }
+
+        private void RequestSelected()
+        {
+            if (SelectedRequest != null)
+                eventAggregator.GetEvent<RequestSelectionEvent>().Publish(new RequestSelectionEventPayload() { RequestId = SelectedRequest.Identifier });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
