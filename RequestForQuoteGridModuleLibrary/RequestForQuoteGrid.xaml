@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"             
-             xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
-             xmlns:attached="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
-             xmlns:attached2="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"          
              xmlns:CustomCntls="clr-namespace:WPFStyley_Metallic4.CustomControls;assembly=WPFStyley_Metallic4"
              xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
+             xmlns:attachedCommandBehaviour="clr-namespace:RequestForQuoteInterfacesLibrary.AttachedCommandBehaviour;assembly=RequestForQuoteInterfacesLibrary"
              PresentationTraceSources.TraceLevel="High">
     <Grid>
         <CustomCntls:MetallicBorder WpfsCornerRadius="4" />
@@ -16,14 +15,16 @@
                   AutoGenerateColumns="false" FrozenColumnCount="1" ItemsSource="{Binding Requests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding SelectedRequest, Mode=TwoWay}" 
                   CellEditEnding="HandleDataGridCellEditEnding"
-                  attached:CommandBehavior.Event="MouseDoubleClick"
-                  attached:CommandBehavior.Command="{Binding ShowRequestDetailsWindowCommand}" 
-                  attached2:CommandBehavior.Event="MouseClick"
-                  attached2:CommandBehavior.Command="{Binding RequestSelectionCommand}"                   
                   VerticalAlignment="Stretch"
                   RowHeaderWidth="0"
-                  Background="Transparent">            
-               
+                  Background="Transparent">
+            
+            <attachedCommandBehaviour:CommandBehaviorCollection.Behaviors>
+                <attachedCommandBehaviour:BehaviorBinding Event="MouseLeftButtonDown"  Command="{Binding RequestSelectionCommand}"/>
+                <attachedCommandBehaviour:BehaviorBinding Event="MouseDown"  Command="{Binding RequestSelectionCommand}"/>
+                <attachedCommandBehaviour:BehaviorBinding Event="MouseDoubleClick" Command="{Binding ShowRequestDetailsWindowCommand}" />
+            </attachedCommandBehaviour:CommandBehaviorCollection.Behaviors>
+
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Request}" Header="Snippet"/>
                 <DataGridTextColumn IsReadOnly="True"  Binding="{Binding Path=Identifier}" Header="Identifier"/>
@@ -165,14 +166,14 @@
                     </MenuItem>
                 
                     <MenuItem Header="Group By">
-                        <MenuItem Header="Client" Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="Underlying"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="MaturityDate"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="Status"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
-                        <MenuItem Header="Initiator"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
+                        <MenuItem Header="Client" Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
+                        <MenuItem Header="Underlying"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
+                        <MenuItem Header="MaturityDate"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
+                        <MenuItem Header="Status"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
+                        <MenuItem Header="Initiator"  Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
                     </MenuItem>
                 
-                    <MenuItem Header="Undo Grouping" Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"></MenuItem>
+                    <MenuItem Header="Undo Grouping" Command="{Binding GroupByCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

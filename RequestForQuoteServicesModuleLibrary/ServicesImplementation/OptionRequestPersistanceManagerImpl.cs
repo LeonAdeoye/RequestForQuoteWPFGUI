@@ -309,41 +309,49 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (serviceRequest == null)
 				throw new ArgumentNullException("serviceRequest");
 
-			StatusEnum convertedStatus;
-			if (!Enum.TryParse(serviceRequest.status, true, out convertedStatus))
-				throw new InvalidDataException("status");
+            StatusEnum convertedStatus = StatusEnum.PENDING;
+		    if (serviceRequest.status != null)
+		        if (!Enum.TryParse(serviceRequest.status, true, out convertedStatus))
+		            throw new InvalidDataException("status");
 
-			CurrencyEnum convertedNotionalCurrency;
-			if (!Enum.TryParse(serviceRequest.notionalCurrency, true, out convertedNotionalCurrency))
-				throw new InvalidDataException("notionalCurrency");
+		    CurrencyEnum convertedNotionalCurrency = CurrencyEnum.USD;
+            if (serviceRequest.notionalCurrency != null)
+			    if (!Enum.TryParse(serviceRequest.notionalCurrency, true, out convertedNotionalCurrency))
+				    throw new InvalidDataException("notionalCurrency");
 
-			CurrencyEnum convertedSalesCreditCurrency;
-			if (!Enum.TryParse(serviceRequest.salesCreditCurrency, true, out convertedSalesCreditCurrency))
-				throw new InvalidDataException("salesCreditCurrency");
+			CurrencyEnum convertedSalesCreditCurrency = CurrencyEnum.USD;
+            if (serviceRequest.salesCreditCurrency != null)
+			    if (!Enum.TryParse(serviceRequest.salesCreditCurrency, true, out convertedSalesCreditCurrency))
+				    throw new InvalidDataException("salesCreditCurrency");
 
-			CurrencyEnum convertedPremiumSettlementCurrency;
-			if (!Enum.TryParse(serviceRequest.premiumSettlementCurrency, true, out convertedPremiumSettlementCurrency))
-				throw new InvalidDataException("premiumSettlementCurrency");
+			CurrencyEnum convertedPremiumSettlementCurrency = CurrencyEnum.USD;
+            if (serviceRequest.premiumSettlementCurrency != null)
+			    if (!Enum.TryParse(serviceRequest.premiumSettlementCurrency, true, out convertedPremiumSettlementCurrency))
+				    throw new InvalidDataException("premiumSettlementCurrency");
 
-			HedgeTypeEnum convertedHedgeType;
+			HedgeTypeEnum convertedHedgeType = HedgeTypeEnum.FUTURES;
+            if (serviceRequest.hedgeType != null)
 			if (!Enum.TryParse(serviceRequest.hedgeType, true, out convertedHedgeType))
 				throw new InvalidDataException("hedgeType");
 
-			DateTime convertedTradeDate;
-			if (!DateTime.TryParse(serviceRequest.tradeDate, out convertedTradeDate))
-				throw new InvalidDataException("tradeDate");
+            DateTime convertedTradeDate = DateTime.Now;
+            if (serviceRequest.tradeDate != null)
+			    if (!DateTime.TryParse(serviceRequest.tradeDate, out convertedTradeDate))
+				    throw new InvalidDataException("tradeDate");
 
-			DateTime convertedExpiryDate;
-			if (!DateTime.TryParse(serviceRequest.expiryDate, out convertedExpiryDate))
-				throw new InvalidDataException("expiryDate");
+            DateTime convertedExpiryDate = DateTime.Now;
+            if (serviceRequest.expiryDate != null)
+			    if (!DateTime.TryParse(serviceRequest.expiryDate, out convertedExpiryDate))
+				    throw new InvalidDataException("expiryDate");
 
-			DateTime convertedPremiumSettlementDate;
-			if (!DateTime.TryParse(serviceRequest.premiumSettlementDate, out convertedPremiumSettlementDate))
-				throw new InvalidDataException("premiumSettlementDate");
+			DateTime convertedPremiumSettlementDate = DateTime.Now;
+            if (serviceRequest.premiumSettlementDate != null)
+			    if (!DateTime.TryParse(serviceRequest.premiumSettlementDate, out convertedPremiumSettlementDate))
+				    throw new InvalidDataException("premiumSettlementDate");
 
 			var requestForQuoteToCreate = new RequestForQuoteImpl();
 
-			if (serviceRequest.legs.optionDetailList != null)
+            if (serviceRequest.legs != null && serviceRequest.legs.optionDetailList != null)
 			{
 				if(serviceRequest.legs.optionDetailList.Length > 0)
 					requestForQuoteToCreate.Legs = new List<IOptionDetail>();

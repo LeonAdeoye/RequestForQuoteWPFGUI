@@ -1,0 +1,8 @@
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\bin\Debug\AttachedCommandBehavior.dll
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\bin\Debug\AttachedCommandBehavior.pdb
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\ResolveAssemblyReference.cache
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\AttachedCommandBehavior.Properties.Resources.resources
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\AttachedCommandBehavior.dll
+C:\development\git\RequestForQuoteWPFGUI\AttachedCommandBehavior\obj\Debug\AttachedCommandBehavior.pdb
