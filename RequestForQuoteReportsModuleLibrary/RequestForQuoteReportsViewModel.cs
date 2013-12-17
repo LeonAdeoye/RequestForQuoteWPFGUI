@@ -405,8 +405,6 @@ namespace RequestForQuoteReportsModuleLibrary
 
         /// <summary>
         /// Sends a request for report data to the ReportDataManager.
-        /// Defaults the trade date of the RFQs partcipating in the reporting to Jan 1 2013.
-        /// Only RFQs with a count greater than or equal to the MinimumCount will be returned.
         /// </summary>
         public void CompileReport()
         {

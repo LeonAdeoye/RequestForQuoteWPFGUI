@@ -240,11 +240,21 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
                 if (!configManager.IsStandAlone)
                 {
-                    var result = requestPricer.CalculatePricingRange(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement);
+                    var result = reportingContollerProxy.getGreeksExtrapolation(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement);
                     if (result != null)
                     {
-                        foreach (var output in result)
+                        foreach (var output in result.extrapolationPoints)
                         {
+                            /*if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.GAMMA, greekTotal.gamma);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.THETA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.VEGA, greekTotal.vega);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.VEGA.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
+                                eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);*/
                         }
                     }
                 }

@@ -5,7 +5,7 @@ namespace RequestForQuoteGridModuleLibrary.Commands
 {
     public class CalculateRequestCommand : AbstractRequestForQuoteCommand
     {
-        public CalculateRequestCommand(RequestForQuoteGridViewModel viewModel) : base()
+        public CalculateRequestCommand(RequestForQuoteGridViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
