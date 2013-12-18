@@ -155,7 +155,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ReportingService\ReportingController.wsdl" />
-    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet.datasource">
+    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.greeksPerCategoryReportDataImpl.datasource">

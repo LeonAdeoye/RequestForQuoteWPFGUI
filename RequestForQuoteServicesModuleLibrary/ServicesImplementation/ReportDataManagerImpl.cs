@@ -7,7 +7,6 @@ using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.ReportingService;
-using RequestForQuoteServicesModuleLibrary.OptionPricerService;
 using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
@@ -243,7 +242,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     var result = reportingContollerProxy.getGreeksExtrapolation(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement);
                     if (result != null)
                     {
-                        foreach (var output in result.extrapolationSet1)
+                        foreach (var output in result.extrapolationPoints1)
                         {                            
                             /*if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);

@@ -221,20 +221,20 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class extrapolationSet : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class extrapolationPoints : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private extrapolationSetEntry[] extrapolationSet1Field;
+        private extrapolationPointsEntry[] extrapolationPoints1Field;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute("extrapolationSet", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayAttribute("extrapolationPoints", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         [System.Xml.Serialization.XmlArrayItemAttribute("entry", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public extrapolationSetEntry[] extrapolationSet1 {
+        public extrapolationPointsEntry[] extrapolationPoints1 {
             get {
-                return this.extrapolationSet1Field;
+                return this.extrapolationPoints1Field;
             }
             set {
-                this.extrapolationSet1Field = value;
-                this.RaisePropertyChanged("extrapolationSet1");
+                this.extrapolationPoints1Field = value;
+                this.RaisePropertyChanged("extrapolationPoints1");
             }
         }
         
@@ -254,7 +254,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class extrapolationSetEntry : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class extrapolationPointsEntry : object, System.ComponentModel.INotifyPropertyChanged {
         
         private double keyField;
         
@@ -400,12 +400,12 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet @return;
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints @return;
         
         public getGreeksExtrapolationResponse() {
         }
         
-        public getGreeksExtrapolationResponse(RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet @return) {
+        public getGreeksExtrapolationResponse(RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints @return) {
             this.@return = @return;
         }
     }
@@ -495,10 +495,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             this.results = results;
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet Result {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet)(this.results[0]));
+                return ((RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints)(this.results[0]));
             }
         }
     }
@@ -653,7 +653,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             return base.Channel.getGreeksExtrapolation(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation();
             inValue.requestId = requestId;
             inValue.rangeVariable = rangeVariable;
@@ -686,7 +686,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet EndgetGreeksExtrapolation(System.IAsyncResult result) {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints EndgetGreeksExtrapolation(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetGreeksExtrapolation(result);
             return retVal.@return;
         }
@@ -701,7 +701,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         private object[] OnEndgetGreeksExtrapolation(System.IAsyncResult result) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationSet retVal = this.EndgetGreeksExtrapolation(result);
+            RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints retVal = this.EndgetGreeksExtrapolation(result);
             return new object[] {
                     retVal};
         }

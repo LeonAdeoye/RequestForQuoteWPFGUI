@@ -112,11 +112,11 @@ namespace RequestForQuoteReportsModuleLibrary
             };
             ListOfRangeVariables = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("UnderlyingPrice", "By underlying price"),
-                new KeyValuePair<string, string>("Volatility", "By volatility"),
-                new KeyValuePair<string, string>("InterestRate", "By interest rate"),
-                new KeyValuePair<string, string>("TimeToExpiry", "By time to expiry"),
-                new KeyValuePair<string, string>("Strike", "By strike"),
+                new KeyValuePair<string, string>("UNDERLYING_PRICE", "By underlying price"),
+                new KeyValuePair<string, string>("VOLATILITY", "By volatility"),
+                new KeyValuePair<string, string>("INTEREST_RATE", "By interest rate"),
+                new KeyValuePair<string, string>("TIME_TO_EXPIRY", "By time to expiry"),
+                new KeyValuePair<string, string>("STRIKE", "By strike"),
             };
         }
 

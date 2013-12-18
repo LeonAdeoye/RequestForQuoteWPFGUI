@@ -38,12 +38,12 @@
       </xs:complexType>
       <xs:complexType name="getGreeksExtrapolationResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" name="return" type="tns:extrapolationSet" />
+          <xs:element minOccurs="0" name="return" type="tns:extrapolationPoints" />
         </xs:sequence>
       </xs:complexType>
-      <xs:complexType name="extrapolationSet" final="extension restriction">
+      <xs:complexType name="extrapolationPoints" final="extension restriction">
         <xs:sequence>
-          <xs:element name="extrapolationSet">
+          <xs:element name="extrapolationPoints">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="entry">
@@ -105,7 +105,7 @@
     </xs:schema>
     <xs:schema xmlns:ns1="http://reporting.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.reporting" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://reporting.rfq.ws.leon.com/" />
-      <xs:element name="extrapolationSet" type="ns1:extrapolationSet" />
+      <xs:element name="ExtrapolationPoints" type="ns1:extrapolationPoints" />
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="getRequestsByCategoryResponse">
