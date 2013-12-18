@@ -243,8 +243,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     var result = reportingContollerProxy.getGreeksExtrapolation(requestId, rangeVariable, rangeMinimum, rangeMaximum, rangeIncrement);
                     if (result != null)
                     {
-                        foreach (var output in result.extrapolationPoints)
-                        {
+                        foreach (var output in result.extrapolationSet1)
+                        {                            
                             /*if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.DELTA, greekTotal.delta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))

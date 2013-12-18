@@ -223,18 +223,18 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
     public partial class extrapolationSet : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private extrapolationSetEntry[] extrapolationPointsField;
+        private extrapolationSetEntry[] extrapolationSet1Field;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayAttribute("extrapolationSet", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         [System.Xml.Serialization.XmlArrayItemAttribute("entry", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public extrapolationSetEntry[] extrapolationPoints {
+        public extrapolationSetEntry[] extrapolationSet1 {
             get {
-                return this.extrapolationPointsField;
+                return this.extrapolationSet1Field;
             }
             set {
-                this.extrapolationPointsField = value;
-                this.RaisePropertyChanged("extrapolationPoints");
+                this.extrapolationSet1Field = value;
+                this.RaisePropertyChanged("extrapolationSet1");
             }
         }
         
