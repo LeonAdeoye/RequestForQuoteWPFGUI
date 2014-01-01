@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://reporting.rfq.ws.leon.com/" name="ReportingController" targetNamespace="http://reporting.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <xs:schema xmlns:ns1="com.leon.ws.rfq.reporting" elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.reporting" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://reporting.rfq.ws.leon.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="com.leon.ws.rfq.reporting" />
       <xs:element name="getGreeksByCategory" type="tns:getGreeksByCategory" />
       <xs:element name="getGreeksByCategoryResponse" type="tns:getGreeksByCategoryResponse" />
@@ -103,7 +103,7 @@
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
-    <xs:schema xmlns:ns1="http://reporting.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.reporting" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns="com.leon.ws.rfq.reporting" xmlns:ns1="http://reporting.rfq.ws.leon.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="com.leon.ws.rfq.reporting" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://reporting.rfq.ws.leon.com/" />
       <xs:element name="ExtrapolationPoints" type="ns1:extrapolationPoints" />
     </xs:schema>
