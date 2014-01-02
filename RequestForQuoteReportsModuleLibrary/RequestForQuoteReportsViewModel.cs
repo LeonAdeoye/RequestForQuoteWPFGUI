@@ -466,10 +466,17 @@ namespace RequestForQuoteReportsModuleLibrary
 
 
         /// <summary>
-        /// Compiles the greeks by input by delegating this request to the webservice
+        /// Compiles the greeks by input by delegating this request to the web service.
+        /// Method returns without generating a report if the RequestId value is not greater than zero.
         /// </summary>
         private void CompileGreeksExtrapolation()
         {
+            if (RequestId <= 0)
+            {
+                MessageBox.Show("An RFQ (with a valid identifier) has not been selected. Pls select one...");
+                return;
+            }                
+
             if (FromDateType == RequestCountFromDateEnum.TODAY_ONLY)
                 MaturityDateFrom = DateTime.Parse(DateTime.Now.ToShortDateString());
 
