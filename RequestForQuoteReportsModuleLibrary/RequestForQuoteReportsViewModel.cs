@@ -466,8 +466,8 @@ namespace RequestForQuoteReportsModuleLibrary
 
 
         /// <summary>
-        /// Compiles the greeks by input by delegating this request to the web service.
-        /// Method returns without generating a report if the RequestId value is not greater than zero.
+        /// Compiles the greeks extrapolation report by delegating this request to the web service.
+        /// The method returns without generating a report if the RequestId value is not greater than zero.
         /// </summary>
         private void CompileGreeksExtrapolation()
         {

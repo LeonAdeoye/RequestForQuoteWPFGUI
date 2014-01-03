@@ -44,6 +44,7 @@
           <xs:element minOccurs="0" name="clientComment" type="xs:string" />
           <xs:element name="clientId" type="xs:int" />
           <xs:element name="contracts" type="xs:int" />
+          <xs:element name="dayCountConvention" type="xs:double" />
           <xs:element name="delta" type="xs:double" />
           <xs:element name="deltaNotional" type="xs:double" />
           <xs:element name="deltaShares" type="xs:double" />

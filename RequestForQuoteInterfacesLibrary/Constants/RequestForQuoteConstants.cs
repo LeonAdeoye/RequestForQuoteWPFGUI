@@ -29,6 +29,7 @@
         public const int SERVER_SLEEP_INTERVAL = 1000;
         public const int JSON_MESSAGE_SIZE_PREFIX_LENGTH = 4;
         public const int JSON_MESSAGE_SIZE_MAXIMUM = 5120;
+        public const double EPSILON = 0.000001;
 
         public const bool SAVE_TO_DATABASE = true;
         public const bool DO_NOT_SAVE_TO_DATABASE = false;

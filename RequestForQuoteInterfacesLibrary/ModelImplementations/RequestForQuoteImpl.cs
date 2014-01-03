@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.ComponentModel;
+using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
@@ -54,6 +55,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
         [DataMember] private string tradeDate;
         [DataMember] private string expiryDate;
+        [DataMember] private double dayCountConvention;
         [DataMember] private IClient client;  //TODO
         [DataMember] private string status;
         [DataMember] private string bookCode;
@@ -82,6 +84,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             Client = fromSourceRequest.Client;
             TradeDate = fromSourceRequest.TradeDate;
             ExpiryDate = fromSourceRequest.ExpiryDate;
+            DayCountConvention = fromSourceRequest.DayCountConvention;
             Request = fromSourceRequest.Request;
             IsOTC = fromSourceRequest.IsOTC;
 
@@ -154,6 +157,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), status);
             clone.Client = client;
             clone.TradeDate = DateTime.Parse(tradeDate);
+            clone.DayCountConvention = dayCountConvention;
             clone.ExpiryDate = DateTime.Parse(expiryDate);
             clone.Request = request;
             clone.IsOTC = isOTC;
@@ -302,6 +306,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             builder.Append(tradeDate);
             builder.Append(", expiry date: ");
             builder.Append(expiryDate);
+            builder.Append(", day count convention: ");
+            builder.Append(dayCountConvention);
             builder.Append(", theta: ");
             builder.Append(theta);
             builder.Append(", rho: ");
@@ -494,6 +500,22 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
+        public double DayCountConvention
+        {
+            get
+            {
+                return dayCountConvention;
+            }
+            set
+            {
+                if (Math.Abs(dayCountConvention - value) > RequestForQuoteConstants.EPSILON)
+                {
+                    dayCountConvention = value;
+                    NotifyPropertyChanged("DayCountConvention");
+                }                
+            }
+        }
+
         public string BookCode
         {
             get
@@ -570,7 +592,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (premiumSettlementFXRate != value)
+                if (Math.Abs(premiumSettlementFXRate - value) > RequestForQuoteConstants.EPSILON)
                 {
                     premiumSettlementFXRate = value;
                     NotifyPropertyChanged("PremiumSettlementFXRate");
@@ -586,7 +608,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (salesCreditAmount != value)
+                if (Math.Abs(salesCreditAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     salesCreditAmount = value;
                     NotifyPropertyChanged("SalesCreditAmount");                    
@@ -602,7 +624,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (salesCreditPercentage != value)
+                if (Math.Abs(salesCreditPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     salesCreditPercentage = value;
                     NotifyPropertyChanged("SalesCreditPercentage");                    
@@ -636,7 +658,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (salesCreditFXRate != value)
+                if (Math.Abs(salesCreditFXRate - value) > RequestForQuoteConstants.EPSILON)
                 {
                     salesCreditFXRate = value;
                     NotifyPropertyChanged("SalesCreditFXRate");
@@ -727,7 +749,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (notionalMillions != value)
+                if (Math.Abs(notionalMillions - value) > RequestForQuoteConstants.EPSILON)
                 {
                     notionalMillions = value;
                     NotifyPropertyChanged("NotionalMillions");
@@ -755,7 +777,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (notionalFXRate != value)
+                if (Math.Abs(notionalFXRate - value) > RequestForQuoteConstants.EPSILON)
                 {
                     notionalFXRate = value;
                     NotifyPropertyChanged("NotionalFXRate");                    
@@ -789,7 +811,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (bidImpliedVol != value)
+                if (Math.Abs(bidImpliedVol - value) > RequestForQuoteConstants.EPSILON)
                 {
                     bidImpliedVol = value;
                     NotifyPropertyChanged("BidImpliedVol");                    
@@ -805,7 +827,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (bidPremiumAmount != value)
+                if (Math.Abs(bidPremiumAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     bidPremiumAmount = value; 
                     NotifyPropertyChanged("BidPremiumAbsolute");    
@@ -821,7 +843,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (bidPremiumPercentage != value)
+                if (Math.Abs(bidPremiumPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     bidPremiumPercentage = value; 
                     NotifyPropertyChanged("BidPremiumPercentage");    
@@ -837,7 +859,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (bidFinalPercentage != value)
+                if (Math.Abs(bidFinalPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     bidFinalPercentage = value;
                     NotifyPropertyChanged("BidFinalPercentage");
@@ -853,7 +875,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (bidFinalAmount != value)
+                if (Math.Abs(bidFinalAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     bidFinalAmount = value;
                     NotifyPropertyChanged("BidFinalAbsolute");
@@ -869,7 +891,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (askImpliedVol != value)
+                if (Math.Abs(askImpliedVol - value) > RequestForQuoteConstants.EPSILON)
                 {
                     askImpliedVol = value; 
                     NotifyPropertyChanged("AskImpliedVol");    
@@ -885,7 +907,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (askPremiumAmount != value)
+                if (Math.Abs(askPremiumAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     askPremiumAmount = value; 
                     NotifyPropertyChanged("AskPremiumAbsolute");    
@@ -901,7 +923,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (askPremiumPercentage != value)
+                if (Math.Abs(askPremiumPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     askPremiumPercentage = value; 
                     NotifyPropertyChanged("AskPremiumPercentage");    
@@ -918,7 +940,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (askFinalPercentage != value)
+                if (Math.Abs(askFinalPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     askFinalPercentage = value;
                     NotifyPropertyChanged("AskFinalPercentage");
@@ -934,7 +956,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (askFinalAmount != value)
+                if (Math.Abs(askFinalAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     askFinalAmount = value;
                     NotifyPropertyChanged("AskFinalAbsolute");
@@ -998,7 +1020,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (premiumAmount != value)
+                if (Math.Abs(premiumAmount - value) > RequestForQuoteConstants.EPSILON)
                 {
                     premiumAmount = value;
                     NotifyPropertyChanged("PremiumAbsolute");
@@ -1015,7 +1037,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (premiumPercentage != value)
+                if (Math.Abs(premiumPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     premiumPercentage = value;
                     NotifyPropertyChanged("PremiumPercentage");
@@ -1031,7 +1053,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (impliedVol != value)
+                if (Math.Abs(impliedVol - value) > RequestForQuoteConstants.EPSILON)
                 {
                     impliedVol = value;
                     NotifyPropertyChanged("ImpliedVol");
@@ -1047,7 +1069,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (delta != value)
+                if (Math.Abs(delta - value) > RequestForQuoteConstants.EPSILON)
                 {
                     delta = value;
                     NotifyPropertyChanged("Delta");
@@ -1084,7 +1106,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (gamma != value)
+                if (Math.Abs(gamma - value) > RequestForQuoteConstants.EPSILON)
                 {
                     gamma = value;
                     NotifyPropertyChanged("Gamma");
@@ -1122,7 +1144,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (theta != value)
+                if (Math.Abs(theta - value) > RequestForQuoteConstants.EPSILON)
                 {
                     theta = value;
                     NotifyPropertyChanged("Theta");
@@ -1160,7 +1182,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (vega != value)
+                if (Math.Abs(vega - value) > RequestForQuoteConstants.EPSILON)
                 {
                     vega = value;
                     NotifyPropertyChanged("Vega");
@@ -1200,7 +1222,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (rho != value)
+                if (Math.Abs(rho - value) > RequestForQuoteConstants.EPSILON)
                 {
                     rho = value;
                     NotifyPropertyChanged("Rho");
@@ -1238,7 +1260,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
             set
             {
-                if (hedgePrice != value)
+                if (Math.Abs(hedgePrice - value) > RequestForQuoteConstants.EPSILON)
                 {
                     hedgePrice = value;
                     NotifyPropertyChanged("HedgePrice");

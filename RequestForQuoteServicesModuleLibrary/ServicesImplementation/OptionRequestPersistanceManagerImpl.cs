@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel;
+using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -268,6 +269,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (requestForQuoteOptionLeg == null)
 				throw new ArgumentNullException("requestForQuoteOptionLeg");
 
+            if (Math.Abs(requestForQuoteOptionLeg.DayCountConvention - 0) < RequestForQuoteConstants.EPSILON)
+                throw new ArgumentException("DayCountConvention CANNOT BE ZERO");
+
 			return new optionDetailImpl()
 				{
 					isCall = requestForQuoteOptionLeg.IsCall,
@@ -277,7 +281,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					description = requestForQuoteOptionLeg.Description,
 					strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
 					maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
-					yearsToExpiry = requestForQuoteOptionLeg.YearsToExpiry,
+                    yearsToExpiry = requestForQuoteOptionLeg.DaysToExpiry / requestForQuoteOptionLeg.DayCountConvention,
 					premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
 					delta = requestForQuoteOptionLeg.Delta,
 					gamma = requestForQuoteOptionLeg.Gamma,
@@ -369,6 +373,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			requestForQuoteToCreate.TradeDate = convertedTradeDate;
 			requestForQuoteToCreate.ExpiryDate  = convertedExpiryDate; //8
+		    requestForQuoteToCreate.DayCountConvention = serviceRequest.dayCountConvention;
 
 			requestForQuoteToCreate.LotSize = serviceRequest.lotSize;
 			requestForQuoteToCreate.Multiplier = serviceRequest.multiplier;
@@ -454,6 +459,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			serviceRequestToCreate.tradeDate = sourceRequestForQuote.TradeDate.ToShortDateString();
 			serviceRequestToCreate.expiryDate = sourceRequestForQuote.ExpiryDate.ToShortDateString(); //8
+            serviceRequestToCreate.dayCountConvention = sourceRequestForQuote.DayCountConvention;
 
 			serviceRequestToCreate.lotSize = sourceRequestForQuote.LotSize;
 			serviceRequestToCreate.multiplier = sourceRequestForQuote.Multiplier;

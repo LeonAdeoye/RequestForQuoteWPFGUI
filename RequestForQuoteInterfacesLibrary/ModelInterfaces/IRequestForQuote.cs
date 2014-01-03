@@ -37,6 +37,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         IWindowPopup Popup { get; set; }
         DateTime TradeDate { get; set; }
         DateTime ExpiryDate { get; set; }
+        double DayCountConvention { get; set; }
         string BookCode { get; set; }
 
         CurrencyEnum PremiumSettlementCurrency { get; set; }
