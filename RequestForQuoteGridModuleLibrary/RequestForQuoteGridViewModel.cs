@@ -267,6 +267,7 @@ namespace RequestForQuoteGridModuleLibrary
             request.NotionalMillions = 1;
             request.BookCode = eventPayload.NewRequestBookCode;
             request.CalculatePricing(optionRequestPricer);
+            request.DayCountConvention = 250.0;
 
             TodaysRequests.Add(request);
             Requests.Clear();

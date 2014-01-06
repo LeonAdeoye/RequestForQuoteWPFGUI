@@ -269,8 +269,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (requestForQuoteOptionLeg == null)
 				throw new ArgumentNullException("requestForQuoteOptionLeg");
 
-            if (Math.Abs(requestForQuoteOptionLeg.DayCountConvention - 0) < RequestForQuoteConstants.EPSILON)
-                throw new ArgumentException("DayCountConvention CANNOT BE ZERO");
+			if (Math.Abs(requestForQuoteOptionLeg.DayCountConvention - 0) < RequestForQuoteConstants.EPSILON)
+				throw new ArgumentException("DayCountConvention CANNOT BE ZERO");
 
 			return new optionDetailImpl()
 				{
@@ -281,7 +281,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					description = requestForQuoteOptionLeg.Description,
 					strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
 					maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
-                    yearsToExpiry = requestForQuoteOptionLeg.DaysToExpiry / requestForQuoteOptionLeg.DayCountConvention,
+					yearsToExpiry = requestForQuoteOptionLeg.DaysToExpiry / requestForQuoteOptionLeg.DayCountConvention,
 					premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
 					delta = requestForQuoteOptionLeg.Delta,
 					gamma = requestForQuoteOptionLeg.Gamma,
@@ -313,49 +313,49 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (serviceRequest == null)
 				throw new ArgumentNullException("serviceRequest");
 
-            StatusEnum convertedStatus = StatusEnum.PENDING;
-		    if (serviceRequest.status != null)
-		        if (!Enum.TryParse(serviceRequest.status, true, out convertedStatus))
-		            throw new InvalidDataException("status");
+			StatusEnum convertedStatus = StatusEnum.PENDING;
+			if (serviceRequest.status != null)
+				if (!Enum.TryParse(serviceRequest.status, true, out convertedStatus))
+					throw new InvalidDataException("status");
 
-		    CurrencyEnum convertedNotionalCurrency = CurrencyEnum.USD;
-            if (serviceRequest.notionalCurrency != null)
-			    if (!Enum.TryParse(serviceRequest.notionalCurrency, true, out convertedNotionalCurrency))
-				    throw new InvalidDataException("notionalCurrency");
+			CurrencyEnum convertedNotionalCurrency = CurrencyEnum.USD;
+			if (serviceRequest.notionalCurrency != null)
+				if (!Enum.TryParse(serviceRequest.notionalCurrency, true, out convertedNotionalCurrency))
+					throw new InvalidDataException("notionalCurrency");
 
 			CurrencyEnum convertedSalesCreditCurrency = CurrencyEnum.USD;
-            if (serviceRequest.salesCreditCurrency != null)
-			    if (!Enum.TryParse(serviceRequest.salesCreditCurrency, true, out convertedSalesCreditCurrency))
-				    throw new InvalidDataException("salesCreditCurrency");
+			if (serviceRequest.salesCreditCurrency != null)
+				if (!Enum.TryParse(serviceRequest.salesCreditCurrency, true, out convertedSalesCreditCurrency))
+					throw new InvalidDataException("salesCreditCurrency");
 
 			CurrencyEnum convertedPremiumSettlementCurrency = CurrencyEnum.USD;
-            if (serviceRequest.premiumSettlementCurrency != null)
-			    if (!Enum.TryParse(serviceRequest.premiumSettlementCurrency, true, out convertedPremiumSettlementCurrency))
-				    throw new InvalidDataException("premiumSettlementCurrency");
+			if (serviceRequest.premiumSettlementCurrency != null)
+				if (!Enum.TryParse(serviceRequest.premiumSettlementCurrency, true, out convertedPremiumSettlementCurrency))
+					throw new InvalidDataException("premiumSettlementCurrency");
 
 			HedgeTypeEnum convertedHedgeType = HedgeTypeEnum.FUTURES;
-            if (serviceRequest.hedgeType != null)
+			if (serviceRequest.hedgeType != null)
 			if (!Enum.TryParse(serviceRequest.hedgeType, true, out convertedHedgeType))
 				throw new InvalidDataException("hedgeType");
 
-            DateTime convertedTradeDate = DateTime.Now;
-            if (serviceRequest.tradeDate != null)
-			    if (!DateTime.TryParse(serviceRequest.tradeDate, out convertedTradeDate))
-				    throw new InvalidDataException("tradeDate");
+			var convertedTradeDate = DateTime.Now;
+			if (serviceRequest.tradeDate != null)
+				if (!DateTime.TryParse(serviceRequest.tradeDate, out convertedTradeDate))
+					throw new InvalidDataException("tradeDate");
 
-            DateTime convertedExpiryDate = DateTime.Now;
-            if (serviceRequest.expiryDate != null)
-			    if (!DateTime.TryParse(serviceRequest.expiryDate, out convertedExpiryDate))
-				    throw new InvalidDataException("expiryDate");
+			var convertedExpiryDate = DateTime.Now;
+			if (serviceRequest.expiryDate != null)
+				if (!DateTime.TryParse(serviceRequest.expiryDate, out convertedExpiryDate))
+					throw new InvalidDataException("expiryDate");
 
-			DateTime convertedPremiumSettlementDate = DateTime.Now;
-            if (serviceRequest.premiumSettlementDate != null)
-			    if (!DateTime.TryParse(serviceRequest.premiumSettlementDate, out convertedPremiumSettlementDate))
-				    throw new InvalidDataException("premiumSettlementDate");
+			var convertedPremiumSettlementDate = DateTime.Now;
+			if (serviceRequest.premiumSettlementDate != null)
+				if (!DateTime.TryParse(serviceRequest.premiumSettlementDate, out convertedPremiumSettlementDate))
+					throw new InvalidDataException("premiumSettlementDate");
 
 			var requestForQuoteToCreate = new RequestForQuoteImpl();
 
-            if (serviceRequest.legs != null && serviceRequest.legs.optionDetailList != null)
+			if (serviceRequest.legs != null && serviceRequest.legs.optionDetailList != null)
 			{
 				if(serviceRequest.legs.optionDetailList.Length > 0)
 					requestForQuoteToCreate.Legs = new List<IOptionDetail>();
@@ -373,7 +373,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			requestForQuoteToCreate.TradeDate = convertedTradeDate;
 			requestForQuoteToCreate.ExpiryDate  = convertedExpiryDate; //8
-		    requestForQuoteToCreate.DayCountConvention = serviceRequest.dayCountConvention;
+			requestForQuoteToCreate.DayCountConvention = serviceRequest.dayCountConvention;
 
 			requestForQuoteToCreate.LotSize = serviceRequest.lotSize;
 			requestForQuoteToCreate.Multiplier = serviceRequest.multiplier;
@@ -459,7 +459,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
 			serviceRequestToCreate.tradeDate = sourceRequestForQuote.TradeDate.ToShortDateString();
 			serviceRequestToCreate.expiryDate = sourceRequestForQuote.ExpiryDate.ToShortDateString(); //8
-            serviceRequestToCreate.dayCountConvention = sourceRequestForQuote.DayCountConvention;
+			serviceRequestToCreate.dayCountConvention = sourceRequestForQuote.DayCountConvention;
 
 			serviceRequestToCreate.lotSize = sourceRequestForQuote.LotSize;
 			serviceRequestToCreate.multiplier = sourceRequestForQuote.Multiplier;
