@@ -56,7 +56,6 @@
           <xs:element minOccurs="0" name="hedgeType" type="xs:string" />
           <xs:element name="identifier" type="xs:int" />
           <xs:element name="impliedVol" type="xs:double" />
-          <xs:element name="interestRate" type="xs:double" />
           <xs:element name="isOTC" type="xs:boolean" />
           <xs:element minOccurs="0" name="legs" type="tns:optionDetailListImpl" />
           <xs:element name="lotSize" type="xs:int" />
@@ -82,15 +81,12 @@
           <xs:element name="salesCreditFXRate" type="xs:double" />
           <xs:element name="salesCreditPercentage" type="xs:double" />
           <xs:element minOccurs="0" name="status" type="xs:string" />
-          <xs:element name="strike" type="xs:double" />
           <xs:element name="theta" type="xs:double" />
           <xs:element name="thetaNotional" type="xs:double" />
           <xs:element name="thetaShares" type="xs:double" />
-          <xs:element name="timeToExpiry" type="xs:double" />
           <xs:element name="totalPremium" type="xs:double" />
           <xs:element minOccurs="0" name="tradeDate" type="xs:string" />
           <xs:element minOccurs="0" name="traderComment" type="xs:string" />
-          <xs:element name="underlyingPrice" type="xs:double" />
           <xs:element name="vega" type="xs:double" />
           <xs:element name="vegaNotional" type="xs:double" />
           <xs:element name="vegaShares" type="xs:double" />

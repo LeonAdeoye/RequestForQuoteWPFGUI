@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -60,6 +61,7 @@ namespace RequestForQuoteGridModuleLibrary
         public ObservableCollection<IBook> Books { get; set; }
         public ObservableCollection<IUnderlying> Underlyiers { get; set; }
         public ObservableCollection<ChatMessageImpl> ChatMessages { get; set; }
+        public List<double> DayCountConventions { get; set; }
 
         public string MessageToBeSent
         {
@@ -127,6 +129,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         private void InitializeCollections()
         {
+            DayCountConventions = new List<double>() { 250.0, 255.0, 365.0, 366.0};
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Underlyiers = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);

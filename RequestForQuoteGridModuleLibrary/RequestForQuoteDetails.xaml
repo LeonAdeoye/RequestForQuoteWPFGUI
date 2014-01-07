@@ -145,13 +145,9 @@
                                 <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">FX</Label>
                             </DockPanel>                            
                             <DockPanel>
-                                <ComboBox DockPanel.Dock="Right" Width="90"                               
+                                <ComboBox DockPanel.Dock="Right" Width="90" ItemsSource="{Binding DayCountConventions}"                              
                                             SelectedItem="{Binding Path=SelectedRequestForQuote.DayCountConvention, Mode=TwoWay}"
-                                            SelectedValue="{Binding SelectedRequestForQuote.DayCountConvention}">
-                                    <ComboBoxItem>250.0</ComboBoxItem>
-                                    <ComboBoxItem>255.0</ComboBoxItem>
-                                    <ComboBoxItem>365.0</ComboBoxItem>
-                                </ComboBox>
+                                            SelectedValue="{Binding SelectedRequestForQuote.DayCountConvention}"/>
                                 <Label DockPanel.Dock="Right" Width="70">Day Count</Label>
                                 <DatePicker DockPanel.Dock="Right" Width="90" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=SelectedRequestForQuote.TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Trade Date</Label>
