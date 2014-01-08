@@ -253,7 +253,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					Volatility = serviceOptionLeg.volatility,
 					InterestRate = serviceOptionLeg.interestRate,
 					RIC = serviceOptionLeg.underlyingRIC,
-					Strike = serviceOptionLeg.strike,
+					Strike = serviceOptionLeg.strike,                    
 					Side = sideResult
 				};
 		}
@@ -360,8 +360,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				if(serviceRequest.legs.optionDetailList.Length > 0)
 					requestForQuoteToCreate.Legs = new List<IOptionDetail>();
 
-				foreach (var leg in serviceRequest.legs.optionDetailList)
-					requestForQuoteToCreate.Legs.Add(CreateRequestForQuoteLegFromServiceOptionLeg(leg));
+                foreach (var leg in serviceRequest.legs.optionDetailList)
+                {
+                    var optionLeg = CreateRequestForQuoteLegFromServiceOptionLeg(leg);
+                    optionLeg.ParentRequest = requestForQuoteToCreate;
+                    requestForQuoteToCreate.Legs.Add(optionLeg);
+                }					
 			}
 
 			requestForQuoteToCreate.BookCode = serviceRequest.bookCode;

@@ -271,6 +271,8 @@ namespace RequestForQuoteGridModuleLibrary
                 if(log.IsErrorEnabled)
                     log.Error("Request for quote was not saved/update => " + SelectedRequestForQuote);
             }
+            else
+                SelectedRequestForQuote.CalculatePricing(optionRequestPricer);
         }
 
         public void CancelEdit()
