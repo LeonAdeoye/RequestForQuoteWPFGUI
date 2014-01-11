@@ -203,7 +203,105 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class extrapolationPoint : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class optionPriceResult : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private double deltaField;
+        
+        private double gammaField;
+        
+        private double priceField;
+        
+        private double rangeVariableField;
+        
+        private double rhoField;
+        
+        private double thetaField;
+        
+        private double vegaField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public double delta {
+            get {
+                return this.deltaField;
+            }
+            set {
+                this.deltaField = value;
+                this.RaisePropertyChanged("delta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public double gamma {
+            get {
+                return this.gammaField;
+            }
+            set {
+                this.gammaField = value;
+                this.RaisePropertyChanged("gamma");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public double price {
+            get {
+                return this.priceField;
+            }
+            set {
+                this.priceField = value;
+                this.RaisePropertyChanged("price");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public double rangeVariable {
+            get {
+                return this.rangeVariableField;
+            }
+            set {
+                this.rangeVariableField = value;
+                this.RaisePropertyChanged("rangeVariable");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public double rho {
+            get {
+                return this.rhoField;
+            }
+            set {
+                this.rhoField = value;
+                this.RaisePropertyChanged("rho");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public double theta {
+            get {
+                return this.thetaField;
+            }
+            set {
+                this.thetaField = value;
+                this.RaisePropertyChanged("theta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public double vega {
+            get {
+                return this.vegaField;
+            }
+            set {
+                this.vegaField = value;
+                this.RaisePropertyChanged("vega");
+            }
+        }
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -221,80 +319,34 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class extrapolationPoints : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class optionPriceResultSet : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private extrapolationPointsEntry[] extrapolationPoints1Field;
+        private optionPriceResult[] optionPriceResultSetField;
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute("extrapolationPoints", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("entry", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public extrapolationPointsEntry[] extrapolationPoints1 {
-            get {
-                return this.extrapolationPoints1Field;
-            }
-            set {
-                this.extrapolationPoints1Field = value;
-                this.RaisePropertyChanged("extrapolationPoints1");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1015")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://reporting.rfq.ws.leon.com/")]
-    public partial class extrapolationPointsEntry : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private double keyField;
-        
-        private bool keyFieldSpecified;
-        
-        private extrapolationPoint valueField;
+        private optionPriceResult[] resultSetField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public double key {
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("OptionPriceResult", IsNullable=false)]
+        public optionPriceResult[] OptionPriceResultSet {
             get {
-                return this.keyField;
+                return this.optionPriceResultSetField;
             }
             set {
-                this.keyField = value;
-                this.RaisePropertyChanged("key");
+                this.optionPriceResultSetField = value;
+                this.RaisePropertyChanged("OptionPriceResultSet");
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool keySpecified {
+        [System.Xml.Serialization.XmlElementAttribute("resultSet", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public optionPriceResult[] resultSet {
             get {
-                return this.keyFieldSpecified;
+                return this.resultSetField;
             }
             set {
-                this.keyFieldSpecified = value;
-                this.RaisePropertyChanged("keySpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public extrapolationPoint value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-                this.RaisePropertyChanged("value");
+                this.resultSetField = value;
+                this.RaisePropertyChanged("resultSet");
             }
         }
         
@@ -400,12 +452,12 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://reporting.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints @return;
+        public RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet @return;
         
         public getGreeksExtrapolationResponse() {
         }
         
-        public getGreeksExtrapolationResponse(RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints @return) {
+        public getGreeksExtrapolationResponse(RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet @return) {
             this.@return = @return;
         }
     }
@@ -495,10 +547,10 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             this.results = results;
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints Result {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints)(this.results[0]));
+                return ((RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet)(this.results[0]));
             }
         }
     }
@@ -653,7 +705,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
             return base.Channel.getGreeksExtrapolation(request);
         }
         
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet getGreeksExtrapolation(int requestId, string rangeVariable, double rangeMinimum, double rangeMaximum, double rangeIncrement) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation inValue = new RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolation();
             inValue.requestId = requestId;
             inValue.rangeVariable = rangeVariable;
@@ -686,7 +738,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints EndgetGreeksExtrapolation(System.IAsyncResult result) {
+        public RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet EndgetGreeksExtrapolation(System.IAsyncResult result) {
             RequestForQuoteServicesModuleLibrary.ReportingService.getGreeksExtrapolationResponse retVal = ((RequestForQuoteServicesModuleLibrary.ReportingService.ReportingController)(this)).EndgetGreeksExtrapolation(result);
             return retVal.@return;
         }
@@ -701,7 +753,7 @@ namespace RequestForQuoteServicesModuleLibrary.ReportingService {
         }
         
         private object[] OnEndgetGreeksExtrapolation(System.IAsyncResult result) {
-            RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints retVal = this.EndgetGreeksExtrapolation(result);
+            RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet retVal = this.EndgetGreeksExtrapolation(result);
             return new object[] {
                     retVal};
         }

@@ -148,17 +148,17 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\OptionPricerService\OptionPricingController.wsdl" />
-    <None Include="Service References\OptionPricerService\RequestForQuoteServicesModuleLibrary.OptionPricerService.extrapolationSet.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\OptionPricerService\RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ReportingService\ReportingController.wsdl" />
-    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.extrapolationPoints.datasource">
+    <None Include="Service References\OptionPricerService\RequestForQuoteServicesModuleLibrary.OptionPricerService.optionPriceResultSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ReportingService\ReportingController.wsdl" />
     <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.greeksPerCategoryReportDataImpl.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.optionPriceResultSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ReportingService\RequestForQuoteServicesModuleLibrary.ReportingService.requestCountReportDataImpl.datasource">
