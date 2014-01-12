@@ -12,7 +12,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         public double RangeMaximum { get; set; }
         public double RangeIncrement { get; set; }
         public int RequestId { get; set; }
-        public IDictionary<String, IDictionary<decimal, decimal>> OutputExtrapolation { get; set; }
+        public IDictionary<String, IDictionary<string, decimal>> OutputExtrapolation { get; set; }
         public String ReportDescription { get; set; }
         public ISet<string> GreeksToBeIncluded { get; set; }
 
@@ -21,7 +21,7 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         /// </summary>
         public GreeksExtrapolationReportEventPayLoad() 
         {
-            OutputExtrapolation = new Dictionary<string, IDictionary<decimal, decimal>>();
+            OutputExtrapolation = new Dictionary<string, IDictionary<string, decimal>>();
             GreeksToBeIncluded = new HashSet<string>();
         }
 
@@ -75,18 +75,21 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         /// <param name="inputValue"> the input type like underlying price, interest rate, volatility.</param>
         /// <param name="outputValue"> the output value extrapolated from the input value.</param>
         /// <exception cref="ArgumentException"> if the output type value is null or empty.</exception>
-        public void AddOutputExtrapolation(string outputType, double inputValue, double outputValue)
+        public void AddOutputExtrapolation(string outputType, string inputValue, double outputValue)
         {
             if (String.IsNullOrEmpty(outputType))
                 throw new ArgumentException("outputType");
 
+            if (String.IsNullOrEmpty(inputValue))
+                throw new ArgumentException("inputValue");
+
             if (OutputExtrapolation.ContainsKey(outputType))
             {
                 var outputDict = OutputExtrapolation[outputType];
-                outputDict[Convert.ToDecimal(inputValue)] = Convert.ToDecimal(outputValue);
+                outputDict[inputValue] = Convert.ToDecimal(outputValue);
             }
             else
-                OutputExtrapolation.Add(outputType, new Dictionary<decimal, decimal>() { { Convert.ToDecimal(inputValue), Convert.ToDecimal(outputValue) } });
+                OutputExtrapolation.Add(outputType, new Dictionary<string, decimal>() { { inputValue, Convert.ToDecimal(outputValue) } });
         }
     }
 }

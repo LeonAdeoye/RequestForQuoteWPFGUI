@@ -73,6 +73,9 @@ namespace RequestForQuoteReportsModuleLibrary
         /// </summary>
         private void InitializeEventSubscriptions()
         {
+            eventAggregator.GetEvent<GreeksExtrapolationReportEvent>()
+                           .Subscribe(HandleGreeksExtrapolationyReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
             eventAggregator.GetEvent<RequestsCountByCategoryReportEvent>()
                            .Subscribe(HandleRequestsCountByCategoryReportEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
@@ -150,6 +153,32 @@ namespace RequestForQuoteReportsModuleLibrary
                     ReportType = eventPayLoad.ReportType
                 };
             reportViewModel.AddSeries(GeneratedReportViewModel.ONLY_ONE_SERIES, eventPayLoad.CountByCategory.ToList());
+
+            var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
+            reportWindow.ShowWindow(reportViewModel);
+        }
+
+        private void HandleGreeksExtrapolationyReportEvent(GreeksExtrapolationReportEventPayLoad eventPayLoad)
+        {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
+            if (eventPayLoad.OutputExtrapolation.Count == 0)
+            {
+                MessageBox.Show("No extrapolation data returned for the selected criteria!", "No Report Data To Display",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                return;
+            }
+
+            var reportViewModel = new GeneratedReportViewModel
+            {
+                ReportTitle = "Extrapolation of " + eventPayLoad.RangeVariable + ":",
+                ReportType = eventPayLoad.ReportType,
+            };
+
+            foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)
+                reportViewModel.AddSeries(extrapolationPoint.Key, extrapolationPoint.Value.ToList());
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);

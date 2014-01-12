@@ -245,10 +245,16 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     {
                         foreach (var output in result.resultSet)
                         { 
-                            Debug.WriteLine(output);
-
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
-                            //    eventPayLoad.AddGreek(output.rangeVariable, GreeksEnum.DELTA, output.delta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.delta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.gamma);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.VEGA.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.vega);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.THETA.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.theta);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.rho);
                         }
                     }
                 }
