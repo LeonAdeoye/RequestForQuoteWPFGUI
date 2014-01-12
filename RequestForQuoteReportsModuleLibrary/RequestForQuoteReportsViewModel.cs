@@ -158,6 +158,12 @@ namespace RequestForQuoteReportsModuleLibrary
             reportWindow.ShowWindow(reportViewModel);
         }
 
+        /// <summary>
+        /// Prcoess the incoming extrapolation data event message, and creates and shows an instance of the report popup window with the appropriate chart.
+        /// It uses the service locator to get an instance of the report popup window.
+        /// </summary>
+        /// <param name="eventPayLoad"> the GreeksExtrapolationReportEventPayLoad event sent by the ReportDataManagerImpl.</param>
+        /// <exception cref="ArgumentNullException"> thrown if the eventpayload parameter is null.</exception>
         private void HandleGreeksExtrapolationyReportEvent(GreeksExtrapolationReportEventPayLoad eventPayLoad)
         {
             if (eventPayLoad == null)
@@ -165,7 +171,8 @@ namespace RequestForQuoteReportsModuleLibrary
 
             if (eventPayLoad.OutputExtrapolation.Count == 0)
             {
-                MessageBox.Show("No extrapolation data returned for the selected criteria!", "No Report Data To Display",
+                MessageBox.Show("No extrapolation data returned for the selected criteria!", 
+                    "No Extrapolation Report Data To Display",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 return;
@@ -177,7 +184,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 ReportType = eventPayLoad.ReportType,
             };
 
-            foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)
+            foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)                
                 reportViewModel.AddSeries(extrapolationPoint.Key, extrapolationPoint.Value.ToList());
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
