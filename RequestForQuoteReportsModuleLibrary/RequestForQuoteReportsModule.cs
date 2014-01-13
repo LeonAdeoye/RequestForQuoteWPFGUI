@@ -11,11 +11,9 @@ namespace RequestForQuoteReportsModuleLibrary
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public RequestForQuoteReportsModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
+        public RequestForQuoteReportsModule(IRegionManager regionManager)
         {
-            this.container = container;
             this.regionManager = regionManager;
-            this.eventAggregator = eventAggregator;
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteReportsModule constructed successfully.");
@@ -34,8 +32,6 @@ namespace RequestForQuoteReportsModuleLibrary
                 log.Debug("RequestForQuoteReportsModule initialized successfully.");
         }
 
-        private readonly IUnityContainer container;
         private readonly IRegionManager regionManager;
-        private readonly IEventAggregator eventAggregator;
     }
 }

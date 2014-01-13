@@ -164,6 +164,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);
+                            //if (greeksToBeIncluded.Contains(GreeksEnum.PREMIUM.ToString()))
+                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.PREMIUM, greekTotal.premium);
                         }                        
                     }
                 }
@@ -235,6 +237,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                     RangeVariable = rangeVariable,
                     RangeMinimum = rangeMinimum,
                     RangeMaximum = rangeMaximum,
+                    RangeIncrement = rangeIncrement,
                     GreeksToBeIncluded = greeksToBeIncluded
                 };
 
@@ -246,15 +249,17 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                         foreach (var output in result.resultSet)
                         { 
                             if (greeksToBeIncluded.Contains(GreeksEnum.DELTA.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.delta);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.DELTA, output.delta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.GAMMA.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.gamma);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.GAMMA, output.gamma);
                             if (greeksToBeIncluded.Contains(GreeksEnum.VEGA.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.vega);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.VEGA, output.vega);
                             if (greeksToBeIncluded.Contains(GreeksEnum.THETA.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.theta);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.THETA, output.theta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(rangeVariable, output.rangeVariable.ToString(), output.rho);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.RHO, output.rho);
+                            if (greeksToBeIncluded.Contains(GreeksEnum.PREMIUM.ToString()))
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.PREMIUM, output.rho);
                         }
                     }
                 }

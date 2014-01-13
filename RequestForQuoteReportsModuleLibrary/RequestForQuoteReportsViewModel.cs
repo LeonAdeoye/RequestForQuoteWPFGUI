@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +21,24 @@ namespace RequestForQuoteReportsModuleLibrary
 {
     public sealed class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
     {
+        internal sealed class StringComparer : IComparer<KeyValuePair<String, decimal>> 
+        {
+            public int Compare(KeyValuePair<String, decimal> firstParam, KeyValuePair<String, decimal> secondParam)
+            {
+                return firstParam.Key.CompareTo(secondParam.Key);
+            }            
+        }
+
+        internal sealed class NumericComparer : IComparer<KeyValuePair<String, decimal>>
+        {
+            public int Compare(KeyValuePair<String, decimal> firstParam, KeyValuePair<String, decimal> secondParam)
+            {
+                var first = Convert.ToDecimal(firstParam.Key);
+                var second = Convert.ToDecimal(secondParam.Key);
+                return first.CompareTo(second);
+            }
+        }
+
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventAggregator eventAggregator;
@@ -171,8 +190,7 @@ namespace RequestForQuoteReportsModuleLibrary
 
             if (eventPayLoad.OutputExtrapolation.Count == 0)
             {
-                MessageBox.Show("No extrapolation data returned for the selected criteria!", 
-                    "No Extrapolation Report Data To Display",
+                MessageBox.Show("No extrapolation data returned for the selected criteria!", "No Report Data To Display",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 return;
@@ -184,8 +202,13 @@ namespace RequestForQuoteReportsModuleLibrary
                 ReportType = eventPayLoad.ReportType,
             };
 
-            foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)                
-                reportViewModel.AddSeries(extrapolationPoint.Key, extrapolationPoint.Value.ToList());
+            foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)
+            {
+                var listOfExtrapolations = extrapolationPoint.Value.ToList();
+                listOfExtrapolations.Sort(new NumericComparer());
+                reportViewModel.AddSeries(extrapolationPoint.Key, listOfExtrapolations);
+            }
+                
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);

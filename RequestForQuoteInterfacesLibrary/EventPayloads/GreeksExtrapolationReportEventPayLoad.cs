@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RequestForQuoteInterfacesLibrary.Enums;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
@@ -69,27 +70,24 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
         }
 
         /// <summary>
-        /// Adds the input and output values to the extrapolation map.
+        /// Adds the greek value to the map of greek values by category value.
         /// </summary>
-        /// <param name="outputType"> the output type of the extrapolation.</param>
-        /// <param name="inputValue"> the input type like underlying price, interest rate, volatility.</param>
-        /// <param name="outputValue"> the output value extrapolated from the input value.</param>
-        /// <exception cref="ArgumentException"> if the output type value is null or empty.</exception>
-        public void AddOutputExtrapolation(string outputType, string inputValue, double outputValue)
+        /// <param name="rangeValue"> the category value used in the aggregation.</param>
+        /// <param name="typeOfGreek"> the greek type like delta, gamma, vega, theta.</param>
+        /// <param name="greekValue"> the aggregated total greek value for the specified category value.</param>
+        /// <exception cref="ArgumentException"> if the category value is null or empty.</exception>
+        public void AddOutputExtrapolation(string rangeValue, GreeksEnum typeOfGreek, double greekValue)
         {
-            if (String.IsNullOrEmpty(outputType))
-                throw new ArgumentException("outputType");
+            if (String.IsNullOrEmpty(rangeValue))
+                throw new ArgumentException("rangeValue");
 
-            if (String.IsNullOrEmpty(inputValue))
-                throw new ArgumentException("inputValue");
-
-            if (OutputExtrapolation.ContainsKey(outputType))
+            if (OutputExtrapolation.ContainsKey(typeOfGreek.ToString()))
             {
-                var outputDict = OutputExtrapolation[outputType];
-                outputDict[inputValue] = Convert.ToDecimal(outputValue);
+                var greekEntry = OutputExtrapolation[typeOfGreek.ToString()];
+                greekEntry[rangeValue] = Convert.ToDecimal(greekValue);
             }
             else
-                OutputExtrapolation.Add(outputType, new Dictionary<string, decimal>() { { inputValue, Convert.ToDecimal(outputValue) } });
+                OutputExtrapolation.Add(typeOfGreek.ToString(), new Dictionary<string, decimal>() { { rangeValue, Convert.ToDecimal(greekValue) } });
         }
     }
 }

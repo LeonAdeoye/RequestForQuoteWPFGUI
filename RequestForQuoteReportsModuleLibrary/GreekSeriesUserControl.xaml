@@ -32,6 +32,11 @@
                                         Converter={StaticResource SeriesDataConverter}, 
                                         ConverterParameter={x:Static enums:GreeksEnum.RHO}}" 
                                         Name="Rho" Title="Rho"/>
+            <chartingToolkit:LineSeries DependentValuePath="Value" IndependentValuePath="Key" 
+                                        ItemsSource="{Binding MultipleSeriesData, 
+                                        Converter={StaticResource SeriesDataConverter}, 
+                                        ConverterParameter={x:Static enums:GreeksEnum.PREMIUM}}" 
+                                        Name="UnderlyingPrice" Title="UnderlyingPrice"/>            
         </chartingToolkit:Chart>
     </Grid>
 </UserControl>

@@ -508,7 +508,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
                     case RequestForQuoteConstants.TRADE_DATE_CRITERION:
                         var dates = controlCriterion.ControlValue.Split('-').ToArray();
                         StartTradeDate = Convert.ToDateTime(dates[0]);
-                        EndTradeDate = Convert.ToDateTime(dates[1]);
+                        EndTradeDate = String.IsNullOrEmpty(dates[1]) ? DateTime.Now : Convert.ToDateTime(dates[1]);
                         break;
                     case RequestForQuoteConstants.BOOK_CRITERION:
                         SelectedBook = Books.FirstOrDefault((book) => book.BookCode == controlCriterion.ControlValue);

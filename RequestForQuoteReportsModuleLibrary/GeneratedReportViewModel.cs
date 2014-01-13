@@ -15,7 +15,10 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             get
             {
-                return seriesData[ONLY_ONE_SERIES];
+                if (seriesData.ContainsKey(ONLY_ONE_SERIES))
+                    return seriesData[ONLY_ONE_SERIES];
+
+                return new List<KeyValuePair<string, decimal>>();               
             }
         }
 
