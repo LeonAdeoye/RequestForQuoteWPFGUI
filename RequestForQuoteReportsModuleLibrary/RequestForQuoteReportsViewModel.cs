@@ -210,7 +210,6 @@ namespace RequestForQuoteReportsModuleLibrary
                 reportViewModel.AddSeries(extrapolationPoint.Key, listOfExtrapolations);
             }
                 
-
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);
         }
@@ -241,7 +240,11 @@ namespace RequestForQuoteReportsModuleLibrary
                 };
 
             foreach (var greeksBelongingToACatgeory in eventPayLoad.GreeksByCategory)
-                reportViewModel.AddSeries(greeksBelongingToACatgeory.Key, greeksBelongingToACatgeory.Value.ToList());
+            {
+                var listOfCategorizedgreeks = greeksBelongingToACatgeory.Value.ToList();
+                listOfCategorizedgreeks.Sort(new StringComparer());
+                reportViewModel.AddSeries(greeksBelongingToACatgeory.Key, listOfCategorizedgreeks);
+            }                
 
             var reportWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.REPORT_WINDOW_POPUP);
             reportWindow.ShowWindow(reportViewModel);

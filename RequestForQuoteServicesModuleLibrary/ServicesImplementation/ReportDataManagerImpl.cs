@@ -164,8 +164,6 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.THETA, greekTotal.theta);
                             if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
                                 eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.RHO, greekTotal.rho);
-                            //if (greeksToBeIncluded.Contains(GreeksEnum.PREMIUM.ToString()))
-                            //    eventPayLoad.AddGreek(greekTotal.categoryValue, GreeksEnum.PREMIUM, greekTotal.premium);
                         }                        
                     }
                 }
@@ -259,7 +257,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                             if (greeksToBeIncluded.Contains(GreeksEnum.RHO.ToString()))
                                 eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.RHO, output.rho);
                             if (greeksToBeIncluded.Contains(GreeksEnum.PREMIUM.ToString()))
-                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.PREMIUM, output.rho);
+                                eventPayLoad.AddOutputExtrapolation(output.rangeVariable.ToString(), GreeksEnum.PREMIUM, output.price);
                         }
                     }
                 }
