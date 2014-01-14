@@ -36,7 +36,7 @@
                                         ItemsSource="{Binding MultipleSeriesData, 
                                         Converter={StaticResource SeriesDataConverter}, 
                                         ConverterParameter={x:Static enums:GreeksEnum.PREMIUM}}" 
-                                        Name="UnderlyingPrice" Title="UnderlyingPrice"/>            
+                                        Name="Premium" Title="Premium"/>            
         </chartingToolkit:Chart>
     </Grid>
 </UserControl>

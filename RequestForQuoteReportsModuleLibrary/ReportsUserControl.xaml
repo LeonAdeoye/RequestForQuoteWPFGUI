@@ -124,7 +124,7 @@
                 </TabItem>
                 <TabItem Header="Extrapolation">
                     <StackPanel>
-                        <Label Content="Select input type:" HorizontalAlignment="Left" Margin="5"/>
+                        <Label Content="Select range variable:" HorizontalAlignment="Left" Margin="5"/>
                         <ComboBox HorizontalAlignment="Left" Width="140" Margin="5,0,5,5" ItemsSource="{Binding ListOfRangeVariables}" 
                                   DisplayMemberPath="Value" SelectedValue="{Binding RangeVariable}" SelectedValuePath="Key"/>
                         <GroupBox Header="Greek:">

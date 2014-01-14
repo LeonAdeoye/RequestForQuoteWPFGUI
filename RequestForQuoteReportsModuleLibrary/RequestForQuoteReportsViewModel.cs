@@ -85,6 +85,7 @@ namespace RequestForQuoteReportsModuleLibrary
             InitializeReportCollections();
 
             FromDateType = RequestCountFromDateEnum.FROM_DATE;
+            RangeIncrement = 1;
         }
 
         /// <summary>
@@ -504,6 +505,9 @@ namespace RequestForQuoteReportsModuleLibrary
             if (ShowRho)
                 setOfGreeks.Add(GreeksEnum.RHO.ToString());
 
+            if (ShowPremium)
+                setOfGreeks.Add(GreeksEnum.PREMIUM.ToString());
+
             return setOfGreeks;
         }
 
@@ -582,6 +586,10 @@ namespace RequestForQuoteReportsModuleLibrary
             
             MinimumCount = 0;
             MinimumGreek = 0.0;
+            RangeIncrement = 1;
+            RangeMaximum = 0;
+            RangeMinimum = 0;
+            RangeVariable = "";
             
             FromDate = null;
             FromDateType = RequestCountFromDateEnum.FROM_DATE;
@@ -591,6 +599,7 @@ namespace RequestForQuoteReportsModuleLibrary
             ShowVega = false;
             ShowTheta = false;
             ShowRho = false;
+            ShowPremium = false;
         }
 
         public void SaveReportInput()
