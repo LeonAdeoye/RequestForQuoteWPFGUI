@@ -135,12 +135,22 @@ namespace RequestForQuoteReportsModuleLibrary
             };
             ListOfRangeVariables = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("UNDERLYING_PRICE", "By underlying price"),
-                new KeyValuePair<string, string>("VOLATILITY", "By volatility"),
-                new KeyValuePair<string, string>("INTEREST_RATE", "By interest rate"),
-                new KeyValuePair<string, string>("TIME_TO_EXPIRY", "By time to expiry"),
-                new KeyValuePair<string, string>("STRIKE", "By strike"),
+                new KeyValuePair<string, string>("UNDERLYING_PRICE", "Underlying Price"),
+                new KeyValuePair<string, string>("VOLATILITY", "Volatility"),
+                new KeyValuePair<string, string>("INTEREST_RATE", "Interest Rate"),
+                new KeyValuePair<string, string>("TIME_TO_EXPIRY", "Time To Expiry"),
+                new KeyValuePair<string, string>("STRIKE", "Strike"),
             };
+        }
+
+        private String GetRangeVariableDescription(string key)
+        {
+            foreach (var pair in ListOfRangeVariables)
+            {
+                if (pair.Key == key)
+                    return pair.Value;
+            }
+            return "";
         }
 
         private void HandleRequestSelectionEvent(RequestSelectionEventPayload eventPayload)
@@ -199,7 +209,7 @@ namespace RequestForQuoteReportsModuleLibrary
 
             var reportViewModel = new GeneratedReportViewModel
             {
-                ReportTitle = "Extrapolation of " + eventPayLoad.RangeVariable + ":",
+                ReportTitle = "Extrapolation Graph Of " + GetRangeVariableDescription(eventPayLoad.RangeVariable) + " For RFQ " + eventPayLoad.RequestId + ":",
                 ReportType = eventPayLoad.ReportType,
             };
 
@@ -235,7 +245,7 @@ namespace RequestForQuoteReportsModuleLibrary
             
             var reportViewModel = new GeneratedReportViewModel
                 {
-                    ReportTitle = "Greeks By " + eventPayLoad.Category + ":",
+                    ReportTitle = "Graph Of Greeks By " + eventPayLoad.Category + " :",
                     ReportType = eventPayLoad.ReportType,
                 };
 
