@@ -81,6 +81,10 @@ namespace RequestForQuoteInterfacesLibrary.EventPayloads
             if (String.IsNullOrEmpty(rangeValue))
                 throw new ArgumentException("rangeValue");
 
+            // Cannot do conversion from Double to Decimal if NAN.
+            if (double.IsNaN(greekValue))
+                return;
+
             if (OutputExtrapolation.ContainsKey(typeOfGreek.ToString()))
             {
                 var greekEntry = OutputExtrapolation[typeOfGreek.ToString()];
