@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
 using RequestForQuoteInterfacesLibrary.Enums;

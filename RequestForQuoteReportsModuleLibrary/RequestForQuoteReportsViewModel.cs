@@ -20,7 +20,7 @@ namespace RequestForQuoteReportsModuleLibrary
 {
     public sealed class RequestForQuoteReportsViewModel : DependencyObject, INotifyPropertyChanged
     {
-        internal sealed class StringComparer : IComparer<KeyValuePair<String, decimal>> 
+        internal sealed class StringKeyComparer : IComparer<KeyValuePair<String, decimal>> 
         {
             public int Compare(KeyValuePair<String, decimal> firstParam, KeyValuePair<String, decimal> secondParam)
             {
@@ -28,7 +28,7 @@ namespace RequestForQuoteReportsModuleLibrary
             }            
         }
 
-        internal sealed class NumericComparer : IComparer<KeyValuePair<String, decimal>>
+        internal sealed class NumericKeyComparer : IComparer<KeyValuePair<String, decimal>>
         {
             public int Compare(KeyValuePair<String, decimal> firstParam, KeyValuePair<String, decimal> secondParam)
             {
@@ -215,7 +215,7 @@ namespace RequestForQuoteReportsModuleLibrary
             foreach (var extrapolationPoint in eventPayLoad.OutputExtrapolation)
             {
                 var listOfExtrapolations = extrapolationPoint.Value.ToList();
-                listOfExtrapolations.Sort(new NumericComparer());
+                listOfExtrapolations.Sort(new NumericKeyComparer());
                 reportViewModel.AddSeries(extrapolationPoint.Key, listOfExtrapolations);
             }
                 
@@ -251,7 +251,7 @@ namespace RequestForQuoteReportsModuleLibrary
             foreach (var greeksBelongingToACatgeory in eventPayLoad.GreeksByCategory)
             {
                 var listOfCategorizedgreeks = greeksBelongingToACatgeory.Value.ToList();
-                listOfCategorizedgreeks.Sort(new StringComparer());
+                listOfCategorizedgreeks.Sort(new StringKeyComparer());
                 reportViewModel.AddSeries(greeksBelongingToACatgeory.Key, listOfCategorizedgreeks);
             }                
 
@@ -548,7 +548,8 @@ namespace RequestForQuoteReportsModuleLibrary
         {
             if (RequestId <= 0)
             {
-                MessageBox.Show("An RFQ (with a valid identifier) has not been selected. Pls select one...");
+                MessageBox.Show("An RFQ (with a valid identifier) has not been selected. Pls select one...", 
+                    "Cannot Generate Report", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }                
 
