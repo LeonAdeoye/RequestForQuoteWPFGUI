@@ -149,7 +149,7 @@ namespace RequestForQuoteReportsModuleLibrary
                 if (pair.Key == key)
                     return pair.Value;
             }
-            return "";
+            return String.Empty;
         }
 
         private void HandleRequestSelectionEvent(RequestSelectionEventPayload eventPayload)

@@ -165,6 +165,9 @@ namespace RequestForQuoteGridModuleLibrary
             eventAggregator.GetEvent<NewClientEvent>()
                            .Subscribe(HandleNewClientEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
+            eventAggregator.GetEvent<NewSerializedRequestEvent>()
+                           .Subscribe(HandleNewSerializedRequestEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
             eventAggregator.GetEvent<NewBookEvent>()
                .Subscribe(HandleNewBookEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
@@ -248,6 +251,15 @@ namespace RequestForQuoteGridModuleLibrary
                 log.Debug("Received new book: " + eventPayLoad);
 
             Books.Add(eventPayLoad.NewBook);
+        }
+
+        public void HandleNewSerializedRequestEvent(NewSerializedRequestEventPayload eventPayLoad)
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Received new serialized request: " + eventPayLoad);
+
+            if(TodaysRequests.All(request => request.Identifier != eventPayLoad.NewSerializedRequest.Identifier))
+                Requests.Add(eventPayLoad.NewSerializedRequest);
         }
 
         public void HandlePublishedNewRequestEvent(NewRequestForQuoteEventPayload eventPayload)

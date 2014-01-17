@@ -101,8 +101,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             try
             {
                 var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));
-                IRequestForQuote newRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
-                Debug.WriteLine(newRequest); //TODO gamma shares does not match, IClient not fixed.
+                eventAggregator.GetEvent<NewSerializedRequestEvent>().Publish(new NewSerializedRequestEventPayload()
+                {
+                    NewSerializedRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)))
+                }); 
             }
             catch (Exception exc)
             {
