@@ -258,7 +258,8 @@ namespace RequestForQuoteGridModuleLibrary
             if (log.IsDebugEnabled)
                 log.Debug("Received new serialized request: " + eventPayLoad);
 
-            if(TodaysRequests.All(request => request.Identifier != eventPayLoad.NewSerializedRequest.Identifier))
+            if(TodaysRequests.All(request => request.Identifier != eventPayLoad.NewSerializedRequest.Identifier) &&
+                eventPayLoad.NewSerializedRequest.TradeDate == DateTime.Today)
                 Requests.Add(eventPayLoad.NewSerializedRequest);
         }
 
