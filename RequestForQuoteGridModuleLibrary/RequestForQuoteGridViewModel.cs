@@ -279,8 +279,14 @@ namespace RequestForQuoteGridModuleLibrary
             request.NotionalFXRate = 1;
             request.NotionalMillions = 1;
             request.BookCode = eventPayload.NewRequestBookCode;
+            request.DayCountConvention = 250.0;            
+            request.PremiumSettlementFXRate = 1;
+            request.SalesCreditFXRate = 1;
+            request.IsOTC = true;
+            request.SalesCreditPercentage = 2;
+            request.PremiumSettlementDaysOverride = 1;
+            request.PremiumSettlementDate = DateTime.Today.AddDays(request.PremiumSettlementDaysOverride);
             request.CalculatePricing(optionRequestPricer);
-            request.DayCountConvention = 250.0;
 
             TodaysRequests.Add(request);
             Requests.Clear();

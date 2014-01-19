@@ -580,6 +580,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 {
                     premiumSettlementDaysOverride = value; 
                     NotifyPropertyChanged("PremiumSettlementDaysOverride");
+                    NotifyPropertyChanged("PremiumSettlementDate");
                 }
             }
         }
@@ -604,6 +605,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         {
             get
             {
+                salesCreditAmount = notionalMillions*10000*salesCreditPercentage;
                 return salesCreditAmount;
             }
             set
@@ -627,7 +629,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 if (Math.Abs(salesCreditPercentage - value) > RequestForQuoteConstants.EPSILON)
                 {
                     salesCreditPercentage = value;
-                    NotifyPropertyChanged("SalesCreditPercentage");                    
+                    NotifyPropertyChanged("SalesCreditPercentage");
+                    NotifyPropertyChanged("SalesCreditAmount"); 
                 }
             }
         }
@@ -645,7 +648,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 if (salesCreditCurrency != value.ToString())
                 {
                     salesCreditCurrency = value.ToString(); 
-                    NotifyPropertyChanged("SalesCreditCurrency");                    
+                    NotifyPropertyChanged("SalesCreditCurrency");
+                    NotifyPropertyChanged("SalesCreditFXRate");
                 }
             }
         }
@@ -752,19 +756,18 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                 if (Math.Abs(notionalMillions - value) > RequestForQuoteConstants.EPSILON)
                 {
                     notionalMillions = value;
-                    NotifyPropertyChanged("NotionalMillions");
-                    
+                    NotifyPropertyChanged("NotionalMillions");                    
                     NotifyPropertyChanged("DeltaNotional");
                     NotifyPropertyChanged("GammaNotional");
                     NotifyPropertyChanged("ThetaNotional");
                     NotifyPropertyChanged("VegaNotional");
                     NotifyPropertyChanged("RhoNotional");
-
                     NotifyPropertyChanged("DeltaShares");
                     NotifyPropertyChanged("GammaShares");
                     NotifyPropertyChanged("VegaShares");
                     NotifyPropertyChanged("ThetaShares");
                     NotifyPropertyChanged("RhoShares");
+                    NotifyPropertyChanged("SalesCreditAmount"); 
                 }
             }
         }

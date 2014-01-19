@@ -165,7 +165,7 @@
                                 <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Lot Size</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditPercentage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70">S.Credit %</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.SalesCreditAmount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">S.Credit</Label>
@@ -179,9 +179,9 @@
                                 <Label DockPanel.Dock="Right" Width="80" HorizontalAlignment="Left" Margin="10,0,0,0">S.Credit Curr</Label>
                             </DockPanel>
                             <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementDaysOverride, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                                <Label DockPanel.Dock="Right" Width="70">Stt.FX</Label>
                                 <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementFXRate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <Label DockPanel.Dock="Right" Width="70">Stt.FX</Label>
+                                <TextBox DockPanel.Dock="Right" Width="90" Text="{Binding Path=SelectedRequestForQuote.PremiumSettlementDaysOverride, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label DockPanel.Dock="Right" Width="70" HorizontalAlignment="Left" Margin="10,0,0,0">Stt.Days</Label>
                             </DockPanel>                           
                             <DockPanel>
