@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://request.rfq.ws.leon.com/" name="RequestController" targetNamespace="http://request.rfq.ws.leon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <xs:schema xmlns:ns1="com.leon.ws.rfq.request" xmlns:ns2="com.leon.ws.rfq.search" elementFormDefault="unqualified" targetNamespace="http://request.rfq.ws.leon.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns:ns1="com.leon.ws.rfq.request" xmlns:ns2="com.leon.ws.rfq.search" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://request.rfq.ws.leon.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="com.leon.ws.rfq.request" />
       <xs:import namespace="com.leon.ws.rfq.search" />
       <xs:element name="SearchCriterionImpl" type="tns:searchCriterionImpl" />
@@ -124,6 +124,7 @@
           <xs:element name="strike" type="xs:double" />
           <xs:element name="strikePercentage" type="xs:double" />
           <xs:element name="theta" type="xs:double" />
+          <xs:element minOccurs="0" name="tradeDate" type="xs:string" />
           <xs:element name="underlyingPrice" type="xs:double" />
           <xs:element minOccurs="0" name="underlyingRIC" type="xs:string" />
           <xs:element name="vega" type="xs:double" />
@@ -238,11 +239,11 @@
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
-    <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.search" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns="com.leon.ws.rfq.search" xmlns:ns1="http://request.rfq.ws.leon.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="com.leon.ws.rfq.search" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />
       <xs:element name="SearchCriteriaImpl" type="ns1:searchCriteriaImpl" />
     </xs:schema>
-    <xs:schema xmlns:ns1="http://request.rfq.ws.leon.com/" targetNamespace="com.leon.ws.rfq.request" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns="com.leon.ws.rfq.request" xmlns:ns1="http://request.rfq.ws.leon.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="com.leon.ws.rfq.request" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://request.rfq.ws.leon.com/" />
       <xs:element name="OptionDetailImpl" type="ns1:optionDetailImpl" />
       <xs:element name="OptionDetailListImpl" type="ns1:optionDetailListImpl" />

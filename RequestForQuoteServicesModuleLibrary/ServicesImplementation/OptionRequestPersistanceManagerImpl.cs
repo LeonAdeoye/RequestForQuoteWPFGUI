@@ -226,6 +226,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if(!DateTime.TryParse(serviceOptionLeg.maturityDate, out maturityDateResult))
 				throw new InvalidDataException("maturityDate");
 
+			DateTime tradeDateResult;
+			if (!DateTime.TryParse(serviceOptionLeg.tradeDate, out tradeDateResult))
+				throw new InvalidDataException("tradeDate");
+
 			SideEnum sideResult;
 			if(!Enum.TryParse(serviceOptionLeg.side, true, out sideResult))
 				throw new InvalidDataException("side");
@@ -243,6 +247,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					PremiumAmount = serviceOptionLeg.premium,
 
 					MaturityDate = maturityDateResult,
+					TradeDate = tradeDateResult,
 					Description = serviceOptionLeg.description,
 					Quantity = serviceOptionLeg.quantity,
 
@@ -280,6 +285,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					description = requestForQuoteOptionLeg.Description,
 					strikePercentage = requestForQuoteOptionLeg.StrikePercentage,
 					maturityDate = requestForQuoteOptionLeg.MaturityDate.ToShortDateString(),
+					tradeDate = requestForQuoteOptionLeg.TradeDate.ToShortDateString(),
 					yearsToExpiry = requestForQuoteOptionLeg.DaysToExpiry / requestForQuoteOptionLeg.DayCountConvention,
 					premiumPercentage = requestForQuoteOptionLeg.PremiumPercentage,
 					delta = requestForQuoteOptionLeg.Delta,
@@ -359,12 +365,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				if(serviceRequest.legs.optionDetailList.Length > 0)
 					requestForQuoteToCreate.Legs = new List<IOptionDetail>();
 
-                foreach (var leg in serviceRequest.legs.optionDetailList)
-                {
-                    var optionLeg = CreateRequestForQuoteLegFromServiceOptionLeg(leg);
-                    optionLeg.ParentRequest = requestForQuoteToCreate;
-                    requestForQuoteToCreate.Legs.Add(optionLeg);
-                }					
+				foreach (var leg in serviceRequest.legs.optionDetailList)
+				{
+					var optionLeg = CreateRequestForQuoteLegFromServiceOptionLeg(leg);
+					optionLeg.ParentRequest = requestForQuoteToCreate;
+					requestForQuoteToCreate.Legs.Add(optionLeg);
+				}					
 			}
 
 			requestForQuoteToCreate.BookCode = serviceRequest.bookCode;

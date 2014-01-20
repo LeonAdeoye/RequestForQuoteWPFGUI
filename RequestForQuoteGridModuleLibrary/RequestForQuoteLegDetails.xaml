@@ -52,12 +52,8 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Prod.Type</Label>
         </DockPanel>
         <DockPanel>
-            <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=TradeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Start</Label>
-        </DockPanel>
-        <DockPanel>
             <DatePicker DockPanel.Dock="Right" Width="100" CalendarStyle="{StaticResource WpfsDatePickerCalendarStyle}" SelectedDateFormat="Short" SelectedDate="{Binding Path=MaturityDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry</Label>
+            <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry Date</Label>
         </DockPanel>
         <DockPanel>
             <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding YearsToExpiry, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
