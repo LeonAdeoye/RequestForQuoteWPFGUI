@@ -47,7 +47,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 if (IsValidBusinessDay(currentDate, location))
                     ++count;
             }
-            while (currentDate != endDate);
+            while (currentDate < endDate);
             return count;
         }
 

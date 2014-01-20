@@ -243,7 +243,6 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 					PremiumAmount = serviceOptionLeg.premium,
 
 					MaturityDate = maturityDateResult,
-					YearsToExpiry = serviceOptionLeg.yearsToExpiry,
 					Description = serviceOptionLeg.description,
 					Quantity = serviceOptionLeg.quantity,
 

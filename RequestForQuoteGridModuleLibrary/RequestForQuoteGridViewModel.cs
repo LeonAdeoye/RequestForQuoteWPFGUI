@@ -92,7 +92,6 @@ namespace RequestForQuoteGridModuleLibrary
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
 
-            //Requests = new ObservableCollection<IRequestForQuote>();
             SearchedRequests = new RangeObservableCollection<IRequestForQuote>();
             TodaysRequests = new RangeObservableCollection<IRequestForQuote>();
             Requests = new RangeObservableCollection<IRequestForQuote>();

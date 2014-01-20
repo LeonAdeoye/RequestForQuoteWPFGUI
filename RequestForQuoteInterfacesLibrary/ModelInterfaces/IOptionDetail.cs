@@ -16,7 +16,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         DateTime MaturityDate { get; set; }
         DateTime TradeDate { get; set; }
         double DaysToExpiry { get; set; }
-        double YearsToExpiry { get; set; }
+        double YearsToExpiry { get; }
         double PremiumAmount { get; set; }
         double PremiumPercentage { get; }
         double Delta { get; set; }

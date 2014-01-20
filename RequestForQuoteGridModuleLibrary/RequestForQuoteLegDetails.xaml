@@ -60,7 +60,7 @@
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Expiry</Label>
         </DockPanel>
         <DockPanel>
-            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding YearsToExpiry, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
+            <TextBox DockPanel.Dock="Right" Width="100" IsReadOnly="true" Text="{Binding YearsToExpiry, Mode=OneWay, Converter={StaticResource DecimalPlaceConverter}, ConverterParameter=4}"/>
             <Label DockPanel.Dock="Right" Style="{StaticResource LegLabel}" Width="80">Exp.Years</Label>
         </DockPanel>
         <DockPanel>
