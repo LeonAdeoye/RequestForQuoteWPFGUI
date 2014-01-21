@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.ComponentModel;
+using Newtonsoft.Json;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -73,7 +74,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private string clientComment;
 
         [DataMember] private string pickedUpBy;
-        [DataMember] private List<Object> legs;
+        [DataMember] private List<OptionDetailImpl> legs;
 
         public List<ChatMessageImpl> Messages { get; set; }
         public IEditableObject EditableViewModel { get; set; }
@@ -141,7 +142,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
             if (fromSourceRequest.Legs != null)
             {
-                Legs = new List<IOptionDetail>();
+                Legs = new List<OptionDetailImpl>();
                 foreach (var leg in fromSourceRequest.Legs)
                     Legs.Add(leg.CloneOptionDetails());
             }
@@ -220,7 +221,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
             if (Legs != null)
             {
-                clone.Legs = new List<IOptionDetail>();
+                clone.Legs = new List<OptionDetailImpl>();
                 foreach (var leg in Legs)
                     clone.Legs.Add(leg.CloneOptionDetails());
             }
@@ -386,42 +387,24 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             return builder.ToString();
         }
 
-        public void AddLeg(IOptionDetail optionLeg)
+        public void AddLeg(OptionDetailImpl optionLeg)
         {
-            if(legs == null)
-                legs = new List<object>();
-
-            legs.Add(optionLeg as Object);
+            Legs.Add(optionLeg);
         }
 
         #region ALL_PROPERTIES
 
-        public IWindowPopup Popup { get; set; }
-        
+        public IWindowPopup Popup { get; set; }       
 
-        public List<IOptionDetail> Legs
-        {            
+        public List<OptionDetailImpl> Legs
+        {
             get
             {
-                var result = new List<IOptionDetail>();
-                if (legs != null)
-                {
-                    foreach (var leg in legs)
-                    {
-                        result.Add(leg as IOptionDetail);
-                    }
-                }
-                return result;
+                return legs;
             }
             set
             {
-                if(legs == null)
-                    legs = new List<object>();
-
-                foreach (var optionDetail in value)
-                {
-                    legs.Add(optionDetail as Object);
-                }
+                legs = value;
             }
         }
 

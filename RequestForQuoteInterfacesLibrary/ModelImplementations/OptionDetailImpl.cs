@@ -366,7 +366,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public IOptionDetail CloneOptionDetails()
+        public OptionDetailImpl CloneOptionDetails()
         {
             var clone = new OptionDetailImpl
                 {

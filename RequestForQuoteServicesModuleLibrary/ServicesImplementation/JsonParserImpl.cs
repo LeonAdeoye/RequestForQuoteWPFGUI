@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
@@ -100,10 +101,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));                
                 eventAggregator.GetEvent<NewSerializedRequestEvent>().Publish(new NewSerializedRequestEventPayload()
                 {
-                    NewSerializedRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)))
+                    NewSerializedRequest = JsonConvert.DeserializeObject<RequestForQuoteImpl>(json)                   
                 }); 
             }
             catch (Exception exc)

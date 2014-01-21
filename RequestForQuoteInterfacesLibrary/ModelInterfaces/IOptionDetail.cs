@@ -1,5 +1,6 @@
 ﻿using System;
 using RequestForQuoteInterfacesLibrary.Enums;
+using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
@@ -34,6 +35,6 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         double Volatility { get; set; }
 
         IRequestForQuote ParentRequest { get; set; }
-        IOptionDetail CloneOptionDetails();
+        OptionDetailImpl CloneOptionDetails();
     }
 }

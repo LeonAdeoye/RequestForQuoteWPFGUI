@@ -21,7 +21,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return optionReg.Match(request).Success;
         }
 
-        public void ParseOptionStrikes(string delimitedStrikes, List<IOptionDetail> optionLegs)
+        public void ParseOptionStrikes(string delimitedStrikes, List<OptionDetailImpl> optionLegs)
         {
             if (String.IsNullOrEmpty(delimitedStrikes))
                 throw new ArgumentException("delimitedStrikes");
@@ -43,7 +43,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public void ParseOptionMaturityDates(string delimitedDates, List<IOptionDetail> optionLegs)
+        public void ParseOptionMaturityDates(string delimitedDates, List<OptionDetailImpl> optionLegs)
         {
             if (String.IsNullOrEmpty(delimitedDates))
                 throw new ArgumentException("delimitedDates");
@@ -73,7 +73,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public void ParseOptionUnderlyings(string delimitedUnderlyings, List<IOptionDetail> optionLegs)
+        public void ParseOptionUnderlyings(string delimitedUnderlyings, List<OptionDetailImpl> optionLegs)
         {
             if (String.IsNullOrEmpty(delimitedUnderlyings))
                 throw new ArgumentException("delimitedUnderlyings");
@@ -112,7 +112,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             }
         }
 
-        public List<IOptionDetail> ParseRequest(string request, IRequestForQuote parent)
+        public List<OptionDetailImpl> ParseRequest(string request, IRequestForQuote parent)
         {
             if (String.IsNullOrEmpty(request))
                 throw new ArgumentException("request");
@@ -128,7 +128,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             return optionLegs;
         }
 
-        public List<IOptionDetail> ParseOptionTypes(string request, IRequestForQuote parent)
+        public List<OptionDetailImpl> ParseOptionTypes(string request, IRequestForQuote parent)
         {
             if (String.IsNullOrEmpty(request))
                 throw new ArgumentException("request");
@@ -136,7 +136,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (parent == null)
                 throw new ArgumentNullException("parent");
 
-            var optionTypes = new List<IOptionDetail>();
+            var optionTypes = new List<OptionDetailImpl>();
             var optionDetailReg = new Regex(@"^(?<side>[+-])?(?<quantity>[1-9])?(?<type>[CP]{1})+");
             var optionLegReg = new Regex(@"^(?<leg>[+-]?[1-9]?[CP]{1})+");
             var matchedLegs = optionLegReg.Match(request);

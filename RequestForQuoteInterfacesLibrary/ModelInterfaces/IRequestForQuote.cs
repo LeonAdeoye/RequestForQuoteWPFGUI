@@ -84,7 +84,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         double HedgePrice { get; set; }
         double TotalPremium { get; }
 
-        List<IOptionDetail> Legs { get; set; }
+        List<OptionDetailImpl> Legs { get; set; }
         List<ChatMessageImpl> Messages { get; set; }
         IEditableObject EditableViewModel { get; set; }
 

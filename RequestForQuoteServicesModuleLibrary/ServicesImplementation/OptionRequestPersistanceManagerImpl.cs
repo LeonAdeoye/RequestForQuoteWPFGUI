@@ -217,7 +217,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 		/// <returns> the GUI formatted of the RFQ's option leg.</returns>
 		/// <exception cref="ArgumentNullException"> thrown if the web service formatted RFQ's option leg is null.</exception>
 		/// <exception cref="InvalidDataException"> thrown if maturity date or side are invalid and cannot be converted.</exception>
-		private IOptionDetail CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
+		private OptionDetailImpl CreateRequestForQuoteLegFromServiceOptionLeg(optionDetailImpl serviceOptionLeg)
 		{
 			if (serviceOptionLeg == null)
 				throw new ArgumentNullException("serviceOptionLeg");
@@ -363,13 +363,13 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 			if (serviceRequest.legs != null && serviceRequest.legs.optionDetailList != null)
 			{
 				if(serviceRequest.legs.optionDetailList.Length > 0)
-					requestForQuoteToCreate.Legs = new List<IOptionDetail>();
+					requestForQuoteToCreate.Legs = new List<OptionDetailImpl>();
 
 				foreach (var leg in serviceRequest.legs.optionDetailList)
 				{
 					var optionLeg = CreateRequestForQuoteLegFromServiceOptionLeg(leg);
 					optionLeg.ParentRequest = requestForQuoteToCreate;
-                    requestForQuoteToCreate.AddLeg(optionLeg);
+					requestForQuoteToCreate.AddLeg(optionLeg);
 				}					
 			}
 
