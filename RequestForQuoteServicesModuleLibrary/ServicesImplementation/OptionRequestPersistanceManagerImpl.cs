@@ -369,7 +369,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 				{
 					var optionLeg = CreateRequestForQuoteLegFromServiceOptionLeg(leg);
 					optionLeg.ParentRequest = requestForQuoteToCreate;
-					requestForQuoteToCreate.Legs.Add(optionLeg);
+                    requestForQuoteToCreate.AddLeg(optionLeg);
 				}					
 			}
 

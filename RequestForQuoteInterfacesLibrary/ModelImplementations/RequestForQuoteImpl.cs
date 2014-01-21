@@ -73,8 +73,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         [DataMember] private string clientComment;
 
         [DataMember] private string pickedUpBy;
+        [DataMember] private List<Object> legs;
 
-        public List<IOptionDetail> Legs { get; set; }
         public List<ChatMessageImpl> Messages { get; set; }
         public IEditableObject EditableViewModel { get; set; }
 
@@ -386,9 +386,44 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             return builder.ToString();
         }
 
+        public void AddLeg(IOptionDetail optionLeg)
+        {
+            if(legs == null)
+                legs = new List<object>();
+
+            legs.Add(optionLeg as Object);
+        }
+
         #region ALL_PROPERTIES
 
         public IWindowPopup Popup { get; set; }
+        
+
+        public List<IOptionDetail> Legs
+        {            
+            get
+            {
+                var result = new List<IOptionDetail>();
+                if (legs != null)
+                {
+                    foreach (var leg in legs)
+                    {
+                        result.Add(leg as IOptionDetail);
+                    }
+                }
+                return result;
+            }
+            set
+            {
+                if(legs == null)
+                    legs = new List<object>();
+
+                foreach (var optionDetail in value)
+                {
+                    legs.Add(optionDetail as Object);
+                }
+            }
+        }
 
         public string Request
         {

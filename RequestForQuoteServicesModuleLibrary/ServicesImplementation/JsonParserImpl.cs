@@ -100,7 +100,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));
+                var serializer = new DataContractJsonSerializer(typeof(RequestForQuoteImpl));                
                 eventAggregator.GetEvent<NewSerializedRequestEvent>().Publish(new NewSerializedRequestEventPayload()
                 {
                     NewSerializedRequest = (RequestForQuoteImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)))
