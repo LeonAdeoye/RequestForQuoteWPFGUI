@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -78,8 +77,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(SearchCriterionImpl));
-                ISearchCriterion newCriterion = (SearchCriterionImpl) serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                ISearchCriterion newCriterion = JsonConvert.DeserializeObject<SearchCriterionImpl>(json);
                 searchManager.AddSearch(newCriterion.Owner, newCriterion.DescriptionKey, newCriterion.IsPrivate, newCriterion.IsFilter, 
                     newCriterion.ControlName, newCriterion.ControlValue);
             }
@@ -124,8 +122,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(BankHolidayImpl));
-                IBankHoliday newHoliday = (BankHolidayImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                IBankHoliday newHoliday = JsonConvert.DeserializeObject<BankHolidayImpl>(json);                   
                 bankHolidayManager.AddHoliday(newHoliday.HolidayDate, newHoliday.Location);
             }
             catch (Exception exc)
@@ -145,11 +142,10 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 throw new ArgumentException("json");
 
             try
-            {
-                var serializer = new DataContractJsonSerializer(typeof(ChatMessageImpl));
+            {                
                 eventAggregator.GetEvent<NewChatMessageEvent>().Publish(new NewChatMessageEventPayload()
                 {
-                    NewChatMessage = (ChatMessageImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)))
+                    NewChatMessage = JsonConvert.DeserializeObject<ChatMessageImpl>(json)
                 });  
             }
             catch (Exception exc)
@@ -170,8 +166,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(BookImpl));
-                IBook newBook = (BookImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                IBook newBook = JsonConvert.DeserializeObject<BookImpl>(json);
                 bookManager.AddBook(newBook.BookCode, newBook.Entity, newBook.IsValid);
             }
             catch (Exception exc)
@@ -191,9 +186,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 throw new ArgumentException("json");
 
             try
-            {
-                var serializer = new DataContractJsonSerializer(typeof(ClientImpl));
-                IClient newClient = (ClientImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+            {                
+                IClient newClient = JsonConvert.DeserializeObject<ClientImpl>(json);
                 clientManager.AddClient(newClient.Name, newClient.Tier, newClient.IsValid);
             }
             catch (Exception exc)
@@ -214,8 +208,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(UnderlyingImpl));
-                IUnderlying newUnderlying = (UnderlyingImpl)serializer.ReadObject(new MemoryStream(Encoding.ASCII.GetBytes(json)));
+                IUnderlying newUnderlying = JsonConvert.DeserializeObject<UnderlyingImpl>(json);
                 underlyingManager.AddUnderlying(newUnderlying.RIC, newUnderlying.Description, newUnderlying.IsValid);
             }
             catch (Exception exc)
