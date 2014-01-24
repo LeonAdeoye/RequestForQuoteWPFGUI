@@ -5,6 +5,7 @@ using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
 using RequestForQuoteInterfacesLibrary.Enums;
+using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -181,6 +182,126 @@ namespace RequestForQuoteGridModuleLibrary.Test
             Action act = () => viewModel.HandleNewClientEvent(null);
 
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleGetTodaysRequestsEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleGetTodaysRequestsEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because emptyPayload parameter cannot be null").WithMessage("emptyPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewBookEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewBookEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandlePublishedClosedRequestEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandlePublishedClosedRequestEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleBothFilterAndSearchRequests_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleBothFilterAndSearchRequests(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandlePublishedFilterRequestsEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandlePublishedFilterRequestsEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandlePublishedSearchRequestsEvent_NullRequestParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandlePublishedSearchRequestsEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_ClientsCollectionShouldBePopulated()
+        {
+            viewModel.Clients.Should().NotBeEmpty("because the constructor populates it");
+        }
+
+        [Test]
+        public void Constructor_BooksCollectionShouldBePopulated()
+        {
+            viewModel.Books.Should().NotBeEmpty("because the constructor populates it");
+        }
+
+        [Test]
+        public void Constructor_StatusCollectionShouldBePopulated()
+        {
+            viewModel.Status.Should().NotBeEmpty("because the constructor populates it");
+        }
+
+        [Test]
+        public void Constructor_NewBookEventShouldBeSubscribedTo()
+        {
+            newBookEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<NewBookEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewBookEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new book event!");
+        }
+
+        [Test]
+        public void Constructor_NewClientEventShouldBeSubscribedTo()
+        {
+            newClientEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<NewClientEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewClientEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new client event!");
+        }
+
+        [Test]
+        public void Constructor_NewRequestForQuoteEventShouldBeSubscribedTo()
+        {
+            newRequestForQuoteEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<NewRequestForQuoteEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewRequestForQuoteEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new request for quote event!");
+        }
+
+        [Test]
+        public void Constructor_ClosedRequestForQuoteDetailsEventShouldBeSubscribedTo()
+        {
+            closedRequestForQuoteDetailsEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<ClosedRequestForQuoteDetailsEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<ClosedRequestForQuoteDetailsEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new closed request for quote details event!");
+        }
+
+        [Test]
+        public void Constructor_SearchRequestForQuoteEventShouldBeSubscribedTo()
+        {
+            searchRequestForQuoteEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<CriteriaUsageEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<CriteriaUsageEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new search request for quote details event!");
+        }
+
+        [Test]
+        public void Constructor_GetTodaysRequestsEventShouldBeSubscribedTo()
+        {
+            getTodaysRequestsEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<EmptyEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<EmptyEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to get todays requests event!");
         }
     }
 }
