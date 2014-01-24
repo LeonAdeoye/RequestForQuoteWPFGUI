@@ -57,6 +57,11 @@ namespace RequestForQuoteGridModuleLibrary.Test
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() { testBook });
             clientManagerMock.Setup(cm => cm.Clients).Returns(new List<IClient>() { testClient });
+            optionRequestPersistanceManagerMock.Setup(orpm => orpm.GetRequestsForToday(true)).Returns(new List<IRequestForQuote>());
+
+            viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
+                            optionRequestParserMock.Object, optionRequestPricerMock.Object, chatServiceManagerMock.Object, underlyingManagerMock.Object,
+                            optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
         }
 
         [TearDown]
@@ -72,6 +77,72 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
+        public void Constructor_BookManager_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(null, clientManagerMock.Object,
+                optionRequestParserMock.Object, optionRequestPricerMock.Object, chatServiceManagerMock.Object, underlyingManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because book manager parameter cannot be null.").WithMessage("bookManager", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_ClientManager_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, null,
+                optionRequestParserMock.Object, optionRequestPricerMock.Object, chatServiceManagerMock.Object, underlyingManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because client manager parameter cannot be null.").WithMessage("clientManager", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_OptionRequestParser_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
+                null, optionRequestPricerMock.Object, chatServiceManagerMock.Object, underlyingManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because option request parser parameter cannot be null.").WithMessage("optionRequestParser", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_OptionRequestPricer_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
+                optionRequestParserMock.Object, null, chatServiceManagerMock.Object, underlyingManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because option request pricer parameter cannot be null.").WithMessage("optionRequestPricer", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_ChatServiceManager_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
+                optionRequestParserMock.Object, optionRequestPricerMock.Object, null, underlyingManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because chat service manager parameter cannot be null.").WithMessage("chatServiceManager", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void Constructor_UnderlyingManager_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
+                optionRequestParserMock.Object, optionRequestPricerMock.Object, chatServiceManagerMock.Object, null,
+                optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, configManagerMock.Object);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because underlying manager parameter cannot be null.").WithMessage("underlyingManager", ComparisonMode.Substring);
+        }
+
+        [Test]
         public void Constructor_RequestPersistanceManager_ArgumentNullExceptionThrown()
         {
             // Act
@@ -79,7 +150,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 optionRequestParserMock.Object, optionRequestPricerMock.Object, chatServiceManagerMock.Object, underlyingManagerMock.Object,
                 null, eventAggregatorMock.Object, configManagerMock.Object);
             // Assert
-            act.ShouldThrow<ArgumentNullException>("because request persistance manager parameter cannot be null.").WithMessage("requestPersistanceManager", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentNullException>("because option request persistance manager parameter cannot be null.").WithMessage("optionRequestPersistanceManager", ComparisonMode.Substring);
         }
 
         [Test]
@@ -102,6 +173,14 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 optionRequestPersistanceManagerMock.Object, eventAggregatorMock.Object, null);
             // Assert
             act.ShouldThrow<ArgumentNullException>("because config manager parameter cannot be null.").WithMessage("configManager", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewClientEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewClientEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
     }
 }
