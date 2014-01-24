@@ -303,5 +303,14 @@ namespace RequestForQuoteGridModuleLibrary.Test
                                    It.IsAny<bool>(), It.IsAny<Predicate<EmptyEventPayload>>()), Times.Once(),
                 "view model constructor did not subscribe to get todays requests event!");
         }
+
+        [Test]
+        public void Constructor_NewSerializedRequestEventShouldBeSubscribedTo()
+        {
+            newSerializedRequestEventMock.Verify(
+                bm => bm.Subscribe(It.IsAny<Action<NewSerializedRequestEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewSerializedRequestEventPayload>>()), Times.Once(),
+                "view model constructor did not subscribe to new serialized request event!");
+        }
     }
 }
