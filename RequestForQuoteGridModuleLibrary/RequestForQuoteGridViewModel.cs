@@ -148,7 +148,6 @@ namespace RequestForQuoteGridModuleLibrary
 
         private void InitializeEventSubscriptions()
         {
-
             eventAggregator.GetEvent<NewRequestForQuoteEvent>()
                            .Subscribe(HandlePublishedNewRequestEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
@@ -236,34 +235,46 @@ namespace RequestForQuoteGridModuleLibrary
             return (SelectedRequest == null);
         }
 
-        public void HandleNewClientEvent(NewClientEventPayload eventPayLoad)
+        public void HandleNewClientEvent(NewClientEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new client: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            Clients.Add(eventPayLoad.NewClient);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new client: " + eventPayload);
+
+            Clients.Add(eventPayload.NewClient);
         }
 
-        public void HandleNewBookEvent(NewBookEventPayload eventPayLoad)
+        public void HandleNewBookEvent(NewBookEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new book: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            Books.Add(eventPayLoad.NewBook);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new book: " + eventPayload);
+
+            Books.Add(eventPayload.NewBook);
         }
 
-        public void HandleNewSerializedRequestEvent(NewSerializedRequestEventPayload eventPayLoad)
+        public void HandleNewSerializedRequestEvent(NewSerializedRequestEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new serialized request: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            if(TodaysRequests.All(request => request.Identifier != eventPayLoad.NewSerializedRequest.Identifier) &&
-                eventPayLoad.NewSerializedRequest.TradeDate == DateTime.Today)
-                Requests.Add(eventPayLoad.NewSerializedRequest);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new serialized request: " + eventPayload);
+
+            if(TodaysRequests.All(request => request.Identifier != eventPayload.NewSerializedRequest.Identifier) &&
+                eventPayload.NewSerializedRequest.TradeDate == DateTime.Today)
+                Requests.Add(eventPayload.NewSerializedRequest);
         }
 
         public void HandlePublishedNewRequestEvent(NewRequestForQuoteEventPayload eventPayload)
         {
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
             IRequestForQuote request = new RequestForQuoteImpl();
             request.Legs = optionRequestParser.ParseRequest(eventPayload.NewRequestText.ToUpper(), request);
             request.Request = eventPayload.NewRequestText;
@@ -300,6 +311,9 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void HandleGetTodaysRequestsEvent(EmptyEventPayload emptyPayload)
         {
+            if (emptyPayload == null)
+                throw new ArgumentNullException("emptyPayload");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received request to reset grid to today's requests.");
 
@@ -313,27 +327,33 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void HandlePublishedClosedRequestEvent(ClosedRequestForQuoteDetailsEventPayload eventPayload)
         {
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received published closed request for quote => " + eventPayload.RequestForQuoteIdentifer);
         }
 
-        public void HandleBothFilterAndSearchRequests(CriteriaUsageEventPayload usageEventPayload)
+        public void HandleBothFilterAndSearchRequests(CriteriaUsageEventPayload eventPayload)
         {
-            if (usageEventPayload != null && usageEventPayload.IsFilter)
-                HandlePublishedFilterRequestsEvent(usageEventPayload);
+            if (eventPayload != null && eventPayload.IsFilter)
+                HandlePublishedFilterRequestsEvent(eventPayload);
             else
-                HandlePublishedSearchRequestsEvent(usageEventPayload);
+                HandlePublishedSearchRequestsEvent(eventPayload);
         }
 
-        public void HandlePublishedFilterRequestsEvent(CriteriaUsageEventPayload usageEventPayload)
+        public void HandlePublishedFilterRequestsEvent(CriteriaUsageEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received published filter requests event => " + usageEventPayload);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            if (usageEventPayload.Criteria != null && usageEventPayload.Criteria.Count > 0)
+            if (log.IsDebugEnabled)
+                log.Debug("Received published filter requests event => " + eventPayload);
+
+            if (eventPayload.Criteria != null && eventPayload.Criteria.Count > 0)
             {
                 var view = CollectionViewSource.GetDefaultView(Requests);
-                view.Filter = (request) => DoesRequestMatchFilter(request as IRequestForQuote, usageEventPayload.Criteria);
+                view.Filter = (request) => DoesRequestMatchFilter(request as IRequestForQuote, eventPayload.Criteria);
             }
             else
             {
@@ -347,42 +367,45 @@ namespace RequestForQuoteGridModuleLibrary
 
         private bool DoesRequestMatchFilter(IRequestForQuote request, Dictionary<string, string> criteria)
         {
-            if (request != null)
+            if (request == null)
+                throw new ArgumentNullException("request");
+
+            if (criteria == null)
+                throw new ArgumentNullException("criteria");
+
+            foreach (var criterion in criteria)
             {
-                foreach (var criterion in criteria)
+                switch (criterion.Key)
                 {
-                    switch (criterion.Key)
-                    {
-                        case RequestForQuoteConstants.CLIENT_CRITERION:
-                            int clientIdentifier;
-                            if (!int.TryParse(criterion.Value, out clientIdentifier) || request.Client.Identifier != clientIdentifier)
-                                return false;
-                            break;
-                        case RequestForQuoteConstants.BOOK_CRITERION:
-                            if (request.BookCode != criterion.Value)
-                                return false;
-                            break;
+                    case RequestForQuoteConstants.CLIENT_CRITERION:
+                        int clientIdentifier;
+                        if (!int.TryParse(criterion.Value, out clientIdentifier) || request.Client.Identifier != clientIdentifier)
+                            return false;
+                        break;
+                    case RequestForQuoteConstants.BOOK_CRITERION:
+                        if (request.BookCode != criterion.Value)
+                            return false;
+                        break;
                         // TODO
                         // case RequestForQuoteConstants.UNDERLYIER_CRITERION:
                         //    if (request.RIC != criterion.Value)
                         //        return false;
                         //    break;
-                        case RequestForQuoteConstants.STATUS_CRITERION:
-                            if (request.Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
-                                return false;
-                            break;
-                        case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                            if (!IsWithinDateRange(request.TradeDate, criterion.Value))
-                                return false;
-                            break;
-                        case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
-                            // TODO Add Expiry date and change...
-                            if (!IsWithinDateRange(request.TradeDate, criterion.Value))
-                                return false;
-                            break;
-                        default:
+                    case RequestForQuoteConstants.STATUS_CRITERION:
+                        if (request.Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
                             return false;
-                    }
+                        break;
+                    case RequestForQuoteConstants.TRADE_DATE_CRITERION:
+                        if (!IsWithinDateRange(request.TradeDate, criterion.Value))
+                            return false;
+                        break;
+                    case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
+                        // TODO Add Expiry date and change...
+                        if (!IsWithinDateRange(request.TradeDate, criterion.Value))
+                            return false;
+                        break;
+                    default:
+                        return false;
                 }
             }
             return true;
@@ -390,6 +413,12 @@ namespace RequestForQuoteGridModuleLibrary
 
         private bool IsWithinDateRange(DateTime dateToCheck, string criterionValue)
         {
+            if (String.IsNullOrEmpty(criterionValue))
+                throw new ArgumentException("criterionValue");
+
+            if (dateToCheck == null)
+                throw new ArgumentNullException("dateToCheck");
+
             try
             {
                 var dates = criterionValue.Split('-').ToArray();
@@ -421,6 +450,9 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void HandlePublishedSearchRequestsEvent(CriteriaUsageEventPayload eventPayload)
         {
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received published search requests event => " + eventPayload);
 
@@ -450,6 +482,9 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void GroupRequests(string groupBy)
         {
+            if (String.IsNullOrEmpty(groupBy))
+                throw new ArgumentException("groupBy");
+
             var view = CollectionViewSource.GetDefaultView(Requests);
             view.GroupDescriptions.Clear();
             if (groupBy != "Undo Grouping")

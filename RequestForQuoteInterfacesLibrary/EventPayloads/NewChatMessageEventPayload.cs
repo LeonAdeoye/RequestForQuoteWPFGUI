@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
-using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.EventPayloads
 {
