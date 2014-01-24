@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestForQuoteDetailsViewModelTest.cs" />
+    <Compile Include="RequestForQuoteGridViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RequestForQuoteGridModuleLibrary\RequestForQuoteGridModuleLibrary.csproj">

@@ -30,7 +30,6 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IOptionRequestParser optionRequestParser;
         private readonly IOptionRequestPricer optionRequestPricer;
         private readonly IOptionRequestPersistanceManager optionRequestPersistanceManager;
-
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
         private readonly IChatServiceManager chatServiceManager;

@@ -30,9 +30,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         private readonly Mock<NewClientEvent> newClientEventMock = new Mock<NewClientEvent>();
         private readonly Mock<NewSearchEvent> newSearchEventMock = new Mock<NewSearchEvent>();
         private readonly Mock<NewUnderlyierEvent> newUnderlyierEventMock = new Mock<NewUnderlyierEvent>();        
-
-        private readonly Mock<SearchRequestForQuoteEvent> searchRequestForQuoteEventMock =
-            new Mock<SearchRequestForQuoteEvent>();
+        private readonly Mock<SearchRequestForQuoteEvent> searchRequestForQuoteEventMock = new Mock<SearchRequestForQuoteEvent>();
 
         private RequestForQuoteDetailsViewModel viewModel;
         //private bool wasCalled;
@@ -70,8 +68,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             eventAggregatorMock.Setup(p => p.GetEvent<NewClientEvent>()).Returns(newClientEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewSearchEvent>()).Returns(newSearchEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewUnderlyierEvent>()).Returns(newUnderlyierEventMock.Object);
-            eventAggregatorMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>())
-                               .Returns(searchRequestForQuoteEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>()).Returns(searchRequestForQuoteEventMock.Object);
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() {testBook});
             clientManagerMock.Setup(cm => cm.Clients).Returns(new List<IClient>() {testClient});
