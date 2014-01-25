@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
@@ -10,6 +11,7 @@ using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
+using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RequestForQuoteGridModuleLibrary.Test
 {
@@ -34,6 +36,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         private readonly Mock<NewSerializedRequestEvent> newSerializedRequestEventMock = new Mock<NewSerializedRequestEvent>();
 
         private RequestForQuoteGridViewModel viewModel;
+        private bool wasCalled;
 
         private readonly IBook testBook = new BookImpl() { BookCode = "test book" };
 
@@ -69,6 +72,12 @@ namespace RequestForQuoteGridModuleLibrary.Test
         public void TearDown()
         {
 
+        }
+
+        [SetUp]
+        public void SetUpBeforeEachAndEveryTest()
+        {
+            wasCalled = false;
         }
 
         [TestFixtureTearDown]
@@ -179,80 +188,91 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void HandleNewClientEvent_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandleNewClientEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandleGetTodaysRequestsEvent_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandleGetTodaysRequestsEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because emptyPayload parameter cannot be null").WithMessage("emptyPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandleNewBookEvent_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandleNewBookEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandlePublishedClosedRequestEvent_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandlePublishedClosedRequestEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandleBothFilterAndSearchRequests_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandleBothFilterAndSearchRequests(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandlePublishedFilterRequestsEvent_NullParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandlePublishedFilterRequestsEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void HandlePublishedSearchRequestsEvent_NullRequestParameter_ArgumentNullExceptionThrown()
         {
+            // Act
             Action act = () => viewModel.HandlePublishedSearchRequestsEvent(null);
-
+            // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
         public void Constructor_ClientsCollectionShouldBePopulated()
         {
+            // Assert
             viewModel.Clients.Should().NotBeEmpty("because the constructor populates it");
         }
 
         [Test]
         public void Constructor_BooksCollectionShouldBePopulated()
         {
+            // Assert
             viewModel.Books.Should().NotBeEmpty("because the constructor populates it");
         }
 
         [Test]
         public void Constructor_StatusCollectionShouldBePopulated()
         {
+            // Assert
             viewModel.Status.Should().NotBeEmpty("because the constructor populates it");
         }
 
         [Test]
         public void Constructor_NewBookEventShouldBeSubscribedTo()
         {
+            // Assert
             newBookEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<NewBookEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewBookEventPayload>>()), Times.Once(),
@@ -262,6 +282,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void Constructor_NewClientEventShouldBeSubscribedTo()
         {
+            // Assert
             newClientEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<NewClientEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewClientEventPayload>>()), Times.Once(),
@@ -271,6 +292,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void Constructor_NewRequestForQuoteEventShouldBeSubscribedTo()
         {
+            // Assert
             newRequestForQuoteEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<NewRequestForQuoteEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewRequestForQuoteEventPayload>>()), Times.Once(),
@@ -280,6 +302,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void Constructor_ClosedRequestForQuoteDetailsEventShouldBeSubscribedTo()
         {
+            // Assert
             closedRequestForQuoteDetailsEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<ClosedRequestForQuoteDetailsEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<ClosedRequestForQuoteDetailsEventPayload>>()), Times.Once(),
@@ -289,6 +312,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void Constructor_SearchRequestForQuoteEventShouldBeSubscribedTo()
         {
+            // Assert
             searchRequestForQuoteEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<CriteriaUsageEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<CriteriaUsageEventPayload>>()), Times.Once(),
@@ -298,10 +322,11 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void Constructor_GetTodaysRequestsEventShouldBeSubscribedTo()
         {
+            // Assert
             getTodaysRequestsEventMock.Verify(
                 bm => bm.Subscribe(It.IsAny<Action<EmptyEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<EmptyEventPayload>>()), Times.Once(),
-                "view model constructor did not subscribe to get todays requests event!");
+               "view model constructor did not subscribe to get todays requests event!");
         }
 
         [Test]
@@ -311,6 +336,62 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 bm => bm.Subscribe(It.IsAny<Action<NewSerializedRequestEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewSerializedRequestEventPayload>>()), Times.Once(),
                 "view model constructor did not subscribe to new serialized request event!");
+        }
+
+        [Test]
+        public void CanShowDetailsWindow_NonNullSelectedRequest_ReturnsTrue()
+        {
+            // Arrange
+            Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
+            viewModel.SelectedRequest = requestMock.Object;
+            // Assert
+            viewModel.CanShowDetailsWindow().Should().BeTrue("because SelectedRequest != null");
+        }
+
+        //[Test]
+        //public void ShowDetailsWindow_NonNullSelectedRequestPopup_ShowWindowWasCalled()
+        //{
+        //    // Arrange            
+        //    Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
+        //    viewModel.SelectedRequest = requestMock.Object;
+        //    Mock<IWindowPopup> popupWindowMock = new Mock<IWindowPopup>();
+        //    viewModel.SelectedRequest.Popup = popupWindowMock.Object;
+        //    IEditableObject editableObject = new Mock<IEditableObject>().Object;
+        //    viewModel.SelectedRequest.EditableViewModel = new Mock<IEditableObject>().Object;
+        //    requestMock.Setup(sm => sm.Popup.ShowWindow()).Callback(() => wasCalled = true);
+        //    // Act
+        //    viewModel.ShowDetailsWindow();
+        //    // Assert
+        //    wasCalled.Should().BeTrue();
+        //}
+
+        [Test]
+        public void CanAddNewRequest_EmptyNewRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = String.Empty;
+            // Assert
+            viewModel.CanAddNewRequest().Should().BeFalse("because NewRequest is empty");
+        }
+
+        [Test]
+        public void CanAddNewRequest_NullNewRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = null;
+            // Assert
+            viewModel.CanAddNewRequest().Should().BeFalse("because NewRequest is null");
+        }
+
+        [Test]
+        public void CanAddNewRequest_ValidNewRequest_ReturnsTrue()
+        {
+            // Arrange
+            viewModel.NewRequest = "C 100 23Dec2020 1111.T";
+            optionRequestParserMock.Setup(orp => orp.IsValidOptionRequest(It.IsAny<String>())).Returns(true);
+            viewModel.NewRequestClient = testClient;
+            // Assert
+            viewModel.CanAddNewRequest().Should().BeTrue("because NewRequest and NewRequestClient are valid");
         }
     }
 }
