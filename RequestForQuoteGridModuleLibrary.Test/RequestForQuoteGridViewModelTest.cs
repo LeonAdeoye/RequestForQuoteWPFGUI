@@ -384,7 +384,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void CanAddNewRequest_ValidNewRequest_ReturnsTrue()
+        public void CanAddNewRequest_ValidNewRequestAndClient_ReturnsTrue()
         {
             // Arrange
             viewModel.NewRequest = "C 100 23Dec2020 1111.T";
@@ -392,6 +392,65 @@ namespace RequestForQuoteGridModuleLibrary.Test
             viewModel.NewRequestClient = testClient;
             // Assert
             viewModel.CanAddNewRequest().Should().BeTrue("because NewRequest and NewRequestClient are valid");
+        }
+
+        [Test]
+        public void CanAddNewRequest_NullClient_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = "C 100 23Dec2020 1111.T";
+            optionRequestParserMock.Setup(orp => orp.IsValidOptionRequest(It.IsAny<String>())).Returns(true);
+            viewModel.NewRequestClient = null;
+            // Assert
+            viewModel.CanAddNewRequest().Should().BeFalse("because NewRequestClient is null");
+        }
+
+        [Test]
+        public void CanAddNewRequest_InvalidNewRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = "C 100 23Dec2020 1111.T";
+            optionRequestParserMock.Setup(orp => orp.IsValidOptionRequest(It.IsAny<String>())).Returns(false);
+            // Assert
+            viewModel.CanAddNewRequest().Should().BeFalse("because NewRequest parsing returns false");
+        }
+
+        [Test]
+        public void CanClearNewRequest_ValidNewRequestAndValidClient_ReturnsTrue()
+        {
+            // Arrange
+            viewModel.NewRequest = "C 100 23Dec2020 1111.T";
+            viewModel.NewRequestClient = testClient;            
+            // Assert
+            viewModel.CanClearNewRequest().Should().BeTrue("because NewRequest and NewRequestClient are valid");
+        }
+
+        [Test]
+        public void CanClearNewRequest_NullNewRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = null;
+            // Assert
+            viewModel.CanClearNewRequest().Should().BeFalse("because NewRequest is null");
+        }
+
+        [Test]
+        public void CanClearNewRequest_EmptyNewRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = String.Empty;
+            // Assert
+            viewModel.CanClearNewRequest().Should().BeFalse("because NewRequest is empty");
+        }
+
+        [Test]
+        public void CanClearNewRequest_NullClient_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.NewRequest = String.Empty;
+            viewModel.NewRequestClient = null;
+            // Assert
+            viewModel.CanClearNewRequest().Should().BeFalse("because NewRequestClient is null");
         }
     }
 }
