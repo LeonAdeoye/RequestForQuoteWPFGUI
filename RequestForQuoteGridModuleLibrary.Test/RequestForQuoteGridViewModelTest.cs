@@ -452,5 +452,36 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.CanClearNewRequest().Should().BeFalse("because NewRequestClient is null");
         }
+
+        [Test]
+        public void CanInvalidateRequest_NullSelectedRequest_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.SelectedRequest = null;            
+            // Assert
+            viewModel.CanInvalidateRequest().Should().BeFalse("because SelectedRequest is null");
+        }
+
+        [Test]
+        public void CanInvalidateRequest_SelectedRequestStatusIsInvalid_ReturnsFalse()
+        {
+            // Arrange
+            Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
+            viewModel.SelectedRequest = requestMock.Object;
+            requestMock.Setup(sr => sr.Status).Returns(StatusEnum.INVALID);
+            // Assert
+            viewModel.CanInvalidateRequest().Should().BeFalse("because SelectedRequest's status is INVALID");
+        }
+
+        [Test]
+        public void CanInvalidateRequest_SelectedRequestStatusIsNotInvalid_ReturnsTrue()
+        {
+            // Arrange
+            Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
+            viewModel.SelectedRequest = requestMock.Object;
+            requestMock.Setup(sr => sr.Status).Returns(StatusEnum.FILLED);
+            // Assert
+            viewModel.CanInvalidateRequest().Should().BeTrue("because SelectedRequest's status is NOT INVALID");
+        }
     }
 }
