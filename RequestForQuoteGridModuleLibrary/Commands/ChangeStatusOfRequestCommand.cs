@@ -13,7 +13,7 @@ namespace RequestForQuoteGridModuleLibrary.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return !viewModel.IsSelectRequestNull();
+            return !viewModel.IsSelectedRequestNull();
         }
 
         public override void Execute(object parameter)

@@ -77,7 +77,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [SetUp]
         public void SetUpBeforeEachAndEveryTest()
         {
-            wasCalled = false;
+            wasCalled = false;            
         }
 
         [TestFixtureTearDown]
@@ -419,28 +419,29 @@ namespace RequestForQuoteGridModuleLibrary.Test
         public void CanClearNewRequest_ValidNewRequestAndValidClient_ReturnsTrue()
         {
             // Arrange
-            viewModel.NewRequest = "C 100 23Dec2020 1111.T";
-            viewModel.NewRequestClient = testClient;            
+            viewModel.NewRequest = "C 100 23Dec2020 1111.T";          
             // Assert
-            viewModel.CanClearNewRequest().Should().BeTrue("because NewRequest and NewRequestClient are valid");
+            viewModel.CanClearNewRequest().Should().BeTrue("because the new request string is valid");
         }
 
         [Test]
-        public void CanClearNewRequest_NullNewRequest_ReturnsFalse()
+        public void CanClearNewRequest_NullNewRequest_ReturnsTrue()
         {
             // Arrange
             viewModel.NewRequest = null;
+            viewModel.NewRequestClient = testClient; 
             // Assert
-            viewModel.CanClearNewRequest().Should().BeFalse("because NewRequest is null");
+            viewModel.CanClearNewRequest().Should().BeTrue("because the new request string is null and the client is not null");
         }
 
         [Test]
-        public void CanClearNewRequest_EmptyNewRequest_ReturnsFalse()
+        public void CanClearNewRequest_EmptyNewRequest_ReturnsTrue()
         {
             // Arrange
             viewModel.NewRequest = String.Empty;
+            viewModel.NewRequestClient = testClient; 
             // Assert
-            viewModel.CanClearNewRequest().Should().BeFalse("because NewRequest is empty");
+            viewModel.CanClearNewRequest().Should().BeTrue("because the new request string is empty and new client is not null");
         }
 
         [Test]
@@ -482,6 +483,47 @@ namespace RequestForQuoteGridModuleLibrary.Test
             requestMock.Setup(sr => sr.Status).Returns(StatusEnum.FILLED);
             // Assert
             viewModel.CanInvalidateRequest().Should().BeTrue("because SelectedRequest's status is NOT INVALID");
+        }
+
+        [Test]
+        public void IsSelectedRequestNull_SelectedRequestIsNull_ReturnsTrue()
+        {
+            // Arrange            
+            viewModel.SelectedRequest = null;
+            // Assert
+            viewModel.IsSelectedRequestNull().Should().BeTrue("because SelectedRequest is Null");
+        }
+
+        [Test]
+        public void IsSelectedRequestNull_SelectedRequestIsNotNull_ReturnsFalse()
+        {
+            // Arrange            
+            Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
+            viewModel.SelectedRequest = requestMock.Object;
+            // Assert
+            viewModel.IsSelectedRequestNull().Should().BeFalse("because SelectedRequest is NOT Null");
+        }
+
+        [Test]
+        public void HandleNewClientEvent_ValidClientEventPayload_IncrementsClientsCollectionCount()
+        {
+            // Arrange
+            var currentCount = viewModel.Clients.Count;
+            // Act
+           viewModel.HandleNewClientEvent(new NewClientEventPayload() {NewClient = testClient});            
+            // Assert
+            viewModel.Clients.Count.ShouldBeEquivalentTo(currentCount + 1);
+        }
+
+        [Test]
+        public void HandleNewBookEvent_ValidBookEventPayload_IncrementsBooksCollectionCount()
+        {
+            // Arrange
+            var currentCount = viewModel.Books.Count;
+            // Act
+            viewModel.HandleNewBookEvent(new NewBookEventPayload() { NewBook = testBook });
+            // Assert
+            viewModel.Books.Count.ShouldBeEquivalentTo(currentCount + 1);
         }
     }
 }

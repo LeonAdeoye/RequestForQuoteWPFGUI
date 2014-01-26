@@ -171,7 +171,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public bool CanShowDetailsWindow()
         {
-            return SelectedRequest != null;
+            return !IsSelectedRequestNull();
         }
 
         public void ShowDetailsWindow()
@@ -226,10 +226,10 @@ namespace RequestForQuoteGridModuleLibrary
 
         public bool CanInvalidateRequest()
         {
-            return (SelectedRequest != null && SelectedRequest.Status != StatusEnum.INVALID);
+            return (!IsSelectedRequestNull() && SelectedRequest.Status != StatusEnum.INVALID);
         }
 
-        public bool IsSelectRequestNull()
+        public bool IsSelectedRequestNull()
         {
             return (SelectedRequest == null);
         }
@@ -512,7 +512,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void CalculateRequest(bool isFromContextMenu)
         {
-            if (SelectedRequest != null &&  !SelectedRequest.CalculatePricing(optionRequestPricer))
+            if (!IsSelectedRequestNull() && !SelectedRequest.CalculatePricing(optionRequestPricer))
             {
                 if (isFromContextMenu)
                     MessageBox.Show("Failed to calculate pricing for request: " + SelectedRequest.Request, "Calculation Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -523,7 +523,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public bool CanCalculateRequest()
         {
-            return !IsSelectRequestNull();
+            return !IsSelectedRequestNull();
         }
 
         public void ClearNewRequest()
@@ -533,13 +533,13 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void ChangeStatusOfRequest(StatusEnum status)
         {
-            if (!IsSelectRequestNull())
+            if (!IsSelectedRequestNull())
                 SelectedRequest.Status = status;
         }
 
         public void PickUpRequest()
         {
-            if (!IsSelectRequestNull())
+            if (!IsSelectedRequestNull())
             {
                 SelectedRequest.PickedUpBy = configManager.CurrentUser;
                 SelectedRequest.Status = StatusEnum.PICKEDUP;
@@ -551,7 +551,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         private void RequestSelected()
         {
-            if (SelectedRequest != null)
+            if (!IsSelectedRequestNull())
                 eventAggregator.GetEvent<RequestSelectionEvent>().Publish(new RequestSelectionEventPayload() { RequestId = SelectedRequest.Identifier });
         }
 
