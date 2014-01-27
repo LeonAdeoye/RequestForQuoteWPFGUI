@@ -505,7 +505,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void HandleNewClientEvent_ValidClientEventPayload_IncrementsClientsCollectionCount()
+        public void HandleNewClientEvent_ValidClientEventPayload_NotAddedToCollection()
         {
             // Arrange
             var currentCount = viewModel.Clients.Count;
@@ -516,7 +516,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void HandleNewBookEvent_ValidBookEventPayload_IncrementsBooksCollectionCount()
+        public void HandleNewBookEvent_ValidBookEventPayload_NotAddedToCollection()
         {
             // Arrange
             var currentCount = viewModel.Books.Count;
@@ -524,6 +524,46 @@ namespace RequestForQuoteGridModuleLibrary.Test
             viewModel.HandleNewBookEvent(new NewBookEventPayload() { NewBook = testBook });
             // Assert
             viewModel.Books.Count.ShouldBeEquivalentTo(currentCount + 1);
+        }
+
+        [Test]
+        public void HandleNewSerializedRequestEvent_SameTradeDate_ShouldBeAddedToCollection()
+        {            
+            // Arrange
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() {Identifier = 1});
+            // Act
+            viewModel.HandleNewSerializedRequestEvent(new NewSerializedRequestEventPayload() { NewSerializedRequest = new RequestForQuoteImpl() { Identifier = 2, TradeDate = DateTime.Today } });
+            // Assert
+            viewModel.Requests.Count.ShouldBeEquivalentTo(1);            
+        }
+
+        [Test]
+        public void HandleNewSerializedRequestEvent_DifferentTradeDate_ShouldNotBeAddedToCollection()
+        {
+            // Arrange
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+            // Act
+            viewModel.HandleNewSerializedRequestEvent(new NewSerializedRequestEventPayload() { NewSerializedRequest = new RequestForQuoteImpl() { Identifier = 2, TradeDate = DateTime.Today.AddDays(-1.0)
+            } });
+            // Assert
+            viewModel.Requests.Count.ShouldBeEquivalentTo(0);
+        }
+
+        [Test]
+        public void HandleNewSerializedRequestEvent_SameIdentifier_ShouldNotBeAddedToCollection()
+        {
+            // Arrange
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+            // Act
+            viewModel.HandleNewSerializedRequestEvent(new NewSerializedRequestEventPayload() { NewSerializedRequest = new RequestForQuoteImpl() { Identifier = 1, TradeDate = DateTime.Today } });
+            // Assert
+            viewModel.Requests.Count.ShouldBeEquivalentTo(0);
         }
     }
 }
