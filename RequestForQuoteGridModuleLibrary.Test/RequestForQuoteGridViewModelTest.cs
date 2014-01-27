@@ -565,5 +565,21 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.Requests.Count.ShouldBeEquivalentTo(0);
         }
+
+        [Test]
+        public void HandlePublishedNewRequestEvent_ValidRequest_ShouldBeAddedToTodaysRequestCollection()
+        {
+            // Arrange
+            viewModel.TodaysRequests.Clear();
+            // Act
+            viewModel.HandlePublishedNewRequestEvent(new NewRequestForQuoteEventPayload()
+                {
+                    NewRequestBookCode = "AB01",
+                    NewRequestClient = testClient,
+                    NewRequestText = "C+P 100 23Dec2020 1111.T"
+                });
+            // Assert
+            viewModel.TodaysRequests.Count.ShouldBeEquivalentTo(1);
+        }
     }
 }

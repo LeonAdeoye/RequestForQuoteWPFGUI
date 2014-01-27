@@ -30,6 +30,7 @@ namespace RequestForQuoteInterfacesLibrary.Utilities
                 }
             }
         }
+
         public void AddRange(IEnumerable<T> list)
         {
             if (list == null)

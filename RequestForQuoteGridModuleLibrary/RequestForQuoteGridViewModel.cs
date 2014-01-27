@@ -281,7 +281,8 @@ namespace RequestForQuoteGridModuleLibrary
             request.Identifier = -1;
             request.Client = eventPayload.NewRequestClient;
             request.TradeDate = DateTime.Today;
-            request.ExpiryDate = request.Legs[0].MaturityDate;            
+            if(request.Legs !=null)
+                request.ExpiryDate = request.Legs[0].MaturityDate;            
             request.LotSize = 100;
             request.Multiplier = 10;
             request.Contracts = 100;
