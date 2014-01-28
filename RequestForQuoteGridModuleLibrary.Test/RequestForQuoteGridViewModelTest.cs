@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
@@ -567,7 +568,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void HandlePublishedNewRequestEvent_ValidRequest_ShouldBeAddedToTodaysRequestCollection()
+        public void HandlePublishedNewRequestEvent_ValidRequest_ShouldBeAddedToTodaysRequestsCollection()
         {
             // Arrange
             viewModel.TodaysRequests.Clear();
@@ -580,6 +581,75 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 });
             // Assert
             viewModel.TodaysRequests.Count.ShouldBeEquivalentTo(1);
+        }
+
+        [Test]
+        public void HandlePublishedNewRequestEvent_ValidRequest_ShouldBeAddedRequestsCollection()
+        {
+            // Arrange
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Clear();
+            // Act
+            viewModel.HandlePublishedNewRequestEvent(new NewRequestForQuoteEventPayload()
+            {
+                NewRequestBookCode = "AB01",
+                NewRequestClient = testClient,
+                NewRequestText = "C+P 100 23Dec2020 1111.T"
+            });
+            // Assert
+            viewModel.Requests.Count.ShouldBeEquivalentTo(1);
+        }
+
+        [Test]
+        public void HandlePublishedNewRequestEvent_ValidRequest_DefaultAttributesShouldBeSet()
+        {
+            // Arrange
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Clear();
+            // Act
+            viewModel.HandlePublishedNewRequestEvent(new NewRequestForQuoteEventPayload()
+            {
+                NewRequestBookCode = "AB01",
+                NewRequestClient = testClient,
+                NewRequestText = "C+P 100 23Dec2020 1111.T"
+            });
+
+            // Assert
+            viewModel.Requests[0].Request.Should().Be("C+P 100 23Dec2020 1111.T");
+            viewModel.Requests[0].Status.Should().Be(StatusEnum.PENDING);
+            viewModel.Requests[0].Identifier.Should().Be(-1);
+            viewModel.Requests[0].Client.Should().Be(testClient);
+            viewModel.Requests[0].TradeDate.Should().Be(DateTime.Today);
+            viewModel.Requests[0].LotSize.Should().Be(100);
+            viewModel.Requests[0].Multiplier.Should().Be(10);
+            viewModel.Requests[0].Contracts.Should().Be(100);
+            viewModel.Requests[0].NotionalFXRate.Should().Be(1);
+            viewModel.Requests[0].NotionalMillions.Should().Be(1);
+            viewModel.Requests[0].DayCountConvention.Should().Be(250);
+            viewModel.Requests[0].PremiumSettlementFXRate.Should().Be(1);
+            viewModel.Requests[0].SalesCreditFXRate.Should().Be(1);
+            viewModel.Requests[0].IsOTC.Should().BeTrue();
+            viewModel.Requests[0].SalesCreditPercentage.Should().Be(2);
+            viewModel.Requests[0].PremiumSettlementDaysOverride.Should().Be(1);
+            viewModel.Requests[0].PremiumSettlementDate.Should().Be(DateTime.Today.AddDays(viewModel.Requests[0].PremiumSettlementDaysOverride));
+            viewModel.Requests[0].BookCode.Should().Be("AB01");
+        }
+
+        [Test]
+        public void HandlePublishedNewRequestEvent_ValidRequest_OptionRequestParserCalled()
+        {
+            // Arrange
+            optionRequestParserMock.Setup(orp => orp.ParseRequest(It.IsAny<String>(), It.IsAny<IRequestForQuote>()))
+                .Returns(new List<OptionDetailImpl>() { new OptionDetailImpl() { MaturityDate = DateTime.Today}}).Callback(() => wasCalled = true);
+            // Act
+            viewModel.HandlePublishedNewRequestEvent(new NewRequestForQuoteEventPayload()
+            {
+                NewRequestBookCode = "AB01",
+                NewRequestClient = testClient,
+                NewRequestText = "C+P 100 23Dec2020 1111.T"
+            });
+            // Assert
+            wasCalled.Should().BeTrue("because valid properties were used");
         }
     }
 }
