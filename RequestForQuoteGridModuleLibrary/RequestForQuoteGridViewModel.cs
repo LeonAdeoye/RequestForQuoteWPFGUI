@@ -324,7 +324,10 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void HandleBothFilterAndSearchRequests(CriteriaUsageEventPayload eventPayload)
         {
-            if (eventPayload != null && eventPayload.IsFilter)
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
+            if (eventPayload.IsFilter)
                 HandlePublishedFilterRequestsEvent(eventPayload);
             else
                 HandlePublishedSearchRequestsEvent(eventPayload);
@@ -486,7 +489,7 @@ namespace RequestForQuoteGridModuleLibrary
 
         public void DeleteRequest()
         {
-            Requests.Remove(SelectedRequest as IRequestForQuote);
+            Requests.Remove(SelectedRequest);
         }
 
         public void InvalidateRequest()

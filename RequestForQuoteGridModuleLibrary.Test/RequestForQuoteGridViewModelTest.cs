@@ -640,5 +640,110 @@ namespace RequestForQuoteGridModuleLibrary.Test
             viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
             viewModel.Requests[0].Identifier.Should().Be(2, "because it was repopulated");
         }
+
+        [Test]
+        public void HandlePublishedFilterRequestsEvent_NullCriteriaEventPayload_RequestsCollectionShouldBeRepopulated()
+        {
+            // Arrange
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() { Identifier = 2 });
+            // Act
+            viewModel.HandlePublishedFilterRequestsEvent(new CriteriaUsageEventPayload() {Criteria = null});
+            // Assert
+            viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
+            viewModel.Requests[0].Identifier.Should().Be(2, "because it was repopulated");
+        }
+
+        [Test]
+        public void HandlePublishedFilterRequestsEvent_EmptyCriteriaEventPayload_RequestsCollectionShouldBeRepopulated()
+        {
+            // Arrange
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() { Identifier = 2 });
+            // Act
+            viewModel.HandlePublishedFilterRequestsEvent(new CriteriaUsageEventPayload() { Criteria = new Dictionary<string, string>() });
+            // Assert
+            viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
+            viewModel.Requests[0].Identifier.Should().Be(2, "because it was repopulated");            
+        }
+
+        [Test]
+        public void HandlePublishedSearchRequestsEvent_NullCriteriaEventPayload_RequestsCollectionShouldBeRepopulated()
+        {
+            // Arrange
+            viewModel.Requests.Clear();
+            viewModel.TodaysRequests.Clear();
+            viewModel.Requests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+
+            optionRequestPersistanceManagerMock.Setup(orp => orp.GetRequestMatchingAdhocCriteria(It.IsAny<ISearch>(), It.IsAny<bool>()))
+            .Returns(new List<IRequestForQuote>()
+                {
+                    new RequestForQuoteImpl() {Identifier = 2}
+                });
+            
+            // Act
+            viewModel.HandlePublishedSearchRequestsEvent(new CriteriaUsageEventPayload() { Criteria = null });
+            // Assert
+            viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
+            viewModel.Requests[0].Identifier.Should().Be(2, "because it was repopulated");
+        }
+
+        [Test]
+        public void GroupRequests_NullGroupByParameter_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.GroupRequests(null);
+            // Assert
+            act.ShouldThrow<ArgumentException>("because groupBy parameter cannot be null").WithMessage("groupBy", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void GroupRequests_EmptyGroupByParameter_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.GroupRequests(string.Empty);
+            // Assert
+            act.ShouldThrow<ArgumentException>("because groupBy parameter cannot be empty").WithMessage("groupBy", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DeleteRequest_SelectedRequestShouldBeDeletedFromCollection()
+        {
+            // Arrange
+            viewModel.Requests.Clear();            
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3 };
+            viewModel.Requests.Add(viewModel.SelectedRequest);
+            // Act
+            viewModel.DeleteRequest();
+            // Assert
+            viewModel.Requests.Should().BeEmpty("because it was deleted by the DeleteRequest method");
+        }
+
+        [Test]
+        public void InvalidateRequest_SelectedRequestStatusShouldBeInavlid()
+        {
+            // Arrange
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3 , Status = StatusEnum.TRADEDAWAY};
+            // Act
+            viewModel.InvalidateRequest();
+            // Assert
+            viewModel.SelectedRequest.Status.Should().Be(StatusEnum.INVALID, "because it was updated by the InvalidateRequest method");
+        }
+
+        [Test]
+        public void CloneRequest_ClonedSelectedRequestAddedToRequestsCollection()
+        {
+            // Arrange
+            viewModel.Requests.Clear();            
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3 };
+            // Act
+            viewModel.CloneRequest();
+            // Assert
+            viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
+        }
     }
 }

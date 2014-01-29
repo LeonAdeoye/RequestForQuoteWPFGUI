@@ -155,11 +155,19 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         public IRequestForQuote Clone(int nextIdentifier)
         {
             IRequestForQuote clone = new RequestForQuoteImpl();
-            clone.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), status);
+
+            if(status != null)
+                clone.Status = (StatusEnum)Enum.Parse(typeof(StatusEnum), status);
+
             clone.Client = client;
-            clone.TradeDate = DateTime.Parse(tradeDate);
+            if(tradeDate != null)
+                clone.TradeDate = DateTime.Parse(tradeDate);
+
             clone.DayCountConvention = dayCountConvention;
-            clone.ExpiryDate = DateTime.Parse(expiryDate);
+            
+            if(expiryDate != null)
+                clone.ExpiryDate = DateTime.Parse(expiryDate);
+
             clone.Request = request;
             clone.IsOTC = isOTC;
 
@@ -179,15 +187,19 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 
             if(premiumSettlementCurrency != null)
                 clone.PremiumSettlementCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), premiumSettlementCurrency);
+
             if (premiumSettlementDate != null)
                 clone.PremiumSettlementDate = DateTime.Parse(premiumSettlementDate);
+
             clone.PremiumSettlementDaysOverride = premiumSettlementDaysOverride;
             clone.PremiumSettlementFXRate = premiumSettlementFXRate;
 
             clone.SalesCreditAmount = salesCreditAmount;
             clone.SalesCreditPercentage = salesCreditPercentage;
+            
             if (salesCreditCurrency != null)
                 clone.SalesCreditCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), salesCreditCurrency);
+
             clone.SalesCreditFXRate = salesCreditFXRate;
             
             clone.Multiplier = multiplier;
@@ -195,8 +207,10 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.LotSize = lotSize;
             
             clone.NotionalMillions = notionalMillions;
+            
             if (notionalCurrency != null)
-            clone.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
+                clone.NotionalCurrency = (CurrencyEnum)Enum.Parse(typeof(CurrencyEnum), notionalCurrency);
+
             clone.NotionalFXRate = notionalFXRate;
             
             clone.BidImpliedVol = bidImpliedVol;
@@ -216,6 +230,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             clone.ClientComment = clientComment;
 
             clone.HedgePrice = hedgePrice;
+
             if (hedgeType != null)
                 clone.HedgeType = (HedgeTypeEnum)Enum.Parse(typeof(HedgeTypeEnum), hedgeType);
 
