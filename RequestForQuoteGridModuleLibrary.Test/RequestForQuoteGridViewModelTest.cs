@@ -28,7 +28,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
         private readonly Mock<NewBookEvent> newBookEventMock = new Mock<NewBookEvent>();
         private readonly Mock<NewClientEvent> newClientEventMock = new Mock<NewClientEvent>();
         private readonly Mock<NewRequestForQuoteEvent> newRequestForQuoteEventMock = new Mock<NewRequestForQuoteEvent>();
-        private readonly Mock<ClosedRequestForQuoteDetailsEvent> closedRequestForQuoteDetailsEventMock = new Mock<ClosedRequestForQuoteDetailsEvent>();
         private readonly Mock<SearchRequestForQuoteEvent> searchRequestForQuoteEventMock = new Mock<SearchRequestForQuoteEvent>();    
         private readonly Mock<GetTodaysRequestsEvent> getTodaysRequestsEventMock = new Mock<GetTodaysRequestsEvent>();
         private readonly Mock<NewSerializedRequestEvent> newSerializedRequestEventMock = new Mock<NewSerializedRequestEvent>();
@@ -52,7 +51,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
             eventAggregatorMock.Setup(p => p.GetEvent<NewBookEvent>()).Returns(newBookEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewClientEvent>()).Returns(newClientEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewRequestForQuoteEvent>()).Returns(newRequestForQuoteEventMock.Object);
-            eventAggregatorMock.Setup(p => p.GetEvent<ClosedRequestForQuoteDetailsEvent>()).Returns(closedRequestForQuoteDetailsEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>()).Returns(searchRequestForQuoteEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<GetTodaysRequestsEvent>()).Returns(getTodaysRequestsEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewSerializedRequestEvent>()).Returns(newSerializedRequestEventMock.Object);
@@ -211,15 +209,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void HandlePublishedClosedRequestEvent_NullParameter_ArgumentNullExceptionThrown()
-        {
-            // Act
-            Action act = () => viewModel.HandlePublishedClosedRequestEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
-        }
-
-        [Test]
         public void HandleBothFilterAndSearchRequests_NullParameter_ArgumentNullExceptionThrown()
         {
             // Act
@@ -295,16 +284,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 bm => bm.Subscribe(It.IsAny<Action<NewRequestForQuoteEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewRequestForQuoteEventPayload>>()), Times.Once(),
                 "view model constructor did not subscribe to new request for quote event!");
-        }
-
-        [Test]
-        public void Constructor_ClosedRequestForQuoteDetailsEventShouldBeSubscribedTo()
-        {
-            // Assert
-            closedRequestForQuoteDetailsEventMock.Verify(
-                bm => bm.Subscribe(It.IsAny<Action<ClosedRequestForQuoteDetailsEventPayload>>(), It.IsAny<ThreadOption>(),
-                                   It.IsAny<bool>(), It.IsAny<Predicate<ClosedRequestForQuoteDetailsEventPayload>>()), Times.Once(),
-                "view model constructor did not subscribe to new closed request for quote details event!");
         }
 
         [Test]

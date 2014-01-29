@@ -116,9 +116,7 @@
     <Compile Include="ModelImplementations\BankHolidayImpl.cs" />
     <Compile Include="ModelImplementations\BookImpl.cs" />
     <Compile Include="ModelImplementations\ClientImpl.cs" />
-    <Compile Include="EventPayloads\ClosedRequestForQuoteDetailsEventPayload.cs" />
     <Compile Include="EventPayloads\NewRequestForQuoteEventPayload.cs" />
-    <Compile Include="Events\ClosedRequestForQuoteDetailsEvent.cs" />
     <Compile Include="Events\SearchRequestForQuoteEvent.cs" />
     <Compile Include="ModelImplementations\ChatMessageImpl.cs" />
     <Compile Include="ModelImplementations\OptionDetailImpl.cs" />

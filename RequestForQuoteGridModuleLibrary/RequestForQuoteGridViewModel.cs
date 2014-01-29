@@ -150,9 +150,6 @@ namespace RequestForQuoteGridModuleLibrary
             eventAggregator.GetEvent<NewRequestForQuoteEvent>()
                            .Subscribe(HandlePublishedNewRequestEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
-            eventAggregator.GetEvent<ClosedRequestForQuoteDetailsEvent>()
-                           .Subscribe(HandlePublishedClosedRequestEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
-
             eventAggregator.GetEvent<SearchRequestForQuoteEvent>()
                            .Subscribe(HandleBothFilterAndSearchRequests, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
 
@@ -323,15 +320,6 @@ namespace RequestForQuoteGridModuleLibrary
             Requests.Clear();
             Requests.AddRange(TodaysRequests);
             NotifyPropertyChanged("Requests");            
-        }
-
-        public void HandlePublishedClosedRequestEvent(ClosedRequestForQuoteDetailsEventPayload eventPayload)
-        {
-            if (eventPayload == null)
-                throw new ArgumentNullException("eventPayload");
-
-            if (log.IsDebugEnabled)
-                log.Debug("Received published closed request for quote => " + eventPayload.RequestForQuoteIdentifer);
         }
 
         public void HandleBothFilterAndSearchRequests(CriteriaUsageEventPayload eventPayload)
