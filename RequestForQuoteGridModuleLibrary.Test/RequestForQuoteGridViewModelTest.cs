@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
@@ -12,7 +10,6 @@ using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
-using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RequestForQuoteGridModuleLibrary.Test
 {
@@ -597,7 +594,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
                 NewRequestText = "C+P 100 23Dec2020 1111.T"
             });
             // Assert
-            viewModel.Requests.Count.ShouldBeEquivalentTo(1);
+            viewModel.Requests.Count.ShouldBeEquivalentTo(1, "because it should be added to the collection");
         }
 
         [Test]
@@ -650,6 +647,19 @@ namespace RequestForQuoteGridModuleLibrary.Test
             });
             // Assert
             wasCalled.Should().BeTrue("because valid properties were used");
+        }
+
+        [Test]
+        public void HandleGetTodaysRequestsEvent_RequestsCollectionShouldBeRepopulated()
+        {
+            // Arrange
+            viewModel.Requests.Add(new RequestForQuoteImpl() { Identifier = 1 });
+            viewModel.TodaysRequests.Add(new RequestForQuoteImpl() { Identifier = 2 });
+            // Act
+            viewModel.HandleGetTodaysRequestsEvent(new EmptyEventPayload());
+            // Assert
+            viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
+            viewModel.Requests[0].Identifier.Should().Be(2, "because it was repopulated");
         }
     }
 }
