@@ -745,5 +745,45 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.Requests.Count.Should().Be(1, "because it was repopulated");
         }
+
+        [Test]
+        public void CanCalculateRequest_NotNullSelectedRequest_ShouldReturnTrue()
+        {
+            // Arrange
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3 };
+            // Assert
+            viewModel.CanCalculateRequest().Should().BeTrue("bacause SelectedRequest is not null");
+        }
+
+        [Test]
+        public void CanCalculateRequest_NotNullSelectedRequest_ShouldReturnFalse()
+        {
+            // Arrange
+            viewModel.SelectedRequest = null;
+            // Assert
+            viewModel.CanCalculateRequest().Should().BeFalse("bacause SelectedRequest is null");
+        }
+
+        [Test] 
+        public void ClearNewRequest_ShouldClearNewRequest()
+        {
+            // Arrange
+            viewModel.NewRequest = "C 100 23Dec2014 1111.T";
+            // Act
+            viewModel.ClearNewRequest();
+            // Assert
+            viewModel.NewRequest.Should().BeEmpty("because it was emptied by the method ClearNewRequest");
+        }
+
+        [Test]
+        public void ChangeStatusOfRequest_ShouldChangeStatus()
+        {
+            // Arrange
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3, Status = StatusEnum.TRADEDAWAY};
+            // Act
+            viewModel.ChangeStatusOfRequest(StatusEnum.PICKEDUP);
+            // Assert
+            viewModel.SelectedRequest.Status.Should().Be(StatusEnum.PICKEDUP);
+        }
     }
 }
