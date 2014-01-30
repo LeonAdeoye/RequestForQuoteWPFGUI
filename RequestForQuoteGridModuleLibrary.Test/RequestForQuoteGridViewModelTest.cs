@@ -785,5 +785,16 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.SelectedRequest.Status.Should().Be(StatusEnum.PICKEDUP);
         }
+
+        [Test]
+        public void PickUpRequest_ShouldChangeStatusToPickedUp()
+        {
+            // Arrange
+            viewModel.SelectedRequest = new RequestForQuoteImpl() { Identifier = 3, Status = StatusEnum.TRADEDAWAY };
+            // Act
+            viewModel.PickUpRequest();
+            // Assert
+            viewModel.SelectedRequest.Status.Should().Be(StatusEnum.PICKEDUP);
+        }
     }
 }
