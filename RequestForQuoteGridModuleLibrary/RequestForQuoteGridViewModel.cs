@@ -171,6 +171,7 @@ namespace RequestForQuoteGridModuleLibrary
             return !IsSelectedRequestNull();
         }
 
+        // Unable to test
         public void ShowDetailsWindow()
         {
             if (SelectedRequest.Popup == null)
@@ -356,7 +357,7 @@ namespace RequestForQuoteGridModuleLibrary
             }                
         }
 
-        private bool DoesRequestMatchFilter(IRequestForQuote request, Dictionary<string, string> criteria)
+        internal bool DoesRequestMatchFilter(IRequestForQuote request, Dictionary<string, string> criteria)
         {
             if (request == null)
                 throw new ArgumentNullException("request");
@@ -387,12 +388,12 @@ namespace RequestForQuoteGridModuleLibrary
                             return false;
                         break;
                     case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                        if (!IsWithinDateRange(request.TradeDate, criterion.Value))
+                        if (!UtilityMethods.IsWithinDateRange(request.TradeDate, criterion.Value))
                             return false;
                         break;
                     case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
                         // TODO Add Expiry date and change...
-                        if (!IsWithinDateRange(request.TradeDate, criterion.Value))
+                        if (!UtilityMethods.IsWithinDateRange(request.TradeDate, criterion.Value))
                             return false;
                         break;
                     default:
@@ -400,43 +401,6 @@ namespace RequestForQuoteGridModuleLibrary
                 }
             }
             return true;
-        }
-
-        private bool IsWithinDateRange(DateTime dateToCheck, string criterionValue)
-        {
-            if (String.IsNullOrEmpty(criterionValue))
-                throw new ArgumentException("criterionValue");
-
-            if (dateToCheck == null)
-                throw new ArgumentNullException("dateToCheck");
-
-            try
-            {
-                var dates = criterionValue.Split('-').ToArray();
-                dates = dates.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-                DateTime startDate, endDate;                    
-                if (dates.Count() == 2)
-                {
-                    startDate = Convert.ToDateTime(dates[0]);
-                    endDate = Convert.ToDateTime(dates[1]);
-                    return dateToCheck >= startDate && dateToCheck <= endDate;
-                }
-                if (dates.Count() == 1 && criterionValue[0] != '-')
-                {
-                    startDate = Convert.ToDateTime(dates[0]);
-                    return dateToCheck >= startDate;
-                }
-                if (dates.Count() == 1 && criterionValue[0] == '-')
-                {
-                    endDate = Convert.ToDateTime(dates[0]);
-                    return dateToCheck <= endDate;                    
-                }
-            }
-            catch (Exception raisedException)
-            {
-                log.Error(string.Format("Could not convert criterion dates [{0}] into two date ranges.", criterionValue), raisedException);
-            }
-            return false;
         }
 
         public void HandlePublishedSearchRequestsEvent(CriteriaUsageEventPayload eventPayload)

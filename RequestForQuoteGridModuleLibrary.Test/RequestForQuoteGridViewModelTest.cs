@@ -83,7 +83,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_BookManager_ArgumentNullExceptionThrown()
+        public void Constructor_NullBookManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(null, clientManagerMock.Object,
@@ -94,7 +94,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_ClientManager_ArgumentNullExceptionThrown()
+        public void Constructor_NullClientManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, null,
@@ -105,7 +105,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_OptionRequestParser_ArgumentNullExceptionThrown()
+        public void Constructor_NullOptionRequestParser_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
@@ -116,7 +116,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_OptionRequestPricer_ArgumentNullExceptionThrown()
+        public void Constructor_NullOptionRequestPricer_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
@@ -127,7 +127,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_ChatServiceManager_ArgumentNullExceptionThrown()
+        public void Constructor_NullChatServiceManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
@@ -138,7 +138,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_UnderlyingManager_ArgumentNullExceptionThrown()
+        public void Constructor_NullUnderlyingManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
@@ -149,7 +149,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
-        public void Constructor_RequestPersistanceManager_ArgumentNullExceptionThrown()
+        public void Constructor_NullRequestPersistanceManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteGridViewModel(bookManagerMock.Object, clientManagerMock.Object,
@@ -324,23 +324,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Assert
             viewModel.CanShowDetailsWindow().Should().BeTrue("because SelectedRequest != null");
         }
-
-        //[Test]
-        //public void ShowDetailsWindow_NonNullSelectedRequestPopup_ShowWindowWasCalled()
-        //{
-        //    // Arrange            
-        //    Mock<IRequestForQuote> requestMock = new Mock<IRequestForQuote>();
-        //    viewModel.SelectedRequest = requestMock.Object;
-        //    Mock<IWindowPopup> popupWindowMock = new Mock<IWindowPopup>();
-        //    viewModel.SelectedRequest.Popup = popupWindowMock.Object;
-        //    IEditableObject editableObject = new Mock<IEditableObject>().Object;
-        //    viewModel.SelectedRequest.EditableViewModel = new Mock<IEditableObject>().Object;
-        //    requestMock.Setup(sm => sm.Popup.ShowWindow()).Callback(() => wasCalled = true);
-        //    // Act
-        //    viewModel.ShowDetailsWindow();
-        //    // Assert
-        //    wasCalled.Should().BeTrue();
-        //}
 
         [Test]
         public void CanAddNewRequest_EmptyNewRequest_ReturnsFalse()

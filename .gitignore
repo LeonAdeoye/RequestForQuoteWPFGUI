@@ -34,6 +34,9 @@ RequestForQuoteGridModuleLibrary/obj/
 RequestForQuoteInterfacesLibrary/bin/
 RequestForQuoteInterfacesLibrary/obj/
 
+RequestForQuoteInterfacesModuleLibrary.Test/bin/
+RequestForQuoteInterfacesModuleLibrary.Test/obj/
+
 RFQ/bin/
 logs/
 RFQ/obj/
