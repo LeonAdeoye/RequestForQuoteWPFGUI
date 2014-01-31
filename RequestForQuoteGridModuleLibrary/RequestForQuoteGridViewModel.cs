@@ -345,7 +345,7 @@ namespace RequestForQuoteGridModuleLibrary
             if (eventPayload.Criteria != null && eventPayload.Criteria.Count > 0)
             {
                 var view = CollectionViewSource.GetDefaultView(Requests);
-                view.Filter = (request) => DoesRequestMatchFilter(request as IRequestForQuote, eventPayload.Criteria);
+                view.Filter = (request) => ((IRequestForQuote) request).DoesRequestMatchFilter(eventPayload.Criteria);
             }
             else
             {
@@ -355,52 +355,6 @@ namespace RequestForQuoteGridModuleLibrary
                 var view = CollectionViewSource.GetDefaultView(Requests);
                 view.Filter = null;    
             }                
-        }
-
-        internal bool DoesRequestMatchFilter(IRequestForQuote request, Dictionary<string, string> criteria)
-        {
-            if (request == null)
-                throw new ArgumentNullException("request");
-
-            if (criteria == null)
-                throw new ArgumentNullException("criteria");
-
-            foreach (var criterion in criteria)
-            {
-                switch (criterion.Key)
-                {
-                    case RequestForQuoteConstants.CLIENT_CRITERION:
-                        int clientIdentifier;
-                        if (!int.TryParse(criterion.Value, out clientIdentifier) || request.Client.Identifier != clientIdentifier)
-                            return false;
-                        break;
-                    case RequestForQuoteConstants.BOOK_CRITERION:
-                        if (request.BookCode != criterion.Value)
-                            return false;
-                        break;
-                        // TODO
-                        // case RequestForQuoteConstants.UNDERLYIER_CRITERION:
-                        //    if (request.RIC != criterion.Value)
-                        //        return false;
-                        //    break;
-                    case RequestForQuoteConstants.STATUS_CRITERION:
-                        if (request.Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
-                            return false;
-                        break;
-                    case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                        if (!UtilityMethods.IsWithinDateRange(request.TradeDate, criterion.Value))
-                            return false;
-                        break;
-                    case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
-                        // TODO Add Expiry date and change...
-                        if (!UtilityMethods.IsWithinDateRange(request.TradeDate, criterion.Value))
-                            return false;
-                        break;
-                    default:
-                        return false;
-                }
-            }
-            return true;
         }
 
         public void HandlePublishedSearchRequestsEvent(CriteriaUsageEventPayload eventPayload)

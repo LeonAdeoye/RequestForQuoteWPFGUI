@@ -88,6 +88,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelInterfaces
         List<ChatMessageImpl> Messages { get; set; }
         IEditableObject EditableViewModel { get; set; }
 
+        bool DoesRequestMatchFilter(Dictionary<string, string> criteria);
         IRequestForQuote Clone(int nextIdentifier);
         bool CalculatePricing(IOptionRequestPricer optionPricer);
         void ClearChatMessages();

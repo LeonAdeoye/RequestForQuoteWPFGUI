@@ -4,11 +4,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.ComponentModel;
-using Newtonsoft.Json;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
+using RequestForQuoteInterfacesLibrary.Utilities;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
@@ -150,6 +150,55 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             // TODO verify
             if (Messages != null)
                 Messages = new List<ChatMessageImpl>(fromSourceRequest.Messages);
+        }
+
+        /// <summary>
+        /// Determines if a given request for quote matches the filter criteria.
+        /// </summary>
+        /// <param name="criteria">the filter criteria</param>
+        /// <returns>true if the request for quote matches the filter criteria</returns>
+        /// <exception cref="ArgumentNullException">if the filter criteria is null</exception>
+        public bool DoesRequestMatchFilter(Dictionary<string, string> criteria)
+        {
+            if (criteria == null)
+                throw new ArgumentNullException("criteria");
+
+            foreach (var criterion in criteria)
+            {
+                switch (criterion.Key)
+                {
+                    case RequestForQuoteConstants.CLIENT_CRITERION:
+                        int clientIdentifier;
+                        if (!int.TryParse(criterion.Value, out clientIdentifier) || Client.Identifier != clientIdentifier)
+                            return false;
+                        break;
+                    case RequestForQuoteConstants.BOOK_CRITERION:
+                        if (BookCode != criterion.Value)
+                            return false;
+                        break;
+                    // TODO
+                    // case RequestForQuoteConstants.UNDERLYIER_CRITERION:
+                    //    if (request.RIC != criterion.Value)
+                    //        return false;
+                    //    break;
+                    case RequestForQuoteConstants.STATUS_CRITERION:
+                        if (Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
+                            return false;
+                        break;
+                    case RequestForQuoteConstants.TRADE_DATE_CRITERION:
+                        if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
+                            return false;
+                        break;
+                    case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
+                        // TODO Add Expiry date and change...
+                        if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
+                            return false;
+                        break;
+                    default:
+                        return false;
+                }
+            }
+            return true;
         }
 
         public IRequestForQuote Clone(int nextIdentifier)

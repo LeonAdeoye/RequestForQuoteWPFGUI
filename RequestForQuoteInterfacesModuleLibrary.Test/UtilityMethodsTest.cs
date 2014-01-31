@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
+using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.Utilities;
 
 namespace RequestForQuoteInterfacesModuleLibrary.Test
