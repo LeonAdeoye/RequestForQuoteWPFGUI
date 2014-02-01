@@ -19,6 +19,8 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
             Tier = TierEnum.Top.ToString()
         };
 
+        #region DoesRequestMatchFilter
+
         [Test]
         public void DoesRequestMatchFilter_NullCriteria_ArgumentNullExceptionThrown()
         {
@@ -652,5 +654,7 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
                                                            .Should()
                                                            .BeTrue("because one of RFQ's multiple legs has a matching RIC");
         }
+        #endregion
+
     }
 }

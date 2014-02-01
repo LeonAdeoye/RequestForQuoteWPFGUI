@@ -159,38 +159,50 @@ namespace RequestForQuoteGridModuleLibrary
                            .Subscribe(HandleNewChatMessageEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
-        public void HandleNewBookEvent(NewBookEventPayload eventPayLoad)
+        public void HandleNewBookEvent(NewBookEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new book: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            Books.Add(eventPayLoad.NewBook);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new book: " + eventPayload);
+
+            Books.Add(eventPayload.NewBook);
         }
 
-        public void HandleNewClientEvent(NewClientEventPayload eventPayLoad)
+        public void HandleNewClientEvent(NewClientEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new client: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            Clients.Add(eventPayLoad.NewClient);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new client: " + eventPayload);
+
+            Clients.Add(eventPayload.NewClient);
         }
 
-        public void HandleNewUnderlyierEvent(NewUnderlyierEventPayload eventPayLoad)
+        public void HandleNewUnderlyierEvent(NewUnderlyierEventPayload eventPayload)
         {
-            if (log.IsDebugEnabled)
-                log.Debug("Received new underlyier: " + eventPayLoad);
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
 
-            Underlyiers.Add(eventPayLoad.NewUnderlying);
+            if (log.IsDebugEnabled)
+                log.Debug("Received new underlyier: " + eventPayload);
+
+            Underlyiers.Add(eventPayload.NewUnderlying);
         }
 
-        public void HandleNewChatMessageEvent(NewChatMessageEventPayload eventPayLoad)
+        public void HandleNewChatMessageEvent(NewChatMessageEventPayload eventPayload)
         {
-            if (eventPayLoad.NewChatMessage.RequestForQuoteId == SelectedRequestForQuote.Identifier)
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
+            if (eventPayload.NewChatMessage.RequestForQuoteId == SelectedRequestForQuote.Identifier)
             {
                 if (log.IsDebugEnabled)
-                    log.Debug("Received new chat message: " + eventPayLoad);
+                    log.Debug("Received new chat message: " + eventPayload);
                 
-                ChatMessages.Add(eventPayLoad.NewChatMessage);
+                ChatMessages.Add(eventPayload.NewChatMessage);
             }
         }
 
