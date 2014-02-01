@@ -575,5 +575,82 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
             // Assert
             act.ShouldThrow<ArgumentException>("because invalid start date criteria.").WithMessage("criteria", ComparisonMode.Substring);
         }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithNullLegs_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = null }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.HK"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's legs collection is null");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithOneLegWithMatchingRIC_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = new List<OptionDetailImpl>(){ new OptionDetailImpl() {RIC = "test.HK"}} }
+                .DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.HK"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's leg has a matching RIC");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithOneLegWithoutMatchingRIC_ReturnFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = new List<OptionDetailImpl>() { new OptionDetailImpl() { RIC = "test.HK" } } }
+                .DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.T"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's leg does not have a matching RIC");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithMultipleLegsWithAllMatchingRIC_ReturnTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = new List<OptionDetailImpl>() { new OptionDetailImpl() { RIC = "test.HK" }, new OptionDetailImpl() { RIC = "test.HK" } } }
+                .DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.HK"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because all the RFQ's legs have a matching RIC");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithMultipleLegsWithoutMatchingRIC_ReturnFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = new List<OptionDetailImpl>() { new OptionDetailImpl() { RIC = "test.T" }, new OptionDetailImpl() { RIC = "test.T" } } }
+                .DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.HK"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because all the RFQ's leg do not have a matching RIC");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_UnderlyingCriteriaWithMultipleLegsWithOneMatchingRIC_ReturnTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { Legs = new List<OptionDetailImpl>() { new OptionDetailImpl() { RIC = "test.HK" }, new OptionDetailImpl() { RIC = "test.T" } } }
+                .DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.UNDERLYIER_CRITERION, "test.HK"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because one of RFQ's multiple legs has a matching RIC");
+        }
     }
 }

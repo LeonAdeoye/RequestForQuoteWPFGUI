@@ -155,9 +155,9 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
         /// <summary>
         /// Determines if a given request for quote matches the filter criteria.
         /// </summary>
-        /// <param name="criteria">the filter criteria</param>
-        /// <returns>true if the request for quote matches the filter criteria</returns>
-        /// <exception cref="ArgumentNullException">if the filter criteria is null</exception>
+        /// <param name="criteria">the filter criteria.</param>
+        /// <returns>true if the request for quote matches the filter criteria.</returns>
+        /// <exception cref="ArgumentNullException">if the filter criteria is null or includes an invalid date.</exception>
         public bool DoesRequestMatchFilter(Dictionary<string, string> criteria)
         {
             if (criteria == null)
@@ -177,6 +177,8 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                             return false;
                         break;
                     case RequestForQuoteConstants.UNDERLYIER_CRITERION:
+                        if (Legs == null)
+                            return false;
                         var underlyierExists = Legs.Any(leg => leg.RIC == criterion.Value);
                         if (!underlyierExists)
                             return false;
