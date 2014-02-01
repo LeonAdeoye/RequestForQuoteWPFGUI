@@ -186,13 +186,27 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                             return false;
                         break;
                     case RequestForQuoteConstants.TRADE_DATE_CRITERION:
-                        if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
-                            return false;
+                        try
+                        {
+                            if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
+                                return false;
+                        }
+                        catch (Exception)
+                        {                            
+                            throw new ArgumentException("criteria");
+                        }
                         break;
                     case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
-                        // TODO Add Expiry date and change...
-                        if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
-                            return false;
+                        try
+                        {
+                            // TODO Add Expiry date and change...
+                            if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
+                                return false;
+                        }
+                        catch (Exception)
+                        {                            
+                            throw new ArgumentException("criteria");
+                        }
                         break;
                     default:
                         return false;

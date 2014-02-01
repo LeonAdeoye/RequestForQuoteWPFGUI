@@ -196,15 +196,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
         [Test]
         public void HandleNewBookEvent_NullNewBookEventPayload_ArgumentNullExceptionThrown()
         {
-            // Arrange
-            RequestForQuoteDetailsViewModel viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer.Object, request.Object, clientManagerMock.Object,
-                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManager.Object,
-                null, configManagerMock.Object);
-            
-            // Act
-            // Raise a new NewBookEvent()
-
-            // Assert
+            // TODO
         }
     }
 }

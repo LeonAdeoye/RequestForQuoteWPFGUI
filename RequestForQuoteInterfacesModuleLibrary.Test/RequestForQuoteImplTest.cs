@@ -29,6 +29,70 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
         }
 
         [Test]
+        public void DoesRequestMatchFilter_InvalidStartDateCriteria_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() {TradeDate = new DateTime(2012, 12, 23)}.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.TRADE_DATE_CRITERION, "INVALID_DATE-24Dec2012"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid start date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidEndDate_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.TRADE_DATE_CRITERION, "22Dec2014-INVALID_DATE"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid end date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidEndDateWithHyphen_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.TRADE_DATE_CRITERION, "-INVALID_DATE"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid end date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidStartDateWithHyphen_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.TRADE_DATE_CRITERION, "INVALID_DATE-"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid start date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
         public void DoesRequestMatchFilter_ClientCriteriaMatch_ReturnsTrue()
         {
             // Assert
@@ -190,10 +254,94 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
             // Assert
             new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
                 {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "-22Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's trade end date is outside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaSameEndDateRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
                     {RequestForQuoteConstants.TRADE_DATE_CRITERION, "-23Dec2012"}
                 })
                                                            .Should()
-                                                           .BeTrue("because the RFQ's trade end date is outside range");
+                                                           .BeTrue("because the RFQ's trade end date is just inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaSameStartDateRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "23Dec2012-"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's trade start date is just inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaWithBothStartAndEndDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "22Dec2012-24Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's trade date is inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaWithBothDatesAndSameStartDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "23Dec2012-24Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's trade date is still inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaWithBothDatesAndSameEndDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "22Dec2012-23Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's trade date is still inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaWithBothDatesAndStartDateLaterEndDate_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "24Dec2012-22Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's trade date is outside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_TradeDateCriteriaWithBothDatesMissing_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { TradeDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.TRADE_DATE_CRITERION, "-"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because both the start and end dates are missing");
         }
     }
 }
