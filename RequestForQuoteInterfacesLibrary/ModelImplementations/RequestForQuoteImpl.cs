@@ -176,11 +176,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                         if (BookCode != criterion.Value)
                             return false;
                         break;
-                    // TODO
-                    // case RequestForQuoteConstants.UNDERLYIER_CRITERION:
-                    //    if (request.RIC != criterion.Value)
-                    //        return false;
-                    //    break;
+                    case RequestForQuoteConstants.UNDERLYIER_CRITERION:
+                        var underlyierExists = Legs.Any(leg => leg.RIC == criterion.Value);
+                        if (!underlyierExists)
+                            return false;
+                        break;
                     case RequestForQuoteConstants.STATUS_CRITERION:
                         if (Status != (StatusEnum)Enum.Parse(typeof(StatusEnum), criterion.Value))
                             return false;
@@ -199,8 +199,7 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
                     case RequestForQuoteConstants.EXPIRY_DATE_CRITERION:
                         try
                         {
-                            // TODO Add Expiry date and change...
-                            if (!UtilityMethods.IsWithinDateRange(TradeDate, criterion.Value))
+                            if (!UtilityMethods.IsWithinDateRange(ExpiryDate, criterion.Value))
                                 return false;
                         }
                         catch (Exception)

@@ -10,7 +10,7 @@ namespace RequestForQuoteInterfacesLibrary.Utilities
         /// </summary>
         /// <param name="dateToCheck"> the date to check if in range.</param>
         /// <param name="criterionValue"> the string value representing the start date and end date or either one of them. 
-        /// The format of the date must be DDMMMYYYY</param>
+        /// The format of the date must be DDMMMYYYY or MM/DD/YYYY</param>
         /// <returns> true if the date is within range.</returns>
         /// <exception cref="ArgumentException">thrown if the criterionValue parameter is NULL or empty to cannot be converted into one or more dates.</exception>       
         public static bool IsWithinDateRange(DateTime dateToCheck, string criterionValue)

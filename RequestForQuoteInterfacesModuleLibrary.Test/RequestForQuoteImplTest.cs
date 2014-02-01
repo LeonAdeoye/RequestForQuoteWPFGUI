@@ -29,7 +29,7 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
         }
 
         [Test]
-        public void DoesRequestMatchFilter_InvalidStartDateCriteria_ArgumentExceptionThrown()
+        public void DoesRequestMatchFilter_InvalidTradeStartDateCriteria_ArgumentExceptionThrown()
         {
             // Act
             Action act =
@@ -45,7 +45,7 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
         }
 
         [Test]
-        public void DoesRequestMatchFilter_InvalidEndDate_ArgumentExceptionThrown()
+        public void DoesRequestMatchFilter_InvalidTradeEndDate_ArgumentExceptionThrown()
         {
             // Act
             Action act =
@@ -61,7 +61,7 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
         }
 
         [Test]
-        public void DoesRequestMatchFilter_InvalidEndDateWithHyphen_ArgumentExceptionThrown()
+        public void DoesRequestMatchFilter_InvalidTradeEndDateWithHyphen_ArgumentExceptionThrown()
         {
             // Act
             Action act =
@@ -77,7 +77,7 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
         }
 
         [Test]
-        public void DoesRequestMatchFilter_InvalidStartDateWithHyphen_ArgumentExceptionThrown()
+        public void DoesRequestMatchFilter_InvalidTradeStartDateWithHyphen_ArgumentExceptionThrown()
         {
             // Act
             Action act =
@@ -342,6 +342,238 @@ namespace RequestForQuoteInterfacesModuleLibrary.Test
                 })
                                                            .Should()
                                                            .BeFalse("because both the start and end dates are missing");
+        }
+        
+        [Test]
+        public void DoesRequestMatchFilter_SameExpiryDateCriteria_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = DateTime.Today }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, DateTime.Today.ToShortDateString()}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the expiry dates match");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaOutOfRange_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012,12,23)}.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2015"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's expiry date is not within range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaOutOfRangeWithHyphen_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2015-"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's expiry date is not within range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithinRange_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2011"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is within range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithinRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2011-"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is within range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithinEndDateRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "-23Dec2016"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is within range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaOutsideEndDateRangeWithHyphen_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "-22Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's expiry end date is outside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaSameEndDateRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "-23Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry end date is just inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaSameStartDateRangeWithHyphen_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2012-"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry start date is just inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithBothStartAndEndDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "22Dec2012-24Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithBothDatesAndSameStartDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "23Dec2012-24Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is still inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithBothDatesAndSameEndDate_ReturnsTrue()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "22Dec2012-23Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeTrue("because the RFQ's expiry date is still inside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithBothDatesAndStartDateLaterEndDate_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "24Dec2012-22Dec2012"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because the RFQ's expiry date is outside range");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_ExpiryDateCriteriaWithBothDatesMissing_ReturnsFalse()
+        {
+            // Assert
+            new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary<string, string>()
+                {
+                    {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "-"}
+                })
+                                                           .Should()
+                                                           .BeFalse("because both the expiry start and end dates are missing");
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidExpiryStartDateCriteria_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() {ExpiryDate = new DateTime(2012, 12, 23)}.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "INVALID_DATE-24Dec2012"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid start date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidExpiryEndDate_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "22Dec2014-INVALID_DATE"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid end date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidExpiryEndDateWithHyphen_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "-INVALID_DATE"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid end date criteria.").WithMessage("criteria", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void DoesRequestMatchFilter_InvalidExpiryStartDateWithHyphen_ArgumentExceptionThrown()
+        {
+            // Act
+            Action act =
+                () =>
+                new RequestForQuoteImpl() { ExpiryDate = new DateTime(2012, 12, 23) }.DoesRequestMatchFilter(new Dictionary
+                                                                                                              <string,
+                                                                                                              string>()
+                    {
+                        {RequestForQuoteConstants.EXPIRY_DATE_CRITERION, "INVALID_DATE-"}
+                    });
+            // Assert
+            act.ShouldThrow<ArgumentException>("because invalid start date criteria.").WithMessage("criteria", ComparisonMode.Substring);
         }
     }
 }
