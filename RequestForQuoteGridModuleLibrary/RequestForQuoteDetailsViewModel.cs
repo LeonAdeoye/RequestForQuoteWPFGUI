@@ -45,7 +45,7 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IOptionRequestPersistanceManager optionRequestPersistanceManager;
 
         public IRequestForQuote SelectedRequestForQuote { get; set; }
-        private IRequestForQuote backupOfRequestForQuote;
+        internal IRequestForQuote backupOfRequestForQuote;
         
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;

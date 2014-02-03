@@ -5,6 +5,7 @@ using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
 using RequestForQuoteInterfacesLibrary.Enums;
+using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -206,6 +207,233 @@ namespace RequestForQuoteGridModuleLibrary.Test
             Action act = () => viewModel.HandleNewBookEvent(null);
             // Assert
             act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewClientEvent_NullNewClientEventPayload_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.HandleNewClientEvent(null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewUnderlyierEvent_NullNewUnderlyierEventPayload_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.HandleNewUnderlyierEvent(null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewChatMessageEvent_NullNewChatMessageEventPayload_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.HandleNewChatMessageEvent(null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewChatMessageEvent_NewChatMessageWithMatchingIdentifier_ChatMessagesAddToCollection()
+        {
+            // Arrange
+            viewModel.ChatMessages.Clear();
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() {Identifier = 5};
+            // Act
+            viewModel.HandleNewChatMessageEvent(new NewChatMessageEventPayload() {NewChatMessage = new ChatMessageImpl() {RequestForQuoteId = 5}});
+            // Assert
+            viewModel.ChatMessages.Count.Should()
+                     .Be(1, "because the  identifier in the chat messages matches the selected RFQ.");
+        }
+
+        [Test]
+        public void HandleNewChatMessageEvent_NewChatMessageWithMismatchingIdentifier_ChatMessagesNotAddToCollection()
+        {
+            // Arrange
+            viewModel.ChatMessages.Clear();
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = 5 };
+            // Act
+            viewModel.HandleNewChatMessageEvent(new NewChatMessageEventPayload() { NewChatMessage = new ChatMessageImpl() { RequestForQuoteId = 6 } });
+            // Assert
+            viewModel.ChatMessages.Count.Should()
+                     .Be(0, "because the  identifier in the chat messages does not match the selected RFQ.");
+        }
+
+        [Test]
+        public void SendChatMessage_EmptyChatMessage_ChatServiceSendChatMessageNeverCalled()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.MessageToBeSent = String.Empty;
+            chatServiceManagerMock.Setup(orp => orp.SendChatMessage(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>()))
+                .Callback(() => wasCalled = true);
+            // Act
+            viewModel.SendChatMessage();
+            // Assert
+            wasCalled.Should().BeFalse("because the message to be sent is empty");
+        }
+
+        [Test]
+        public void SendChatMessage_NullChatMessage_ChatServiceSendChatMessageNeverCalled()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.MessageToBeSent = null;
+            chatServiceManagerMock.Setup(orp => orp.SendChatMessage(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>()))
+                .Callback(() => wasCalled = true);
+            // Act
+            viewModel.SendChatMessage();
+            // Assert
+            wasCalled.Should().BeFalse("because the message to be sent is null");
+        }
+
+        [Test]
+        public void SendChatMessage_ValidChatMessage_ChatServiceSendChatMessageCalled()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.MessageToBeSent = "test message";
+            chatServiceManagerMock.Setup(csm => csm.SendChatMessage(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>()))
+                .Callback(() => wasCalled = true);
+            // Act
+            viewModel.SendChatMessage();
+            // Assert
+            wasCalled.Should().BeTrue("because the message to be sent is valid");
+        }
+
+        [Test]
+        public void SendChatMessage_ValidChatMessage_MessageToBeSentCleared()
+        {
+            // Arrange
+            viewModel.MessageToBeSent = "test message";
+            // Act
+            viewModel.SendChatMessage();
+            // Assert
+            viewModel.MessageToBeSent.Should().BeNullOrEmpty("because it is cleared after message is sent");
+        }
+
+        [Test]
+        public void CanCalculateRequest_ValidSelectedRequestForQuote_ReturnsTrue()
+        {
+            // Arrange
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl();
+            // Assert
+            viewModel.CanCalculateRequest().Should().BeTrue("because the selected RFQ is not null");
+        }
+
+        [Test]
+        public void CanCalculateRequest_NullSelectedRequestForQuote_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.SelectedRequestForQuote = null;
+            // Assert
+            viewModel.CanCalculateRequest().Should().BeFalse("because the selected RFQ is null");
+        }
+
+        [Test]
+        public void CanSave_ValidSelectedRequestForQuote_ReturnsTrue()
+        {
+            // Arrange
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl();
+            // Assert
+            viewModel.CanSave(string.Empty).Should().BeTrue("because the selected RFQ is not null");
+        }
+
+        [Test]
+        public void CanSave_NullSelectedRequestForQuote_ReturnsFalse()
+        {
+            // Arrange
+            viewModel.SelectedRequestForQuote = null;
+            // Assert
+            viewModel.CanSave(string.Empty).Should().BeFalse("because the selected RFQ is null");
+        }
+
+        [Test]
+        public void BeginEdit_ValidSelectedRequestForQuote_ClonedToBackupOfRequestForQuote()
+        {
+            // Arrange
+            viewModel.backupOfRequestForQuote = null;
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() {Identifier = 1000};
+            // Act
+            viewModel.BeginEdit();
+            // Assert
+            viewModel.backupOfRequestForQuote.Identifier.Should().Be(1000, "because it is cloned by BeginEdit method");
+        }
+
+        [Test]
+        public void EndEdit_ValidSelectedRequestForQuoteWithNegativeIdentifier_CallsSaveRequest()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = -1};
+            optionRequestPersistanceManagerMock.Setup(orpm => orpm.SaveRequest(It.IsAny<IRequestForQuote>())).Callback(() => wasCalled = true);
+            // Act
+            viewModel.EndEdit();
+            // Assert
+            wasCalled.Should().BeTrue("because SaveRequest was called by EndEdit");
+        }
+
+        [Test]
+        public void EndEdit_ValidSelectedRequestForQuoteWithNegativeIdentifier_SelectedRequestForQuoteIdentifierUpdated()
+        {
+            // Arrange
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = -1 };
+            optionRequestPersistanceManagerMock.Setup(orpm => orpm.SaveRequest(It.IsAny<IRequestForQuote>())).Returns(999);
+            // Act
+            viewModel.EndEdit();
+            // Assert
+            viewModel.SelectedRequestForQuote.Identifier.Should().Be(999,"because SaveRequest returns the new identifier and sets SelectedRequestForQuote with it");
+        }
+
+
+
+        [Test]
+        public void EndEdit_ValidSelectedRequestForQuoteWithNegativeIdentifier_RegisterParticipantShouldBeCalled()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = -1 };
+            optionRequestPersistanceManagerMock.Setup(orpm => orpm.SaveRequest(It.IsAny<IRequestForQuote>())).Returns(999);
+            chatServiceManagerMock.Setup(csm => csm.RegisterParticipant(It.IsAny<Int32>())).Callback(() => wasCalled = true);
+            // Act
+            viewModel.EndEdit();
+            // Assert
+            wasCalled.Should().BeTrue("because if SaveRequest returns a new identifier then RegisterParticipant should be called");
+        }
+
+        [Test]
+        public void EndEdit_ValidSelectedRequestForQuoteWithNonNegativeIdentifier_RegisterParticipantShouldBeCalled()
+        {
+            // Arrange
+            var wasCalled = false;
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = 999 };
+            optionRequestPersistanceManagerMock.Setup(orpm => orpm.UpdateRequest(It.IsAny<IRequestForQuote>())).Returns(true).Callback(() => wasCalled = true);
+            // Act
+            viewModel.EndEdit();
+            // Assert
+            wasCalled.Should().BeTrue("because Identifier is non-negative then UpdateRequest should be called");
+        }
+
+        [Test]
+        public void CancelEdit_ValidSelectedRequestForQuote_ClonedToBackupOfRequestForQuote()
+        {
+            // Arrange
+            viewModel.backupOfRequestForQuote = new RequestForQuoteImpl()
+            {
+                Identifier = 1111,
+                Status = StatusEnum.TRADEDAWAY,
+                TradeDate = DateTime.Today,
+                ExpiryDate = DateTime.Today,
+                HedgeType = HedgeTypeEnum.SHARES
+            };
+            viewModel.SelectedRequestForQuote = new RequestForQuoteImpl() { Identifier = 1000 }; ;
+            // Act
+            viewModel.CancelEdit();
+            // Assert
+            viewModel.SelectedRequestForQuote.Identifier.Should().Be(1111, "because of the memberwise copy by CancelEdit method");
         }
     }
 }
