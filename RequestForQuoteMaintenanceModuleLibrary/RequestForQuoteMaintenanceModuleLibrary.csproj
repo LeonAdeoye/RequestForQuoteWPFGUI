@@ -81,6 +81,9 @@
     <Compile Include="UnderlyingMaintenanceUserControl.xaml.cs">
       <DependentUpon>UnderlyingMaintenanceUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserMaintenanceUserControl.xaml.cs">
+      <DependentUpon>UserMaintenanceUserControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="BankHolidayMaintenanceUserControl.xaml">
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UnderlyingMaintenanceUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserMaintenanceUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

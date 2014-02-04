@@ -388,8 +388,6 @@ namespace RequestForQuoteGridModuleLibrary.Test
             viewModel.SelectedRequestForQuote.Identifier.Should().Be(999,"because SaveRequest returns the new identifier and sets SelectedRequestForQuote with it");
         }
 
-
-
         [Test]
         public void EndEdit_ValidSelectedRequestForQuoteWithNegativeIdentifier_RegisterParticipantShouldBeCalled()
         {

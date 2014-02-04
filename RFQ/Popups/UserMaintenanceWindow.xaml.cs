@@ -1,14 +1,25 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using RequestForQuoteInterfacesLibrary.WindowInterfaces;
 
 namespace RFQ.Popups
 {
     /// <summary>
-    /// Interaction logic for UnderlyingMaintenanceWindow.xaml
+    /// Interaction logic for UserMaintenanceWindow.xaml
     /// </summary>
-    public partial class UnderlyingMaintenanceWindow : Window, IWindowPopup
+    public partial class UserMaintenanceWindow : Window, IWindowPopup
     {
-        public UnderlyingMaintenanceWindow()
+        public UserMaintenanceWindow()
         {
             InitializeComponent();
         }

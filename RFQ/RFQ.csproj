@@ -91,6 +91,9 @@
     <Compile Include="Popups\ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Popups\UserMaintenanceWindow.xaml.cs">
+      <DependentUpon>UserMaintenanceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RequestForQuoteBootstrapper.cs" />
     <Compile Include="Popups\RequestForQuoteDetailsWindow.xaml.cs">
       <DependentUpon>RequestForQuoteDetailsWindow.xaml</DependentUpon>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Popups\SaveSearchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\UserMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

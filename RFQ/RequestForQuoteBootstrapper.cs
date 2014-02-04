@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Modularity;
@@ -49,6 +48,7 @@ namespace RFQ
                 .RegisterType<IWindowPopup, BankHolidayMaintenanceWindow>(WindowPopupNames.BANK_HOLIDAY_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, UnderlyingMaintenanceWindow>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, UserMaintenanceWindow>(WindowPopupNames.USER_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, ReportWindow>(WindowPopupNames.REPORT_WINDOW_POPUP);
         }
     }

@@ -13,6 +13,7 @@ namespace RFQ
         public ICommand ClientMaintenanceCommand { get; set; }
         public ICommand BankHolidayMaintenanceCommand { get; set; }
         public ICommand UnderlyierMaintenanceCommand { get; set; }
+        public ICommand UserMaintenanceCommand { get; set; }
 
         public ShellViewModel()
         {
@@ -20,6 +21,7 @@ namespace RFQ
             ClientMaintenanceCommand = new DelegateCommand(LaunchClientMaintenancePopupWindow);
             BankHolidayMaintenanceCommand = new DelegateCommand(LaunchBankHolidayMaintenancePopupWindow);
             UnderlyierMaintenanceCommand = new DelegateCommand(LaunchUnderlyierMaintenancePopupWindow);
+            UserMaintenanceCommand = new DelegateCommand(LaunchUserMaintenancePopupWindow);
         }
 
         private void LaunchBookMaintenancePopupWindow()
@@ -32,6 +34,12 @@ namespace RFQ
         {
             var clientMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.CLIENT_MAINTENANCE_WINDOW_POPUP);
             clientMaintenanceWindow.ShowModalWindow();
+        }
+
+        private void LaunchUserMaintenancePopupWindow()
+        {
+            var userMaintenanceWindow = ServiceLocator.Current.GetInstance<IWindowPopup>(WindowPopupNames.USER_MAINTENANCE_WINDOW_POPUP);
+            userMaintenanceWindow.ShowModalWindow();
         }
 
         private void LaunchBankHolidayMaintenancePopupWindow()
