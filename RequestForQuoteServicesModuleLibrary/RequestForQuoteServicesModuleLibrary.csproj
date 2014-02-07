@@ -124,6 +124,7 @@
     <Compile Include="ServicesImplementation\ChatServiceManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ClientManagerImpl.cs" />
     <Compile Include="ServicesImplementation\ConfigurationManagerImpl.cs" />
+    <Compile Include="ServicesImplementation\GroupManagerImpl.cs" />
     <Compile Include="ServicesImplementation\UserManagerImpl.cs" />
     <Compile Include="ServicesImplementation\JsonParserImpl.cs" />
     <Compile Include="ServicesImplementation\OptionRequestParserImpl.cs" />

@@ -4,11 +4,11 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
 {
     public class GroupImpl : IGroup
     {
-        private string groupId;
+        private int groupId;
         private string groupName;
         private bool isValid;
 
-        public string GroupId
+        public int GroupId
         {
             get { return groupId; }
             set { groupId = value; }

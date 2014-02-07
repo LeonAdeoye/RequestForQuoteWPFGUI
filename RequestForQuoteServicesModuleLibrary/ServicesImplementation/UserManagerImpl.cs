@@ -47,7 +47,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         {
             if (configManager.IsStandAlone)
             {
-                Users.Add(new UserImpl() { UserId = "leon.adeoye", FirstName = "Leon" , LastName = "Adeoye", EmailAddress = "leon.adeoye@gmail.com",IsValid = true});               
+                Users.Add(new UserImpl() { UserId = "leon.adeoye", FirstName = "Leon" , LastName = "Adeoye", 
+                    EmailAddress = "leon.adeoye@gmail.com", GroupId = 1, LocationName = "Hong Kong", IsValid = true});               
             }
             else
             {

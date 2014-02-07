@@ -76,10 +76,12 @@
     <Compile Include="Enums\ExtrapolationEnum.cs" />
     <Compile Include="Enums\GreeksEnum.cs" />
     <Compile Include="Enums\RequestCountFromDateEnum.cs" />
+    <Compile Include="EventPayloads\NewGroupEventPayload.cs" />
     <Compile Include="EventPayloads\NewUserEventPayload.cs" />
     <Compile Include="EventPayloads\NewSerializedRequestEventPayload.cs" />
     <Compile Include="EventPayloads\RequestSelectionEventPayload.cs" />
     <Compile Include="EventPayloads\GreeksExtrapolationReportEventPayLoad.cs" />
+    <Compile Include="Events\NewGroupEvent.cs" />
     <Compile Include="Events\NewUserEvent.cs" />
     <Compile Include="Events\NewSerializedRequestEvent.cs" />
     <Compile Include="Events\GreeksExtrapolationReportEvent.cs" />

@@ -2,7 +2,7 @@
 {
     public interface IGroup
     {
-        string GroupId { get; set; }
+        int GroupId { get; set; }
         string GroupName { get; set; }
         bool IsValid { get; set; }
     }
