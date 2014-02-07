@@ -164,15 +164,15 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://book.rfq.ws.leon.com/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string updatedByUser;
+        public string savedByUser;
         
         public save() {
         }
         
-        public save(string bookCode, string entity, string updatedByUser) {
+        public save(string bookCode, string entity, string savedByUser) {
             this.bookCode = bookCode;
             this.entity = entity;
-            this.updatedByUser = updatedByUser;
+            this.savedByUser = savedByUser;
         }
     }
     
@@ -478,11 +478,11 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(string bookCode, string entity, string updatedByUser) {
+        public bool save(string bookCode, string entity, string savedByUser) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save();
             inValue.bookCode = bookCode;
             inValue.entity = entity;
-            inValue.updatedByUser = updatedByUser;
+            inValue.savedByUser = savedByUser;
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).save(inValue);
             return retVal.@return;
         }
@@ -493,11 +493,11 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginsave(string bookCode, string entity, string updatedByUser, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginsave(string bookCode, string entity, string savedByUser, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.BookMaintenanceService.save();
             inValue.bookCode = bookCode;
             inValue.entity = entity;
-            inValue.updatedByUser = updatedByUser;
+            inValue.savedByUser = savedByUser;
             return ((RequestForQuoteServicesModuleLibrary.BookMaintenanceService.BookController)(this)).Beginsave(inValue, callback, asyncState);
         }
         
@@ -515,8 +515,8 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string bookCode = ((string)(inValues[0]));
             string entity = ((string)(inValues[1]));
-            string updatedByUser = ((string)(inValues[2]));
-            return this.Beginsave(bookCode, entity, updatedByUser, callback, asyncState);
+            string savedByUser = ((string)(inValues[2]));
+            return this.Beginsave(bookCode, entity, savedByUser, callback, asyncState);
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
@@ -532,11 +532,11 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             }
         }
         
-        public void saveAsync(string bookCode, string entity, string updatedByUser) {
-            this.saveAsync(bookCode, entity, updatedByUser, null);
+        public void saveAsync(string bookCode, string entity, string savedByUser) {
+            this.saveAsync(bookCode, entity, savedByUser, null);
         }
         
-        public void saveAsync(string bookCode, string entity, string updatedByUser, object userState) {
+        public void saveAsync(string bookCode, string entity, string savedByUser, object userState) {
             if ((this.onBeginsaveDelegate == null)) {
                 this.onBeginsaveDelegate = new BeginOperationDelegate(this.OnBeginsave);
             }
@@ -549,7 +549,7 @@ namespace RequestForQuoteServicesModuleLibrary.BookMaintenanceService {
             base.InvokeAsync(this.onBeginsaveDelegate, new object[] {
                         bookCode,
                         entity,
-                        updatedByUser}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
+                        savedByUser}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
