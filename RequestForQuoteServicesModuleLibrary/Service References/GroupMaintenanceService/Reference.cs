@@ -114,21 +114,16 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://group.rfq.ws.leon.com/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int groupId;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://group.rfq.ws.leon.com/", Order=1)]
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string groupName;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://group.rfq.ws.leon.com/", Order=2)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://group.rfq.ws.leon.com/", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string savedByUser;
         
         public save() {
         }
         
-        public save(int groupId, string groupName, string savedByUser) {
-            this.groupId = groupId;
+        public save(string groupName, string savedByUser) {
             this.groupName = groupName;
             this.savedByUser = savedByUser;
         }
@@ -495,9 +490,8 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
             return base.Channel.save(request);
         }
         
-        public bool save(int groupId, string groupName, string savedByUser) {
+        public bool save(string groupName, string savedByUser) {
             RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.save();
-            inValue.groupId = groupId;
             inValue.groupName = groupName;
             inValue.savedByUser = savedByUser;
             RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.saveResponse retVal = ((RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.GroupController)(this)).save(inValue);
@@ -510,9 +504,8 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult Beginsave(int groupId, string groupName, string savedByUser, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult Beginsave(string groupName, string savedByUser, System.AsyncCallback callback, object asyncState) {
             RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.save inValue = new RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.save();
-            inValue.groupId = groupId;
             inValue.groupName = groupName;
             inValue.savedByUser = savedByUser;
             return ((RequestForQuoteServicesModuleLibrary.GroupMaintenanceService.GroupController)(this)).Beginsave(inValue, callback, asyncState);
@@ -530,10 +523,9 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
         }
         
         private System.IAsyncResult OnBeginsave(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            int groupId = ((int)(inValues[0]));
-            string groupName = ((string)(inValues[1]));
-            string savedByUser = ((string)(inValues[2]));
-            return this.Beginsave(groupId, groupName, savedByUser, callback, asyncState);
+            string groupName = ((string)(inValues[0]));
+            string savedByUser = ((string)(inValues[1]));
+            return this.Beginsave(groupName, savedByUser, callback, asyncState);
         }
         
         private object[] OnEndsave(System.IAsyncResult result) {
@@ -549,11 +541,11 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
             }
         }
         
-        public void saveAsync(int groupId, string groupName, string savedByUser) {
-            this.saveAsync(groupId, groupName, savedByUser, null);
+        public void saveAsync(string groupName, string savedByUser) {
+            this.saveAsync(groupName, savedByUser, null);
         }
         
-        public void saveAsync(int groupId, string groupName, string savedByUser, object userState) {
+        public void saveAsync(string groupName, string savedByUser, object userState) {
             if ((this.onBeginsaveDelegate == null)) {
                 this.onBeginsaveDelegate = new BeginOperationDelegate(this.OnBeginsave);
             }
@@ -564,7 +556,6 @@ namespace RequestForQuoteServicesModuleLibrary.GroupMaintenanceService {
                 this.onsaveCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnsaveCompleted);
             }
             base.InvokeAsync(this.onBeginsaveDelegate, new object[] {
-                        groupId,
                         groupName,
                         savedByUser}, this.onEndsaveDelegate, this.onsaveCompletedDelegate, userState);
         }

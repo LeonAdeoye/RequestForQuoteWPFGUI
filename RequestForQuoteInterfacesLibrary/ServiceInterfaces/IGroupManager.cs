@@ -7,7 +7,7 @@ namespace RequestForQuoteInterfacesLibrary.ServiceInterfaces
     {
         List<IGroup> Groups { get; set; }
         void AddGroup(int groupId, string groupName, bool isValid);
-        bool SaveToDatabase(int groupId, string groupName);
+        bool SaveToDatabase(string groupName);
         bool UpdateValidity(int groupId, bool isValid);
         void Initialize();
     }

@@ -72,16 +72,15 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// <summary>
         /// Saves the new group to the database.
         /// </summary>
-        /// <param name="groupId"> the identifier of the group that will be added.</param>
         /// <param name="groupName"> the name of the group that will be added.</param>
         /// <returns> true if the save was successful; false otherwise.</returns>
         /// <exception cref="ArgumentException"> thrown if groupName string parameter is null or empty.</exception>
-        public bool SaveToDatabase(int groupId, string groupName)
+        public bool SaveToDatabase(string groupName)
         {
             if (String.IsNullOrEmpty(groupName))
                 throw new ArgumentException("groupName");
 
-            return groupControllerProxy.save(groupId, groupName, configManager.CurrentUser);
+            return groupControllerProxy.save(groupName, configManager.CurrentUser);
         }
 
         /// <summary>

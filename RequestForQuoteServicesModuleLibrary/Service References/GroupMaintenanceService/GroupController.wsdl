@@ -25,7 +25,6 @@
       </xs:complexType>
       <xs:complexType name="save">
         <xs:sequence>
-          <xs:element name="groupId" type="xs:int" />
           <xs:element minOccurs="0" name="groupName" type="xs:string" />
           <xs:element minOccurs="0" name="savedByUser" type="xs:string" />
         </xs:sequence>
