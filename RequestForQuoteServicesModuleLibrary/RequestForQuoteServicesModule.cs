@@ -7,6 +7,7 @@ using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.BookMaintenanceService;
 using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
+using RequestForQuoteServicesModuleLibrary.UserMaintenanceService;
 using log4net;
 using Microsoft.Practices.Unity;
 
@@ -39,7 +40,7 @@ namespace RequestForQuoteServicesModuleLibrary
             container.RegisterInstance<IConfigurationManager>(configManager);
             configManager.Initialize();
             
-            var tasks = new Task[5];
+            var tasks = new Task[7];
 
             var underlyingManager = new UnderlyingManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<IUnderlyingManager>(underlyingManager);
@@ -60,6 +61,14 @@ namespace RequestForQuoteServicesModuleLibrary
             var searchManager = new SearchManagerImpl(configManager, eventAggregator);
             container.RegisterInstance<ISearchManager>(searchManager);
             tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize());
+
+            var userManager = new UserManagerImpl(configManager, eventAggregator);
+            container.RegisterInstance<IUserManager>(userManager);
+            tasks[5] = Task.Factory.StartNew(() => userManager.Initialize());
+
+            var groupManager = new GroupManagerImpl(configManager, eventAggregator);
+            container.RegisterInstance<IGroupManager>(groupManager);
+            tasks[6] = Task.Factory.StartNew(() => groupManager.Initialize());
             
             var optionRequestPersistanceManager = new OptionRequestPersistanceManagerImpl(clientManager, configManager);
             container.RegisterInstance<IOptionRequestPersistanceManager>(optionRequestPersistanceManager);

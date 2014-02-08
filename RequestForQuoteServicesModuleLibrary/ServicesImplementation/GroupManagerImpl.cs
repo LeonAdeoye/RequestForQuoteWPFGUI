@@ -47,9 +47,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         /// <param name="groupId"> the identifier of the group that will be added.</param>
         /// <param name="groupName"> the name of the group that will be added.</param>
-        /// <param name="isValid"> the validity of the user that will be added.</param>
+        /// <param name="isValid"> the validity of the group that will be added.</param>
         /// <exception cref="ArgumentException"> thrown if any of the string parameters are null or empty.</exception>
-        public void AddUser(int groupId, string groupName, bool isValid)
+        public void AddGroup(int groupId, string groupName, bool isValid)
         {
             if (String.IsNullOrEmpty(groupName))
                 throw new ArgumentException("groupName");

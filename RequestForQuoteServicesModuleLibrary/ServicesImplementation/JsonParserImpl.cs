@@ -19,6 +19,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
         private static readonly IBookManager bookManager = ServiceLocator.Current.GetInstance<IBookManager>();
+        private static readonly IUserManager userManager = ServiceLocator.Current.GetInstance<IUserManager>();
+        private static readonly IGroupManager groupManager = ServiceLocator.Current.GetInstance<IGroupManager>();
         private static readonly IClientManager clientManager = ServiceLocator.Current.GetInstance<IClientManager>();
         private static readonly IUnderlyingManager underlyingManager = ServiceLocator.Current.GetInstance<IUnderlyingManager>();
         private static readonly IBankHolidayManager bankHolidayManager = ServiceLocator.Current.GetInstance<IBankHolidayManager>();
@@ -27,6 +29,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 
         private const string NEW_CHAT_MESSAGE = "NewChatMessage";
         private const string NEW_BOOK_UPDATE = "NewBookUpdate";
+        private const string NEW_USER_UPDATE = "NewUserUpdate";
+        private const string NEW_GROUP_UPDATE = "NewGroupUpdate";
         private const string NEW_CLIENT_UPDATE = "NewClientUpdate";
         private const string NEW_UNDERLYING_UPDATE = "NewUnderlyingUpdate";
         private const string NEW_REQUEST_UPDATE = "NewRequestUpdate";
@@ -55,6 +59,8 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 {
                     {NEW_CHAT_MESSAGE, ProcessNewChatMessage},
                     {NEW_BOOK_UPDATE, ProcessNewBookUpdate},
+                    {NEW_USER_UPDATE, ProcessNewUserUpdate},
+                    {NEW_GROUP_UPDATE, ProcessNewGroupUpdate},
                     {NEW_CLIENT_UPDATE, ProcessNewClientUpdate},
                     {NEW_UNDERLYING_UPDATE, ProcessNewUnderlyierUpdate},
                     {NEW_HOLIDAY_UPDATE, ProcessNewHolidayUpdate},
@@ -171,6 +177,49 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 log.Error(String.Format("Failed to deserialize json [{0}] into new book update. Exception raised [{1}]", json, exc.Message));
             }            
+        }
+
+        /// <summary>
+        /// Parses the json message sent and converts it into a UserImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
+        private void ProcessNewUserUpdate(string json)
+        {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
+            try
+            {
+                IUser newUser = JsonConvert.DeserializeObject<UserImpl>(json);
+                userManager.AddUser(newUser.UserId, newUser.FirstName, newUser.LastName, newUser.EmailAddress, 
+                    newUser.LocationName, newUser.GroupId, newUser.IsValid);
+            }
+            catch (Exception exc)
+            {
+                log.Error(String.Format("Failed to deserialize json [{0}] into new user update. Exception raised [{1}]", json, exc.Message));
+            }
+        }
+
+        /// <summary>
+        /// Parses the json message sent and converts it into a GroupImpl object using a json serializer.
+        /// </summary>
+        /// <param name="json"> the json message to be parsed.</param>
+        /// <exception cref="ArgumentException"> thrown if the json message is null or empty.</exception>
+        private void ProcessNewGroupUpdate(string json)
+        {
+            if (String.IsNullOrEmpty(json))
+                throw new ArgumentException("json");
+
+            try
+            {
+                IGroup newGroup = JsonConvert.DeserializeObject<GroupImpl>(json);
+                groupManager.AddGroup(newGroup.GroupId, newGroup.GroupName, newGroup.IsValid);
+            }
+            catch (Exception exc)
+            {
+                log.Error(String.Format("Failed to deserialize json [{0}] into new group update. Exception raised [{1}]", json, exc.Message));
+            }
         }
 
         /// <summary>
