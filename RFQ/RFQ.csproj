@@ -88,6 +88,9 @@
     <Compile Include="Popups\ClientMaintenanceWindow.xaml.cs">
       <DependentUpon>ClientMaintenanceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Popups\GroupMaintenanceWindow.xaml.cs">
+      <DependentUpon>GroupMaintenanceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Popups\ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Popups\ClientMaintenanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popups\GroupMaintenanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

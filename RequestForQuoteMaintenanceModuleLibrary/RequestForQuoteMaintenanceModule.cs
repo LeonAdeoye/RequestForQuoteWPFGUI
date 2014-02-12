@@ -25,7 +25,9 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             regionManager.RegisterViewWithRegion(RegionNames.BOOK_MAINTENANCE_USER_CONTROL_REGION, typeof(BookMaintenanceUserControl))
                 .RegisterViewWithRegion(RegionNames.CLIENT_MAINTENANCE_USER_CONTROL_REGION, typeof(ClientMaintenanceUserControl))
                 .RegisterViewWithRegion(RegionNames.BANK_HOLIDAY_MAINTENANCE_USER_CONTROL_REGION, typeof(BankHolidayMaintenanceUserControl))
-                .RegisterViewWithRegion(RegionNames.UNDERLYING_MAINTENANCE_USER_CONTROL_REGION, typeof(UnderlyingMaintenanceUserControl));
+                .RegisterViewWithRegion(RegionNames.UNDERLYING_MAINTENANCE_USER_CONTROL_REGION, typeof(UnderlyingMaintenanceUserControl))
+                .RegisterViewWithRegion(RegionNames.GROUP_MAINTENANCE_USER_CONTROL_REGION, typeof(GroupMaintenanceUserControl))
+                .RegisterViewWithRegion(RegionNames.USER_MAINTENANCE_USER_CONTROL_REGION, typeof(UserMaintenanceUserControl));
 
             if (log.IsDebugEnabled)
                 log.Debug("RequestForQuoteToolBarModule initialized successfully.");

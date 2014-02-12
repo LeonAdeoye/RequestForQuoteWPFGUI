@@ -49,6 +49,7 @@ namespace RFQ
                 .RegisterType<IWindowPopup, UnderlyingMaintenanceWindow>(WindowPopupNames.UNDERLYING_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, SaveSearchWindow>(WindowPopupNames.SAVE_SEARCH_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, UserMaintenanceWindow>(WindowPopupNames.USER_MAINTENANCE_WINDOW_POPUP)
+                .RegisterType<IWindowPopup, GroupMaintenanceWindow>(WindowPopupNames.GROUP_MAINTENANCE_WINDOW_POPUP)
                 .RegisterType<IWindowPopup, ReportWindow>(WindowPopupNames.REPORT_WINDOW_POPUP);
         }
     }

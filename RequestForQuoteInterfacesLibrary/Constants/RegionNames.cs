@@ -14,6 +14,7 @@
 
         public const string UNDERLYING_MAINTENANCE_USER_CONTROL_REGION = "UnderlyingMaintenanceUserControl";
         public const string BOOK_MAINTENANCE_USER_CONTROL_REGION = "BookMaintenanceUserControl";
+        public const string GROUP_MAINTENANCE_USER_CONTROL_REGION = "GroupMaintenanceUserControl";
         public const string USER_MAINTENANCE_USER_CONTROL_REGION = "UserMaintenanceUserControl";
 
         public const string SAVE_SEARCH_USER_CONTROL_REGION = "SaveSearchUserControl";
