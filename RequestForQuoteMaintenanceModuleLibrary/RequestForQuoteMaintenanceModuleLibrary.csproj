@@ -74,6 +74,10 @@
     <Compile Include="Commands\ClearInputCommand.cs" />
     <Compile Include="ClientMaintenanceViewModel.cs" />
     <Compile Include="Commands\UpdateValidityCommand.cs" />
+    <Compile Include="GroupMaintenanceUserControl.xaml.cs">
+      <DependentUpon>GroupMaintenanceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupMaintenanceViewModel.cs" />
     <Compile Include="UnderlyingMaintenanceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestForQuoteMaintenanceModule.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="UserMaintenanceUserControl.xaml.cs">
       <DependentUpon>UserMaintenanceUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserMaintenanceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="BankHolidayMaintenanceUserControl.xaml">
@@ -95,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientMaintenanceUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GroupMaintenanceUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
