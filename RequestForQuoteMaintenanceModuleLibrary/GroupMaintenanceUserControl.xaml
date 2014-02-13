@@ -9,11 +9,12 @@
 		<StackPanel>
 			<ListView Height="160" Margin="0,0,0,2" ItemsSource="{Binding Groups}"
 					ItemContainerStyle="{StaticResource WpfsGridListViewItem}"
-					SelectedItem="{Binding SelectedUnderlying, Mode=TwoWay}">
+					SelectedItem="{Binding SelectedGroup, Mode=TwoWay}">
 				<ListView.View>
 					<GridView ColumnHeaderContainerStyle="{StaticResource WpfsGridViewColHeaderStyle}"
 						  ColumnHeaderTemplate="{StaticResource WpfsGridViewColHeaderTemplate}">
-						<GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Path=GroupName}"/>
+						<GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Path=GroupName}"/>
+                        <GridViewColumn Header="Is Valid" Width="60" DisplayMemberBinding="{Binding Path=IsValid}"/>
 					</GridView>
 				</ListView.View>
 				<ListView.ToolTip>

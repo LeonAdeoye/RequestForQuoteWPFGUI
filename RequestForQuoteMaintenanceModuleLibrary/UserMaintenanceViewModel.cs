@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -18,21 +19,28 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         private readonly IUserManager userManager;
+        private readonly IGroupManager groupManager;
 
         public ObservableCollection<IUser> Users { get; set; }
+        public List<IGroup> Groups { get; set; }
+
         public ICommand AddNewItemCommand { get; set; }
         public ICommand ClearInputCommand { get; set; }
         public ICommand UpdateValidityCommand { get; set; }
 
-        public UserMaintenanceViewModel(IUserManager userManager, IEventAggregator eventAggregator)
+        public UserMaintenanceViewModel(IUserManager userManager, IGroupManager groupManager, IEventAggregator eventAggregator)
         {
             if (userManager == null)
                 throw new ArgumentNullException("userManager");
+
+            if (groupManager == null)
+                throw new ArgumentNullException("groupManager");
 
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
 
             this.userManager = userManager;
+            this.groupManager = groupManager;
             this.eventAggregator = eventAggregator;
 
             AddNewItemCommand = new AddNewItemCommand(this);
@@ -46,11 +54,13 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private void InitializeCollections()
         {
             Users = new ObservableCollection<IUser>(userManager.Users);
+            Groups = new List<IGroup>(groupManager.Groups);
         }
 
         private void InitializeEventSubscriptions()
         {
             eventAggregator.GetEvent<NewUserEvent>().Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+            eventAggregator.GetEvent<NewGroupEvent>().Subscribe(HandleNewGroupEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
         public IUser SelectedUser
@@ -63,16 +73,18 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public static readonly DependencyProperty SelectedUserProperty =
             DependencyProperty.Register("SelectedUser", typeof(IUser), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(null));
 
-        public string NewUserId
+
+        public string UserId
         {
-            get { return (string)GetValue(NewUserIdProperty); }
-            set { SetValue(NewUserIdProperty, value); }
+            get { return (string)GetValue(UserIdProperty); }
+            set { SetValue(UserIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for NewUserRIC.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NewUserIdProperty =
-            DependencyProperty.Register("NewUserId", typeof(string), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
+        // Using a DependencyProperty as the backing store for UserId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UserIdProperty =
+            DependencyProperty.Register("UserId", typeof(string), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
 
+        
         public string FirstName
         {
             get { return (string)GetValue(FirstNameProperty); }
@@ -132,9 +144,17 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             Users.Add(eventPayLoad.NewUser);
         }
 
+        public void HandleNewGroupEvent(NewGroupEventPayload eventPayLoad)
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Received new group event from GroupManager: " + eventPayLoad);
+
+            Groups.Add(eventPayLoad.NewGroup);
+        }
+
         public void ClearInput()
         {
-            NewUserId = String.Empty;
+            UserId = String.Empty;
             FirstName = String.Empty;
             LastName = String.Empty;
             EmailAddress = String.Empty;
@@ -144,32 +164,32 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         public bool CanClearInput()
         {
-            return !string.IsNullOrEmpty(NewUserId) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(LastName)
+            return !string.IsNullOrEmpty(UserId) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(LastName)
             || !string.IsNullOrEmpty(EmailAddress) || !string.IsNullOrEmpty(LocationName);
         }
 
         public void AddNewItem()
         {
-            if (!userManager.Users.Exists((user) => user.UserId == NewUserId))
+            if (!userManager.Users.Exists((user) => user.UserId == UserId))
             {
-                if (userManager.SaveToDatabase(NewUserId, FirstName, LastName, EmailAddress, LocationName, GroupId))
+                if (userManager.SaveToDatabase(UserId, FirstName, LastName, EmailAddress, LocationName, GroupId))
                 {
-                    MessageBox.Show("Successfully saved new user: " + NewUserId, "User Maintenance",
+                    MessageBox.Show("Successfully saved new user: " + UserId, "User Maintenance",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                     ClearInput();
                 }
                 else
-                    MessageBox.Show("Failed to save user: " + NewUserId, "User Maintenance Error",
+                    MessageBox.Show("Failed to save user: " + UserId, "User Maintenance Error",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
-                MessageBox.Show("Cannot Save! User: " + NewUserId + " already exists!", "User Maintenance Error",
+                MessageBox.Show("Cannot Save! User: " + UserId + " already exists!", "User Maintenance Error",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public bool CanAddNewItem()
         {
-            return !String.IsNullOrEmpty(NewUserId) && !String.IsNullOrEmpty(FirstName) && !String.IsNullOrEmpty(LastName)
+            return !String.IsNullOrEmpty(UserId) && !String.IsNullOrEmpty(FirstName) && !String.IsNullOrEmpty(LastName)
                 && !String.IsNullOrEmpty(EmailAddress) && !String.IsNullOrEmpty(LocationName);
         }
 

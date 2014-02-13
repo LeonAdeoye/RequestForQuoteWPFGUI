@@ -9,7 +9,7 @@
 		<StackPanel>
 			<ListView Height="160" Margin="0,0,0,2" ItemsSource="{Binding Users}"
 					ItemContainerStyle="{StaticResource WpfsGridListViewItem}"
-					SelectedItem="{Binding SelectedUnderlying, Mode=TwoWay}">
+					SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
 				<ListView.View>
 					<GridView ColumnHeaderContainerStyle="{StaticResource WpfsGridViewColHeaderStyle}"
 						  ColumnHeaderTemplate="{StaticResource WpfsGridViewColHeaderTemplate}">
@@ -18,7 +18,7 @@
 						<GridViewColumn Header="Last Name" Width="70" DisplayMemberBinding="{Binding Path=LastName}"/>
 						<GridViewColumn Header="Email Address" Width="110" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
 						<GridViewColumn Header="Location" Width="70" DisplayMemberBinding="{Binding Path=LocationName}"/>
-                        <GridViewColumn Header="Group" Width="50" DisplayMemberBinding="{Binding Path=GroupId}"/>
+						<GridViewColumn Header="Group" Width="50" DisplayMemberBinding="{Binding Path=GroupId}"/>
 					</GridView>
 				</ListView.View>
 				<ListView.ToolTip>
@@ -39,20 +39,20 @@
 				</GroupBox.Header>
 				<StackPanel>
 					<DockPanel>
-						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=NewUserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter User Id</Label>
+						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=UserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+						<Label HorizontalAlignment="Left">Enter user ID</Label>
 					</DockPanel>
 					<DockPanel>
 						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter First Name</Label>
+						<Label HorizontalAlignment="Left">Enter first name</Label>
 					</DockPanel>
 					<DockPanel>
 						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter Last Name</Label>
+						<Label HorizontalAlignment="Left">Enter last name</Label>
 					</DockPanel>
 					<DockPanel>
 						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter Email Address</Label>
+						<Label HorizontalAlignment="Left">Enter email address</Label>
 					</DockPanel>                    
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 						<Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,2,0,2">Clear</Button>
