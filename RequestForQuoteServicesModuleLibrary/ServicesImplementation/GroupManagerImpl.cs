@@ -128,7 +128,14 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                 }
                 catch (EndpointNotFoundException exception)
                 {
-                    log.Error(String.Format("Failed to connect to proxy for remote search controller webservice. Exception thrown {0}", exception));
+                    if (log.IsErrorEnabled)
+                        log.Error(String.Format("Failed to connect to proxy for remote search controller webservice. Exception thrown {0}", exception));
+                    throw;
+                }
+                catch (FaultException fe)
+                {
+                    if (log.IsErrorEnabled)
+                        log.Error("Exception thrown while initializing groups collection" + ": " + fe);
                     throw;
                 }
             }
