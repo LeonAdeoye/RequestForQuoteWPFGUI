@@ -53,7 +53,16 @@
 					<DockPanel>
 						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 						<Label HorizontalAlignment="Left">Enter email address</Label>
-					</DockPanel>                    
+					</DockPanel>
+					<DockPanel>
+						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Locations}"/>
+						<Label HorizontalAlignment="Left">Select location</Label>
+					</DockPanel>
+					<DockPanel>
+						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Groups}"
+								  DisplayMemberPath="GroupName" SelectedValue="{Binding SelectedGroup}" SelectedValuePath="GroupName"/>
+						<Label HorizontalAlignment="Left">Select group</Label>
+					</DockPanel>
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 						<Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,2,0,2">Clear</Button>
 						<Button Command="{Binding AddNewItemCommand}" Width="60" Margin="0,2,0,2">Add</Button>
