@@ -4,6 +4,8 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:constants="clr-namespace:RequestForQuoteInterfacesLibrary.Constants;assembly=RequestForQuoteInterfacesLibrary"
+			 xmlns:Enums="clr-namespace:RequestForQuoteInterfacesLibrary.Enums;assembly=RequestForQuoteInterfacesLibrary"
+			 xmlns:markupExtensions="clr-namespace:RequestForQuoteInterfacesLibrary.MarkupExtensions;assembly=RequestForQuoteInterfacesLibrary"
 			 mc:Ignorable="d" Background="Gray">
 	<Grid>
 		<StackPanel>
@@ -55,14 +57,29 @@
 						<Label HorizontalAlignment="Left">Enter email address</Label>
 					</DockPanel>
 					<DockPanel>
-						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Locations}"/>
-						<Label HorizontalAlignment="Left">Select location</Label>
+						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Groups}"
+								  DisplayMemberPath="GroupName" SelectedValue="{Binding SelectedGroup}" SelectedValuePath="GroupName">
+							<ComboBox.ToolTip>
+								<ToolTip Content="Select group...">
+								</ToolTip>
+							</ComboBox.ToolTip>
+						</ComboBox>
+						<Label HorizontalAlignment="Left">Select group</Label>                        
 					</DockPanel>
 					<DockPanel>
-						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Groups}"
-								  DisplayMemberPath="GroupName" SelectedValue="{Binding SelectedGroup}" SelectedValuePath="GroupName"/>
-						<Label HorizontalAlignment="Left">Select group</Label>
+						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" IsEditable="true" 
+										IsReadOnly="true" Text="select location..."
+										DisplayMemberPath="Description"
+										SelectedValuePath="Value"                                              
+										ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:LocationEnum}}}">
+							<ComboBox.ToolTip>
+								<ToolTip Content="Select location...">
+								</ToolTip>
+							</ComboBox.ToolTip>
+						</ComboBox>
+						<Label HorizontalAlignment="Left">Select location</Label>
 					</DockPanel>
+
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 						<Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,2,0,2">Clear</Button>
 						<Button Command="{Binding AddNewItemCommand}" Width="60" Margin="0,2,0,2">Add</Button>
