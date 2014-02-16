@@ -15,12 +15,13 @@
 				<ListView.View>
 					<GridView ColumnHeaderContainerStyle="{StaticResource WpfsGridViewColHeaderStyle}"
 						  ColumnHeaderTemplate="{StaticResource WpfsGridViewColHeaderTemplate}">
-						<GridViewColumn Header="User Id" Width="60" DisplayMemberBinding="{Binding Path=UserId}"/>
-						<GridViewColumn Header="First Name" Width="70" DisplayMemberBinding="{Binding Path=FirstName}"/>
-						<GridViewColumn Header="Last Name" Width="70" DisplayMemberBinding="{Binding Path=LastName}"/>
-						<GridViewColumn Header="Email Address" Width="110" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
-						<GridViewColumn Header="Location" Width="70" DisplayMemberBinding="{Binding Path=LocationName}"/>
-						<GridViewColumn Header="Group" Width="50" DisplayMemberBinding="{Binding Path=GroupId}"/>
+						<GridViewColumn Header="User Id" Width="120" DisplayMemberBinding="{Binding Path=UserId}"/>
+						<GridViewColumn Header="First Name" Width="100" DisplayMemberBinding="{Binding Path=FirstName}"/>
+						<GridViewColumn Header="Last Name" Width="100" DisplayMemberBinding="{Binding Path=LastName}"/>
+						<GridViewColumn Header="Email Address" Width="160" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
+						<GridViewColumn Header="Location" Width="110" DisplayMemberBinding="{Binding Path=LocationName}"/>
+						<GridViewColumn Header="Group" Width="110" DisplayMemberBinding="{Binding Path=GroupId}"/>
+						<GridViewColumn Header="Is valid" Width="50" DisplayMemberBinding="{Binding Path=IsValid}"/>
 					</GridView>
 				</ListView.View>
 				<ListView.ToolTip>
@@ -40,49 +41,55 @@
 					<TextBlock Text="Add New User"/>
 				</GroupBox.Header>
 				<StackPanel>
-					<DockPanel>
-						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=UserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter user ID</Label>
-					</DockPanel>
-					<DockPanel>
-						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter first name</Label>
-					</DockPanel>
-					<DockPanel>
-						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter last name</Label>
-					</DockPanel>
-					<DockPanel>
-						<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-						<Label HorizontalAlignment="Left">Enter email address</Label>
-					</DockPanel>
-					<DockPanel>
-						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Groups}"
-								  DisplayMemberPath="GroupName" SelectedValue="{Binding SelectedGroup}" SelectedValuePath="GroupName">
-							<ComboBox.ToolTip>
-								<ToolTip Content="Select group...">
-								</ToolTip>
-							</ComboBox.ToolTip>
-						</ComboBox>
-						<Label HorizontalAlignment="Left">Select group</Label>                        
-					</DockPanel>
-					<DockPanel>
-						<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" IsEditable="true" 
+					<StackPanel Orientation="Horizontal">
+						<StackPanel>
+						<DockPanel>
+							<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,30,2" Text="{Binding Path=UserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+							<Label HorizontalAlignment="Left">Enter user ID</Label>
+						</DockPanel>
+						<DockPanel>
+							<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,30,2" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+							<Label HorizontalAlignment="Left">Enter first name</Label>
+						</DockPanel>
+						<DockPanel>
+							<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,30,2" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+							<Label HorizontalAlignment="Left">Enter last name</Label>
+						</DockPanel>
+					</StackPanel>
+						<StackPanel>
+						<DockPanel>
+							<TextBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+							<Label HorizontalAlignment="Left">Enter email address</Label>
+						</DockPanel>
+						<DockPanel>
+							<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" ItemsSource="{Binding Groups}"
+								  DisplayMemberPath="GroupName" SelectedValue="{Binding SelectedGroup}">
+								<ComboBox.ToolTip>
+									<ToolTip Content="Select group...">
+									</ToolTip>
+								</ComboBox.ToolTip>
+							</ComboBox>
+							<Label HorizontalAlignment="Left">Select group</Label>
+						</DockPanel>
+						<DockPanel>
+							<ComboBox DockPanel.Dock="Right" Width="150" Margin="0,2,2,2" IsEditable="true" 
 										IsReadOnly="true" Text="select location..."
 										DisplayMemberPath="Description"
-										SelectedValuePath="Value"                                              
-										ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:LocationEnum}}}">
-							<ComboBox.ToolTip>
-								<ToolTip Content="Select location...">
-								</ToolTip>
-							</ComboBox.ToolTip>
-						</ComboBox>
-						<Label HorizontalAlignment="Left">Select location</Label>
-					</DockPanel>
-
-					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-						<Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,2,0,2">Clear</Button>
-						<Button Command="{Binding AddNewItemCommand}" Width="60" Margin="0,2,0,2">Add</Button>
+										SelectedValuePath="Value"                                        
+										ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:LocationEnum}}}" 
+										SelectedValue="{Binding LocationName}">
+								<ComboBox.ToolTip>
+									<ToolTip Content="Select location...">
+									</ToolTip>
+								</ComboBox.ToolTip>
+							</ComboBox>
+							<Label HorizontalAlignment="Left">Select location</Label>
+						</DockPanel>
+					</StackPanel>
+					</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+						<Button Command="{Binding ClearInputCommand}" Width="60" Margin="0,0,0,2">Clear</Button>
+						<Button Command="{Binding AddNewItemCommand}" Width="60" Margin="0,0,0,2">Add</Button>
 					</StackPanel>
 				</StackPanel>
 			</GroupBox>

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
 using RequestForQuoteInterfacesLibrary.Constants;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -144,7 +145,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
 
         // Using a DependencyProperty as the backing store for LocationName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LocationNameProperty =
-            DependencyProperty.Register("LocationName", typeof(string), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
+            DependencyProperty.Register("LocationName", typeof(string), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(null));
                         
         public void HandleNewUserEvent(NewUserEventPayload eventPayLoad)
         {
@@ -168,21 +169,21 @@ namespace RequestForQuoteMaintenanceModuleLibrary
             FirstName = String.Empty;
             LastName = String.Empty;
             EmailAddress = String.Empty;
-            GroupId = -1;
-            LocationName = String.Empty;
+            SelectedGroup = null;
+            LocationName = null;
         }
 
         public bool CanClearInput()
         {
             return !string.IsNullOrEmpty(UserId) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(LastName)
-            || !string.IsNullOrEmpty(EmailAddress) || !string.IsNullOrEmpty(LocationName);
+            || !string.IsNullOrEmpty(EmailAddress) || !string.IsNullOrEmpty(LocationName) || SelectedGroup != null;
         }
 
         public void AddNewItem()
         {
             if (!userManager.Users.Exists((user) => user.UserId == UserId))
             {
-                if (userManager.SaveToDatabase(UserId, FirstName, LastName, EmailAddress, LocationName, GroupId))
+                if (userManager.SaveToDatabase(UserId, FirstName, LastName, EmailAddress, LocationName, SelectedGroup.GroupId))
                 {
                     MessageBox.Show("Successfully saved new user: " + UserId, "User Maintenance",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
