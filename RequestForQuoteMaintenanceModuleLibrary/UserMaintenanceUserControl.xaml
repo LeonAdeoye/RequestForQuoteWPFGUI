@@ -19,7 +19,7 @@
 						<GridViewColumn Header="First Name" Width="100" DisplayMemberBinding="{Binding Path=FirstName}"/>
 						<GridViewColumn Header="Last Name" Width="100" DisplayMemberBinding="{Binding Path=LastName}"/>
 						<GridViewColumn Header="Email Address" Width="160" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
-                        <GridViewColumn Header="Location" Width="110" DisplayMemberBinding="{Binding Path=LocationName, Converter={StaticResource EnumDescriptionConverter}}"/>
+						<GridViewColumn Header="Location" Width="110" DisplayMemberBinding="{Binding Path=LocationName, Converter={StaticResource EnumDescriptionConverter}}"/>
 						<GridViewColumn Header="Group" Width="110" DisplayMemberBinding="{Binding Path=GroupId}"/>
 						<GridViewColumn Header="Is valid" Width="50" DisplayMemberBinding="{Binding Path=IsValid}"/>
 					</GridView>

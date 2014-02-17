@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Events;
 using RequestForQuoteInterfacesLibrary.Constants;
-using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
@@ -204,7 +203,11 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public void UpdateValidity()
         {
             if (userManager.UpdateValidity(SelectedUser.UserId, !SelectedUser.IsValid))
+            {
                 SelectedUser.IsValid = !SelectedUser.IsValid;
+                MessageBox.Show("Successfully updated validity of user: " + SelectedUser.UserId, "User Maintenance",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
                 MessageBox.Show("Failed to update validity of User " + SelectedUser.UserId, "User Maintenance Error",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
