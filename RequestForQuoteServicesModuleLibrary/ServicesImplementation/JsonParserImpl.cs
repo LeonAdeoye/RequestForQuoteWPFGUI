@@ -193,7 +193,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             {
                 IUser newUser = JsonConvert.DeserializeObject<UserImpl>(json);
                 userManager.AddUser(newUser.UserId, newUser.FirstName, newUser.LastName, newUser.EmailAddress, 
-                    newUser.LocationName, newUser.GroupId, newUser.IsValid);
+                    newUser.LocationName.ToString(), newUser.GroupId, newUser.IsValid);
             }
             catch (Exception exc)
             {

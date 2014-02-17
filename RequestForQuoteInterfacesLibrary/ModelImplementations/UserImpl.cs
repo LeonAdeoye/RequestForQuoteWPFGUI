@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.ModelInterfaces;
 
 namespace RequestForQuoteInterfacesLibrary.ModelImplementations
@@ -83,15 +85,15 @@ namespace RequestForQuoteInterfacesLibrary.ModelImplementations
             }
         }
 
-        public string LocationName
+        public LocationEnum LocationName
         {
             get
             {
-                return locationName;
+                return (LocationEnum) Enum.Parse(typeof(LocationEnum), locationName);
             }
             set
             {
-                locationName = value;
+                locationName = value.ToString();
                 NotifyPropertyChanged("LocationName");
             }
         }

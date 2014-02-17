@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Microsoft.Practices.Prism.Events;
+using RequestForQuoteInterfacesLibrary.Enums;
 using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ModelImplementations;
@@ -48,7 +49,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (configManager.IsStandAlone)
             {
                 Users.Add(new UserImpl() { UserId = "leon.adeoye", FirstName = "Leon" , LastName = "Adeoye", 
-                    EmailAddress = "leon.adeoye@gmail.com", GroupId = 1, LocationName = "Hong Kong", IsValid = true});               
+                    EmailAddress = "leon.adeoye@gmail.com", GroupId = 1, LocationName = LocationEnum.HONG_KONG, IsValid = true});               
             }
             else
             {
@@ -66,7 +67,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
                                 FirstName = user.firstName,
                                 LastName = user.lastName,
                                 EmailAddress = user.emailAddress,
-                                LocationName = user.locationName,
+                                LocationName = (LocationEnum) Enum.Parse(typeof(LocationEnum), user.locationName),
                                 GroupId = user.groupId,
                                 IsValid = user.isValid
                             });    
@@ -121,11 +122,20 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (String.IsNullOrEmpty(emailAddress))
                 throw new ArgumentException("emailAddress");
 
-            if (String.IsNullOrEmpty(locationName))
+            LocationEnum parsedLocation = LocationEnum.HONG_KONG;
+            if (String.IsNullOrEmpty(locationName) || !Enum.TryParse(locationName, true, out parsedLocation))
                 throw new ArgumentException("locationName");
 
-            var newUser = new UserImpl() {UserId = userId, FirstName = firstName, LastName = lastName, EmailAddress = emailAddress, 
-                LocationName = locationName, GroupId = groupId, IsValid = isValid};
+            var newUser = new UserImpl() 
+            { 
+                UserId = userId, 
+                FirstName = firstName, 
+                LastName = lastName, 
+                EmailAddress = emailAddress, 
+                LocationName = parsedLocation, 
+                GroupId = groupId, 
+                IsValid = isValid
+            };
 
             Users.Add(newUser);
 

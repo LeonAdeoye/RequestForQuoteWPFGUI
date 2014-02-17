@@ -116,17 +116,6 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         public static readonly DependencyProperty EmailAddressProperty =
             DependencyProperty.Register("EmailAddress", typeof(string), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(String.Empty));
 
-
-        public int GroupId
-        {
-            get { return (int)GetValue(GroupIdProperty); }
-            set { SetValue(GroupIdProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for GroupId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty GroupIdProperty =
-            DependencyProperty.Register("GroupId", typeof(int), typeof(UserMaintenanceViewModel), new UIPropertyMetadata(-1));
-
         public IGroup SelectedGroup
         {
             get { return (IGroup)GetValue(SelectedGroupProperty); }
