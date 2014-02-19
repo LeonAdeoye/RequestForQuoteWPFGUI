@@ -233,6 +233,20 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
+        public void ctor_UsersCollectionShouldBePopulated()
+        {
+            Assert.IsNotEmpty(viewModel.Users,
+                              "view model ctor did NOT populate Users property with IUserManager instances' users!");
+        }
+
+        [Test]
+        public void ctor_GroupsCollectionShouldBePopulated()
+        {
+            Assert.IsNotEmpty(viewModel.Groups,
+                              "view model ctor did NOT populate Groups property with IGroupManager instances' groups!");
+        }
+
+        [Test]
         public void ctor_SearchesCollectionShouldBePopulated()
         {
             Assert.IsNotEmpty(viewModel.Searches,
@@ -255,6 +269,24 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 cm => cm.Subscribe(It.IsAny<Action<NewClientEventPayload>>(), It.IsAny<ThreadOption>(),
                                    It.IsAny<bool>(), It.IsAny<Predicate<NewClientEventPayload>>()), Times.Once(),
                 "view model ctor did not subscribe to new client event!");
+        }
+
+        [Test]
+        public void ctor_NewUserEventShouldBeSubscribedTo()
+        {
+            newUserEventMock.Verify(
+                cm => cm.Subscribe(It.IsAny<Action<NewUserEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewUserEventPayload>>()), Times.Once(),
+                "view model ctor did not subscribe to new user event!");
+        }
+
+        [Test]
+        public void ctor_NewGroupShouldBeSubscribedTo()
+        {
+            newGroupEventMock.Verify(
+                cm => cm.Subscribe(It.IsAny<Action<NewGroupEventPayload>>(), It.IsAny<ThreadOption>(),
+                                   It.IsAny<bool>(), It.IsAny<Predicate<NewGroupEventPayload>>()), Times.Once(),
+                "view model ctor did not subscribe to new group event!");
         }
 
         [Test]
