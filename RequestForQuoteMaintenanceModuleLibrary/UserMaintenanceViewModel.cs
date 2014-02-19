@@ -22,7 +22,7 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private readonly IGroupManager groupManager;
 
         public ObservableCollection<IUser> Users { get; set; }
-        public List<IGroup> Groups { get; set; }
+        public ObservableCollection<IGroup> Groups { get; set; }
 
         public ICommand AddNewItemCommand { get; set; }
         public ICommand ClearInputCommand { get; set; }
@@ -54,13 +54,16 @@ namespace RequestForQuoteMaintenanceModuleLibrary
         private void InitializeCollections()
         {
             Users = new ObservableCollection<IUser>(userManager.Users);
-            Groups = new List<IGroup>(groupManager.Groups);
+            Groups = new ObservableCollection<IGroup>(groupManager.Groups);
         }
 
         private void InitializeEventSubscriptions()
         {
-            eventAggregator.GetEvent<NewUserEvent>().Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
-            eventAggregator.GetEvent<NewGroupEvent>().Subscribe(HandleNewGroupEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+            eventAggregator.GetEvent<NewUserEvent>()
+                .Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<NewGroupEvent>()
+                .Subscribe(HandleNewGroupEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
         public IUser SelectedUser

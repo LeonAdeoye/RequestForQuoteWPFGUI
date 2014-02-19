@@ -25,52 +25,64 @@
 							<GroupBox Header="Search/Filter">
 								<StackPanel>
 									<ComboBox Margin="2" 
-											  SelectedItem="{Binding SelectedClient}"  
-											  IsEditable="true" IsReadOnly="true" 
-											  Text="select client..." DisplayMemberPath="Name" 
-											  ItemsSource="{Binding Clients}">
+									SelectedItem="{Binding SelectedClient}"  
+									IsEditable="true" 
+									IsReadOnly="true" 
+									Text="select client..." 
+									DisplayMemberPath="Name" 
+									ItemsSource="{Binding Clients}">
 										<ComboBox.ToolTip>
-											<ToolTip Content="Select client...">
-											</ToolTip>
+											<ToolTip Content="Select client..."/>
 										</ComboBox.ToolTip>
 									</ComboBox>
 									
 									<ComboBox IsEditable="true" 
-											  IsReadOnly="true" ItemsSource="{Binding Underlyiers}" 
-											  SelectedItem="{Binding SelectedUnderlyier}" 
-											  Text="select underlyier..." 
-											  DisplayMemberPath="RIC"  Margin="2">
-										<ComboBox.ToolTip>
-											<ToolTip Content="Select underlyier...">
-											</ToolTip>
-										</ComboBox.ToolTip>
+										IsReadOnly="true" 
+										ItemsSource="{Binding Underlyiers}" 
+										SelectedItem="{Binding SelectedUnderlyier}" 
+										Text="select underlyier..." 
+										DisplayMemberPath="RIC"  Margin="2">
+											<ComboBox.ToolTip>
+												<ToolTip Content="Select underlyier..."/>
+											</ComboBox.ToolTip>
 									</ComboBox>
 
 									<ComboBox IsEditable="true" 
-											  IsReadOnly="true" ItemsSource="{Binding Books}" 
-											  SelectedItem="{Binding SelectedBook}" 
-											  Text="select book..." 
-											  DisplayMemberPath="BookCode"  Margin="2">
-										<ComboBox.ToolTip>
-											<ToolTip Content="Select book...">
-											</ToolTip>
-										</ComboBox.ToolTip>
+										IsReadOnly="true" 
+										ItemsSource="{Binding Books}" 
+										SelectedItem="{Binding SelectedBook}" 
+										Text="select book..." 
+										DisplayMemberPath="BookCode"  
+										Margin="2">
+											<ComboBox.ToolTip>
+												<ToolTip Content="Select book..."/>
+											</ComboBox.ToolTip>
 									</ComboBox>
 
 									<ComboBox Margin="2" IsEditable="true" 
-										IsReadOnly="true" Text="select status..."
+										IsReadOnly="true" 
+										Text="select status..."
 										SelectedValue="{Binding SelectedStatus}"
 										DisplayMemberPath="Description"
 										SelectedValuePath="Value"                                              
 										ItemsSource="{Binding Source={markupExtensions:Enumeration {x:Type Enums:StatusEnum}}}">
-										<ComboBox.ToolTip>
-											<ToolTip Content="Select status...">
-											</ToolTip>
-										</ComboBox.ToolTip>
+											<ComboBox.ToolTip>
+												<ToolTip Content="Select status..."/>
+											</ComboBox.ToolTip>
 									</ComboBox>
 									
-									<ComboBox Name="SearchInitiatorComboBox" IsEditable="true" 
-											  IsReadOnly="true" Text="select initiator..." Margin="2,2,2,0"/>
+									<ComboBox Name="SearchInitiatorComboBox" 
+										IsEditable="true" 
+										IsReadOnly="true" 
+										Text="select initiator..." 
+										Margin="2,2,2,0"
+										ItemsSource="{Binding Users}" 
+										SelectedItem="{Binding SelectedInitiator}" 
+										DisplayMemberPath="UserId">
+											<ComboBox.ToolTip>
+												<ToolTip Content="Select initiator..."/>
+											</ComboBox.ToolTip>
+									</ComboBox>
 									
 									<Label>From Trade Date:</Label>
 									<DatePicker SelectedDateFormat="Short" SelectedDate="{Binding StartTradeDate}" 

@@ -23,11 +23,15 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         private readonly Mock<IUnderlyingManager> underlyingManagerMock = new Mock<IUnderlyingManager>();
         private readonly Mock<IEventAggregator> eventAggregatorMock = new Mock<IEventAggregator>();
         private readonly Mock<IConfigurationManager> configManagerMock = new Mock<IConfigurationManager>();
+        private readonly Mock<IGroupManager> groupManagerMock = new Mock<IGroupManager>();
+        private readonly Mock<IUserManager> userManagerMock = new Mock<IUserManager>();
 
         private readonly Mock<NewBookEvent> newBookEventMock = new Mock<NewBookEvent>();
         private readonly Mock<NewClientEvent> newClientEventMock = new Mock<NewClientEvent>();
         private readonly Mock<NewSearchEvent> newSearchEventMock = new Mock<NewSearchEvent>();
         private readonly Mock<NewUnderlyierEvent> newUnderlyierEventMock = new Mock<NewUnderlyierEvent>();
+        private readonly Mock<NewUserEvent> newUserEventMock = new Mock<NewUserEvent>();
+        private readonly Mock<NewGroupEvent> newGroupEventMock = new Mock<NewGroupEvent>();
 
         private readonly Mock<SearchRequestForQuoteEvent> searchRequestForQuoteEventMock =
             new Mock<SearchRequestForQuoteEvent>();
@@ -40,6 +44,24 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
                 IsValid = true,
                 Name = "test client",
                 Tier = TierEnum.Top.ToString()
+            };
+
+        private readonly IUser testUser = new UserImpl()
+            {
+                UserId = "leon.adeoye",
+                EmailAddress = "leon.o.adeoye@jpmchase.com",
+                FirstName = "Leon",
+                LastName = "Adeoye",
+                IsValid = true,
+                GroupId = 1,
+                LocationName = LocationEnum.HONG_KONG
+            };
+
+        private readonly IGroup testGroup = new GroupImpl()
+            {
+                GroupId = 1,
+                GroupName = "test Group",
+                IsValid = true
             };
 
         private readonly IUnderlying testUnderlying = new UnderlyingImpl()
@@ -71,17 +93,22 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             eventAggregatorMock.Setup(p => p.GetEvent<NewClientEvent>()).Returns(newClientEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewSearchEvent>()).Returns(newSearchEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<NewUnderlyierEvent>()).Returns(newUnderlyierEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<NewUserEvent>()).Returns(newUserEventMock.Object);
+            eventAggregatorMock.Setup(p => p.GetEvent<NewGroupEvent>()).Returns(newGroupEventMock.Object);
             eventAggregatorMock.Setup(p => p.GetEvent<SearchRequestForQuoteEvent>())
                                .Returns(searchRequestForQuoteEventMock.Object);
 
             bookManagerMock.Setup(bm => bm.Books).Returns(new List<IBook>() {testBook});
+            userManagerMock.Setup(gm => gm.Users).Returns(new List<IUser>() { testUser });
+            groupManagerMock.Setup(bm => bm.Groups).Returns(new List<IGroup>() { testGroup });
             clientManagerMock.Setup(cm => cm.Clients).Returns(new List<IClient>() {testClient});
             underlyingManagerMock.Setup(um => um.Underlyings).Returns(new List<IUnderlying>() {testUnderlying});
             searchManagerMock.Setup(sm => sm.Searches).Returns(new List<ISearch>() {testSearch});
 
             viewModel = new RequestForQuoteFunctionsViewModel(eventAggregatorMock.Object, clientManagerMock.Object,
                                                               underlyingManagerMock.Object, bookManagerMock.Object,
-                                                              searchManagerMock.Object, configManagerMock.Object);
+                                                              searchManagerMock.Object, configManagerMock.Object, 
+                                                              userManagerMock.Object, groupManagerMock.Object);
         }
 
         [SetUp]

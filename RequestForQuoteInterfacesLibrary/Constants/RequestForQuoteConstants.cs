@@ -14,6 +14,7 @@
         public const string UNDERLYIER_CRITERION = "Underlyier";
         public const string TRADE_DATE_CRITERION = "TradeDate";
         public const string EXPIRY_DATE_CRITERION = "ExpiryDate";
+        public const string INITIATOR_CRITERION = "Initiator";
 
         public const string EXISTING_CRITERIA = "EXISTING_CRITERIA";
         public const string MAKE_PUBLIC_BY_SETTING_PRIVACY_TO_FALSE = "false";

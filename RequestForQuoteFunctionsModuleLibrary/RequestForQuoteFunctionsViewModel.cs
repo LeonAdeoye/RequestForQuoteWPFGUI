@@ -30,6 +30,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
         private readonly IBookManager bookManager;
         private readonly ISearchManager searchManager;
         private readonly IConfigurationManager configManager;
+        private readonly IUserManager userManager;
+        private readonly IGroupManager groupManager;
+
         private readonly Object thisLock = new Object();
 
         public ObservableCollection<IClient> Clients { get; set; }
@@ -44,6 +47,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public CollectionViewSource PrivateFilters { get; set; }
 
         public List<string> Status { get; set; }
+        public ObservableCollection<IUser> Users { get; set; }
+        public ObservableCollection<IGroup> Groups { get; set; }
         
         internal Dictionary<string, string> Criteria
         {
@@ -60,7 +65,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public RequestForQuoteFunctionsViewModel(IEventAggregator eventAggregator, IClientManager clientManager,
             IUnderlyingManager underlyingManager, IBookManager bookManager, ISearchManager searchManager, 
-            IConfigurationManager configManager)
+            IConfigurationManager configManager, IUserManager userManager, IGroupManager groupManager)
         {
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
@@ -80,6 +85,12 @@ namespace RequestForQuoteFunctionsModuleLibrary
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
 
+            if (userManager == null)
+                throw new ArgumentNullException("userManager");
+
+            if (groupManager == null)
+                throw new ArgumentNullException("groupManager");
+
             SearchRequestsCommand = new SearchRequestsCommand(this);
             FilterRequestsCommand = new FilterRequestsCommand(this);
             ClearCriteriaCommand = new ClearCriteriaCommand(this);
@@ -93,6 +104,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
             this.searchManager = searchManager;
             this.eventAggregator = eventAggregator;
             this.configManager = configManager;
+            this.userManager = userManager;
+            this.groupManager = groupManager;
 
             InitializeCollections();
             InitializeEventSubscriptions();
@@ -110,6 +123,8 @@ namespace RequestForQuoteFunctionsModuleLibrary
             Underlyiers = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Searches = new ObservableCollection<ISearch>(searchManager.Searches);
+            Users = new ObservableCollection<IUser>(userManager.Users);
+            Groups = new ObservableCollection<IGroup>(groupManager.Groups);
 
             MySavedItems = new CollectionViewSource {Source = Searches};
             MySavedItems.Filter += delegate(object sender, FilterEventArgs e)
@@ -165,6 +180,28 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
             eventAggregator.GetEvent<NewSearchEvent>()
                            .Subscribe(HandleNewSearchEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<NewUserEvent>()
+                            .Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<NewGroupEvent>()
+                            .Subscribe(HandleNewGroupEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+        }
+
+        public void HandleNewUserEvent(NewUserEventPayload eventPayLoad)
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Received new user event from UserManager: " + eventPayLoad);
+
+            Users.Add(eventPayLoad.NewUser);
+        }
+
+        public void HandleNewGroupEvent(NewGroupEventPayload eventPayLoad)
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Received new group event from GroupManager: " + eventPayLoad);
+
+            Groups.Add(eventPayLoad.NewGroup);
         }
 
         public void HandleNewBookEvent(NewBookEventPayload eventPayLoad)
@@ -259,7 +296,26 @@ namespace RequestForQuoteFunctionsModuleLibrary
         // Using a DependencyProperty as the backing store for TypeOfCriteria.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TypeOfCriteriaProperty =
             DependencyProperty.Register("TypeOfCriteria", typeof(CriteriaTypeEnum), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(CriteriaTypeEnum.FILTER));
-        
+
+
+        public IUser SelectedUser
+        {
+            get { return (IUser)GetValue(SelectedUserProperty); }
+            set { SetValue(SelectedUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedUserProperty =
+            DependencyProperty.Register("SelectedUser", typeof(IUser), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, UserPropertyChangedCallback));
+
+        private static void UserPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var user = dependencyPropertyChangedEventArgs.NewValue as IUser;
+            if (user != null)
+                criteria[RequestForQuoteConstants.INITIATOR_CRITERION] = user.UserId;
+        }
+
+
         public IUnderlying SelectedUnderlying
         {
             get { return (IUnderlying)GetValue(SelectedUnderlyierProperty); }
