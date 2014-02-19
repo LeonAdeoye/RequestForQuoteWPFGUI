@@ -190,6 +190,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewUserEvent(NewUserEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new user event from UserManager: " + eventPayLoad);
 
@@ -198,6 +201,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
 
         public void HandleNewGroupEvent(NewGroupEventPayload eventPayLoad)
         {
+            if (eventPayLoad == null)
+                throw new ArgumentNullException("eventPayLoad");
+
             if (log.IsDebugEnabled)
                 log.Debug("Received new group event from GroupManager: " + eventPayLoad);
 
@@ -297,24 +303,23 @@ namespace RequestForQuoteFunctionsModuleLibrary
         public static readonly DependencyProperty TypeOfCriteriaProperty =
             DependencyProperty.Register("TypeOfCriteria", typeof(CriteriaTypeEnum), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(CriteriaTypeEnum.FILTER));
 
-
-        public IUser SelectedUser
+        public IUser SelectedInitiator
         {
-            get { return (IUser)GetValue(SelectedUserProperty); }
-            set { SetValue(SelectedUserProperty, value); }
+            get { return (IUser)GetValue(SelectedInitiatorProperty); }
+            set { SetValue(SelectedInitiatorProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedUserProperty =
-            DependencyProperty.Register("SelectedUser", typeof(IUser), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, UserPropertyChangedCallback));
+        // Using a DependencyProperty as the backing store for SelectedInitiator.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedInitiatorProperty =
+            DependencyProperty.Register("SelectedInitiator", typeof(IUser), typeof(RequestForQuoteFunctionsViewModel), new UIPropertyMetadata(null, InitiatorPropertyChangedCallback));
 
-        private static void UserPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+
+        private static void InitiatorPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             var user = dependencyPropertyChangedEventArgs.NewValue as IUser;
             if (user != null)
                 criteria[RequestForQuoteConstants.INITIATOR_CRITERION] = user.UserId;
         }
-
 
         public IUnderlying SelectedUnderlying
         {
@@ -575,6 +580,9 @@ namespace RequestForQuoteFunctionsModuleLibrary
                     case RequestForQuoteConstants.UNDERLYIER_CRITERION:
                         SelectedUnderlying = Underlyiers.FirstOrDefault((underlyier) => underlyier.RIC == controlCriterion.ControlValue);
                         break;
+                    case RequestForQuoteConstants.INITIATOR_CRITERION:
+                        SelectedInitiator = Users.FirstOrDefault((user) => user.UserId == controlCriterion.ControlValue);
+                        break;
                 }
             }                
         }
@@ -606,6 +614,7 @@ namespace RequestForQuoteFunctionsModuleLibrary
             StartTradeDate = null;
             SelectedBook = null;
             EndTradeDate = null;
+            SelectedInitiator = null;
             CriteriaDescriptionKey = "";
 
             eventAggregator.GetEvent<SearchRequestForQuoteEvent>().Publish(new CriteriaUsageEventPayload()

@@ -131,6 +131,22 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
+        public void HandleNewUserEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewUserEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewGroupEvent_NullParameter_ArgumentNullExceptionThrown()
+        {
+            Action act = () => viewModel.HandleNewGroupEvent(null);
+
+            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+        }
+
+        [Test]
         public void HandleNewClientEvent_NullParameter_ArgumentNullExceptionThrown()
         {
             Action act = () => viewModel.HandleNewClientEvent(null);
