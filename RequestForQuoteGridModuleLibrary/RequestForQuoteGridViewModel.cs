@@ -36,6 +36,7 @@ namespace RequestForQuoteGridModuleLibrary
         private readonly IUnderlyingManager underlyingManager;
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
+        private readonly IUserManager userManager;
 
         public RangeObservableCollection<IRequestForQuote> Requests { get; set; }
         public RangeObservableCollection<IRequestForQuote> SearchedRequests { get; set; }
@@ -43,6 +44,7 @@ namespace RequestForQuoteGridModuleLibrary
         
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
+        public ObservableCollection<IUser> Users { get; set; }
         public List<string> Status { get; set; }
 
         public ICommand CloneRequestCommand { get; set; }
@@ -62,7 +64,8 @@ namespace RequestForQuoteGridModuleLibrary
 
         public RequestForQuoteGridViewModel(IBookManager bookManager, IClientManager clientManager, IOptionRequestParser optionRequestParser,
             IOptionRequestPricer optionRequestPricer, IChatServiceManager chatServiceManager, IUnderlyingManager underlyingManager,
-            IOptionRequestPersistanceManager optionRequestPersistanceManager, IEventAggregator eventAggregator, IConfigurationManager configManager)
+            IOptionRequestPersistanceManager optionRequestPersistanceManager, IEventAggregator eventAggregator, 
+            IConfigurationManager configManager, IUserManager userManager)
         {
             if (optionRequestPricer == null)
                 throw new ArgumentNullException("optionRequestPricer");
@@ -75,6 +78,9 @@ namespace RequestForQuoteGridModuleLibrary
 
             if (bookManager == null)
                 throw new ArgumentNullException("bookManager");
+
+            if (userManager == null)
+                throw new ArgumentNullException("userManager");
 
             if (underlyingManager == null)
                 throw new ArgumentNullException("underlyingManager");
@@ -94,6 +100,8 @@ namespace RequestForQuoteGridModuleLibrary
             SearchedRequests = new RangeObservableCollection<IRequestForQuote>();
             TodaysRequests = new RangeObservableCollection<IRequestForQuote>();
             Requests = new RangeObservableCollection<IRequestForQuote>();
+            Requests = new RangeObservableCollection<IRequestForQuote>();
+            Users = new ObservableCollection<IUser>();
 
             CloneRequestCommand = new CloneRequestCommand(this);
             DeleteRequestCommand = new DeleteRequestCommand(this);
@@ -109,6 +117,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
             this.bookManager = bookManager;
+            this.userManager = userManager;
             this.chatServiceManager = chatServiceManager;
             this.underlyingManager = underlyingManager;
             this.eventAggregator = eventAggregator;
@@ -123,6 +132,7 @@ namespace RequestForQuoteGridModuleLibrary
         {
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
+            Users = new ObservableCollection<IUser>(userManager.Users);
             
             // TODO change Java BE to use text.
             Status = new List<string>();
@@ -164,6 +174,9 @@ namespace RequestForQuoteGridModuleLibrary
 
             eventAggregator.GetEvent<NewBookEvent>()
                .Subscribe(HandleNewBookEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<NewUserEvent>()
+               .Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
         public bool CanShowDetailsWindow()
@@ -182,7 +195,7 @@ namespace RequestForQuoteGridModuleLibrary
                 var viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricer, SelectedRequest,
                                                                     clientManager, bookManager, eventAggregator,
                                                                     underlyingManager, chatServiceManager,
-                                                                    optionRequestPersistanceManager, configManager);
+                                                                    optionRequestPersistanceManager, configManager, userManager);
 
                 SelectedRequest.EditableViewModel = viewModel;
                 SelectedRequest.EditableViewModel.BeginEdit();
@@ -252,6 +265,17 @@ namespace RequestForQuoteGridModuleLibrary
                 log.Debug("Received new book: " + eventPayload);
 
             Books.Add(eventPayload.NewBook);
+        }
+
+        public void HandleNewUserEvent(NewUserEventPayload eventPayload)
+        {
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
+            if (log.IsDebugEnabled)
+                log.Debug("Received new user: " + eventPayload);
+
+            Users.Add(eventPayload.NewUser);
         }
 
         public void HandleNewSerializedRequestEvent(NewSerializedRequestEventPayload eventPayload)

@@ -49,6 +49,7 @@ namespace RequestForQuoteGridModuleLibrary
         
         private readonly IClientManager clientManager;
         private readonly IBookManager bookManager;
+        private readonly IUserManager userManager;
         private readonly IUnderlyingManager underlyingManager;
         private readonly IChatServiceManager chatServiceManager;
         private readonly IConfigurationManager configManager;
@@ -59,24 +60,16 @@ namespace RequestForQuoteGridModuleLibrary
 
         public ObservableCollection<IClient> Clients { get; set; }
         public ObservableCollection<IBook> Books { get; set; }
+        public ObservableCollection<IUser> Users { get; set; }
         public ObservableCollection<IUnderlying> Underlyiers { get; set; }
         public ObservableCollection<ChatMessageImpl> ChatMessages { get; set; }
         public List<double> DayCountConventions { get; set; }
 
-        public string MessageToBeSent
-        {
-            get { return (string)GetValue(MessageToBeSentProperty); }
-            set { SetValue(MessageToBeSentProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MessageToBeSent.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MessageToBeSentProperty =
-            DependencyProperty.Register("MessageToBeSent", typeof(string), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(String.Empty));
-
         public RequestForQuoteDetailsViewModel(IOptionRequestPricer optionRequestPricer, IRequestForQuote requestForQuote,
                                                 IClientManager clientManager, IBookManager bookManager, IEventAggregator eventAggregator,
                                                 IUnderlyingManager underlyingManager, IChatServiceManager chatServiceManager,
-                                                IOptionRequestPersistanceManager optionRequestPersistanceManager, IConfigurationManager configManager)
+                                                IOptionRequestPersistanceManager optionRequestPersistanceManager, IConfigurationManager configManager,
+                                                IUserManager userManager)
         {
             if (optionRequestPricer == null)
                 throw new ArgumentNullException("optionRequestPricer");
@@ -86,6 +79,9 @@ namespace RequestForQuoteGridModuleLibrary
 
             if (bookManager == null)
                 throw new ArgumentNullException("bookManager");
+
+            if (userManager == null)
+                throw new ArgumentNullException("userManager");
 
             if (underlyingManager == null)
                 throw new ArgumentNullException("underlyingManager");
@@ -108,6 +104,7 @@ namespace RequestForQuoteGridModuleLibrary
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
             this.bookManager = bookManager;
+            this.userManager = userManager;
             this.underlyingManager = underlyingManager;
             this.chatServiceManager = chatServiceManager;
             this.eventAggregator = eventAggregator;
@@ -132,6 +129,7 @@ namespace RequestForQuoteGridModuleLibrary
             DayCountConventions = new List<double>() { 250.0, 255.0, 365.0, 366.0};
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
+            Users = new ObservableCollection<IUser>(userManager.Users);
             Underlyiers = new ObservableCollection<IUnderlying>(underlyingManager.Underlyings);
 
             if(SelectedRequestForQuote.Identifier == -1)
@@ -157,8 +155,42 @@ namespace RequestForQuoteGridModuleLibrary
 
             eventAggregator.GetEvent<NewChatMessageEvent>()
                            .Subscribe(HandleNewChatMessageEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
+
+            eventAggregator.GetEvent<NewUserEvent>()
+                           .Subscribe(HandleNewUserEvent, ThreadOption.UIThread, RequestForQuoteConstants.MAINTAIN_STRONG_REFERENCE);
         }
 
+        public string MessageToBeSent
+        {
+            get { return (string)GetValue(MessageToBeSentProperty); }
+            set { SetValue(MessageToBeSentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MessageToBeSent.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MessageToBeSentProperty =
+            DependencyProperty.Register("MessageToBeSent", typeof(string), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(String.Empty));
+
+        public IUser SelectedInitiator
+        {
+            get { return (IUser)GetValue(SelectedInitiatorProperty); }
+            set { SetValue(SelectedInitiatorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedInitiator.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedInitiatorProperty =
+            DependencyProperty.Register("SelectedInitiator", typeof(IUser), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(null));
+
+
+        public IUser SelectedTarget
+        {
+            get { return (IUser)GetValue(SelectedTargetProperty); }
+            set { SetValue(SelectedTargetProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedTarget.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedTargetProperty =
+            DependencyProperty.Register("SelectedTarget", typeof(IUser), typeof(RequestForQuoteDetailsViewModel), new UIPropertyMetadata(null));
+        
         public void HandleNewBookEvent(NewBookEventPayload eventPayload)
         {
             if (eventPayload == null)
@@ -168,6 +200,17 @@ namespace RequestForQuoteGridModuleLibrary
                 log.Debug("Received new book: " + eventPayload);
 
             Books.Add(eventPayload.NewBook);
+        }
+
+        public void HandleNewUserEvent(NewUserEventPayload eventPayload)
+        {
+            if (eventPayload == null)
+                throw new ArgumentNullException("eventPayload");
+
+            if (log.IsDebugEnabled)
+                log.Debug("Received new user: " + eventPayload);
+
+            Users.Add(eventPayload.NewUser);
         }
 
         public void HandleNewClientEvent(NewClientEventPayload eventPayload)
