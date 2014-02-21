@@ -216,6 +216,17 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
+        public void Constructor_NullUserManager_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
+                bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
+                optionRequestPersistanceManagerMock.Object, configManagerMock.Object, null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because user manager parameter cannot be null").WithMessage("userManager", ComparisonMode.Substring);
+        }
+
+        [Test]
         public void HandleNewBookEvent_NullNewBookEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
@@ -226,6 +237,15 @@ namespace RequestForQuoteGridModuleLibrary.Test
 
         [Test]
         public void HandleNewClientEvent_NullNewClientEventPayload_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => viewModel.HandleNewClientEvent(null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
+        }
+
+        [Test]
+        public void HandleNewUserEvent_NullNewUserEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewClientEvent(null);

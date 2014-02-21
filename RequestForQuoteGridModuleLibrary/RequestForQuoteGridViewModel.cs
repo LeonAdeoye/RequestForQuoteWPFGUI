@@ -97,22 +97,6 @@ namespace RequestForQuoteGridModuleLibrary
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
 
-            SearchedRequests = new RangeObservableCollection<IRequestForQuote>();
-            TodaysRequests = new RangeObservableCollection<IRequestForQuote>();
-            Requests = new RangeObservableCollection<IRequestForQuote>();
-            Requests = new RangeObservableCollection<IRequestForQuote>();
-            Users = new ObservableCollection<IUser>();
-
-            CloneRequestCommand = new CloneRequestCommand(this);
-            DeleteRequestCommand = new DeleteRequestCommand(this);
-            InvalidateRequestCommand = new InvalidateRequestCommand(this);
-            ChangeStatusOfRequestCommand = new ChangeStatusOfRequestCommand(this);
-            CalculateRequestCommand = new CalculateRequestCommand(this);
-            GroupByCommand = new GroupByCommand(this);
-            ShowRequestDetailsWindowCommand = new ShowRequestDetailsWindowCommand(this);
-            PickUpRequestCommand = new DelegateCommand(PickUpRequest);
-            RequestSelectionCommand = new DelegateCommand(RequestSelected);
-
             this.optionRequestParser = optionRequestParser;
             this.optionRequestPricer = optionRequestPricer;
             this.clientManager = clientManager;
@@ -124,8 +108,22 @@ namespace RequestForQuoteGridModuleLibrary
             this.optionRequestPersistanceManager = optionRequestPersistanceManager;
             this.configManager = configManager;
 
+            InitializeCommands();
             InitializeCollections();
             InitializeEventSubscriptions();
+        }
+
+        private void InitializeCommands()
+        {
+            CloneRequestCommand = new CloneRequestCommand(this);
+            DeleteRequestCommand = new DeleteRequestCommand(this);
+            InvalidateRequestCommand = new InvalidateRequestCommand(this);
+            ChangeStatusOfRequestCommand = new ChangeStatusOfRequestCommand(this);
+            CalculateRequestCommand = new CalculateRequestCommand(this);
+            GroupByCommand = new GroupByCommand(this);
+            ShowRequestDetailsWindowCommand = new ShowRequestDetailsWindowCommand(this);
+            PickUpRequestCommand = new DelegateCommand(PickUpRequest);
+            RequestSelectionCommand = new DelegateCommand(RequestSelected);            
         }
 
         private void InitializeCollections()
@@ -133,6 +131,11 @@ namespace RequestForQuoteGridModuleLibrary
             Clients = new ObservableCollection<IClient>(clientManager.Clients);
             Books = new ObservableCollection<IBook>(bookManager.Books);
             Users = new ObservableCollection<IUser>(userManager.Users);
+            SearchedRequests = new RangeObservableCollection<IRequestForQuote>();
+            TodaysRequests = new RangeObservableCollection<IRequestForQuote>();
+            Requests = new RangeObservableCollection<IRequestForQuote>();
+            Requests = new RangeObservableCollection<IRequestForQuote>();
+            Users = new ObservableCollection<IUser>();
             
             // TODO change Java BE to use text.
             Status = new List<string>();
