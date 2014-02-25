@@ -13,12 +13,12 @@ using log4net;
 
 namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
 {
-    sealed class UserManagerImpl : IUserManager
+    public sealed class UserManagerImpl : IUserManager
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
-        private readonly UserControllerClient userControllerProxy = new UserControllerClient();
+        private readonly UserControllerClient userControllerProxy;
         public List<IUser> Users { get; set; }
 
         /// <summary>
@@ -26,8 +26,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         /// <param name="configManager"> to get standalone flag and current user</param>
         /// <param name="eventAggregator"> for publishing new user to other listeners</param>
+        /// <param name="userControllerProxy"> proxy for user web service operations</param>
         /// <exception cref="ArgumentNullException"> if configManager/eventAggregator is null</exception>
-        public UserManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
+        public UserManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator, UserControllerClient userControllerProxy)
         {
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
@@ -35,8 +36,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
 
+            if(userControllerProxy == null)
+                throw new ArgumentNullException("userControllerProxy");
+
             this.configManager = configManager;
             this.eventAggregator = eventAggregator;
+            this.userControllerProxy = userControllerProxy;
 
             Users = new List<IUser>();
         }

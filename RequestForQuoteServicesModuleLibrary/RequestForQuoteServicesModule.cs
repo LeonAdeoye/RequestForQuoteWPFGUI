@@ -62,7 +62,7 @@ namespace RequestForQuoteServicesModuleLibrary
             container.RegisterInstance<ISearchManager>(searchManager);
             tasks[4] = Task.Factory.StartNew(() => searchManager.Initialize());
 
-            var userManager = new UserManagerImpl(configManager, eventAggregator);
+            var userManager = new UserManagerImpl(configManager, eventAggregator, new UserControllerClient());
             container.RegisterInstance<IUserManager>(userManager);
             tasks[5] = Task.Factory.StartNew(() => userManager.Initialize());
 

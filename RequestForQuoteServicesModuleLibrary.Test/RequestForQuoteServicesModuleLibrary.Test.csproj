@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="BookManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RequestForQuoteInterfacesLibrary\RequestForQuoteInterfacesLibrary.csproj">
