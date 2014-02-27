@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookManagerTest.cs" />
+    <Compile Include="GroupManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagerTest.cs" />
   </ItemGroup>
