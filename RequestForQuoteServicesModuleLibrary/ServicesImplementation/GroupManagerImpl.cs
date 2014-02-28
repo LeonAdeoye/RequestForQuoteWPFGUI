@@ -17,7 +17,7 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         private readonly IConfigurationManager configManager;
-        private readonly GroupControllerClient groupControllerProxy = new GroupControllerClient();
+        private readonly GroupControllerClient groupControllerProxy;
         public List<IGroup> Groups { get; set; }
 
         /// <summary>
@@ -25,8 +25,9 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
         /// </summary>
         /// <param name="configManager"> to get the standalone flag and current user</param>
         /// <param name="eventAggregator"> for publishing new group to other listeners</param>
+        /// <param name="groupControllerProxy"> for group controller proxy</param>
         /// <exception cref="ArgumentNullException"> if configManager/eventAggregator is null</exception>
-        public GroupManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator)
+        public GroupManagerImpl(IConfigurationManager configManager, IEventAggregator eventAggregator, GroupControllerClient groupControllerProxy)
         {
             if (configManager == null)
                 throw new ArgumentNullException("configManager");
@@ -34,8 +35,12 @@ namespace RequestForQuoteServicesModuleLibrary.ServicesImplementation
             if (eventAggregator == null)
                 throw new ArgumentNullException("eventAggregator");
 
+            if (groupControllerProxy == null)
+                throw new ArgumentNullException("groupControllerProxy");
+
             this.configManager = configManager;
             this.eventAggregator = eventAggregator;
+            this.groupControllerProxy = groupControllerProxy;
 
             Groups = new List<IGroup>();
         }

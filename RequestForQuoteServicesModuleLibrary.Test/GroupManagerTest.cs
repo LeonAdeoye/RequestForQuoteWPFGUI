@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
+using RequestForQuoteInterfacesLibrary.EventPayloads;
 using RequestForQuoteInterfacesLibrary.Events;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.GroupMaintenanceService;
@@ -51,6 +52,15 @@ namespace RequestForQuoteServicesModuleLibrary.Test
         }
 
         [Test]
+        public void Constructor_NullGroupControllerProxy_ArgumentNullExceptionThrown()
+        {
+            // Act
+            Action act = () => new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, null);
+            // Assert
+            act.ShouldThrow<ArgumentNullException>("because event group controller proxy parameter cannot be null.").WithMessage("groupControllerProxy", ComparisonMode.Substring);
+        }
+
+        [Test]
         public void Initialize_StandAloneMode_GroupsCollectionPopulated()
         {
             // Arrange
@@ -64,62 +74,14 @@ namespace RequestForQuoteServicesModuleLibrary.Test
 
         [TestCase(null)]
         [TestCase("")]
-        public void AddGroup_InvalidGroupCodeParameter_ArgumentExceptionThrown(string groupId)
+        public void AddGroup_InvalidEmailAddressParameter_ArgumentExceptionThrown(string groupName)
         {
             // Arrange
             IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
             // Act
-            Action act = () => groupManager.AddGroup(groupId, "firstName", "lastName", "emailAddress", "locationName", 1, true);
+            Action act = () => groupManager.AddGroup(1, groupName, true);
             // Assert
-            act.ShouldThrow<ArgumentException>("because group code parameter cannot be empty or null.").WithMessage("groupId", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void AddGroup_InvalidFirstNameParameter_ArgumentExceptionThrown(string firstName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.AddGroup("testGroupId", firstName, "lastName", "emailAddress", "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because firstName parameter cannot be empty or null.").WithMessage("firstName", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void AddGroup_InvalidLastNameParameter_ArgumentExceptionThrown(string lastName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.AddGroup("testGroupId", "firstName", lastName, "emailAddress", "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because lastName parameter cannot be empty or null.").WithMessage("lastName", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void AddGroup_InvalidEmailAddressParameter_ArgumentExceptionThrown(string emailAddress)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.AddGroup("testGroupId", "firstName", "lastName", emailAddress, "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because email Address parameter cannot be empty or null.").WithMessage("emailAddress", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void AddGroup_InvalidLocationNameParameter_ArgumentExceptionThrown(string locationName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.AddGroup("testGroupId", "firstName", "lastName", "emailAddress", locationName, 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because location name parameter cannot be empty or null.").WithMessage("locationName", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentException>("because email Address parameter cannot be empty or null.").WithMessage("groupName", ComparisonMode.Substring);
         }
 
         [Test]
@@ -128,7 +90,7 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             // Arrange
             IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
             // Act
-            groupManager.AddGroup("testGroupId", "firstName", "lastName", "emailAddress", "locationName", 1, true);
+            groupManager.AddGroup(1, "groupName", true);
             // Assert
             groupManager.Groups.Should().NotBeEmpty("because a new group is added to the collection by AddGroup");
         }
@@ -141,81 +103,21 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             var wasCalled = false;
             eventAggregatorMock.Setup(ea => ea.GetEvent<NewGroupEvent>().Publish(It.IsAny<NewGroupEventPayload>())).Callback(() => wasCalled = true);
             // Act
-            groupManager.AddGroup("testGroupId", "firstName", "lastName", "emailAddress", "locationName", 1, true);
+            groupManager.AddGroup(1, "groupName", true);
             // Assert
             wasCalled.Should().BeTrue("because a new group is published to all listeners by the AddGroup method.");
         }
 
         [TestCase(null)]
         [TestCase("")]
-        public void SaveToDatabase_InvalidGroupCodeParameter_ArgumentExceptionThrown(String groupId)
+        public void SaveToDatabase_InvalidGroupNameParameter_ArgumentExceptionThrown(String groupName)
         {
             // Arrange
             IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
             // Act
-            Action act = () => groupManager.SaveToDatabase(groupId, "firstName", "lastName", "emailAddress", "locationName", 1);
+            Action act = () => groupManager.SaveToDatabase(groupName);
             // Assert
-            act.ShouldThrow<ArgumentException>("because group id parameter cannot be empty or null.").WithMessage("groupId", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void SaveToDatabase_InvalidFirstNameParameter_ArgumentExceptionThrown(String firstName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.SaveToDatabase("testGroupId", firstName, "lastName", "emailAddress", "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because first name parameter cannot be empty or null.").WithMessage("firstName", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void SaveToDatabase_InvalidLastNameParameter_ArgumentExceptionThrown(String lastName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.SaveToDatabase("testGroupId", "firstName", lastName, "emailAddress", "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because last name parameter cannot be empty or null.").WithMessage("lastName", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void SaveToDatabase_InvalidEmailAddressParameter_ArgumentExceptionThrown(String emailAddress)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.SaveToDatabase("testGroupId", "firstName", "lastName", emailAddress, "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because last email address cannot be empty or null.").WithMessage("emailAddress", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void SaveToDatabase_InvalidLocationNameParameter_ArgumentExceptionThrown(String locationName)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.SaveToDatabase("testGroupId", "firstName", "lastName", "emailAddress", locationName, 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because location name cannot be empty or null.").WithMessage("locationName", ComparisonMode.Substring);
-        }
-
-        [TestCase(null)]
-        [TestCase("")]
-        public void UpdateValidity_InvalidGroupCodeParameter_ArgumentExceptionThrown(String groupId)
-        {
-            // Arrange
-            IGroupManager groupManager = new GroupManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, groupController.Object);
-            // Act
-            Action act = () => groupManager.UpdateValidity(groupId, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because group id parameter cannot be empty or null.").WithMessage("groupId", ComparisonMode.Substring);
+            act.ShouldThrow<ArgumentException>("because group name parameter cannot be empty or null.").WithMessage("groupName", ComparisonMode.Substring);
         }
     }
 }

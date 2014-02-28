@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Modularity;
 using RequestForQuoteInterfacesLibrary.Constants;
 using RequestForQuoteInterfacesLibrary.ServiceInterfaces;
 using RequestForQuoteServicesModuleLibrary.BookMaintenanceService;
+using RequestForQuoteServicesModuleLibrary.GroupMaintenanceService;
 using RequestForQuoteServicesModuleLibrary.ServicesImplementation;
 using RequestForQuoteServicesModuleLibrary.UserMaintenanceService;
 using log4net;
@@ -66,7 +67,7 @@ namespace RequestForQuoteServicesModuleLibrary
             container.RegisterInstance<IUserManager>(userManager);
             tasks[5] = Task.Factory.StartNew(() => userManager.Initialize());
 
-            var groupManager = new GroupManagerImpl(configManager, eventAggregator);
+            var groupManager = new GroupManagerImpl(configManager, eventAggregator, new GroupControllerClient());
             container.RegisterInstance<IGroupManager>(groupManager);
             tasks[6] = Task.Factory.StartNew(() => groupManager.Initialize());
             
