@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
@@ -131,51 +130,45 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewUserEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewUserEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewUserEvent(null);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewGroupEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewGroupEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewGroupEvent(null);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewClientEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewClientEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewClientEvent(null);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewBookEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewBookEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewBookEvent(null);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewSearchEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewSearchEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewSearchEvent(null);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewUnderlyierEvent_NullParameter_ArgumentNullExceptionThrown()
         {
-            Action act = () => viewModel.HandleNewUnderlyierEvent(null);
-
-            act.ShouldThrow<ArgumentNullException>("because eventPayLoad parameter cannot be null").WithMessage("eventPayLoad", ComparisonMode.Substring);
+            viewModel.HandleNewUnderlyierEvent(null);
         }
 
         [Test]
@@ -353,123 +346,101 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         [Test]
         public void SelectedBook_InvalidValue_ValueShouldNotBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedBook = null;
             // Assert
-            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.BOOK_CRITERION,"because the selected book value is invalid");
+            Assert.IsFalse(viewModel.Criteria.ContainsKey(RequestForQuoteConstants.BOOK_CRITERION), "because the selected book value is invalid");
         }
 
         [Test]
         public void SelectedBook_ValidValue_ValueShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedBook = testBook;
             // Assert
-            viewModel.Criteria.Should().ContainValue(testBook.BookCode, "because the selected book value is valid");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(testBook.BookCode), "because the selected book value is valid");
         }
 
         [Test]
         public void SelectedClient_InvalidValue_ValueShouldNotBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedClient = null;
-            // Assert
-            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.CLIENT_CRITERION,"because the selected client property value is invalid");
+            // Assert            
+            Assert.IsFalse(viewModel.Criteria.ContainsKey(RequestForQuoteConstants.CLIENT_CRITERION), "because the selected client property value is invalid");
         }
 
         [Test]
         public void Selectedclient_ValidValue_ValueShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedClient = testClient;
             // Assert
-            viewModel.Criteria.Should().ContainValue(testClient.Identifier.ToString(), "because the selected client property value is valid");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(testClient.Identifier.ToString()), "because the selected client property value is valid");
         }
 
         [Test]
         public void SelectedUnderlyier_InvalidValue_ValueShouldNotBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedUnderlying = null;
             // Assert
-            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.UNDERLYIER_CRITERION,"because the selected underlyier property value is invalid");
+            Assert.IsFalse(viewModel.Criteria.ContainsKey(RequestForQuoteConstants.UNDERLYIER_CRITERION),"because the selected underlyier property value is invalid");
         }
 
         [Test]
         public void SelectedUnderlyier_ValidValue_ValueShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedUnderlying = testUnderlying;
             // Assert
-            viewModel.Criteria.Should().ContainValue(testUnderlying.RIC, "because the selected underlyier property value is valid");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(testUnderlying.RIC), "because the selected underlyier property value is valid");
         }
 
         [Test]
         public void SelectedStatus_InvalidValue_ValueShouldNotBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedStatus = null;
             // Assert
-            viewModel.Criteria.Should().NotContainKey(RequestForQuoteConstants.STATUS_CRITERION,"because the selected status property value is invalid");
+            Assert.IsFalse(viewModel.Criteria.ContainsKey(RequestForQuoteConstants.STATUS_CRITERION),"because the selected status property value is invalid");
         }
 
         [Test]
         public void SelectedStatus_ValidValue_ValueShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.SelectedStatus = "test status";
             // Assert
-            viewModel.Criteria.Should().ContainValue("test status", "because the selected status property value is valid");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue("test status"), "because the selected status property value is valid");
         }
 
         [Test]
         public void StartTradeDate_SetValidStartTradeDateFirstThenEndDate_DateRangeShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.StartTradeDate = startDate;
             viewModel.EndTradeDate = endDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(startDate + "-" + endDate,"because the start trade date can be added before the end trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(startDate + "-" + endDate),"because the start trade date can be added before the end trade date");
         }
 
         [Test]
         public void StartTradeDate_SetValidEndTradeDateFirstThenStartDate_DateRangeShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             // Act
             viewModel.EndTradeDate = endDate;
             viewModel.StartTradeDate = startDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(startDate + "-" + endDate,"because the start trade date can be added before the end trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(startDate + "-" + endDate),"because the start trade date can be added before the end trade date");
         }
 
         [Test]
         public void StartTradeDate_NoEndTradeDateSet_StartTradeDateWithHyphenSuffixShouldBeAddedToCriteriaCollection()
         {
-            // Arrange
-
             viewModel.StartTradeDate = startDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(startDate + "-","because the start trade date can be added without the end trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(startDate + "-"), "because the start trade date can be added without the end trade date");
         }
 
         [Test]
@@ -480,7 +451,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.EndTradeDate = endDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue("-" + endDate, "because the end trade date can be added before the start trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue("-" + endDate), "because the end trade date can be added before the start trade date");
         }
 
         [Test]
@@ -492,7 +463,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.StartTradeDate = startDate;
             viewModel.StartTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(updatedDate + "-","because the start trade date can be overwritten without the end trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(updatedDate + "-"),"because the start trade date can be overwritten without the end trade date");
         }
 
         [Test]
@@ -504,7 +475,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.EndTradeDate = endDate;
             viewModel.EndTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue("-" + updatedDate,"because the end trade date can be overwritten without the start trade date");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue("-" + updatedDate), "because the end trade date can be overwritten without the start trade date");
         }
 
         [Test]
@@ -517,7 +488,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act            
             viewModel.EndTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(startDate + "-" + updatedDate,"because the end trade date can be overwritten even with the start trade date set");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(startDate + "-" + updatedDate),"because the end trade date can be overwritten even with the start trade date set");
         }
 
         [Test]
@@ -530,7 +501,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act            
             viewModel.StartTradeDate = updatedDate;
             // Assert
-            viewModel.Criteria.Should().ContainValue(updatedDate + "-" + endDate,"because the start trade date can be overwritten even with the end trade date set");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue(updatedDate + "-" + endDate), "because the start trade date can be overwritten even with the end trade date set");
         }
 
         [Test]
@@ -538,11 +509,8 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
         {
             // Arrange
             // ClearCriteria() method called in SetUp method.
-
-            // Act
-
             // Assert
-            viewModel.CanFilterRequests().Should().BeFalse("because the criteria collection is empty");
+            Assert.IsFalse(viewModel.CanFilterRequests(), "because the criteria collection is empty");
         }
 
         [Test]
@@ -555,7 +523,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanDeleteSearch().Should().BeFalse("because the criteria collection is empty");
+            Assert.IsFalse(viewModel.CanDeleteSearch(), "because the criteria collection is empty");
         }
 
         [Test]
@@ -567,7 +535,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanClearCriteria().Should().BeFalse("because the criteria collection is empty");
+            Assert.IsFalse(viewModel.CanClearCriteria(),"because the criteria collection is empty");
         }
 
         [Test]
@@ -579,7 +547,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSaveSearch().Should().BeFalse("because the criteria collection is empty");
+            Assert.IsFalse(viewModel.CanSaveSearch(), "because the criteria collection is empty");
         }
 
         [Test]
@@ -592,7 +560,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedSearch = searchMock.Object;
             // Assert
-            viewModel.CanDeleteSearch().Should().BeFalse("because an invalid search owner is set");
+            Assert.IsFalse(viewModel.CanDeleteSearch(), "because an invalid search owner is set");
         }
 
         [Test]
@@ -605,7 +573,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SelectedSearch = searchMock.Object;
             // Assert
-            viewModel.CanDeleteSearch().Should().BeFalse("because an invalid search description key is set");
+            Assert.IsFalse(viewModel.CanDeleteSearch(), "because an invalid search description key is set");
         }
 
         [Test]
@@ -617,7 +585,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch).Should().BeTrue("because criteria exists");
+            Assert.IsTrue(viewModel.CanSearchRequests(isExistingSearch), "because criteria exists");
         }
 
         [Test]
@@ -629,7 +597,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch).Should().BeFalse("because there are no criteria and existing search param set to false");
+            Assert.IsFalse(viewModel.CanSearchRequests(isExistingSearch),"because there are no criteria and existing search param set to false");
         }
 
         [Test]
@@ -641,7 +609,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch).Should().BeFalse("because there are no criteria and selected search property is not set");            
+            Assert.IsFalse(viewModel.CanSearchRequests(isExistingSearch), "because there are no criteria and selected search property is not set");            
         }
 
         [Test]
@@ -654,7 +622,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             viewModel.SelectedSearch = searchMock.Object;
             // Act
             // Assert
-            viewModel.CanSearchRequests(isExistingSearch).Should().BeTrue("because existing search param set to true");
+            Assert.IsTrue(viewModel.CanSearchRequests(isExistingSearch), "because existing search param set to true");
         }
 
         [Test]
@@ -665,7 +633,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because selected search property is not set");
+            Assert.IsFalse(viewModel.CanUpdatePrivacy(isRequestToMakePrivate),"because selected search property is not set");
         }
 
         [Test]
@@ -680,7 +648,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because the selected search owner is invalid");
+            Assert.IsFalse(viewModel.CanUpdatePrivacy(isRequestToMakePrivate), "because the selected search owner is invalid");
         }
 
         [Test]
@@ -695,7 +663,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because the selected search description key is invalid");
+            Assert.IsFalse(viewModel.CanUpdatePrivacy(isRequestToMakePrivate), "because the selected search description key is invalid");
         }
 
         [Test]
@@ -711,7 +679,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeFalse("because there is not change to the privacy flag");
+            Assert.IsFalse(viewModel.CanUpdatePrivacy(isRequestToMakePrivate), "because there is not change to the privacy flag");
         }
 
         [Test]
@@ -727,7 +695,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
 
             // Assert
-            viewModel.CanUpdatePrivacy(isRequestToMakePrivate).Should().BeTrue("because the privacy flag has changed");
+            Assert.IsTrue(viewModel.CanUpdatePrivacy(isRequestToMakePrivate), "because the privacy flag has changed");
         }
 
         [Test]
@@ -744,7 +712,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.UpdatePrivacy();
             // Assert
-            wasCalled.Should().BeTrue("because valid properties were used");
+            Assert.IsTrue(wasCalled, "because valid properties were used");
         }
 
         [Test]
@@ -759,7 +727,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.DeleteSearch();
             // Assert
-            wasCalled.Should().BeTrue("because valid properties were used");
+            Assert.IsTrue(wasCalled, "because valid properties were used");
         }
 
         [Test]
@@ -776,7 +744,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.DeleteSearch();
             // Assert
-            viewModel.Searches.Should().BeEmpty("because valid properties were used");
+            Assert.IsTrue(viewModel.Searches.Count == 0, "because valid properties were used");
         }
 
         [Test]
@@ -791,7 +759,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
-            viewModel.SelectedBook.BookCode.Should().BeEquivalentTo("test book", "because a valid book criterion was used");
+            Assert.IsTrue(viewModel.SelectedBook.BookCode.Equals("test book"), "because a valid book criterion was used");
         }
 
         [Test]
@@ -806,7 +774,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
-            viewModel.SelectedBook.BookCode.Should().BeEquivalentTo("test book", "because a valid book criterion was used");
+            Assert.IsTrue(viewModel.SelectedBook.BookCode.Equals("test book"), "because a valid book criterion was used");
         }
 
         [Test]
@@ -821,7 +789,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
-            viewModel.Criteria.Should().ContainValue("test book", "because a valid book criterion was used");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue("test book"), "because a valid book criterion was used");
         }
 
         [Test]
@@ -836,7 +804,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
-            viewModel.Criteria.Should().ContainValue("test book", "because a valid book criterion was used");
+            Assert.IsTrue(viewModel.Criteria.ContainsValue("test book"), "because a valid book criterion was used");
         }
 
         [Test]
@@ -849,7 +817,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.SearchRequests(isExistingSearch);
             // Assert
-            wasCalled.Should().BeTrue("the event should be raised if criteria are initialized");
+            Assert.IsTrue(wasCalled,"the event should be raised if criteria are initialized");
         }
 
         [Test]
@@ -862,7 +830,7 @@ namespace RequestForQuoteFunctionsModuleLibrary.Test
             // Act
             viewModel.FilterRequests(isExistingSearch);
             // Assert
-            wasCalled.Should().BeTrue("the event should be raised if criteria are initialized");
+            Assert.IsTrue(wasCalled, "the event should be raised if criteria are initialized");
         }
     }
 }

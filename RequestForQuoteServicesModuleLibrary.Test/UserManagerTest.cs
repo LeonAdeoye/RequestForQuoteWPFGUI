@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
@@ -30,25 +29,23 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             // Act
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Assert
-            userManager.Users.Should().NotBeNull("because the constructor instantiates it.");
+            Assert.IsNotNull(userManager.Users, "because the constructor instantiates it.");
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullConfigManager_ArgumentNullExceptionThrown()
         {
             // Act
-            Action act = () => new UserManagerImpl(null, eventAggregatorMock.Object, userController.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because configManager parameter cannot be null").WithMessage("configManager", ComparisonMode.Substring);
+            var test = new UserManagerImpl(null, eventAggregatorMock.Object, userController.Object);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullEventAggregator_ArgumentNullExceptionThrown()
         {
             // Act
-            Action act = () => new UserManagerImpl(configManagerMock.Object, null, userController.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because event aggregator parameter cannot be null.").WithMessage("eventAggregator", ComparisonMode.Substring);
+            var test = new UserManagerImpl(configManagerMock.Object, null, userController.Object);
         }
 
         [Test]
@@ -59,68 +56,63 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             configManagerMock.Setup(cm => cm.IsStandAlone).Returns(true);
             // Act
             userManager.Initialize();
-            // Assert
-            userManager.Users.Should().NotBeEmpty("because it is populated in standalone mode.");
+            // Assert            
+            Assert.IsNotEmpty(userManager.Users, "because it is populated in standalone mode.");
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "userId")]
         public void AddUser_InvalidUserCodeParameter_ArgumentExceptionThrown(string userId)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.AddUser(userId, "firstName", "lastName", "emailAddress", "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because user code parameter cannot be empty or null.").WithMessage("userId", ComparisonMode.Substring);
+            userManager.AddUser(userId, "firstName", "lastName", "emailAddress", "locationName", 1, true);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "firstName")]
         public void AddUser_InvalidFirstNameParameter_ArgumentExceptionThrown(string firstName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.AddUser("testUserId", firstName, "lastName", "emailAddress", "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because firstName parameter cannot be empty or null.").WithMessage("firstName", ComparisonMode.Substring);
+            userManager.AddUser("testUserId", firstName, "lastName", "emailAddress", "locationName", 1, true);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "lastName")]
         public void AddUser_InvalidLastNameParameter_ArgumentExceptionThrown(string lastName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.AddUser("testUserId", "firstName", lastName, "emailAddress", "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because lastName parameter cannot be empty or null.").WithMessage("lastName", ComparisonMode.Substring);
+            userManager.AddUser("testUserId", "firstName", lastName, "emailAddress", "locationName", 1, true);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "emailAddress")]
         public void AddUser_InvalidEmailAddressParameter_ArgumentExceptionThrown(string emailAddress)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.AddUser("testUserId", "firstName", "lastName", emailAddress, "locationName", 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because email Address parameter cannot be empty or null.").WithMessage("emailAddress", ComparisonMode.Substring);
+            userManager.AddUser("testUserId", "firstName", "lastName", emailAddress, "Tokyo", 1, true);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "locationName")]
         public void AddUser_InvalidLocationNameParameter_ArgumentExceptionThrown(string locationName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", locationName, 1, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because location name parameter cannot be empty or null.").WithMessage("locationName", ComparisonMode.Substring);
+            userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", locationName, 1, true);
         }
 
         [Test]
@@ -129,9 +121,9 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", "locationName", 1, true);
+            userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", "Tokyo", 1, true);
             // Assert
-            userManager.Users.Should().NotBeEmpty("because a new user is added to the collection by AddUser");
+            Assert.IsNotEmpty(userManager.Users, "because a new user is added to the collection by AddUser");
         }
 
         [Test]
@@ -142,81 +134,76 @@ namespace RequestForQuoteServicesModuleLibrary.Test
             var wasCalled = false;
             eventAggregatorMock.Setup(ea => ea.GetEvent<NewUserEvent>().Publish(It.IsAny<NewUserEventPayload>())).Callback(() => wasCalled = true);
             // Act
-            userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", "locationName", 1, true);
+            userManager.AddUser("testUserId", "firstName", "lastName", "emailAddress", "Tokyo", 1, true);
             // Assert
-            wasCalled.Should().BeTrue("because a new user is published to all listeners by the AddUser method.");
+            Assert.IsTrue(wasCalled, "because a new user is published to all listeners by the AddUser method.");
+            
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "userId")]
         public void SaveToDatabase_InvalidUserCodeParameter_ArgumentExceptionThrown(String userId)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.SaveToDatabase(userId, "firstName", "lastName", "emailAddress", "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because user id parameter cannot be empty or null.").WithMessage("userId", ComparisonMode.Substring);
+            userManager.SaveToDatabase(userId, "firstName", "lastName", "emailAddress", "Tokyo", 1);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "firstName")]
         public void SaveToDatabase_InvalidFirstNameParameter_ArgumentExceptionThrown(String firstName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.SaveToDatabase("testUserId", firstName, "lastName", "emailAddress", "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because first name parameter cannot be empty or null.").WithMessage("firstName", ComparisonMode.Substring);
+            userManager.SaveToDatabase("testUserId", firstName, "lastName", "emailAddress", "Tokyo", 1);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "lastName")]
         public void SaveToDatabase_InvalidLastNameParameter_ArgumentExceptionThrown(String lastName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.SaveToDatabase("testUserId", "firstName", lastName, "emailAddress", "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because last name parameter cannot be empty or null.").WithMessage("lastName", ComparisonMode.Substring);
+            userManager.SaveToDatabase("testUserId", "firstName", lastName, "emailAddress", "Tokyo", 1);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "emailAddress")]
         public void SaveToDatabase_InvalidEmailAddressParameter_ArgumentExceptionThrown(String emailAddress)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.SaveToDatabase("testUserId", "firstName", "lastName", emailAddress, "locationName", 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because last email address cannot be empty or null.").WithMessage("emailAddress", ComparisonMode.Substring);
+            userManager.SaveToDatabase("testUserId", "firstName", "lastName", emailAddress, "Tokyo", 1);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "locationName")]
         public void SaveToDatabase_InvalidLocationNameParameter_ArgumentExceptionThrown(String locationName)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.SaveToDatabase("testUserId", "firstName", "lastName", "emailAddress", locationName, 1);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because location name cannot be empty or null.").WithMessage("locationName", ComparisonMode.Substring);
+            userManager.SaveToDatabase("testUserId", "firstName", "lastName", "emailAddress", locationName, 1);
         }
 
         [TestCase(null)]
         [TestCase("")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "userId")]
         public void UpdateValidity_InvalidUserCodeParameter_ArgumentExceptionThrown(String userId)
         {
             // Arrange
             IUserManager userManager = new UserManagerImpl(configManagerMock.Object, eventAggregatorMock.Object, userController.Object);
             // Act
-            Action act = () => userManager.UpdateValidity(userId, true);
-            // Assert
-            act.ShouldThrow<ArgumentException>("because user id parameter cannot be empty or null.").WithMessage("userId", ComparisonMode.Substring);
+            userManager.UpdateValidity(userId, true);
         }
     }
 }

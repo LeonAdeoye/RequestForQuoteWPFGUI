@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\dlls\FluentAssertions.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\dlls\Moq.dll</HintPath>
     </Reference>

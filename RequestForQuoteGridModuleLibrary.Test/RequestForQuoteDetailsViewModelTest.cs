@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using Microsoft.Practices.Prism.Events;
 using Moq;
 using NUnit.Framework;
@@ -117,158 +116,143 @@ namespace RequestForQuoteGridModuleLibrary.Test
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullEventAggregator_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, null, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because event aggregator parameter cannot be null.").WithMessage("eventAggregator", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullConfigManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, null, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because configManager parameter cannot be null").WithMessage("configManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullOptionRequestPricer_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(null, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because option request pricer parameter cannot be null").WithMessage("optionRequestPricer", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullRequestForQuote_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, null, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because request for quote parameter cannot be null").WithMessage("requestForQuote", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullClientManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, null,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because clientManager parameter cannot be null").WithMessage("clientManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullBookManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 null, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because book manager parameter cannot be null").WithMessage("bookManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullChatServiceManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, null,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because chat service manager parameter cannot be null").WithMessage("chatServiceManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullUnderlyingManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, null, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because underlying manager parameter cannot be null").WithMessage("underlyingManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullOptionRequestPersistanceManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 null, configManagerMock.Object, userManagerMock.Object);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because option request persistance manager parameter cannot be null").WithMessage("optionRequestPersistanceManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void Constructor_NullUserManager_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel = new RequestForQuoteDetailsViewModel(optionRequestPricerMock.Object, requestMock, clientManagerMock.Object,
                 bookManagerMock.Object, eventAggregatorMock.Object, underlyingManagerMock.Object, chatServiceManagerMock.Object,
                 optionRequestPersistanceManagerMock.Object, configManagerMock.Object, null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because user manager parameter cannot be null").WithMessage("userManager", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewBookEvent_NullNewBookEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewBookEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewClientEvent_NullNewClientEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewClientEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewUserEvent_NullNewUserEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewClientEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewUnderlyierEvent_NullNewUnderlyierEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewUnderlyierEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentNullException")]
         public void HandleNewChatMessageEvent_NullNewChatMessageEventPayload_ArgumentNullExceptionThrown()
         {
             // Act
             Action act = () => viewModel.HandleNewChatMessageEvent(null);
-            // Assert
-            act.ShouldThrow<ArgumentNullException>("because eventPayload parameter cannot be null").WithMessage("eventPayload", ComparisonMode.Substring);
         }
 
         [Test]
@@ -280,8 +264,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.HandleNewChatMessageEvent(new NewChatMessageEventPayload() {NewChatMessage = new ChatMessageImpl() {RequestForQuoteId = 5}});
             // Assert
-            viewModel.ChatMessages.Count.Should()
-                     .Be(1, "because the  identifier in the chat messages matches the selected RFQ.");
+            Assert.IsTrue(viewModel.ChatMessages.Count == 1, "because the  identifier in the chat messages matches the selected RFQ.");
         }
 
         [Test]
@@ -293,8 +276,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.HandleNewChatMessageEvent(new NewChatMessageEventPayload() { NewChatMessage = new ChatMessageImpl() { RequestForQuoteId = 6 } });
             // Assert
-            viewModel.ChatMessages.Count.Should()
-                     .Be(0, "because the  identifier in the chat messages does not match the selected RFQ.");
+            Assert.IsTrue(viewModel.ChatMessages.Count == 0, "because the  identifier in the chat messages does not match the selected RFQ.");
         }
 
         [Test]
@@ -308,7 +290,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.SendChatMessage();
             // Assert
-            wasCalled.Should().BeFalse("because the message to be sent is empty");
+            Assert.IsFalse(wasCalled, "because the message to be sent is empty");
         }
 
         [Test]
@@ -322,7 +304,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.SendChatMessage();
             // Assert
-            wasCalled.Should().BeFalse("because the message to be sent is null");
+            Assert.IsFalse(wasCalled, "because the message to be sent is null");
         }
 
         [Test]
@@ -336,7 +318,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.SendChatMessage();
             // Assert
-            wasCalled.Should().BeTrue("because the message to be sent is valid");
+            Assert.IsTrue(wasCalled, "because the message to be sent is valid");
         }
 
         [Test]
@@ -347,7 +329,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.SendChatMessage();
             // Assert
-            viewModel.MessageToBeSent.Should().BeNullOrEmpty("because it is cleared after message is sent");
+            Assert.IsTrue(string.IsNullOrEmpty(viewModel.MessageToBeSent), "because it is cleared after message is sent");
         }
 
         [Test]
@@ -356,7 +338,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Arrange
             viewModel.SelectedRequestForQuote = new RequestForQuoteImpl();
             // Assert
-            viewModel.CanCalculateRequest().Should().BeTrue("because the selected RFQ is not null");
+            Assert.IsTrue(viewModel.CanCalculateRequest(), "because the selected RFQ is not null");
         }
 
         [Test]
@@ -365,7 +347,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Arrange
             viewModel.SelectedRequestForQuote = null;
             // Assert
-            viewModel.CanCalculateRequest().Should().BeFalse("because the selected RFQ is null");
+            Assert.IsFalse(viewModel.CanCalculateRequest(), "because the selected RFQ is null");
         }
 
         [Test]
@@ -374,7 +356,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Arrange
             viewModel.SelectedRequestForQuote = new RequestForQuoteImpl();
             // Assert
-            viewModel.CanSave(string.Empty).Should().BeTrue("because the selected RFQ is not null");
+            Assert.IsTrue(viewModel.CanSave(string.Empty), "because the selected RFQ is not null");
         }
 
         [Test]
@@ -383,7 +365,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Arrange
             viewModel.SelectedRequestForQuote = null;
             // Assert
-            viewModel.CanSave(string.Empty).Should().BeFalse("because the selected RFQ is null");
+            Assert.IsFalse(viewModel.CanSave(string.Empty), "because the selected RFQ is null");
         }
 
         [Test]
@@ -395,7 +377,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.BeginEdit();
             // Assert
-            viewModel.backupOfRequestForQuote.Identifier.Should().Be(1000, "because it is cloned by BeginEdit method");
+            Assert.IsTrue(viewModel.backupOfRequestForQuote.Identifier == 1000, "because it is cloned by BeginEdit method");
         }
 
         [Test]
@@ -408,7 +390,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.EndEdit();
             // Assert
-            wasCalled.Should().BeTrue("because SaveRequest was called by EndEdit");
+            Assert.IsTrue(wasCalled, "because SaveRequest was called by EndEdit");
         }
 
         [Test]
@@ -420,7 +402,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.EndEdit();
             // Assert
-            viewModel.SelectedRequestForQuote.Identifier.Should().Be(999,"because SaveRequest returns the new identifier and sets SelectedRequestForQuote with it");
+            Assert.IsTrue(viewModel.SelectedRequestForQuote.Identifier == 999,"because SaveRequest returns the new identifier and sets SelectedRequestForQuote with it");
         }
 
         [Test]
@@ -434,7 +416,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.EndEdit();
             // Assert
-            wasCalled.Should().BeTrue("because if SaveRequest returns a new identifier then RegisterParticipant should be called");
+            Assert.IsTrue(wasCalled, "because if SaveRequest returns a new identifier then RegisterParticipant should be called");
         }
 
         [Test]
@@ -447,7 +429,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.EndEdit();
             // Assert
-            wasCalled.Should().BeTrue("because Identifier is non-negative then UpdateRequest should be called");
+            Assert.IsTrue(wasCalled, "because Identifier is non-negative then UpdateRequest should be called");
         }
 
         [Test]
@@ -466,7 +448,7 @@ namespace RequestForQuoteGridModuleLibrary.Test
             // Act
             viewModel.CancelEdit();
             // Assert
-            viewModel.SelectedRequestForQuote.Identifier.Should().Be(1111, "because of the memberwise copy by CancelEdit method");
+            Assert.IsTrue(viewModel.SelectedRequestForQuote.Identifier == 1111, "because of the memberwise copy by CancelEdit method");
         }
     }
 }
